@@ -1,0 +1,21 @@
+{
+  "name": "back-end",
+  "version": "1.0.0",
+  "description": "",
+  "main": "knexfile.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "reset": "npx knex migrate:rollback --all && npx knex migrate:latest && npx knex seed:run",
+    "spinup1": "bash -c \"docker run --name launch_app -e=POSTGRES_PASSWORD=docker -d -p 8080:5432 -v $HOME/docker/volumes/postgres:/var/lib/postgresql/data postgres\"",
+    "spinup2": "docker exec -it launch_app psql -U postgres -c \"CREATE DATABASE launch_app;\"",
+    "spinup3": "npx knex migrate:latest && npx knex seed:run",
+    "spinup": "npm run spinup1 && npm run spinup2 && npm run spinup3",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemon": "^2.0.22"
+  }
+}
