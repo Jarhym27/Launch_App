@@ -7,12 +7,12 @@ exports.seed = async function(knex) {
   await knex('roles').del()
   await knex('roles').insert([
     {
-      launch_user: false,
-      payload_user: true
-    },
-    {
-      launch_user: true,
-      payload_user: false
+    //   launch_user: false,
+    //   payload_user: true
+    // },
+    // {
+    //   launch_user: true,
+    //   payload_user: false
     }
   ]);
 };

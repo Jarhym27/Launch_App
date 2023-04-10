@@ -9,7 +9,7 @@ module.exports = {
     client: 'postgres',
     connection: {
       localhost: 'localhost',
-      port: '8080',
+      port: '5432',
       password:'docker',
       user: 'postgres',
       database: 'launch_app'
