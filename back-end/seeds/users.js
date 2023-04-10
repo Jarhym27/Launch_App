@@ -7,14 +7,16 @@ exports.seed = async function(knex) {
   await knex('users').del()
   await knex('users').insert([
     {
+      organization:'Rebel Alliance',
       username: 'Theg0atedOne',
       password: 'leiawasstillhot',
-      role_id: 1
+      role:'payload_user',
     },
     {
+      organization: 'SpaceX',
       username: "ModernEdison",
       password: "stoleitfromtesla6969",
-      role_id: 2
+      role: 'launch_service_provider'
     }
   ]);
 };

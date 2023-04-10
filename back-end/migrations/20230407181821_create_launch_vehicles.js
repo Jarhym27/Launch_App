@@ -5,10 +5,12 @@
 exports.up = function(knex) {
     return knex.schema.createTable('launch_vehicles',table => {
         table.increments('id')
-        table.string('orbital_capacity')
-        table.boolean('reusable')
-        table.integer('setup_days')
-        table.integer('max_weight_tons')
+        table.string('launch_vehicle')
+        table.integer('cost')
+        table.integer('meo_weight')
+        table.integer('leo_weight')
+        table.integer('geo_weight')
+        table.enum('status',['booked','available'])
     })
 };
 
