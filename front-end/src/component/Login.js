@@ -70,55 +70,20 @@ const Login = () => {
   
 
 return (
-  <div>
-  <div className="relative mb-6" onSubmit={handleSubmit} >
-    <input
-      type="text"
-      // onChange={inputChange}
-      name="username"
-      onChange={(e) => setUsername(e.target.value)}
-      className="peer block min-h-[auto] w-full rounded border-100 border-black bg-white px-3 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-red-300 dark:placeholder:text-red-700 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-800"
-      id="exampleFormControlInput2"
-      placeholder="Email address" />
-    <label
-      // for="exampleFormControlInput2"
-      className="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[2.15] text-black transition-all duration-200 ease-out peer-focus:-translate-y-[1.15rem] peer-focus:scale-[0.8] peer-focus:text-red-500 peer-data-[te-input-state-active]:-translate-y-[1.15rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-black dark:peer-focus:text-black"
-    >Username
-    </label>
+  <div className='bg-lavender h-screen w-screen flex'>
+    <h1 className='font-mono text-3xl text-center padding-y-4'>Welcome to L-Über</h1>
+    <div className='grid grid-cols-1 grid-rows-6 gap-10 w-3/6 self-center'>
+      <input className='' type='text' placeholder='User Name'></input>
+      <input type='password' placeholder='Password'></input>
+      <button className='border-4 bg-magenta'>Login</button>
+      <h1 className='font-mono text-3xl text-center padding-y-4'>Not a Üser Yet?</h1>
+      <button className='border-4 bg-magenta'>Sign Up!</button>
+    </div>
+    
   </div>
-  <div className="relative mb-6">
-    <input
-      type="password"
-      name="password"
-      onChange={(e) => setPassword(e.target.value)}
-      // onChange={inputChange}
-      className="peer block min-h-[auto] w-full rounded border-100 border-black bg-transparent px-3 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
-      id="exampleFormControlInput22"
-      placeholder="Password" />
-    <label
-      // for="exampleFormControlInput22"
-      className="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[2.15] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[1.15rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[1.15rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-neutral-200"
-    >Password
-    </label>
-  </div>
-  <div className="text-center lg:text-left">
-    <button
-      type="button"
-      onClick={handleSubmit}
-      className="inline-block rounded bg-green-900 px-7 pb-2.5 pt-3 text-sm font-medium uppercase leading-normal text-green-500 shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-rose-700 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]">
-      Login
-    </button>
-  </div>
-  <div className="text-center lg:text-left">
-    <button
-      type="button"
-      onClick={signUpForm}
-      className="inline-block rounded bg-green-900 px-7 pb-2.5 pt-3 text-sm font-medium uppercase leading-normal text-green-500 shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-rose-700 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]">
-      Signup
-    </button>
-  </div>
-</div>
-  )
+)
 }
 
 export default Login;
+//justify-center items-center
+//grid w-3/6 h-1/6 space-y-4 grid-cols-1 divide-y

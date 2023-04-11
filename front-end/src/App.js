@@ -9,8 +9,9 @@ export const RocketInfo = createContext();
 
 function App() {
   const [ userLogin, setUserLogin ] = useState('');
+  const [userCreate, setUserCreate] = useState({username:'', password: '', organization:'' })
   return (
-    <RocketInfo.Provider value={{userLogin, setUserLogin}}>
+    <RocketInfo.Provider value={{userLogin, setUserLogin, userCreate, setUserCreate}}>
     <Router>
       <Routes>
         <Route path='/' element={< Login/>}></Route>
