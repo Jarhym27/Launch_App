@@ -10,8 +10,6 @@ const knex = require("knex")(
 const { getAll } = require("./controllers");
 const morgan = require('morgan')
 
-const morgan = require("morgan")
-
 //MiddleWare
 app.use(express.json());
 app.use(cors());
