@@ -9,7 +9,7 @@ export const RocketInfo = createContext();
 
 function App() {
   const [ userLogin, setUserLogin ] = useState('');
-  const [userCreate, setUserCreate] = useState({username:'', password: '', organization:'' })
+  const [userCreate, setUserCreate] = useState({username:'', password: '', role_id:'0' })
   return (
     <RocketInfo.Provider value={{userLogin, setUserLogin, userCreate, setUserCreate}}>
     <Router>

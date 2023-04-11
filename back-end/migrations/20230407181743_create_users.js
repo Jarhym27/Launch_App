@@ -1,7 +1,7 @@
-/**
- * @param { import("knex").Knex } knex
- * @returns { Promise<void> }
- */
+// /**
+//  * @param { import("knex").Knex } knex
+//  * @returns { Promise<void> }
+//  */
 exports.up = function(knex) {
     return knex.schema.createTable('users', table => {
         table.increments('id');
@@ -12,10 +12,18 @@ exports.up = function(knex) {
     })
 };
 
-/**
- * @param { import("knex").Knex } knex
- * @returns { Promise<void> }
- */
+// /**
+//  * @param { import("knex").Knex } knex
+//  * @returns { Promise<void> }
+//  */
 exports.down = function(knex) {
-    return knex.schema.dropTableIfExists('users');
-};
+    return knex.schema
+    .alterTable("users", table =>{
+        table.dropForeign("role_id");
+        table.dropColumn("role_id");
+    })
+    .then(() => {
+        return knex.schema.dropTableIfExists('users');
+    })
+  };
+    
