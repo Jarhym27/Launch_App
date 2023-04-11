@@ -10,4 +10,8 @@ const insertRow = (data,table) => {
   return knex.insert(data).into(`${table}`)
 }
 
-module.exports = {getAll,insertRow}
+const deleteRow = (id,table) => {
+  return knex(`${table}`).where("id", id).del()
+}
+
+module.exports = {getAll,insertRow,deleteRow}
