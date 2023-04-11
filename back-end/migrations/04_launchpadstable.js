@@ -11,7 +11,7 @@ exports.up = function(knex) {
         table.integer('lsp_user_id')
         table.string('city')
         table.string('state')
-        table.enu('launch_site',['Vandenberg SFB','Patrick SFB','Wallops Island'])
+        table.enu('launch_site',['Vandenberg SFB','Patrick SFB','Wallops Flight Facility'])
         table.string('launch_pad')
         table.boolean('pad_status')
         table.timestamps(true,true)
