@@ -6,4 +6,8 @@ const getAll = (table) => {
   return knex.select('*').from(`${table}`)
 }
 
-module.exports = {getAll}
+const insertRow = (data,table) => {
+  return knex.insert(data).into(`${table}`)
+}
+
+module.exports = {getAll,insertRow}
