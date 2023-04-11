@@ -29,6 +29,9 @@ const Signup = () => {
       } else if (event.target.name === 'organization') {
         setUserCreate({ ...userCreate,  organization: event.target.value })
         console.log(userCreate)
+      } else if (event.target.name === 'role') {
+        setUserCreate({ ...userCreate,  role: event.target.value })
+        console.log(userCreate)
       }
     }
   
@@ -74,7 +77,9 @@ const Signup = () => {
         choice: "I am an Organizational Payload User", value:"payload_user",
       }]
 
-    
+      const choiceChecked = () =>{
+        answer.every((selection) => selection !== null)
+      }
 
 return(
            
@@ -106,9 +111,12 @@ return(
        <div> 
         {roleChoice.map((choice, index) =>(
           <div>
-        <input className='btn-check' name={index} type="radio" value={choice.value} checked={choice[i] === choice.value} />
+        <input className='btn-check' name={index} type="radio" value={choice.value} checked={choice[index] === choice.choice} />
+        <label>
+          {choice.choice}
+        </label> 
         </div>
-       
+        ))}
        <h1 className="font-mono text-5xl text-center justify-center">Lower Part</h1> 
        <input 
        type="radio"

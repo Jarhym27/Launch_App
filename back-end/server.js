@@ -75,22 +75,6 @@ app.delete('/table/:table',(req,res) => {
     })
 })
 
-//delete row of data from table by id
-app.delete('/table/:table',(req,res) => {
-  const {table} = req.params;
-  const id = req.body.id
-  console.log('table',table)
-  console.log('id',id)
-  deleteRow(id,table)
-    .then(response => {
-      res.status(200).send({message:`Deleted id ${id} from table ${table}`})
-    })
-    .catch(err => {
-      console.error(err)
-      res.status(401).send(err)
-    })
-})
-
 app.post('/signup', (req, res) =>{
         let {username, password,organization} = req.body
     
@@ -122,6 +106,15 @@ app.post('/login', (req, res) =>{
       
       bcrypt.compare(req.body.password, data[0].password,  (err, result)=>{
         console.log(result)
+        if(result){
+          let {password:_ , ...scrubbed} = data[0]
+          // let cookieVal = ''
+          // res.cookie('userInfo', scrubbed, {maxAge: 3600000})
+          res.send(scrubbed)
+        }
+        else{
+          res.status(401).send({message: 'INVALID LOGIN'})
+        }
       })
       
     })
