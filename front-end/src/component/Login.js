@@ -75,9 +75,9 @@ return (
     <div className='grid grid-cols-1 grid-rows-6 gap-10 w-3/6 self-center'>
       <input className='' type='text' placeholder='User Name'></input>
       <input type='password' placeholder='Password'></input>
-      <button className='border-4 bg-magenta'>Login</button>
-      <h1 className='font-mono text-3xl text-center padding-y-4'>Not a Üser Yet?</h1>
-      <button className='border-4 bg-magenta'>Sign Up!</button>
+      <button className='ring-4 bg-magenta w-4/6 justify-self-center'>Login</button>
+      <h1 className='font-mono text-3xl text-magenta text-center padding-y-4'>Not a Üser Yet?</h1>
+      <button className='ring-4 ring-color-coral bg-purple w-4/6 justify-self-center'>Sign Up!</button>
     </div>
     
   </div>
