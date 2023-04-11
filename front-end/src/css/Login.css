@@ -1,0 +1,15 @@
+.background {
+    background-image: url(../media/space.gif);
+    
+}
+
+h1 {
+    color: #66347F;
+    font-family: "ＭＳ Ｐゴシック";
+    font-weight: normal;
+    font-smooth: never;
+}
+
+input {
+    height: 5vh;
+}

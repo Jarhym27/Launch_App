@@ -1,9 +1,11 @@
 import React from 'react'
-import '../css/style.css'
+// import '../css/style.css'
+import '../css/Login.css'
 import {useState,useContext} from "react"
 import{useNavigate} from "react-router-dom"
 import { RocketInfo } from '../App'
 import bcrypt from 'bcryptjs'
+import 'bootstrap/dist/css/bootstrap.min.css';
 // import {authentication} from './Auth'
 
 const Login = () => {
@@ -70,20 +72,28 @@ const Login = () => {
   
 
 return (
-  <div className='bg-lavender h-screen w-screen flex'>
-    <h1 className='font-mono text-3xl text-center padding-y-4'>Welcome to L-Über</h1>
-    <div className='grid grid-cols-1 grid-rows-6 gap-10 w-3/6 self-center'>
-      <input className='' type='text' placeholder='User Name'></input>
-      <input type='password' placeholder='Password'></input>
-      <button className='ring-4 bg-magenta w-4/6 justify-self-center'>Login</button>
-      <h1 className='font-mono text-3xl text-magenta text-center padding-y-4'>Not a Üser Yet?</h1>
-      <button className='ring-4 ring-color-coral bg-purple w-4/6 justify-self-center'>Sign Up!</button>
+  <div className='background p-3' style={{height: '100vh'}}>
+   <div className='d-flex w-100 h-100 align-items-center'>
+    
+    <div className='col'>
+    <h1 className='text-center'>L-Uber</h1>
+      <div className='row my-3 justify-content-center'>
+        <input type='text' placeholder='User Name' className='w-50 rounded'></input>
+      </div>
+      <div className='row my-3 d-flex justify-content-center'>
+        <input type='password' placeholder='Password' className='w-50 rounded'></input>
+      </div>
+      <div className='row my-3 d-flex justify-content-center'>
+        <button className='btn btn-secondary w-25'>Login!</button>
+      </div>
     </div>
+      
+    
+   </div>
     
   </div>
 )
 }
 
 export default Login;
-//justify-center items-center
-//grid w-3/6 h-1/6 space-y-4 grid-cols-1 divide-y
+

@@ -6,6 +6,11 @@ import { RocketInfo } from '../App'
 import bcrypt from 'bcryptjs'
 import cookie from "js-cookie"
 import axios from "axios"
+import Header from "./Header.js"
+import '../css/Signup.css'
+import * as Icon from "react-bootstrap-icons"
+import Form from 'react-bootstrap/Form'
+import Container from 'react-bootstrap/Container'
 
 
 const Signup = () => {
@@ -42,9 +47,12 @@ const Signup = () => {
          cookie.set('username', userCreate.username, { expires: 1 / 24 })
          cookie.set('password', hashedPassword, { expires: 1 / 24 })
          try{
-         const res = await axios.post("http://localhost:8080/login", {
+         const res = await axios.post("http://localhost:8080/table/users", {
           username: userCreate.username,
-            password:hashedPassword})
+            password:hashedPassword,
+          organization:userCreate.organization,
+          role:userCreate.role
+        })
             console.log(res.data)
          alert(`You created ${userCreate.username}!`)
        
@@ -61,37 +69,40 @@ const Signup = () => {
       }
 
 return(
-            <div className="bg-lavender  h-screen w-screen">
-              <h1 className="font-mono text-center justify-center ">Sign Up</h1>
-       <form className="content-center">
-        <input className="h-full flex flex-wrap items-center justify-center"
+           
+            <div className="background">
+              <Header/>
+              <h1 className="font-mono text-5xl text-center justify-center ">Sign Up</h1>
+        <Container>
+       <Form>
+        <input className="form-control"
        type="text"
        placeholder="Organization" />
-       <input className="h-full flex-col items-center justify-center"
+       <input className="form-control"
        type="text"
        name="username"
        onChange={inputChange}
        placeholder="Username" />
-        <input className="h-full flex flex-wrap items-center justify-center"
+        <input className="form-control"
        type="password"
        name="password"
        onChange={inputChange}
        placeholder="Password" />
-       <input className="h-full flex flex-wrap items-center justify-center"
+       <input className="form-control"
        type="password"
        placeholder="Confirm Password" />
-       </form>
-
+       </Form>
+       </Container>
        <div>
-       <h1>Lower Part</h1> 
+       <h1 className="font-mono text-5xl text-center justify-center">Lower Part</h1> 
        <input 
        type="radio"
        />
-      <label>I am an Organizational Pad Owner </label> 
+      <label className="text-white justify-center">I am an Organizational Pad Owner </label> 
       <input 
        type="radio"
        />
-      <label>I am an Organizational Payload User</label> 
+      <label className="text-white justify-center">I am an Organizational Payload User</label> 
        </div>
        <h2>Lower part 2</h2>
        <input 
@@ -103,7 +114,7 @@ return(
       type="button"
       onClick={createAccount}
     
-      className="inline-block rounded bg-green-900 px-7 pb-2.5 pt-3 text-sm font-medium uppercase leading-normal text-green-500 shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-rose-700 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]">Submit</button>
+      className="inline-block rounded bg-green-900 px-7 pb-2.5 pt-3 text-white font-medium uppercase leading-normal text-green-500 shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-rose-700 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]">Submit</button>
 
     </div>
     
