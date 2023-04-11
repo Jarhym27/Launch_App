@@ -3,15 +3,13 @@
  * @returns { Promise<void> }
  */
 exports.up = function(knex) {
-    return knex.schema.createTable('launch_sites',table =>{
+    return knex.schema.createTable('launch_pads',table =>{
         table.increments('id')
         table.foreign('launch_vehicle_id').references('launch_vehicles')
-        //maybe keep?   vvvvvvvvvvv
-        //table.string('description')
-        table.foreign('user_id').references('users')
-        table.date('launch_date')
-        table.string('city')
-        table.string('state')
+        table.foreign('lsp_id').references('users')
+        table.enum('launch_site',['Vandenburg','Cape Canaveral','Wallops Island'])
+        table.string('launch_pad')
+        table.boolean('pad_status')
         })
 };
 
@@ -20,5 +18,5 @@ exports.up = function(knex) {
  * @returns { Promise<void> }
  */
 exports.down = function(knex) {
-    return knex.schema.dropTableIfExists('launch_sites');
+    return knex.schema.dropTableIfExists('launch_pads');
 };
