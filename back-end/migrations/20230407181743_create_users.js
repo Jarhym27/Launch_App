@@ -5,11 +5,10 @@
 exports.up = function(knex) {
     return knex.schema.createTable('users', table => {
         table.increments('id');
+        table.string('organization')
         table.string('username');
         table.string('password');
-        table.integer("role_id")
-        table.foreign('role_id').references("id").inTable("roles");
-       
+        table.enum('role',["launch_service_provider",'payload_user']);
     })
 };
 

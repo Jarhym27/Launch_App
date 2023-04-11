@@ -3,13 +3,12 @@
  * @returns { Promise<void> }
  */
 exports.up = function(knex) {
-  return knex.schema.createTable('payload',table =>{
+  return knex.schema.createTable('payloads',table =>{
     table.increments('id')
-    table.foreign('user_id').references('users')
-    table.integer('weight_tons')
-    table.date('due_date')
-    table.string('city')
-    table.string('state')
+    table.foreign('payload_user_id').references('users')
+    table.integer('weight')
+    table.enum('orbital_requirement',['GEO','LEO','MEO'])
+
   })
 };
 

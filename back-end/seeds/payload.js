@@ -7,11 +7,9 @@ exports.seed = async function(knex) {
   await knex('payload').del()
   await knex('payload').insert([
     {
-      // user_id: 1,
-      // weight_tons: 13,
-      // due_date: 2023-12-02,
-      // city: 'Atlanta',
-      // state: 'Georgia',
+      user_id: 2,
+      weight_tons: 13,
+      orbital_requirement: 'LEO',
     }
   ]);
 };
