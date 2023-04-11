@@ -1,7 +1,40 @@
 .payloadProfileCard{
-    background-color:#9E4784;
+    background-color:#9E4784 !important;  
+    width: 80%; 
 }
 .horizontalCard{
 
     background-color:#66347F;
+}
+.profileRow{
+    width: 100%;
+}
+.payloadsRow{
+    display: flex;
+    flex-direction: column;
+
+}
+.payloadsCol{
+    width: 100%;
+    background-color:#66347F ; 
+}
+.payloadsTitle{
+    width: 50%;
+}
+.profileCol{
+    width: 100%;
+    padding-top: 2.75rem;
+}
+.addPayload{
+    width: 100%;
+    padding-bottom: 1rem;
+}
+.buttonCard{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+.addCol{
+    padding-top: 2.75rem;
 }
