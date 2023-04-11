@@ -33,7 +33,7 @@ app.get('/table/:table',(req,res) => {
 })
 
 
-app.post('/login', (req, res) =>{
+app.post('/signup', (req, res) =>{
         let {username, password} = req.body
     
         knex
@@ -52,8 +52,10 @@ app.post('/login', (req, res) =>{
 })
     
 
-    app.get('/login', (req, res) =>{
+    app.post('/login', (req, res) =>{
         
+
+      
         knex
               .select("*")
               .from("users")

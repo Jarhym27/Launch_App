@@ -16,6 +16,7 @@ import Container from 'react-bootstrap/Container'
 const Signup = () => {
   const navigate = useNavigate();
   const { userCreate, setUserCreate } = useContext(RocketInfo);
+  const [answer, setAnswer]= useState('')
 
   const inputChange = (event) => {
       event.preventDefault();
