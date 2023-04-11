@@ -14,6 +14,7 @@ exports.up = function(knex) {
         table.enu('request_status',['Denied','Pending','Scheduled','Launched'])
         table.date('launch_date')
         table.integer('request_cost')
+        table.timestamps(true,true)
     })
   
 };
