@@ -10,30 +10,29 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 const Login = () => {
   const { userLogin, setUserLogin } = useContext(RocketInfo);
-  const [password, setPassword] = useState("");
-  const [hashedPW, setHashedPW] = useState("");
-  const [username, setUsername] = useState("");
+  const [pass, setPassword] = useState("");
+  const [user, setUser] = useState("");
   const navigate = useNavigate();
 
   const submitLogin = () => {
-   bcrypt.genSalt(10, function(err, salt) {
-    bcrypt.hash(password, salt, function(err, hash) {
-      setHashedPW(hash)
-      
+    let body = { username: user, password: pass };
+    console.log(body)
+    fetch("http://localhost:8080/login", {
+      method: "POST",
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(body),
     })
-   })
   };
 
   const handleChange = (field, value) => {
-    if(field === 'user'){
-      setUsername(value)
-      console.log('User: ', value)
+    if (field === "user") {
+      setUser(value);
+      // console.log('User: ', value)
+    } else if (field === "pass") {
+      setPassword(value);
+      // console.log('Pass: ', value)
     }
-    else if(field === 'pass'){
-      setPassword(value)
-      console.log('Pass: ', value)
-    }
-  }
+  };
 
   return (
     <div className="background p-3" style={{ height: "100vh" }}>
@@ -45,7 +44,7 @@ const Login = () => {
               type="text"
               placeholder="User Name"
               className="w-50 rounded"
-              onChange={(e) => handleChange('user', e.target.value)}
+              onChange={(e) => handleChange("user", e.target.value)}
             ></input>
           </div>
           <div className="row my-3 d-flex justify-content-center">
@@ -53,11 +52,16 @@ const Login = () => {
               type="password"
               placeholder="Password"
               className="w-50 rounded"
-              onChange={(e) => handleChange('pass', e.target.value)}
+              onChange={(e) => handleChange("pass", e.target.value)}
             ></input>
           </div>
           <div className="row my-3 d-flex justify-content-center">
-            <button className="btn btn-secondary w-25" onClick={() => submitLogin()}>Login!</button>
+            <button
+              className="btn btn-secondary w-25"
+              onClick={() => submitLogin()}
+            >
+              Login!
+            </button>
           </div>
         </div>
       </div>

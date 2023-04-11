@@ -48,7 +48,7 @@ const Signup = () => {
          cookie.set('username', userCreate.username, { expires: 1 / 24 })
          cookie.set('password', hashedPassword, { expires: 1 / 24 })
          try{
-         const res = await axios.post("http://localhost:8080/login", {
+         const res = await axios.post("http://localhost:8080/signup", {
           username: userCreate.username,
             password:hashedPassword,
           organization:userCreate.organization,
@@ -68,6 +68,13 @@ const Signup = () => {
             console.error(error)
         }
       }
+
+      const roleChoice =[{
+        choice: "I am an Organizational Pad Owner", value:"lsp_user",
+        choice: "I am an Organizational Payload User", value:"payload_user",
+      }]
+
+    
 
 return(
            
@@ -96,7 +103,12 @@ return(
        placeholder="Confirm Password" />
        </Form>
        </Container>
-       <div>
+       <div> 
+        {roleChoice.map((choice, index) =>(
+          <div>
+        <input className='btn-check' name={index} type="radio" value={choice.value} checked={choice[i] === choice.value} />
+        </div>
+       
        <h1 className="font-mono text-5xl text-center justify-center">Lower Part</h1> 
        <input 
        type="radio"
@@ -116,7 +128,6 @@ return(
       <button
       type="button"
       onClick={createAccount}
-    
       className="inline-block rounded bg-green-900 px-7 pb-2.5 pt-3 text-white font-medium uppercase leading-normal text-green-500 shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-rose-700 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]">Submit</button>
 
     </div>

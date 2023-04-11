@@ -49,7 +49,7 @@ app.post('/table/:table',(req,res) => {
 })
 
 app.post('/signup', (req, res) =>{
-        let {username, password} = req.body
+        let {username, password,organization} = req.body
     
         knex
         .insert({
@@ -69,10 +69,19 @@ app.post('/signup', (req, res) =>{
     
 
 app.post('/login', (req, res) =>{
+  console.log(req.body)
   knex
     .select("*")
     .from("users")
-    .then((data) => res.status(200).json(data))
+    .where('username', req.body.username)
+    .then((data) => {
+      // console.log(data[0].password)
+      
+      bcrypt.compare(req.body.password, data[0].password,  (err, result)=>{
+        console.log(result)
+      })
+      
+    })
     .catch((err) =>
       res.status(404).json({
         message:
