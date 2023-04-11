@@ -14,19 +14,19 @@ return(
   <Navbar bg="dark" expand="lg">
     <Container>
 <nav className="navbar navbar-expand-lg navbar-light bg-light">
-    <ul class="flex">
-  <li class="mr-6">
+    <ul className="flex">
+  <li className="mr-6">
     {/* <Icon iconName="BsFillRocketTakeoffFill"/> */}
-    <a class="text-blue-500 hover:text-blue-800" href="#">Active</a>
+    <a className="text-blue-500 hover:text-blue-800" href="#">Active</a>
   </li>
-  <li class="mr-6">
-    <a class="text-blue-500 hover:text-blue-800" href="#">Sign up</a>
+  <li className="mr-6">
+    <a className="text-blue-500 hover:text-blue-800" href="#">Sign up</a>
   </li>
-  <li class="mr-6">
-    <a class="text-blue-500 hover:text-blue-800" href="#">Home</a>
+  <li className="mr-6">
+    <a className="text-blue-500 hover:text-blue-800" href="#">Home</a>
   </li>
-  <li class="mr-6">
-    <a class="text-gray-400 cursor-not-allowed" href="#">Disabled</a>
+  <li className="mr-6">
+    <a className="text-gray-400 cursor-not-allowed" href="#">Disabled</a>
   </li>
 </ul>
 </nav>

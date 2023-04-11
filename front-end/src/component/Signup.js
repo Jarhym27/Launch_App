@@ -48,7 +48,7 @@ const Signup = () => {
          cookie.set('username', userCreate.username, { expires: 1 / 24 })
          cookie.set('password', hashedPassword, { expires: 1 / 24 })
          try{
-         const res = await axios.post("http://localhost:8080/table/users", {
+         const res = await axios.post("http://localhost:8080/login", {
           username: userCreate.username,
             password:hashedPassword,
           organization:userCreate.organization,
@@ -78,6 +78,8 @@ return(
        <Form>
         <input className="form-control"
        type="text"
+       onChange={inputChange}
+       name="organization"
        placeholder="Organization" />
        <input className="form-control"
        type="text"

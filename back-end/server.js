@@ -4,6 +4,7 @@ const port = 8080;
 const cors = require('cors')
 const cookieParser = require("cookie-parser")
 const cookieSession = require('express-session')
+const bcrypt = require('bcryptjs')
 const knex = require("knex")(
     require("./knexfile.js")[process.env.NODE_ENV || "development"]
   );
@@ -53,7 +54,8 @@ app.post('/signup', (req, res) =>{
         knex
         .insert({
           username,
-          password
+          password,
+          organization
         })
         .into("users")
         .then(() => {
@@ -66,21 +68,18 @@ app.post('/signup', (req, res) =>{
 })
     
 
-    app.post('/login', (req, res) =>{
-        
-
-
-        knex
-              .select("*")
-              .from("users")
-        
-        .then((data) => res.status(200).json(data))
-        .catch((err) =>
-          res.status(404).json({
-            message:
-            "User doesnt exist",
-          })
-     ) })
+app.post('/login', (req, res) =>{
+  knex
+    .select("*")
+    .from("users")
+    .then((data) => res.status(200).json(data))
+    .catch((err) =>
+      res.status(404).json({
+        message:
+        "User doesnt exist",
+      })
+    )
+})
 
 
 
