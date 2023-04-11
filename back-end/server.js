@@ -7,31 +7,45 @@ const cookieSession = require('express-session')
 const knex = require("knex")(
     require("./knexfile.js")[process.env.NODE_ENV || "development"]
   );
-const { getAll } = require("./controllers");
+const { getAll,insertRow } = require("./controllers");
 const morgan = require('morgan')
 
-//MiddleWare
+//middleware
 app.use(express.json());
 app.use(cors());
 app.use(cookieParser())
 app.use(morgan('short'))
 
 app.get('/', (req,res) =>{
-    res.send('You\'re using our app? SWEET DAWG!')
+    res.status(200).send('You\'re using our app? SWEET DAWG!')
 })
 
+//get all data from specific table
 app.get('/table/:table',(req,res) => {
     const {table} = req.params
     getAll(table)
       .then((data)=> {
-        res.send(data)
+        res.status(200).send(data)
       })
       .catch((err) => {
         console.error(err)
-        res.send(err)
+        res.status(401).send(err)
       })
 })
 
+//insert row of data into specific table
+app.post('/table/:table',(req,res) => {
+  const {table} = req.params
+  const data = req.body
+  insertRow(data,table)
+    .then((response)=> {
+      res.status(200).send(data)
+    })
+    .catch((err) => {
+      console.error(err)
+      res.status(401).send(err)
+    })
+})
 
 app.post('/signup', (req, res) =>{
         let {username, password} = req.body
@@ -55,7 +69,7 @@ app.post('/signup', (req, res) =>{
     app.post('/login', (req, res) =>{
         
 
-      
+
         knex
               .select("*")
               .from("users")
