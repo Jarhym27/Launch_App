@@ -12,6 +12,7 @@ exports.up = function(knex) {
         table.integer('geo_weight')
         table.integer('heo_weight')
         table.enu('booked_status',['booked','available'])
+        table.timestamps(true,true)
     })
 };
 
