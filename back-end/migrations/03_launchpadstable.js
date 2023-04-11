@@ -5,8 +5,6 @@
 exports.up = function(knex) {
     return knex.schema.createTable('launch_pads',table =>{
         table.increments('id')
-        table.foreign('launch_vehicle_id').references('launch_vehicles.id')
-        table.integer('launch_vehicle_id')
         table.foreign('lsp_user_id').references('users.id')
         table.integer('lsp_user_id')
         table.string('city')
