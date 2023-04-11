@@ -7,14 +7,29 @@ const cookieSession = require('express-session')
 const knex = require("knex")(
     require("./knexfile.js")[process.env.NODE_ENV || "development"]
   );
+const { getAll } = require("./controllers");
+const morgan = require('morgan')
 
 //MiddleWare
 app.use(express.json());
 app.use(cors());
 app.use(cookieParser())
+app.use(morgan('short'))
 
 app.get('/', (req,res) =>{
     res.send('You\'re using our app? SWEET DAWG!')
+})
+
+app.get('/table/:table',(req,res) => {
+    const {table} = req.params
+    getAll(table)
+      .then((data)=> {
+        res.send(data)
+      })
+      .catch((err) => {
+        console.error(err)
+        res.send(err)
+      })
 })
 
 
