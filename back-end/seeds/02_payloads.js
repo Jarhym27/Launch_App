@@ -4,11 +4,11 @@
  */
 exports.seed = async function(knex) {
   // Deletes ALL existing entries
-  await knex('payload').del()
-  await knex('payload').insert([
+  await knex('payloads').del()
+  await knex('payloads').insert([
     {
-      user_id: 2,
-      weight_tons: 13,
+      payload_user_id: 2,
+      weight: 13,
       orbital_requirement: 'LEO',
     }
   ]);

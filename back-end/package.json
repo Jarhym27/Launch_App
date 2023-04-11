@@ -6,10 +6,11 @@
   "scripts": {
     "start": "nodemon server.js",
     "reset": "npx knex migrate:rollback --all && npx knex migrate:latest && npx knex seed:run",
-    "spinup1": "bash -c \"docker run --name launch_app -e=POSTGRES_PASSWORD=docker -d -p 8080:5432 -v $HOME/docker/volumes/postgres:/var/lib/postgresql/data postgres\"",
+    "spinup1": "bash -c \"docker run --name launch_app -e=POSTGRES_PASSWORD=docker -d -p 5432:5432 -v $HOME/docker/volumes/postgres:/var/lib/postgresql/data postgres\"",
     "spinup2": "docker exec -it launch_app psql -U postgres -c \"CREATE DATABASE launch_app;\"",
     "spinup3": "npx knex migrate:latest && npx knex seed:run",
-    "spinup": "npm run spinup1 && npm run spinup2 && npm run spinup3",
+    "spinup": "npm run spinup1 && sleep 5 && npm run spinup2 && sleep 5 && npm run spinup3",
+    "dockerreset": "docker exec -it launch_app psql -U postgres -c \"DROP DATABASE launch_app;\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
