@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useState, createContext } from "react";
 import Login from './component/Login'
 import Signup from "./component/Signup";
+import LaunchRequest from './component/LaunchRequest';
 
 export const RocketInfo = createContext();
 
@@ -16,12 +17,12 @@ function App() {
       <Routes>
         <Route path='/' element={< Login/>}></Route>
         {/* <Route path='/Login' element={< Login />}></Route> */}
+        <Route path='/request' element={<LaunchRequest/>}></Route>
         <Route path='/Signup' element={<Signup/>}></Route>
       </Routes >
     </Router >
     </RocketInfo.Provider>
         );
 }
-
 
         export default App;

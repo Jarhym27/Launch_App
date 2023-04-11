@@ -8,6 +8,8 @@ const knex = require("knex")(
     require("./knexfile.js")[process.env.NODE_ENV || "development"]
   );
 
+const morgan = require("morgan")
+
 //MiddleWare
 app.use(express.json());
 app.use(cors());
@@ -21,7 +23,7 @@ app.get('/', (req,res) =>{
 
 app.post('/login', (req, res) =>{
         let {username, password} = req.body
-    
+
         knex
         .insert({
           username,
@@ -36,14 +38,14 @@ app.post('/login', (req, res) =>{
       res.status(500).send("Error inserting data!");
     });
 })
-    
+
 
     app.get('/login', (req, res) =>{
-        
+
         knex
               .select("*")
               .from("users")
-        
+
         .then((data) => res.status(200).json(data))
         .catch((err) =>
           res.status(404).json({
