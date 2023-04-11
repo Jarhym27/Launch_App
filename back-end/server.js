@@ -12,6 +12,7 @@ const knex = require("knex")(
 app.use(express.json());
 app.use(cors());
 app.use(cookieParser())
+app.use(morgan('short'))
 
 app.get('/', (req,res) =>{
     res.send('You\'re using our app? SWEET DAWG!')
