@@ -31,8 +31,8 @@ exports.seed = async function(knex) {
       role: 'lsp_user'
     },
     {
-      organization: 'Astra',
-      username: "astra",
+      organization: 'Rocket Lab',
+      username: "rocket",
       password: "a",
       role: 'lsp_user'
     },
@@ -51,6 +51,18 @@ exports.seed = async function(knex) {
     {
       organization: 'SpaceX',
       username: "ModernEdison",
+      password: "a",
+      role: 'lsp_user'
+    },
+    {
+      organization: 'Relativity Space',
+      username: "relativity",
+      password: "a",
+      role: 'lsp_user'
+    },
+    {
+      organization: 'Astra',
+      username: "astra",
       password: "a",
       role: 'lsp_user'
     },
