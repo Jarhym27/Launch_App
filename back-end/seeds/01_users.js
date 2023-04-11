@@ -16,7 +16,7 @@ exports.seed = async function(knex) {
       organization: 'SpaceX',
       username: "ModernEdison",
       password: "stoleitfromtesla6969",
-      role: 'launch_service_provider'
+      role: 'lsp_user'
     }
   ]);
 };

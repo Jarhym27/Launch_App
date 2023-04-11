@@ -7,12 +7,12 @@ exports.seed = async function(knex) {
   await knex('launch_requests').del()
   await knex('launch_requests').insert([
     {
-      id: 1,
-      launch_vehicle_id:1,
+      payload_id: 1,
       launch_pad_id:1,
-      launch_date: 2025-10-13,
-      request_cost:18,
-      status: 'Pending'
+      launch_vehicle_id:1,
+      request_status: 'Pending',
+      launch_date: '2025-10-13',
+      request_cost:18
     },
   ]);
 };

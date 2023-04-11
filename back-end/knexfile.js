@@ -6,10 +6,10 @@
 module.exports = {
 
   development: {
-    client: 'postgres',
+    client: 'postgresql',
     connection: {
       localhost: 'localhost',
-      port: '8080',
+      port: '5432',
       password:'docker',
       user: 'postgres',
       database: 'launch_app'

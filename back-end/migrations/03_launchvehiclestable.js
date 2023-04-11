@@ -10,7 +10,8 @@ exports.up = function(knex) {
         table.integer('meo_weight')
         table.integer('leo_weight')
         table.integer('geo_weight')
-        table.enum('status',['booked','available'])
+        table.integer('heo_weight')
+        table.enu('booked_status',['booked','available'])
     })
 };
 
