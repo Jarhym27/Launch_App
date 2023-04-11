@@ -12,6 +12,10 @@ exports.up = function(knex) {
         table.integer('geo_weight')
         table.integer('heo_weight')
         table.enu('booked_status',['booked','available'])
+        table.foreign('launch_pad_id').references('launch_pads.id')
+        table.integer('launch_pad_id')
+        table.foreign('lsp_user_id').references('users.id')
+        table.integer('lsp_user_id')
         table.timestamps(true,true)
     })
 };
