@@ -220,6 +220,19 @@ app.post('/login', (req, res) =>{
   }
 })
 
+app.patch('/logout', (req, res) => {
+  console.log(req.body.username)
+  knex('users')
+    .where('username', req.body.username)
+    .update({session: ''})
+    .catch((err) =>
+        res.status(404).json({
+          message:
+          "User doesnt exist",
+        })
+      )
+})
+
 app.patch('/table/:table', (req,res) => {
   const id = req.query.id
   const {table} = req.params;
