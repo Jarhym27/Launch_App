@@ -11,7 +11,6 @@ import PageNotFound from "./component/PageNotFound";
 import Header from "./component/Header";
 import About from "./component/About";
 import Home from "./component/Home"
-import {useEffect} from 'react'
 import cookie from 'cookie'
 // import LSP_Profile from "./component/lsp_profile/lsp_profile_page";
 
