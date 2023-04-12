@@ -1,10 +1,11 @@
 import React from "react";
 // import '../css/style.css'
 import "../css/Login.css";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { RocketInfo } from "../App";
 import bcrypt from "bcryptjs";
+import cookie from 'cookie'
 import "bootstrap/dist/css/bootstrap.min.css";
 // import {authentication} from './Auth'
 
@@ -13,18 +14,29 @@ const Login = () => {
   const [pass, setPassword] = useState("");
   const [user, setUser] = useState("");
   const navigate = useNavigate();
+  
+  
+  useEffect(() => {
+    let cookies = cookie.parse(document.cookie);
+    if(cookies.userInfo){
+      console.log(cookies.userInfo)
+      
+    }
+
+  }, [])
 
   const submitLogin = () => {
     let body = { username: user, password: pass };
-    console.log(body)
+    // console.log(body)
     fetch("http://localhost:8080/login", {
       method: "POST",
       headers: {'Content-Type': 'application/json'},
+      credentials: 'include',
       body: JSON.stringify(body),
     })
     .then(res => res.json())
     .then(data => {
-      console.log(data)
+
     })
   };
 
@@ -65,6 +77,15 @@ const Login = () => {
               onClick={() => submitLogin()}
             >
               Login!
+            </button>
+          </div>
+          <h1 className="text-center">Not a user yet?</h1>
+          <div className="row my-3 d-flex justify-content-center">
+            <button
+              className="btn btn-secondary w-25"
+              onClick={() => navigate('/signup')}
+            >
+              Sign Up!
             </button>
           </div>
         </div>
