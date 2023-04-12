@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useState, createContext } from "react";
 import Login from './component/Login'
 import Signup from "./component/Signup";
+import PayloadProfile from "./component/PayloadProfile";
 
 export const RocketInfo = createContext();
 
