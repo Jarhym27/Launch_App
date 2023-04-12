@@ -52,6 +52,7 @@ function App() {
         {userLogin.username && <Header/> }
         <Routes>
           <Route path='/' element={< Login/>}></Route>
+          <Route path='/home' element={< Home/>}></Route>
           {/* <Route path='/Login' element={< Login />}></Route> */}
           <Route path='/signup' element={<Signup/>}></Route>
           <Route path='/request' element={<LaunchRequest/>}></Route>
