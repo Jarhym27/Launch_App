@@ -11,28 +11,7 @@ const Login = () => {
   const [user, setUser] = useState("");
   const {userCreate, setUserCreate, userLogin, setUserLogin} = useContext(RocketInfo)
   const navigate = useNavigate();
-  // const {userLogin, setUserLogin} = useContext(UserContext)
   
-  
-  useEffect(() => {
-    let cookies = cookie.parse(document.cookie);
-    // console.log(cookies.userInfo)
-    if(cookies.userInfo){
-      // console.log(cookies.userInfo)
-      fetch("http://localhost:8080/login", {
-      method: "POST",
-      headers: {'Content-Type': 'application/json'},
-      credentials: 'include',
-      body: JSON.stringify({userInfo: cookies.userInfo}),
-    })
-    .then((res) => res.json())
-    .then((data) => {
-      setUserLogin(data)
-    })
-    }
-
-  }, [])
-
   useEffect(() => {
     if(userLogin){
       // navigate('/AboutUs')
@@ -42,26 +21,31 @@ const Login = () => {
 
   const submitLogin = () => {
     let body = { username: user, password: pass };
-    // console.log(body)
     fetch("http://localhost:8080/login", {
       method: "POST",
       headers: {'Content-Type': 'application/json'},
       credentials: 'include',
       body: JSON.stringify(body),
     })
-    .then(res => res.json())
+    .then(res => {
+      if(res.status !== 200){
+        throw new Error('invalid login')
+      } else {
+        return res.json()
+      }
+      })
     .then(data => {
       setUserLogin(data)
+      navigate('/home')
     })
+    .catch(err=>console.error(err))
   };
 
   const handleChange = (field, value) => {
     if (field === "user") {
       setUser(value);
-      // console.log('User: ', value)
     } else if (field === "pass") {
       setPassword(value);
-      // console.log('Pass: ', value)
     }
   };
 
