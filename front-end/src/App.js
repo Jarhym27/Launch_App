@@ -7,6 +7,7 @@ import Signup from "./component/Signup";
 import PayloadProfile from "./component/PayloadProfile";
 import Header from "./component/Header";
 import About from "./component/About";
+// import LSP_Profile from "./component/lsp_profile/lsp_profile_page";
 
 export const RocketInfo = createContext();
 
@@ -25,7 +26,8 @@ function App() {
         <Route path='/Signup' element={<Signup/>}></Route>
         <Route path='/header' element={<Header/>}></Route> {/*only needed for testing */}
         <Route path='/AboutUs' element={<About/>}></Route> 
-      </Routes >
+        {/* <Route path='/LSP_Profile' element={<LSP_Profile/>}></Route> */}
+      </Routes>
     </Router >
   </RocketInfo.Provider>
         );

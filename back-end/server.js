@@ -8,13 +8,13 @@ const bcrypt = require('bcryptjs')
 const knex = require("knex")(
     require("./knexfile.js")[process.env.NODE_ENV || "development"]
   );
-const { getAll,insertRow,deleteRow } = require("./controllers");
+const { getAll,insertRow,deleteRow,updateRow } = require("./controllers");
 const morgan = require('morgan')
 
 
 //middleware
 app.use(express.json());
-app.use(cors());
+app.use(cors({origin: 'http://localhost:3000',credentials:  true}));
 app.use(cookieParser())
 app.use(morgan('short'))
 
@@ -41,7 +41,7 @@ app.get('/join/launch_requests', (req, res) => {
   .join('payloads', 'payloads.id', 'launch_requests.payload_id')
   .join('launch_vehicles', 'launch_vehicles.id', 'launch_requests.launch_vehicle_id')
   .join('launch_pads', 'launch_pads.id', 'launch_requests.launch_pad_id')
-  .select('*')
+  .select('launch_requests.id','launch_requests.payload_id','launch_requests.launch_pad_id','launch_requests.launch_vehicle_id','request_status','launch_requests.created_at','launch_requests.updated_at','launch_date','request_cost','payloads.payload_user_id','weight','orbital_requirement','name','launch_vehicle','cost','leo_weight','meo_weight','geo_weight','heo_weight','booked_status','launch_vehicles.lsp_user_id','city','state','launch_site','launch_pad','pad_status')
   .then(data => res.status(200).json(data))
   .catch(err =>
       res.status(404).json({
@@ -55,6 +55,7 @@ app.get('/join/launch_requests', (req, res) => {
 app.get('/join/users-launch_vehicles',(req,res)=> {
   knex('users')
     .join('launch_vehicles','users.id','launch_vehicles.lsp_user_id')
+    .select('launch_vehicles.id','organization','launch_vehicles.created_at','launch_vehicles.updated_at','launch_vehicles.lsp_user_id','launch_vehicle','cost','leo_weight','meo_weight','geo_weight','heo_weight','launch_pad_id','booked_status')
     .then(data => res.status(200).json(data))
     .catch(err =>
       res.status(404).json({
@@ -68,6 +69,7 @@ app.get('/join/users-launch_vehicles',(req,res)=> {
 app.get('/join/users-payloads',(req,res)=> {
   knex('users')
     .join('payloads','users.id','payloads.payload_user_id')
+    .select('payloads.id','organization','payloads.created_at','payloads.updated_at','payloads.payload_user_id','weight','orbital_requirement','name')
     .then(data => res.status(200).json(data))
     .catch(err =>
       res.status(404).json({
@@ -81,6 +83,7 @@ app.get('/join/users-payloads',(req,res)=> {
 app.get('/join/users-launch_pads',(req,res)=> {
   knex('users')
     .join('launch_pads','launch_pads.lsp_user_id','users.id')
+    .select('launch_pads.id','organization','launch_pads.created_at','launch_pads.updated_at','launch_pads.lsp_user_id','city','state','launch_site','launch_pad','pad_status')
     .then(data => res.status(200).json(data))
     .catch(err =>
       res.status(404).json({
@@ -172,11 +175,17 @@ app.post('/login', (req, res) =>{
       // console.log(data[0].password)
       
       bcrypt.compare(req.body.password, data[0].password,  (err, result)=>{
-        console.log(result)
+        // console.log(result)
         if(result){
           let {password:_ , ...scrubbed} = data[0]
-          // let cookieVal = ''
-          // res.cookie('userInfo', scrubbed, {maxAge: 3600000})
+          res.header('Access-Control-Allow-Origin', 'http://localhost:3000')
+          res.header('Access-Control-Allow-Credentials','true')
+          // 
+          let rand = Math.floor(Math.random() * 1000000000).toString()
+          let sessionID = bcrypt.hash(rand, 10)
+          let user = {...data[0], session: sessionID}
+          knex.select("*").from("users").where('username', req.body.username).insert(user)
+          res.cookie('userInfo', sessionID, {maxAge: 3600000, httpOnly:false})
           res.send(scrubbed)
         }
         else{
@@ -192,6 +201,27 @@ app.post('/login', (req, res) =>{
       })
     )
 })
+
+app.patch('/table/:table', (req,res) => {
+  const id = req.query.id
+  const {table} = req.params;
+  const body = req.body
+  console.log('body:',body)
+
+  if(!id || !body || body.id){
+    res.status(401).send({error: 'Bad request. Potential problems: missing body, missing query string with id, included id in the body (id should not be in body)'})
+  } else{
+    updateRow(id,body,table)
+      .then(response => {
+        res.status(200).send(body)
+      })
+      .catch(err => {
+        console.error(err)
+        res.status(401).send(err)
+      })
+  }
+})
+
 
 
 
