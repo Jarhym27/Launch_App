@@ -1,0 +1,26 @@
+.link-home{
+  color: #DA0037
+}
+
+.link-home:hover{
+  color: #DA0037
+}
+
+.pagenotfound-container{
+  background-color: #171717;
+  height: 100vh;
+}
+
+.white-text{
+  color: #EDEDED
+}
+
+.home-btn{
+  background-color: #444444;
+  border:2px solid #EDEDED;
+}
+
+.home-btn:hover{
+  background-color: #EDEDED;
+  border:2px solid #EDEDED;
+}

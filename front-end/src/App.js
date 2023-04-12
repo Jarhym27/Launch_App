@@ -5,6 +5,7 @@ import { useState, createContext } from "react";
 import Login from "./component/Login";
 import Signup from "./component/Signup";
 import PayloadProfile from "./component/PayloadProfile";
+import PageNotFound from "./component/PageNotFound";
 import Header from "./component/Header";
 import About from "./component/About";
 // import LSP_Profile from "./component/lsp_profile/lsp_profile_page";
@@ -30,6 +31,7 @@ function App() {
           <Route path='/Signup' element={<Signup/>}></Route>
           <Route path='/header' element={<Header/>}></Route> {/*only needed for testing */}
           <Route path='/AboutUs' element={<About/>}></Route>
+           <Route path="*" element={<PageNotFound />} />
           {/* <Route path='/LSP_Profile' element={<LSP_Profile/>}></Route> */}
         </Routes>
       </Router >
