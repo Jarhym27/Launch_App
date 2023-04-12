@@ -1,6 +1,7 @@
 .payloadProfileCard{
-    background-color:#9E4784 !important;  
+    background-color:#DA0037 !important;  
     width: 80%; 
+    color: #EDEDED;
 }
 .horizontalCard{
 
@@ -16,7 +17,8 @@
 }
 .payloadsCol{
     width: 100%;
-    background-color:#66347F ; 
+    background-color:#444444 ; 
+    color: #EDEDED;
 }
 .payloadsTitle{
     width: 50%;
@@ -28,15 +30,27 @@
 .addPayload{
     width: 100%;
     padding-bottom: 1rem;
+    background-color: #444444;
+    color: #EDEDED;
+    border: 1px #EDEDED solid;
+}
+.addPayload:hover{
+    background-color: #DA0037;
+    border: 1px #EDEDED solid;
+
 }
 .buttonCard{
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    background-color:#9E4784 !important;  
+    background-color:#444444 !important; 
+    color: #EDEDED; 
 }
 .addCol{
     padding-top: 2.75rem;
     
+}
+.modalForm{
+    background-color: #444444 !important;
 }
