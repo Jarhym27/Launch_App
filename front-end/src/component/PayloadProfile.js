@@ -9,13 +9,15 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 
 function PayloadProfile() {
-const [payloadInfo, setPayloadInfo] = useState();
+const [submittedPayloads, setSubmittedPayloads] = useState();
 const [userInfo, setUserInfo] = useState();
+const [userPayloads, setUserPayloads ] = useState();
 
 //PAYLOADS USESTATES 
 const [weight, setWeight] = useState();
 const [orbit, setOrbit] = useState();
 const [name, setName] = useState();
+const [userID, setUserID] = useState();
 // PAYLOADS USESTATES
 
 //ADD BUTTON PAYLOAD USESTATES 
@@ -35,41 +37,41 @@ useEffect(()=> {
 useEffect(()=> {
     fetch ('http://localhost:8080/join/launch_requests')
     .then(res => res.json())
-    .then(data => setPayloadInfo(data))
+    .then(data => setSubmittedPayloads(data))
+}, [userPayloads])
+useEffect(()=> {
+    fetch ('http://localhost:8080/table/payloads')
+    .then(res => res.json())
+    .then(data => setUserPayloads(data))
 }, [])
-console.log(userInfo)
+
 
 let customer = userInfo?.filter((e, i) => e.id == 1)
-let payloads = payloadInfo?.filter((e,i)=> e.payload_user_id == 1)
+let payloads = submittedPayloads?.filter((e,i)=> e.payload_user_id == 1)
+let newPayloads = userPayloads?.filter((e,i) => e.payload_user_id ==1)
 
+console.log('here', newPayloads)
 // ADD PAYLOAD POST 
 const handlePost= (e) => {
-    e.preventDefault(); 
 
-    fetch('http://localhost:8080/payloads/:payloads', {
+    fetch('http://localhost:8080/table/payloads', {
         method: "POST", 
         body: JSON.stringify({
-            weight: weight, 
-             orbit: orbit, 
-             name:name
+            payload_user_id: customer[0].id, 
+            weight: weight,
+            orbital_requirement: orbit, 
+            name:name
         }),
         headers: {
             "Content-type": "application/json; charset=UTF-8"
         }
     })
     .then(()=> 
-        fetch('http://localhost:8080/join/launch_requests')
+        fetch('http://localhost:8080/table/payloads')
         .then(res => res.json())
-        .then(data => setPayloadInfo(data))
+        .then(data => setUserPayloads(data))
         )
-    
 }
-//ADD PAYLOAD BUTTON
-    const handleAddButton = (e) =>{
-
-    } 
-//ADD PAYLOAD BUTTON
-console.log('here',payloads)
 
   return (
 <>
@@ -129,40 +131,61 @@ console.log('here',payloads)
             </Card>
         </Col>
         </Row>
-      
+      <Row>
+        <Col><h3>Created Payloads(Not Submitted):</h3>
+        
+        {newPayloads?.map((pay , i) => {
+         if(pay.id > 40){
+        return (
+            <Card >
+            <Card.Body className='payloadsCol'>
+                <Card.Title>{pay.name}</Card.Title>
+                <Card.Text>
+                    Status: {pay.request_status}
+                </Card.Text>
+                <footer>
+                    <small >Payload Created: {pay.updated_at}</small>
+                </footer>
+            </Card.Body>
+            </Card>
+                
+           
+        )}})}</Col>
+      </Row>
     </Container>
 
-      <Modal show={show} onHide={handleClose} className='buttonCard'>
-        <Modal.Header closeButton>
+
+
+      <Modal show={show} onHide={handleClose} className='modalBg'>
+        <Modal.Header closeButton className='modalForm'>
           <Modal.Title>Add Payload</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Modal.Body className='modalForm'>
+          <Form onSubmit={(e) => {e.preventDefault(); handlePost(); setSubmittedPayloads()}}>
+            <Form.Group onChange={(e) => setName(e.target.value)} className="mb-3" controlId="formBasicEmail">
               <Form.Label>Payload Name</Form.Label>
               <Form.Control type="text" placeholder="" />
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Group onChange={(e) => setWeight(e.target.value)} className="mb-3" controlId="formBasicPassword">
               <Form.Label>Weight</Form.Label>
               <Form.Control type="text" placeholder="" />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Orbit</Form.Label>
-              <Form.Select >
+              <Form.Select onChange={(e) => setOrbit(e.target.value)}>
                 <option>GEO</option>
                 <option>HEO</option>
                 <option>LEO</option>
                 <option>MEO</option>
             </Form.Select>
             </Form.Group>
-   
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-            <Button className='addPayload' variant="primary" type="submit">
+            <Button onClick={handleClose} className='addPayload' variant="primary" type="submit">
                 Add
             </Button>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer className='modalForm'>
             <Button className='addPayload' variant="secondary" onClick={handleClose}>
                 Cancel
             </Button>
