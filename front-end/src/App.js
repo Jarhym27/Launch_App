@@ -13,8 +13,8 @@ import About from "./component/About";
 import Home from "./component/Home"
 import {useEffect} from 'react'
 import cookie from 'cookie'
-// import LSP_Profile from "./component/lsp_profile/lsp_profile_page";
-
+import LspProfile from "./component/lsp_profile/01_lsp_profile_page";
+import LspCalendar from "./component/lsp_profile/04_lsp_calendar";
 export const RocketInfo = createContext();
 
 function App() {
@@ -58,7 +58,7 @@ function App() {
           <Route path='/aboutus' element={<About/>}></Route>
           <Route path='/payloadprofile' element={<PayloadProfile/>}></Route>
            <Route path="*" element={<PageNotFound />} />
-          {/* <Route path='/LSP_Profile' element={<LSP_Profile/>}></Route> */}
+          <Route path='/calendar' element={<LspCalendar/>}></Route>
         </Routes>
       </Router >
     </RocketInfo.Provider>
