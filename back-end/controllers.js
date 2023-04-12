@@ -14,4 +14,12 @@ const deleteRow = (id,table) => {
   return knex(`${table}`).where('id', id).del()
 }
 
-module.exports = {getAll,insertRow,deleteRow}
+const updateRow = (id,body,table) => {
+  let updatedBody = {
+    ...body,
+    updated_at: new Date().toISOString()
+  }
+  return knex(`${table}`).where('id', id).update(updatedBody)
+}
+
+module.exports = {getAll,insertRow,deleteRow,updateRow}
