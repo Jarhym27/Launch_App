@@ -23,6 +23,7 @@ function App() {
     role: "",
   });
 
+  
   return (
     <RocketInfo.Provider value={{userCreate, setUserCreate, userLogin, setUserLogin}}>
       <Router>
@@ -34,6 +35,7 @@ function App() {
           <Route path='/request' element={<LaunchRequest/>}></Route>
           <Route path='/header' element={<Header/>}></Route> {/*only needed for testing */}
           <Route path='/AboutUs' element={<About/>}></Route>
+          <Route path='/payloadProfile' element={<PayloadProfile/>}></Route>
            <Route path="*" element={<PageNotFound />} />
           {/* <Route path='/LSP_Profile' element={<LSP_Profile/>}></Route> */}
         </Routes>
