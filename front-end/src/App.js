@@ -7,6 +7,7 @@ import Signup from "./component/Signup";
 import PayloadProfile from "./component/PayloadProfile";
 
 export const RocketInfo = createContext();
+export const UserContext = createContext();
 
 function App() {
   const [ userLogin, setUserLogin ] = useState('');
@@ -14,13 +15,15 @@ function App() {
 
   return(
   <RocketInfo.Provider value={{userCreate, setUserCreate}}>
-    <Router>
-      <Routes>
-        <Route path='/' element={< Login/>}></Route>
-        {/* <Route path='/Login' element={< Login />}></Route> */}
-        <Route path='/Signup' element={<Signup/>}></Route>
-      </Routes >
-    </Router >
+    <UserContext.Provider value={({userLogin, setUserLogin})}>
+      <Router>
+        <Routes>
+          <Route path='/' element={< Login/>}></Route>
+          {/* <Route path='/Login' element={< Login />}></Route> */}
+          <Route path='/Signup' element={<Signup/>}></Route>
+        </Routes >
+      </Router >
+    </UserContext.Provider>
   </RocketInfo.Provider>
         );
 }

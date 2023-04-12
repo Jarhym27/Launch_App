@@ -7,12 +7,22 @@
 }
 
 .card{
- background-color: #f61919;
- height: 15%;
- width:15%;
+ background-color: purple;
+ display:flex;
+ align-items: center;
+ justify-content: center;
+ 
+ 
  margin-top: 80px;
 margin-left: 25px;
   border-radius: var(--card-radius);
  display:inline-block;
- position: relative; 
+
+}
+.card input[type="radio"]{
+    width:11px
+}
+.card label{
+    display: inline-block;
+    margin-left: 5px;
 }
