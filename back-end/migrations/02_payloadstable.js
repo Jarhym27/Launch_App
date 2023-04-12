@@ -5,10 +5,12 @@
 exports.up = function(knex) {
   return knex.schema.createTable('payloads',table =>{
     table.increments('id')
-    table.foreign('payload_user_id').references('users')
+    table.foreign('payload_user_id').references('users.id')
+    table.integer('payload_user_id')
     table.integer('weight')
-    table.enum('orbital_requirement',['GEO','LEO','MEO'])
-
+    table.enu('orbital_requirement',['GEO','LEO','MEO', 'HEO'])
+    table.string('name')
+    table.timestamps(true,true)
   })
 };
 
@@ -17,5 +19,5 @@ exports.up = function(knex) {
  * @returns { Promise<void> }
  */
 exports.down = function(knex) {
-    return knex.schema.dropTableIfExists('payload');
+    return knex.schema.dropTableIfExists('payloads');
 };

@@ -6,20 +6,28 @@
   "scripts": {
     "start": "nodemon server.js",
     "reset": "npx knex migrate:rollback --all && npx knex migrate:latest && npx knex seed:run",
-    "spinup1": "bash -c \"docker run --name launch_app -e=POSTGRES_PASSWORD=docker -d -p 8080:5432 -v $HOME/docker/volumes/postgres:/var/lib/postgresql/data postgres\"",
+    "spinup1": "bash -c \"docker run --name launch_app -e=POSTGRES_PASSWORD=docker -d -p 5432:5432 -v $HOME/docker/volumes/postgres:/var/lib/postgresql/data postgres\"",
     "spinup2": "docker exec -it launch_app psql -U postgres -c \"CREATE DATABASE launch_app;\"",
     "spinup3": "npx knex migrate:latest && npx knex seed:run",
-    "spinup": "npm run spinup1 && npm run spinup2 && npm run spinup3",
+    "spinup": "npm run spinup1 && sleep 5 && npm run spinup2 && sleep 5 && npm run spinup3",
+    "dockerreset": "docker exec -it launch_app psql -U postgres -c \"DROP DATABASE launch_app;\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.0",
+    "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "express-session": "^1.17.3",
-    "nodemon": "^2.0.22",
+    "knex": "^2.4.2",
+    "pg": "^8.10.0",
     "session": "^0.1.0"
+  },
+  "devDependencies": {
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.22"
   }
 }

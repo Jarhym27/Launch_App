@@ -1,0 +1,56 @@
+.payloadProfileCard{
+    background-color:#DA0037 !important;  
+    width: 80%; 
+    color: #EDEDED;
+}
+.horizontalCard{
+
+    background-color:#66347F;
+}
+.profileRow{
+    width: 100%;
+}
+.payloadsRow{
+    display: flex;
+    flex-direction: column;
+
+}
+.payloadsCol{
+    width: 100%;
+    background-color:#444444 ; 
+    color: #EDEDED;
+}
+.payloadsTitle{
+    width: 50%;
+}
+.profileCol{
+    width: 100%;
+    padding-top: 2.75rem;
+}
+.addPayload{
+    width: 100%;
+    padding-bottom: 1rem;
+    background-color: #444444;
+    color: #EDEDED;
+    border: 1px #EDEDED solid;
+}
+.addPayload:hover{
+    background-color: #DA0037;
+    border: 1px #EDEDED solid;
+
+}
+.buttonCard{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color:#444444 !important; 
+    color: #EDEDED; 
+}
+.addCol{
+    padding-top: 2.75rem;
+    
+}
+.modalForm{
+    background-color: #444444 !important;
+}

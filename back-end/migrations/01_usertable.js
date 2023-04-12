@@ -8,7 +8,9 @@ exports.up = function(knex) {
         table.string('organization')
         table.string('username');
         table.string('password');
-        table.enum('role',["launch_service_provider",'payload_user']);
+        table.string('session')
+        table.enum('role',["lsp_user",'payload_user']);
+        table.timestamps(true,true)
     })
 };
 
@@ -17,13 +19,8 @@ exports.up = function(knex) {
 //  * @returns { Promise<void> }
 //  */
 exports.down = function(knex) {
-    return knex.schema
-    .alterTable("users", table =>{
-        table.dropForeign("role_id");
-        table.dropColumn("role_id");
-    })
-    .then(() => {
+ 
         return knex.schema.dropTableIfExists('users');
-    })
+    
   };
     
