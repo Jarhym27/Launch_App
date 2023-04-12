@@ -11,27 +11,7 @@ const Login = () => {
   const [user, setUser] = useState("");
   const {userCreate, setUserCreate, userLogin, setUserLogin} = useContext(RocketInfo)
   const navigate = useNavigate();
-  // const {userLogin, setUserLogin} = useContext(UserContext)
   
-  
-  useEffect(() => {
-    let cookies = cookie.parse(document.cookie);
-    // console.log(cookies.userInfo)
-    if(cookies.userInfo){
-      // console.log(cookies.userInfo)
-      fetch("http://localhost:8080/login", {
-      method: "POST",
-      headers: {'Content-Type': 'application/json'},
-      credentials: 'include',
-      body: JSON.stringify({userInfo: cookies.userInfo}),
-    })
-    .then((res) => res.json())
-    .then((data) => {
-      setUserLogin(data)
-    })
-    }
-
-  }, [])
 
   useEffect(() => {
     if(userLogin){
