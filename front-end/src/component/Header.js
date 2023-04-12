@@ -19,6 +19,20 @@ homePath = '/lsphomepage??'
 homePath = '/payloadhomepage??'
   }
 
+  const logout = () => {
+    document.cookie = "userInfo=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+    fetch("http://localhost:8080/logout", {
+      method: "PATCH",
+      headers: {'Content-Type': 'application/json'},
+      credentials: 'include',
+      body: JSON.stringify({username: userLogin.username}),
+    })
+    .then((res) => {
+      console.log(res)
+      setUserLogin('')
+    })
+  }
+
 
 
 return(
