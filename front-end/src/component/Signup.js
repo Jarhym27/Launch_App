@@ -122,7 +122,7 @@ const Signup = () => {
         </Form>
       </Container>
       <div>
-        <Card className="card">
+        <Card className="cards">
           <input
             name="role"
             type="radio"
@@ -133,7 +133,7 @@ const Signup = () => {
             I am an Organizational Pad Owner{" "}
           </label>
         </Card>
-        <Card className="card">
+        <Card className="cards">
             <span>
           <input
             name="role"
