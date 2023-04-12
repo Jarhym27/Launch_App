@@ -19,27 +19,44 @@ homePath = '/lsphomepage??'
 homePath = '/payloadhomepage??'
   }
 
+  const logout = () => {
+    document.cookie = "userInfo=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+    fetch("http://localhost:8080/logout", {
+      method: "PATCH",
+      headers: {'Content-Type': 'application/json'},
+      credentials: 'include',
+      body: JSON.stringify({username: userLogin.username}),
+    })
+    .then((res) => {
+      console.log(res)
+      setUserLogin('')
+    })
+  }
+
 
 
 return(
   <>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <RocketTakeoffFill class="navbar-brand" color='white' size={50}/>
-  <a class="navbar-brand" href="#">L-Uber</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
+  <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+    <RocketTakeoffFill className="navbar-brand" color='white' size={50}/>
+  <a className="navbar-brand" href="#">L-Uber</a>
+  <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span className="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href={homePath}>Home</a>
+  <div className="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul className="navbar-nav mr-auto">
+      <li className="nav-item active">
+        <a className="nav-link" href={homePath}>Home</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/AboutUs">About Us</a>
+      <li className="nav-item">
+        <a className="nav-link" href="/AboutUs">About Us</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/" onClick={setUserLogin('')}>Logout</a>
+      <li className="nav-item">
+        <a className="nav-link" href="/">Profile</a>
+      </li>
+      <li className="nav-item">
+        <a className="nav-link" href="/" onClick={()=>logout()}>Logout</a>
       </li>
     </ul>
 
