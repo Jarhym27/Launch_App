@@ -2,3 +2,27 @@
     background-image: url(../media/space.gif);
     height: 100vh
 }
+.radiobutt{
+    margin-left: 30px;
+}
+
+.card{
+ background-color: purple;
+ display:flex;
+ align-items: center;
+ justify-content: center;
+ 
+ 
+ margin-top: 80px;
+margin-left: 25px;
+  border-radius: var(--card-radius);
+ display:inline-block;
+
+}
+.card input[type="radio"]{
+    width:11px
+}
+.card label{
+    display: inline-block;
+    margin-left: 5px;
+}
