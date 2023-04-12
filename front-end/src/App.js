@@ -1,10 +1,12 @@
 import React from "react";
-import "./css/style.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import './css/style.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useState, createContext } from "react";
 import Login from "./component/Login";
 import Signup from "./component/Signup";
 import PayloadProfile from "./component/PayloadProfile";
+import LaunchRequest from './component/LaunchRequest';
 import PageNotFound from "./component/PageNotFound";
 import Header from "./component/Header";
 import About from "./component/About";
@@ -29,6 +31,7 @@ function App() {
           <Route path='/' element={< Login/>}></Route>
           {/* <Route path='/Login' element={< Login />}></Route> */}
           <Route path='/Signup' element={<Signup/>}></Route>
+          <Route path='/request' element={<LaunchRequest/>}></Route>
           <Route path='/header' element={<Header/>}></Route> {/*only needed for testing */}
           <Route path='/AboutUs' element={<About/>}></Route>
            <Route path="*" element={<PageNotFound />} />
