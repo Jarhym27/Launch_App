@@ -14,7 +14,7 @@ const morgan = require('morgan')
 
 //middleware
 app.use(express.json());
-app.use(cors());
+app.use(cors({origin: 'http://localhost:3000',credentials:  true}));
 app.use(cookieParser())
 app.use(morgan('short'))
 
@@ -172,11 +172,17 @@ app.post('/login', (req, res) =>{
       // console.log(data[0].password)
       
       bcrypt.compare(req.body.password, data[0].password,  (err, result)=>{
-        console.log(result)
+        // console.log(result)
         if(result){
           let {password:_ , ...scrubbed} = data[0]
-          // let cookieVal = ''
-          // res.cookie('userInfo', scrubbed, {maxAge: 3600000})
+          res.header('Access-Control-Allow-Origin', 'http://localhost:3000')
+          res.header('Access-Control-Allow-Credentials','true')
+          // 
+          let rand = Math.floor(Math.random() * 1000000000).toString()
+          let sessionID = bcrypt.hash(rand, 10)
+          let user = {...data[0], session: sessionID}
+          knex.select("*").from("users").where('username', req.body.username).insert(user)
+          res.cookie('userInfo', sessionID, {maxAge: 3600000, httpOnly:false})
           res.send(scrubbed)
         }
         else{
@@ -192,6 +198,7 @@ app.post('/login', (req, res) =>{
       })
     )
 })
+
 
 
 
