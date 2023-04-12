@@ -12,11 +12,10 @@ export const RocketInfo = createContext();
 
 function App() {
   const [ userLogin, setUserLogin ] = useState('');
-  const [userCreate, setUserCreate] = useState({username:'', password: '', role_id:'0' })
+  const [userCreate, setUserCreate] = useState({username:'', password: '', organization:'', role:'' });
 
-  return (
-
-    <RocketInfo.Provider value={{userLogin, setUserLogin, userCreate, setUserCreate}}>
+  return(
+  <RocketInfo.Provider value={{userCreate, setUserCreate}}>
     <Router>
       <Routes>
         <Route path='/' element={< Login/>}></Route>
@@ -25,7 +24,7 @@ function App() {
         <Route path='/Signup' element={<Signup/>}></Route>
       </Routes >
     </Router >
-    </RocketInfo.Provider>
+  </RocketInfo.Provider>
         );
 }
 

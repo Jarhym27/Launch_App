@@ -11,7 +11,7 @@ const insertRow = (data,table) => {
 }
 
 const deleteRow = (id,table) => {
-  return knex(`${table}`).where("id", id).del()
+  return knex(`${table}`).where('id', id).del()
 }
 
 module.exports = {getAll,insertRow,deleteRow}
