@@ -1,16 +1,17 @@
-import React from "react";
 import "../css/Login.css";
 import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import cookie from 'cookie'
 import "bootstrap/dist/css/bootstrap.min.css";
-import { UserContext } from "../App";
+import { RocketInfo } from "../App";
+
 
 const Login = () => {
   const [pass, setPassword] = useState("");
   const [user, setUser] = useState("");
+  const {userCreate, setUserCreate, userLogin, setUserLogin} = useContext(RocketInfo)
   const navigate = useNavigate();
-  const {userLogin, setUserLogin} = useContext(UserContext)
+  // const {userLogin, setUserLogin} = useContext(UserContext)
   
   
   useEffect(() => {
@@ -34,7 +35,8 @@ const Login = () => {
 
   useEffect(() => {
     if(userLogin){
-      // navigate('/signup')
+      // navigate('/AboutUs')
+      console.log(userLogin)
     }
   }, [userLogin])
 
