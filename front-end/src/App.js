@@ -5,6 +5,7 @@ import { useState, createContext } from "react";
 import Login from './component/Login'
 import Signup from "./component/Signup";
 import PayloadProfile from "./component/PayloadProfile";
+import AnimeRocket from "./component/Animated_Rocket";
 // import LSP_Profile from "./component/lsp_profile/lsp_profile_page";
 
 export const RocketInfo = createContext();
@@ -18,7 +19,7 @@ function App() {
     <Router>
       <Routes>
         <Route path='/' element={< Login/>}></Route>
-        {/* <Route path='/Login' element={< Login />}></Route> */}
+        <Route path='/rocket' element={< AnimeRocket />}></Route> 
         <Route path='/Signup' element={<Signup/>}></Route>
         {/* <Route path='/LSP_Profile' element={<LSP_Profile/>}></Route> */}
       </Routes>

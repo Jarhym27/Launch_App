@@ -1,0 +1,37 @@
+.scene{
+    background-color: black;
+    height:100vh;
+    weight:100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.image_launch{
+    border_radius: 50%;
+    left:0;
+    right:0;
+    position: relative;
+    animation: spin 5s infinite linear;
+    animation-duration: 5s
+}
+
+@keyframes spin {
+  100%{
+     transform: rotate(360deg);
+  }
+}
+
+image_launch:hover{
+    background-color: green;
+    position: absolute;
+    animation: mymove 5s infinite linear;
+}
+
+@keyframes mymove{
+  from {top: 0px;}
+  to {top: 200px;}
+}
+
+
