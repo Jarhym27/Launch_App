@@ -46,6 +46,7 @@ const Signup = () => {
        console.log(hashedPassword)
        console.log(userCreate.password)
        console.log(userCreate.username)
+       console.log(userCreate.role)
       
        if (hashedPassword) {
          cookie.set('username', userCreate.username, { expires: 1 / 24 })
@@ -73,13 +74,13 @@ const Signup = () => {
       }
 
       const roleChoice =[{
-        choice: "I am an Organizational Pad Owner", value:"lsp_user",
-        choice: "I am an Organizational Payload User", value:"payload_user",
+        choice: "I am an Organizational Pad Owner", value:"lsp_user"},
+        {choice: "I am an Organizational Payload User", value:"payload_user"
       }]
 
-      const choiceChecked = () =>{
-        answer.every((selection) => selection !== null)
-      }
+      // const choiceChecked = () =>{
+      //   answer.every((selection) => selection !== null)
+      // }
 
 return(
            
@@ -109,33 +110,39 @@ return(
        </Form>
        </Container>
        <div> 
-        {roleChoice.map((choice, index) =>(
+        {/* {roleChoice.map((choice, index) =>(
           <div>
         <input className='btn-check' name={index} type="radio" value={choice.value} checked={choice[index] === choice.choice} />
         <label>
           {choice.choice}
         </label> 
         </div>
-        ))}
+        ))} */}
        <h1 className="font-mono text-5xl text-center justify-center">Lower Part</h1> 
-       <input 
-       type="radio"
-       />
-      <label className="text-white justify-center">I am an Organizational Pad Owner </label> 
+      
+      <label  className="text-white justify-center">I am an Organizational Pad Owner </label> 
       <input 
        type="radio"
+       name="btn_group"
+       value={roleChoice[0].value}
+       onChange={inputChange}
+
        />
       <label className="text-white justify-center">I am an Organizational Payload User</label> 
        </div>
        <h2>Lower part 2</h2>
-       <input 
+       <input className="radiobutt" 
        type="radio"
+       name="btn_group"
+       onChange={inputChange}
+       value={roleChoice[1].value}
        />
       <label>I understand the risk of falsifying information and accept those risk under penalty of law</label> 
       <h2>Lower Part 3</h2>
       <button
       type="button"
       onClick={createAccount}
+      // disabled={!choiceChecked()}
       className="inline-block rounded bg-green-900 px-7 pb-2.5 pt-3 text-white font-medium uppercase leading-normal text-green-500 shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-rose-700 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]">Submit</button>
 
     </div>
