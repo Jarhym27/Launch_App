@@ -8,6 +8,7 @@ exports.up = function(knex) {
         table.string('organization')
         table.string('username');
         table.string('password');
+        table.string('session')
         table.enum('role',["lsp_user",'payload_user']);
         table.timestamps(true,true)
     })
