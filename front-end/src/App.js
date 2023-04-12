@@ -10,6 +10,8 @@ import LaunchRequest from './component/LaunchRequest';
 import PageNotFound from "./component/PageNotFound";
 import Header from "./component/Header";
 import About from "./component/About";
+import Home from "./component/Home"
+import {useEffect} from 'react'
 import cookie from 'cookie'
 // import LSP_Profile from "./component/lsp_profile/lsp_profile_page";
 
@@ -46,14 +48,15 @@ function App() {
   return (
     <RocketInfo.Provider value={{userCreate, setUserCreate, userLogin, setUserLogin}}>
       <Router>
-        {userLogin.username && <Header/>}
+        {userLogin.username && <Header/> }
         <Routes>
           <Route path='/' element={< Login/>}></Route>
           {/* <Route path='/Login' element={< Login />}></Route> */}
-          <Route path='/Signup' element={<Signup/>}></Route>
+          <Route path='/signup' element={<Signup/>}></Route>
           <Route path='/request' element={<LaunchRequest/>}></Route>
           <Route path='/header' element={<Header/>}></Route> {/*only needed for testing */}
-          <Route path='/AboutUs' element={<About/>}></Route>
+          <Route path='/aboutus' element={<About/>}></Route>
+          <Route path='/payloadprofile' element={<PayloadProfile/>}></Route>
            <Route path="*" element={<PageNotFound />} />
           {/* <Route path='/LSP_Profile' element={<LSP_Profile/>}></Route> */}
         </Routes>
