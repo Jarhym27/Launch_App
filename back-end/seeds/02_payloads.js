@@ -7,17 +7,17 @@ exports.seed = async function (knex) {
   await knex('payloads').del()
   await knex('payloads').insert(
     [
-      { payload_user_id: 2, weight: 29, orbital_requirement: "LEO", name: "lunar lander 12" },
+      { payload_user_id: 2, weight: 29, orbital_requirement: "LEO", name: "Lunar Lander 12" },
       { payload_user_id: 2, weight: 18, orbital_requirement: "MEO", name: "Spy Satellite 3 " },
-      { payload_user_id: 3, weight: 59, orbital_requirement: "LEO", name: "Startlink 445"},
+      { payload_user_id: 3, weight: 59, orbital_requirement: "LEO", name: "Starlink 445"},
       { payload_user_id: 2, weight: 36, orbital_requirement: "GEO", name: "GPS Sat 74"},
-      { payload_user_id: 1, weight: 29, orbital_requirement: "LEO", name: "Startlink 435"},
-      { payload_user_id: 1, weight: 37, orbital_requirement: "LEO", name: "Startlink 245"},
-      { payload_user_id: 3, weight: 31, orbital_requirement: "LEO", name: "Startlink 322"},
+      { payload_user_id: 1, weight: 29, orbital_requirement: "LEO", name: "Starlink 435"},
+      { payload_user_id: 1, weight: 37, orbital_requirement: "LEO", name: "Starlink 245"},
+      { payload_user_id: 3, weight: 31, orbital_requirement: "LEO", name: "Starlink 322"},
       { payload_user_id: 1, weight: 56, orbital_requirement: "LEO", name: "Comm Sat 4"},
       { payload_user_id: 2, weight: 57, orbital_requirement: "LEO", name: "Comm Sat 6"},
       { payload_user_id: 1, weight: 33, orbital_requirement: "LEO", name: "Comm Sat 12"},
-      { payload_user_id: 1, weight: 13, orbital_requirement: "LEO", name: "Startlink 1382"},
+      { payload_user_id: 1, weight: 13, orbital_requirement: "LEO", name: "Starlink 1382"},
       { payload_user_id: 2, weight: 42, orbital_requirement: "HEO", name: "Spy Sat 38"},
       { payload_user_id: 1, weight: 58, orbital_requirement: "HEO", name: "RfG 60"},
       { payload_user_id: 2, weight: 46, orbital_requirement: "HEO", name: "Sun Blocker 19"},
