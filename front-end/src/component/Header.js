@@ -38,8 +38,11 @@ return(
       <li className="nav-item">
         <a className="nav-link" href="/AboutUs">About Us</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/" onClick={()=>setUserLogin('')}>Logout</a>
+      <li className="nav-item">
+        <a className="nav-link" href="/">Profile</a>
+      </li>
+      <li className="nav-item">
+        <a className="nav-link" href="/" onClick={()=>setUserLogin('')}>Logout</a>
       </li>
     </ul>
 
