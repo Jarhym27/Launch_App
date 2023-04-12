@@ -13,16 +13,16 @@ function App() {
   const [userCreate, setUserCreate] = useState({username:'', password: '', role_id:'0' })
   
   return (
-  
-    <RocketInfo.Provider value={{userLogin, setUserLogin, userCreate, setUserCreate}}>
-    <Router>
-      <Routes>
-        <Route path='/' element={< Login/>}></Route>
-        {/* <Route path='/Login' element={< Login />}></Route> */}
-        <Route path='/Signup' element={<Signup/>}></Route>
-      </Routes >
-    </Router >
-    </RocketInfo.Provider>
+  <PayloadProfile />
+    // <RocketInfo.Provider value={{userLogin, setUserLogin, userCreate, setUserCreate}}>
+    // <Router>
+    //   <Routes>
+    //     <Route path='/' element={< Login/>}></Route>
+    //     {/* <Route path='/Login' element={< Login />}></Route> */}
+    //     <Route path='/Signup' element={<Signup/>}></Route>
+    //   </Routes >
+    // </Router >
+    // </RocketInfo.Provider>
         );
 }
 

@@ -34,7 +34,9 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    background-color:#9E4784 !important;  
 }
 .addCol{
     padding-top: 2.75rem;
+    
 }
