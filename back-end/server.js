@@ -177,19 +177,19 @@ app.post('/login', (req, res) =>{
           let {password:_ , ...scrubbed} = data[0]
           res.header('Access-Control-Allow-Origin', 'http://localhost:3000')
           res.header('Access-Control-Allow-Credentials','true')
-          // 
           let rand = Math.floor(Math.random() * 1000000000).toString()
-          let sessionID = bcrypt.hash(rand, 10)
-          let user = {...data[0], session: sessionID}
-          knex.select("*").from("users").where('username', req.body.username).insert(user)
+          var sessionID = bcrypt.hashSync(rand, 10)
           res.cookie('userInfo', sessionID, {maxAge: 3600000, httpOnly:false})
           res.send(scrubbed)
+          return(sessionID)
         }
         else{
           res.status(401).send({message: 'INVALID LOGIN'})
         }
       })
-      
+    })
+    .then(sessionID => {
+      knex('users').where('username', req.body.username).update({session: sessionID})
     })
     .catch((err) =>
       res.status(404).json({

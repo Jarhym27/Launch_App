@@ -11,6 +11,7 @@ import '../css/Signup.css'
 import * as Icon from "react-bootstrap-icons"
 import Form from 'react-bootstrap/Form'
 import Container from 'react-bootstrap/Container'
+import Card from 'react-bootstrap/Card'
 
 
 const Signup = () => {
@@ -109,19 +110,23 @@ const Signup = () => {
         </Form>
       </Container>
       <div>
-       
-       
-        <label className="text-white justify-center">I am an Organizational Pad Owner </label>
+       <Card className="card">
         <input
         name="role"
           type="radio"
           onChange={inputChange}
           value={roleChoice[0].value}
         />
-        <label className="text-white justify-center">I am an Organizational Payload User</label>
+        <label className="text-white justify-center">I am an Organizational Pad Owner </label>
+        </Card>
+        <Card>
+          <label className="text-white justify-center">I am an Organizational Payload User</label> 
+          </Card>
+        
       </div>
       <h2>Lower part 2</h2>
       <input
+
       name="role"
         type="radio"
         onChange={inputChange}
