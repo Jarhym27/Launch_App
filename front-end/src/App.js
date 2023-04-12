@@ -2,7 +2,7 @@ import React from "react";
 import './css/style.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useState, createContext } from "react";
+import { useState, createContext, useEffect } from "react";
 import Login from "./component/Login";
 import Signup from "./component/Signup";
 import PayloadProfile from "./component/PayloadProfile";
@@ -12,7 +12,6 @@ import PageNotFound from "./component/PageNotFound";
 import Header from "./component/Header";
 import About from "./component/About";
 import Home from "./component/Home"
-import {useEffect} from 'react'
 import cookie from 'cookie'
 // import LSP_Profile from "./component/lsp_profile/lsp_profile_page";
 
