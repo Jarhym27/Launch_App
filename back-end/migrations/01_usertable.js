@@ -8,7 +8,7 @@ exports.up = function(knex) {
         table.string('organization')
         table.string('username');
         table.string('password');
-        table.enu('role',["lsp_user",'payload_user']);
+        table.enum('role',["lsp_user",'payload_user']);
         table.timestamps(true,true)
     })
 };

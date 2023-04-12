@@ -4,6 +4,7 @@ const port = 8080;
 const cors = require('cors')
 const cookieParser = require("cookie-parser")
 const cookieSession = require('express-session')
+const bcrypt = require('bcryptjs')
 const knex = require("knex")(
     require("./knexfile.js")[process.env.NODE_ENV || "development"]
   );
@@ -141,14 +142,14 @@ app.delete('/table/:table',(req,res) => {
     }
 })
 
-//handle signup
-app.post('/login', (req, res) =>{
-        let {username, password} = req.body
+app.post('/signup', (req, res) =>{
+        let {username, password,organization} = req.body
     
         knex
         .insert({
           username,
-          password
+          password,
+          organization
         })
         .into("users")
         .then(() => {
@@ -160,20 +161,37 @@ app.post('/login', (req, res) =>{
     });
 })
     
-//handle user login
-    app.get('/login', (req, res) =>{
-        
-        knex
-              .select("*")
-              .from("users")
-        
-        .then((data) => res.status(200).json(data))
-        .catch((err) =>
-          res.status(404).json({
-            message:
-            "User doesnt exist",
-          })
-     ) })
+
+app.post('/login', (req, res) =>{
+  console.log(req.body)
+  knex
+    .select("*")
+    .from("users")
+    .where('username', req.body.username)
+    .then((data) => {
+      // console.log(data[0].password)
+      
+      bcrypt.compare(req.body.password, data[0].password,  (err, result)=>{
+        console.log(result)
+        if(result){
+          let {password:_ , ...scrubbed} = data[0]
+          // let cookieVal = ''
+          // res.cookie('userInfo', scrubbed, {maxAge: 3600000})
+          res.send(scrubbed)
+        }
+        else{
+          res.status(401).send({message: 'INVALID LOGIN'})
+        }
+      })
+      
+    })
+    .catch((err) =>
+      res.status(404).json({
+        message:
+        "User doesnt exist",
+      })
+    )
+})
 
 
 

@@ -6,126 +6,126 @@ import { RocketInfo } from '../App'
 import bcrypt from 'bcryptjs'
 import cookie from "js-cookie"
 import axios from "axios"
+import Header from "./Header.js"
+import '../css/Signup.css'
+import * as Icon from "react-bootstrap-icons"
+import Form from 'react-bootstrap/Form'
+import Container from 'react-bootstrap/Container'
+
 
 const Signup = () => {
+  const navigate = useNavigate();
+  const { userCreate, setUserCreate } = useContext(RocketInfo);
+  const [answer, setAnswer]= useState('')
 
-    const navigate = useNavigate();
-    const { userCreate, setUserCreate } = useContext(RocketInfo);
-
-    const inputChange = (event) => {
-        event.preventDefault();
-        if (event.target.name === 'username') {
-          setUserCreate({ ...userCreate, username: event.target.value })
-          console.log(userCreate)
-        } else if (event.target.name === 'password') {
-          setUserCreate({ ...userCreate, password: event.target.value })
-          console.log(userCreate)
-        } 
-    
+  const inputChange = (event) => {
+      event.preventDefault();
+      if (event.target.name === 'username') {
+        setUserCreate({ ...userCreate, username: event.target.value })
+        console.log(userCreate)
+      } else if (event.target.name === 'password') {
+        setUserCreate({ ...userCreate, password: event.target.value })
+        console.log(userCreate)
+      } else if (event.target.name === 'organization') {
+        setUserCreate({ ...userCreate,  organization: event.target.value })
+        console.log(userCreate)
+      } else if (event.target.name === 'role') {
+        setUserCreate({ ...userCreate,  role: event.target.value })
+        console.log(userCreate)
       }
-    
-   const createAccount = async (event) => {
-         event.preventDefault();
-     try{
+    }
+  
+ const createAccount = async (event) => {
+       event.preventDefault();
+   try{
 
-        if(!userCreate.password){
-            throw new Error('Password is missing')
-        }
-         const hashedPassword = await bcrypt.hash(userCreate.password, 10)
-         console.log(hashedPassword)
-         console.log(userCreate.password)
-         console.log(userCreate.username)
-        
-         if (hashedPassword) {
-           cookie.set('username', userCreate.username, { expires: 1 / 24 })
-           cookie.set('password', hashedPassword, { expires: 1 / 24 })
-           try{
-           const res = await axios.post("http://localhost:8080/login", {
-            username: userCreate.username,
-              password:hashedPassword})
-              console.log(res.data)
-           alert(`You created ${userCreate.username}!`)
-         
-           navigate("/")
-          } catch(error) {
-             alert('login failed');
-               console.error(error)
-           }
-         }
+      if(!userCreate.password){
+          throw new Error('Password is missing')
+      }
+       const hashedPassword = await bcrypt.hash(userCreate.password, 10)
+       console.log(hashedPassword)
+       console.log(userCreate.password)
+       console.log(userCreate.username)
+      
+       if (hashedPassword) {
+         cookie.set('username', userCreate.username, { expires: 1 / 24 })
+         cookie.set('password', hashedPassword, { expires: 1 / 24 })
+         try{
+         const res = await axios.post("http://localhost:8080/signup", {
+          username: userCreate.username,
+            password:hashedPassword,
+          organization:userCreate.organization,
+          role:userCreate.role
+        })
+            console.log(res.data)
+         alert(`You created ${userCreate.username}!`)
+       
+         navigate("/")
         } catch(error) {
-            alert('error hashing');
-              console.error(error)
-          }
+           alert('login failed');
+             console.error(error)
+         }
+       }
+      } catch(error) {
+          alert('error hashing');
+            console.error(error)
         }
+      }
 
+      const roleChoice =[{
+        choice: "I am an Organizational Pad Owner", value:"lsp_user",
+        choice: "I am an Organizational Payload User", value:"payload_user",
+      }]
+
+      const choiceChecked = () =>{
+        answer.every((selection) => selection !== null)
+      }
 
 return(
-    <div>
-        <div>
-        <h2>Personal Details</h2>
-             <input 
+           
+            <div className="background">
+              <Header/>
+              <h1 className="font-mono text-5xl text-center justify-center ">Sign Up</h1>
+        <Container>
+       <Form>
+        <input className="form-control"
        type="text"
-       placeholder="Last Name" />
-        <input 
-       type="text"
-       placeholder="First Name" />
-       <input 
-       type="text"
+       onChange={inputChange}
+       name="organization"
        placeholder="Organization" />
-       <input 
-       type="text"
-       placeholder="Phone Number" />
-       <input 
-       type="email"
-       placeholder="Email" />
-       <form action="Post"
-        >
-       <input 
+       <input className="form-control"
        type="text"
        name="username"
        onChange={inputChange}
        placeholder="Username" />
-        <input 
+        <input className="form-control"
        type="password"
        name="password"
        onChange={inputChange}
        placeholder="Password" />
-       <input 
+       <input className="form-control"
        type="password"
        placeholder="Confirm Password" />
-       </form>
-       </div>
-       
-       <h2>Mailing Address</h2>
-       <div>
-       
-       <input 
-       type="text"
-       placeholder="Address" />
-        <input 
-       type="text"
-       placeholder="Address 2" />
-       <input 
-       type="text"
-       placeholder="City " />
-       <input 
-       type="text"
-       placeholder="Postal Code" />
-       <input 
-       type="text"
-       placeholder="Country" />
-       </div>
-
-       <div>
-       <h1>Lower Part</h1> 
+       </Form>
+       </Container>
+       <div> 
+        {roleChoice.map((choice, index) =>(
+          <div>
+        <input className='btn-check' name={index} type="radio" value={choice.value} checked={choice[index] === choice.choice} />
+        <label>
+          {choice.choice}
+        </label> 
+        </div>
+        ))}
+       <h1 className="font-mono text-5xl text-center justify-center">Lower Part</h1> 
        <input 
        type="radio"
        />
-      <label>I am an Organizational Pad Owner </label> 
+      <label className="text-white justify-center">I am an Organizational Pad Owner </label> 
       <input 
        type="radio"
        />
-      <label>I am an Organizational Payload User</label> 
+      <label className="text-white justify-center">I am an Organizational Payload User</label> 
        </div>
        <h2>Lower part 2</h2>
        <input 
@@ -136,7 +136,7 @@ return(
       <button
       type="button"
       onClick={createAccount}
-      className="inline-block rounded bg-green-900 px-7 pb-2.5 pt-3 text-sm font-medium uppercase leading-normal text-green-500 shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-rose-700 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]">Submit</button>
+      className="inline-block rounded bg-green-900 px-7 pb-2.5 pt-3 text-white font-medium uppercase leading-normal text-green-500 shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-rose-700 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]">Submit</button>
 
     </div>
     
