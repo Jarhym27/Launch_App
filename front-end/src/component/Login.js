@@ -19,7 +19,7 @@ const Login = () => {
   useEffect(() => {
     let cookies = cookie.parse(document.cookie);
     if(cookies.userInfo){
-      console.log(JSON.parse(cookies.userInfo))
+      console.log(cookies.userInfo)
       
     }
 

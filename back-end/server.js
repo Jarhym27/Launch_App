@@ -110,7 +110,12 @@ app.post('/login', (req, res) =>{
           let {password:_ , ...scrubbed} = data[0]
           res.header('Access-Control-Allow-Origin', 'http://localhost:3000')
           res.header('Access-Control-Allow-Credentials','true')
-          res.cookie('userInfo', JSON.stringify(scrubbed), {maxAge: 3600000, httpOnly:false})
+          // 
+          let rand = Math.floor(Math.random() * 1000000000).toString()
+          let sessionID = bcrypt.hash(rand, 10)
+          let user = {...data[0], session: sessionID}
+          knex.select("*").from("users").where('username', req.body.username).insert(user)
+          res.cookie('userInfo', sessionID, {maxAge: 3600000, httpOnly:false})
           res.send(scrubbed)
         }
         else{
@@ -126,6 +131,7 @@ app.post('/login', (req, res) =>{
       })
     )
 })
+
 
 
 
