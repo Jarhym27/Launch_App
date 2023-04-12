@@ -166,40 +166,58 @@ app.post('/signup', (req, res) =>{
     
 
 app.post('/login', (req, res) =>{
-  console.log(req.body)
-  knex
-    .select("*")
-    .from("users")
-    .where('username', req.body.username)
-    .then((data) => {
-      // console.log(data[0].password)
-      
-      bcrypt.compare(req.body.password, data[0].password,  (err, result)=>{
-        // console.log(result)
-        if(result){
-          let {password:_ , ...scrubbed} = data[0]
-          res.header('Access-Control-Allow-Origin', 'http://localhost:3000')
-          res.header('Access-Control-Allow-Credentials','true')
-          // 
-          let rand = Math.floor(Math.random() * 1000000000).toString()
-          let sessionID = bcrypt.hash(rand, 10)
-          let user = {...data[0], session: sessionID}
-          knex.select("*").from("users").where('username', req.body.username).insert(user)
-          res.cookie('userInfo', sessionID, {maxAge: 3600000, httpOnly:false})
-          res.send(scrubbed)
-        }
-        else{
-          res.status(401).send({message: 'INVALID LOGIN'})
-        }
+  // console.log(req.body)
+  if(req.body.userInfo){
+    // console.log(req.body.userInfo)
+    knex
+      .select("*")
+      .from("users")
+      .where("session", req.body.userInfo)
+      .then((data) => {
+        let {password, session, ...scrubbed} = data[0]
+        res.header('Access-Control-Allow-Origin', 'http://localhost:3000')
+        res.header('Access-Control-Allow-Credentials','true')
+        res.send(scrubbed)
       })
-      
-    })
-    .catch((err) =>
-      res.status(404).json({
+      .catch((err) =>
+      res.status(401).json({
         message:
-        "User doesnt exist",
+        "Session token verification failed.",
       })
     )
+  }
+  else{
+    knex
+      .select("*")
+      .from("users")
+      .where('username', req.body.username)
+      .then((data) => {
+        // console.log(data[0].password)
+        
+        bcrypt.compare(req.body.password, data[0].password,  async (err, result)=>{
+          // console.log(result)
+          if(result){
+            let {password, session, ...scrubbed} = data[0]
+            res.header('Access-Control-Allow-Origin', 'http://localhost:3000')
+            res.header('Access-Control-Allow-Credentials','true')
+            let rand = Math.floor(Math.random() * 1000000000).toString()
+            var sessionID = bcrypt.hashSync(rand, 10)
+            res.cookie('userInfo', sessionID, {maxAge: 3600000, httpOnly:false})
+            res.send(scrubbed)
+            await knex('users').where('username', req.body.username).update({session: sessionID})
+          }
+          else{
+            res.status(401).send({message: 'INVALID LOGIN'})
+          }
+        })
+      })
+      .catch((err) =>
+        res.status(404).json({
+          message:
+          "User doesnt exist",
+        })
+      )
+  }
 })
 
 app.patch('/table/:table', (req,res) => {
