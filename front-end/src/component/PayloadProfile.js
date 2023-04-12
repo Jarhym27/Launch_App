@@ -2,9 +2,11 @@ import React from 'react'
 import './PayloadProfile.css'
 import { useState, useEffect } from 'react'
 import {Container,Row,Col,Card, Button} from 'react-bootstrap'
+import { Link, Routes, Route, useNavigate, Router } from 'react-router-dom'
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import "bootstrap/dist/css/bootstrap.min.css";
+import LaunchRequest from './LaunchRequest';
 
 
 
@@ -50,7 +52,7 @@ let customer = userInfo?.filter((e, i) => e.id == 1)
 let payloads = submittedPayloads?.filter((e,i)=> e.payload_user_id == 1)
 let newPayloads = userPayloads?.filter((e,i) => e.payload_user_id ==1)
 
-console.log('here', newPayloads)
+
 // ADD PAYLOAD POST 
 const handlePost= (e) => {
 
@@ -71,6 +73,21 @@ const handlePost= (e) => {
         .then(res => res.json())
         .then(data => setUserPayloads(data))
         )
+}
+
+const navigate = useNavigate();
+
+const clickHandler = (pay) => {
+    navigate('/request')
+ return (
+    <>
+   
+        <Routes>
+            <Route path='/request' element={<LaunchRequest payload={pay}/>}></Route>
+        </Routes>
+  
+    </>
+ )
 }
 
   return (
@@ -131,16 +148,22 @@ const handlePost= (e) => {
             </Card>
         </Col>
         </Row>
-      <Row>
-        <Col className='createdPayloads'><h3>Created Payloads(Not Submitted):</h3>
+      <Row className='createdPayloads'>
+        <Col></Col>
+        <Col xs={6} ><h3>Created Payloads(Not Submitted):</h3>
         {newPayloads?.map((pay , i) => {
          if(pay.id > 40){
         return (
+            <>
+            <Routes>
+                    <Route path={`/launchRequest/:id`} element={<LaunchRequest payload={pay}/>}></Route>
+                </Routes>
             <Card >
+                
             <Card.Body className='createdPayloadsCol'>
                 <Card.Title>{pay.name}</Card.Title>
-                <Card.Text>
-                    Status: {pay.request_status}
+                <Card.Text> 
+                    Status: Cick <Link to={`/launchRequest/${pay.id}`} >Here</Link> To send to LSP
                 </Card.Text>
                 <footer>
                     <small >Payload Created: {pay.updated_at}</small>
@@ -148,8 +171,9 @@ const handlePost= (e) => {
             </Card.Body>
             </Card>
                 
-           
+            </>
         )}})}</Col>
+        <Col xs lg='2'></Col>
       </Row>
     </Container>
 
