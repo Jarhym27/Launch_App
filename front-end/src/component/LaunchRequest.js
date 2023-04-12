@@ -166,7 +166,7 @@ function LaunchRequest() {
       <Row xs={1} md={5} className="g-4">
         {vehicles.map((LV, index) => (
           <Col key={index}>
-            <Card style={{ width: '16rem' }}>
+            <Card className='LV-card' style={{ width: '16rem' }}>
               <Card.Img className='mx-auto' variant="top" src="https://th.bing.com/th/id/OIP.I43U8c54_0BwRnHpemoZUgAAAA?pid=ImgDet&rs=1" style={{ width: '64px', height: '64px', objectFit: 'cover' }} />
               <Card.Body>
                 <Card.Title>{LV.launch_vehicle}</Card.Title>
