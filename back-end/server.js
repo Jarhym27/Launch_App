@@ -131,7 +131,7 @@ app.delete('/table/:table',(req,res) => {
               console.error(err)
               res.status(401).send(err)
             })
-        }}) 
+        }})
   //if table is launch_requests, delete launch request
   } else if (table ==='launch_requests'){
       deleteRow(id,table)
@@ -147,7 +147,7 @@ app.delete('/table/:table',(req,res) => {
 
 app.post('/signup', (req, res) =>{
         let {username, password,organization} = req.body
-    
+
         knex
         .insert({
           username,
@@ -163,7 +163,7 @@ app.post('/signup', (req, res) =>{
       res.status(500).send("Error inserting data!");
     });
 })
-    
+
 
 app.post('/login', (req, res) =>{
   // console.log(req.body)
