@@ -55,6 +55,17 @@
     background-color: #171717 !important;
     color:#EDEDED;
 }
+.createdPayloads{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 50%;
+}
+.createdPayloadsCol{
+    width: 50%;
+    background-color:#444444 ; 
+    color: #EDEDED;
+}
 /* .modalBg{
     background-image: url(../media/space.gif);
 } */

@@ -132,13 +132,12 @@ const handlePost= (e) => {
         </Col>
         </Row>
       <Row>
-        <Col><h3>Created Payloads(Not Submitted):</h3>
-        
+        <Col className='createdPayloads'><h3>Created Payloads(Not Submitted):</h3>
         {newPayloads?.map((pay , i) => {
          if(pay.id > 40){
         return (
             <Card >
-            <Card.Body className='payloadsCol'>
+            <Card.Body className='createdPayloadsCol'>
                 <Card.Title>{pay.name}</Card.Title>
                 <Card.Text>
                     Status: {pay.request_status}
