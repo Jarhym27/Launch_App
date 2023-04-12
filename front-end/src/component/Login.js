@@ -1,52 +1,51 @@
-import React from "react";
-// import '../css/style.css'
 import "../css/Login.css";
-import { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { RocketInfo } from "../App";
-import bcrypt from "bcryptjs";
 import cookie from 'cookie'
 import "bootstrap/dist/css/bootstrap.min.css";
-// import {authentication} from './Auth'
+import { RocketInfo } from "../App";
+
 
 const Login = () => {
-  const { userLogin, setUserLogin } = useContext(RocketInfo);
   const [pass, setPassword] = useState("");
   const [user, setUser] = useState("");
+  const {userCreate, setUserCreate, userLogin, setUserLogin} = useContext(RocketInfo)
   const navigate = useNavigate();
   
-  
   useEffect(() => {
-    let cookies = cookie.parse(document.cookie);
-    if(cookies.userInfo){
-      console.log(cookies.userInfo)
-      
+    if(userLogin){
+      // navigate('/AboutUs')
+      console.log(userLogin)
     }
-
-  }, [])
+  }, [userLogin])
 
   const submitLogin = () => {
     let body = { username: user, password: pass };
-    // console.log(body)
     fetch("http://localhost:8080/login", {
       method: "POST",
       headers: {'Content-Type': 'application/json'},
       credentials: 'include',
       body: JSON.stringify(body),
     })
-    .then(res => res.json())
+    .then(res => {
+      if(res.status !== 200){
+        throw new Error('invalid login')
+      } else {
+        return res.json()
+      }
+      })
     .then(data => {
-
+      setUserLogin(data)
+      navigate('/home')
     })
+    .catch(err=>console.error(err))
   };
 
   const handleChange = (field, value) => {
     if (field === "user") {
       setUser(value);
-      // console.log('User: ', value)
     } else if (field === "pass") {
       setPassword(value);
-      // console.log('Pass: ', value)
     }
   };
 
