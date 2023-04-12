@@ -39,7 +39,7 @@ return(
         <a class="nav-link" href="/AboutUs">About Us</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/" onClick={setUserLogin('')}>Logout</a>
+        <a class="nav-link" href="/" onClick={()=>setUserLogin('')}>Logout</a>
       </li>
     </ul>
 
