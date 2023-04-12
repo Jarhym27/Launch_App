@@ -1,4 +1,4 @@
-import React from 'react';
+import {React, useEffect, useState} from 'react';
 import { Row, Col, Card, ListGroup, Button } from 'react-bootstrap';
 
 function LaunchRequest() {
@@ -6,6 +6,7 @@ function LaunchRequest() {
   // need to fill: launch date, location
 
   let payload = {
+    id: 2,
     payload_user_id: 2,
     name: 'ISS',
     weight: 13,
@@ -14,6 +15,7 @@ function LaunchRequest() {
 
   let launch_vehicles = [
     {
+      id: 1,
       name: 'Falcon 9',
       LSP: 'SpaceX',
       cost: 72,
@@ -24,6 +26,7 @@ function LaunchRequest() {
       booked_status: ''
     },
     {
+      id: 3,
       name: 'Delta IV Heavy',
       LSP: 'ULA',
       cost: 300,
@@ -34,6 +37,7 @@ function LaunchRequest() {
       booked_status: ''
     },
     {
+      id: 2,
       name: 'Falcon Heavy',
       LSP: 'SpaceX',
       cost: 200,
@@ -44,6 +48,7 @@ function LaunchRequest() {
       booked_status: ''
     },
     {
+      id: 4,
       name: 'Vulcan',
       LSP: 'ULA',
       cost: 225,
@@ -54,6 +59,17 @@ function LaunchRequest() {
       booked_status: ''
     }
   ]
+
+  useEffect(() => {
+
+  })
+
+  // Post to launch_requests table
+  // payload_id, launch_pad_id, launch_vehicle_id, request_status, launch_date, request_cost
+  const bookHandler = (event) => {
+    event.preventDefault();
+
+  }
 
   return (
     <>
