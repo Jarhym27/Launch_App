@@ -9,61 +9,61 @@ exports.seed = async function(knex) {
     {
       organization:'Delta 8',
       username: 'del8',
-      password: 'a',
+      password: '$2a$10$oALz3ZARcEoKwIcPxuBh6.XUlo44MzkN6YpmzMx3Sinmhes.BiQKy',
       role:'payload_user',
     },
     {
       organization:'Delta 4',
       username: 'del4',
-      password: 'a',
+      password: '$2a$10$oALz3ZARcEoKwIcPxuBh6.XUlo44MzkN6YpmzMx3Sinmhes.BiQKy',
       role:'payload_user',
     },
     {
       organization:'Delta 2',
       username: 'del2',
-      password: 'a',
+      password: '$2a$10$oALz3ZARcEoKwIcPxuBh6.XUlo44MzkN6YpmzMx3Sinmhes.BiQKy',
       role:'payload_user',
     },
     {
       organization: 'United Launch Alliance',
       username: "ula",
-      password: "a",
+      password: "$2a$10$oALz3ZARcEoKwIcPxuBh6.XUlo44MzkN6YpmzMx3Sinmhes.BiQKy",
       role: 'lsp_user'
     },
     {
       organization: 'Rocket Lab',
       username: "rocket",
-      password: "a",
+      password: "$2a$10$oALz3ZARcEoKwIcPxuBh6.XUlo44MzkN6YpmzMx3Sinmhes.BiQKy",
       role: 'lsp_user'
     },
     {
       organization: 'Blue Origin',
       username: "borigin",
-      password: "a",
+      password: "$2a$10$oALz3ZARcEoKwIcPxuBh6.XUlo44MzkN6YpmzMx3Sinmhes.BiQKy",
       role: 'lsp_user'
     },
     {
       organization: 'Firefly Aerospace',
       username: "ffas",
-      password: "a",
+      password: "$2a$10$oALz3ZARcEoKwIcPxuBh6.XUlo44MzkN6YpmzMx3Sinmhes.BiQKy",
       role: 'lsp_user'
     },
     {
       organization: 'SpaceX',
       username: "ModernEdison",
-      password: "a",
+      password: "$2a$10$oALz3ZARcEoKwIcPxuBh6.XUlo44MzkN6YpmzMx3Sinmhes.BiQKy",
       role: 'lsp_user'
     },
     {
       organization: 'Relativity Space',
       username: "relativity",
-      password: "a",
+      password: "$2a$10$oALz3ZARcEoKwIcPxuBh6.XUlo44MzkN6YpmzMx3Sinmhes.BiQKy",
       role: 'lsp_user'
     },
     {
       organization: 'Astra',
       username: "astra",
-      password: "a",
+      password: "$2a$10$oALz3ZARcEoKwIcPxuBh6.XUlo44MzkN6YpmzMx3Sinmhes.BiQKy",
       role: 'lsp_user'
     },
   ]);
