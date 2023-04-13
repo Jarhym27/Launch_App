@@ -1,13 +1,12 @@
-import React, { useState, useEffect} from "react"
-import { LSP_distro } from "./01_lsp_profile_page"
+import React, { useState, useContext, useEffect} from "react"
+import { LspDistro } from "./01_lsp_profile_page"
 import './lsp_profile.css'
 
-function lspPads () {
-  const [launchPad, setLaunchPad] = useState()
-  const [launchVehicle, setLaunchVehicle ] = React.useContext(LSP_distro)
+function LspLaunchPads () {
+  const {launchVehicle, setLaunchVehicle, launchPad, setLaunchPad} = useContext(LspDistro)
 
   useEffect(() =>{
-    fetch(`https://localhost:8080/table/launch_pads/:id`)
+    fetch(`https://localhost:8080/table/launch_pads`)
     .then(res => res.json())
     .then(data => setLaunchPad(data))
   },[])

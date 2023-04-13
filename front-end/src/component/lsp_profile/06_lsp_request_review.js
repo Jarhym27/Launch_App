@@ -1,10 +1,11 @@
-import React, {useState,useEffect} from "react";
+import React, {useContext,useEffect} from "react";
+import { LspDistro } from "./01_lsp_profile_page";
 
-const requestList = () =>{
-  
+const ReviewRequest = () =>{
+  const {LaunchRequest, setLaunchRequest} = useContext(LspDistro)
   
   useEffect(() =>{
-  fetch('https://localhost:8080/table/launch_requests/:id')
+  fetch('https://localhost:8080/table/launch_requests')
   .then(res => res.json())
   .then(data => setLaunchRequest(data))
 },[])
@@ -12,11 +13,11 @@ const requestList = () =>{
   return(
     <>
       <div>
-        
+        Review your Requests!
       </div>
     </>
 
   )
 }
 
-export default reviewrequest;
+export default ReviewRequest;
