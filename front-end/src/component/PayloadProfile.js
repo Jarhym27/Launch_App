@@ -15,21 +15,19 @@ const [submittedPayloads, setSubmittedPayloads] = useState();
 const [userInfo, setUserInfo] = useState();
 const [userPayloads, setUserPayloads ] = useState();
 
-//PAYLOADS USESTATES 
+//PAYLOADS USESTATES
 const [weight, setWeight] = useState();
 const [orbit, setOrbit] = useState();
 const [name, setName] = useState();
 const [userID, setUserID] = useState();
 // PAYLOADS USESTATES
 
-//ADD BUTTON PAYLOAD USESTATES 
+//ADD BUTTON PAYLOAD USESTATES
 const [show, setShow] = useState(false);
 
 const handleClose = () => setShow(false);
 const handleShow = () => setShow(true);
-//ADD BUTTON PAYLOAD USESTATES 
-
-
+//ADD BUTTON PAYLOAD USESTATES
 
 useEffect(()=> {
     fetch ('http://localhost:8080/table/users')
@@ -53,22 +51,22 @@ let payloads = submittedPayloads?.filter((e,i)=> e.payload_user_id == 1)
 let newPayloads = userPayloads?.filter((e,i) => e.payload_user_id ==1)
 
 
-// ADD PAYLOAD POST 
+// ADD PAYLOAD POST
 const handlePost= (e) => {
 
     fetch('http://localhost:8080/table/payloads', {
-        method: "POST", 
+        method: "POST",
         body: JSON.stringify({
-            payload_user_id: customer[0].id, 
+            payload_user_id: customer[0].id,
             weight: weight,
-            orbital_requirement: orbit, 
+            orbital_requirement: orbit,
             name:name
         }),
         headers: {
             "Content-type": "application/json; charset=UTF-8"
         }
     })
-    .then(()=> 
+    .then(()=>
         fetch('http://localhost:8080/table/payloads')
         .then(res => res.json())
         .then(data => setUserPayloads(data))
@@ -81,11 +79,11 @@ const clickHandler = (pay) => {
     navigate('/request')
  return (
     <>
-   
+
         <Routes>
             <Route path='/request' element={<LaunchRequest payload={pay}/>}></Route>
         </Routes>
-  
+
     </>
  )
 }
@@ -98,8 +96,8 @@ const clickHandler = (pay) => {
 <Col className='profileCol'>
         {customer?.map((user , i) => {
         return (
-            
-               
+
+
                     <Card key={i} className='payloadProfileCard'>
                     <Card.Body>
                         <Card.Title>{user.organization}</Card.Title>
@@ -111,17 +109,17 @@ const clickHandler = (pay) => {
                         </footer>
                     </Card.Body>
                     </Card>
-                
-           
+
+
         )})}
         </Col>
- 
-    
+
+
     <Col xs={6} >
     <Row className='payloadsTitle'><h3>Payloads</h3></Row>
     {payloads?.map((payload, i) => {
-           
-    return ( 
+
+    return (
             <Card >
             <Card.Body className='payloadsCol'>
                 <Card.Title>{payload.name}</Card.Title>
@@ -133,13 +131,13 @@ const clickHandler = (pay) => {
                 </footer>
             </Card.Body>
             </Card>
-      
-       
+
+
         )})}
         </Col>
         <Col xs lg="2" className='addCol'>
         <Card className='buttonCard'>
-            <Card.Body>             
+            <Card.Body>
                 <Button className='addPayload' variant="outline-primary" onClick={handleShow}>
                     +
                 </Button>
@@ -155,22 +153,19 @@ const clickHandler = (pay) => {
          if(pay.id > 40){
         return (
             <>
-            <Routes>
-                    <Route path={`/launchRequest/:id`} element={<LaunchRequest payload={pay}/>}></Route>
-                </Routes>
             <Card >
-                
+
             <Card.Body className='createdPayloadsCol'>
                 <Card.Title>{pay.name}</Card.Title>
-                <Card.Text> 
-                    Status: Cick <Link to={`/launchRequest/${pay.id}`} >Here</Link> To send to LSP
+                <Card.Text>
+                    Status: None, <Link to={`/request/${pay.id}`} state={pay}>click here to book a launch</Link>
                 </Card.Text>
                 <footer>
                     <small >Payload Created: {pay.updated_at}</small>
                 </footer>
             </Card.Body>
             </Card>
-                
+
             </>
         )}})}</Col>
         <Col xs lg='2'></Col>
