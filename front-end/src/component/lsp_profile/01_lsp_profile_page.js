@@ -11,18 +11,6 @@ import { useNavigate } from 'react-router-dom';
 
 import Calendar from 'react-calendar';
 
-function LspCalendar() {
-  const [value, onChange] = useState(new Date());
-
-  return (
-    <div>
-      <Calendar onChange={onChange} value={value} />
-    </div>
-  );
-}
-
-
-
 export const LspDistro = React.createContext();
 
 function LspProfile() {
@@ -33,28 +21,17 @@ function LspProfile() {
   const [launchRequest, setLaunchRequest] = useState()
 
 
-  useEffect(() => {
-    if(lspUser === false) {
-    return navigate('/login')
-    //also throw up pop-up that says 'Error: you must log in first!'
-}})
-
-  useEffect(() => {
-    fetch('https://localhost:8080/table/users')
-      .then(res => res.json())
-      .then(data => setLspUser(data))
-  }, [])
+  // useEffect(() => {
+  //  if(lspUser === false) {
+  //  return navigate('/login')
+  //  //also throw up pop-up that says 'Error: you must log in first!'
+  //  }})
 
   return (
     <>
-      {/* <><LspProfile/> */}
-      {/* <LspLaunchVehicles/> */}
-         {/* <LspCalendar/> */}
-          </>
-          {/* <ReviewRequest/> */}
-         {/* Make the add new into modals 
-         and same for reviewing a request with picking a date */}
-         
+      {/* <LspLaunchVehicles/> */} 
+      <LspCalendar/>
+       {/* <ReviewRequest/> */} 
     </>
    
   )
