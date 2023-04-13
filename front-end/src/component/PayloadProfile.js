@@ -11,11 +11,12 @@ import { RocketInfo } from "../App";
 
 function PayloadProfile() {
   const [submittedPayloads, setSubmittedPayloads] = useState();
-  const [userInfo, setUserInfo] = useState();
   const [userPayloads, setUserPayloads] = useState();
   const [selectedPayload, setSelectedPayload] = useState();
+  const [fetchTime, setFetchTime] = useState(false)
 
-const {userLogin} = useContext(RocketInfo)
+  //USECONTEXT
+  const {userLogin} = useContext(RocketInfo)
 
   //PAYLOADS USESTATES
   const [weight, setWeight] = useState();
@@ -38,6 +39,13 @@ const {userLogin} = useContext(RocketInfo)
   const handleShowUpdate = () => setShowUpdate(true);
   //UPDATE BUTTON PAYLOAD USESTATES
 
+  //UPDATE BUTTON PAYLOAD USESTATES
+  const [showDelete, setShowDelete] = useState(false);
+
+  const handleCloseDelete = () => setShowDelete(false);
+  const handleShowDelete = () => setShowDelete(true);
+  //UPDATE BUTTON PAYLOAD USESTATES
+
   useEffect(() => {
     fetch("http://localhost:8080/join/launch_requests")
       .then((res) => res.json())
@@ -46,28 +54,22 @@ const {userLogin} = useContext(RocketInfo)
   useEffect(() => {
     fetch("http://localhost:8080/table/payloads")
       .then((res) => res.json())
-      .then((data) => setUserPayloads(data));
-  }, []);
+      .then((data) => {setUserPayloads(data); setFetchTime(false)});
+  }, [fetchTime]);
 
-  let customer = userInfo?.filter((e, i) => e.id == userLogin.id);
+
   let payloads = submittedPayloads?.filter((e, i) => e.payload_user_id == userLogin.id);
   let newPayloads = userPayloads?.filter((e, i) => e.payload_user_id == userLogin.id);
 
-  let filteredPayloads =   newPayloads?.filter((pay, i) =>  payloads?.map((item,i)=>{
-    return item.payload_id
-}).includes(pay.id) === false )
+  let filteredPayloads =   newPayloads?.filter((pay, i) =>  payloads?.map((item,i)=>item.payload_id).includes(pay.id) === false )
 
-
-
-
-  console.log("here", userPayloads);
-
+console.log(filteredPayloads)
   // ADD PAYLOAD POST
   const handlePost = (e) => {
     fetch("http://localhost:8080/table/payloads", {
       method: "POST",
       body: JSON.stringify({
-        payload_user_id: customer[0].id,
+        payload_user_id: userLogin.id,
         weight: weight,
         orbital_requirement: orbit,
         name: name,
@@ -75,11 +77,7 @@ const {userLogin} = useContext(RocketInfo)
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },
-    }).then(() =>
-      fetch("http://localhost:8080/table/payloads")
-        .then((res) => res.json())
-        .then((data) => setUserPayloads(data))
-    );
+    }).then(() => setFetchTime(true));
   };
 
   const handleUpdate = () => {
@@ -93,20 +91,26 @@ const {userLogin} = useContext(RocketInfo)
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },
-    }).then(() =>
-      fetch("http://localhost:8080/table/payloads")
-        .then((res) => res.json())
-        .then((data) => setUserPayloads(data))
-    );
+    }).then(() =>  setFetchTime(true));
   };
   const handleDelete = () => {
     fetch('http://localhost:8080/table/payloads', {
       method: "DELETE",
       body: JSON.stringify({
-        id: userPayloads.id
+        id: selectedPayload.id
       }),
       headers: {
         "Content-type": "application/json; charset=UTF-8"
+      }
+    })
+    .then(res => {
+      setSelectedPayload()
+      if(res.status == 200){
+        console.log('Deleted.')
+        setFetchTime(true)
+      }
+      else{
+        console.log(res.status)
       }
     })
 }
@@ -189,7 +193,7 @@ const {userLogin} = useContext(RocketInfo)
                         <Button onClick={() => [setSelectedPayload(pay), handleShowUpdate(),]}>
                           Update
                         </Button>
-                        <Button onClick={() => [setSelectedPayload(pay), handleShowUpdate(),]}>
+                        <Button onClick={() => [setSelectedPayload(pay), handleShowDelete(),]}>
                           Delete
                         </Button>
                       </Card.Body>
@@ -312,7 +316,7 @@ const {userLogin} = useContext(RocketInfo)
               </Form.Select>
             </Form.Group>
             <Button
-              onClick={handleClose}
+              onClick={() =>handleCloseUpdate()}
               className="addPayload"
               variant="primary"
               type="submit"
@@ -324,14 +328,53 @@ const {userLogin} = useContext(RocketInfo)
         <Modal.Footer className="modalForm">
           <Button
             className="addPayload"
+            variant="outline-primary"
+            onClick={() => handleCloseUpdate()}
+          >
+            Cancel
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      
+{/* DELETE MODAL */}
+
+
+      <Modal show={showDelete} onHide={handleCloseDelete} className="modalBg">
+        <Modal.Header closeButton className="modalForm">
+          <Modal.Title>DELETE Payload?</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+        <Form.Label>Are you sure you want to delete: {selectedPayload?.name} </Form.Label>
+      
+        <Button
+              onClick={() => {
+                handleDelete();
+                handleCloseDelete();
+              }}
+              className="addPayload"
+              variant="outline-primary"
+              type="submit"
+            >
+              Delete
+            </Button>
+        </Modal.Body>
+        
+        <Modal.Footer className="modalForm">
+          <Button
+            className="addPayload"
             variant="secondary"
-            onClick={handleClose}
+            onClick={handleCloseDelete}
           >
             Cancel
           </Button>
         </Modal.Footer>
       </Modal>
     </>
+
+
+
   );
 }
 
