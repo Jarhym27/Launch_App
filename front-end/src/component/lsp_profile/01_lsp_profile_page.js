@@ -1,25 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import ReviewRequest from './06_lsp_request_review'
-
-// import ReviewRequest from './06_lsp_request_review';
+// import ReviewRequest from './06_lsp_request_review'
+// import LspLaunchVehicles from "./02_lsp_launch_vehicles.js";
+// import LspLaunchPads from "./03_lsp_launch_pads";
+// import RequestList from "./05_lsp_requests_list";
+// import LspCalendar from "./04_lsp_calendar";
 
 
 
 import Calendar from 'react-calendar';
-
-function LspCalendar() {
-  const [value, onChange] = useState(new Date());
-
-  return (
-    <div>
-      <Calendar onChange={onChange} value={value} />
-    </div>
-  );
-}
-
-
 
 export const LspDistro = React.createContext();
 
@@ -31,23 +21,17 @@ function LspProfile() {
   const [launchRequest, setLaunchRequest] = useState()
 
 
-  useEffect(() => {
-    if(lspUser === false) {
-    return navigate('/login')
-    //also throw up pop-up that says 'Error: you must log in first!'
-}})
-
-  useEffect(() => {
-    fetch('https://localhost:8080/table/:users')
-      .then(res => res.json())
-      .then(data => setLspUser(data))
-  }, [])
+  // useEffect(() => {
+  //  if(lspUser === false) {
+  //  return navigate('/login')
+  //  //also throw up pop-up that says 'Error: you must log in first!'
+  //  }})
 
   return (
     <>
-        <LspProfile />
-        <ReviewRequest/>
-        <LspCalendar/>
+      {/* <LspLaunchVehicles/> */} 
+      <LspCalendar/>
+       {/* <ReviewRequest/> */} 
     </>
    
   )

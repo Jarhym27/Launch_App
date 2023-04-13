@@ -19,10 +19,7 @@
     
 }
 
-.calendar{
-    border:black solid 1px;
-    width: 100%;
-}
+
 
 .text-center {
     text-align: center;
@@ -32,4 +29,12 @@ button[type="button"]
 {
     border: #000000 solid 1px;
     
+}
+
+.inputFields {
+    border: black solid 1px;
+    margin-right: 10px;
+    margin-left:15px;
+    width: 20%;
+
 }

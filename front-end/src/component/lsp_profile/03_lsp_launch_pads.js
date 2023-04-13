@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect} from "react"
 import { LspDistro } from "./01_lsp_profile_page"
 import './lsp_profile.css'
+export default LspLaunchPads
 
 function LspLaunchPads () {
   const {launchVehicle, setLaunchVehicle, launchPad, setLaunchPad} = useContext(LspDistro)
