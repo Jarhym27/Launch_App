@@ -39,11 +39,6 @@ const {userLogin} = useContext(RocketInfo)
   //UPDATE BUTTON PAYLOAD USESTATES
 
   useEffect(() => {
-    fetch("http://localhost:8080/table/users")
-      .then((res) => res.json())
-      .then((data) => setUserInfo(data));
-  }, []);
-  useEffect(() => {
     fetch("http://localhost:8080/join/launch_requests")
       .then((res) => res.json())
       .then((data) => setSubmittedPayloads(data));
@@ -55,15 +50,18 @@ const {userLogin} = useContext(RocketInfo)
   }, []);
 
   let customer = userInfo?.filter((e, i) => e.id == userLogin.id);
-  let payloads = submittedPayloads?.filter((e, i) => e.payload_user_id == 1);
-  let newPayloads = userPayloads?.filter((e, i) => e.payload_user_id == 1);
+  let payloads = submittedPayloads?.filter((e, i) => e.payload_user_id == userLogin.id);
+  let newPayloads = userPayloads?.filter((e, i) => e.payload_user_id == userLogin.id);
 
   let filteredPayloads =   newPayloads?.filter((pay, i) =>  payloads?.map((item,i)=>{
     return item.payload_id
 }).includes(pay.id) === false )
 
 
-  console.log("here", filteredPayloads);
+
+
+  console.log("here", userPayloads);
+
   // ADD PAYLOAD POST
   const handlePost = (e) => {
     fetch("http://localhost:8080/table/payloads", {
@@ -101,6 +99,17 @@ const {userLogin} = useContext(RocketInfo)
         .then((data) => setUserPayloads(data))
     );
   };
+  const handleDelete = () => {
+    fetch('http://localhost:8080/table/payloads', {
+      method: "DELETE",
+      body: JSON.stringify({
+        id: userPayloads.id
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8"
+      }
+    })
+}
 
 
 
@@ -109,24 +118,21 @@ const {userLogin} = useContext(RocketInfo)
       <Container fluid className="App py-2 overflow-hidden">
         <Row className="justify-content-center profileRow">
           <Col className="profileCol">
-            {customer?.map((user, i) => {
-              return (
-                <Card key={i} className="payloadProfileCard">
+                <Card className="payloadProfileCard">
                   <Card.Body>
-                    <Card.Title>{user.organization}</Card.Title>
-                    <Card.Text>Username: {user.username}</Card.Text>
+                    <Card.Title>{userLogin.organization}</Card.Title>
+                    <Card.Text>Username: {userLogin.username}</Card.Text>
                     <footer>
-                      <small>User Created: {user.updated_at}</small>
+                      <small>User Created: {userLogin.updated_at}</small>
                     </footer>
                   </Card.Body>
                 </Card>
-              );
-            })}
           </Col>
+
 
           <Col xs={6}>
             <Row className="payloadsTitle">
-              <h3>Payloads</h3>
+              <h3>Submitted Payloads</h3>
             </Row>
             {payloads?.map((payload, i) => {
               return (
@@ -161,7 +167,7 @@ const {userLogin} = useContext(RocketInfo)
         <Row className="createdPayloads">
           <Col></Col>
           <Col xs={6}>
-            <h3>Created Payloads(Not Submitted):</h3>
+            <h3>Non Submitted Payloads:</h3>
           
          {filteredPayloads?.map((pay,i)=> {
 
@@ -180,13 +186,11 @@ const {userLogin} = useContext(RocketInfo)
                         <footer>
                           <small>Payload Created: {pay.updated_at}</small>
                         </footer>
-                        <Button
-                          onClick={() => [
-                            setSelectedPayload(pay),
-                            handleShowUpdate(),
-                          ]}
-                        >
-                          Update Payload
+                        <Button onClick={() => [setSelectedPayload(pay), handleShowUpdate(),]}>
+                          Update
+                        </Button>
+                        <Button onClick={() => [setSelectedPayload(pay), handleShowUpdate(),]}>
+                          Delete
                         </Button>
                       </Card.Body>
                     </Card>
