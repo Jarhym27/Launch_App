@@ -142,8 +142,8 @@ const Home = () => {
     <div className='home-container'>
       <Container>
         <Row className='py-5'>
-          <Col>
-            <Card className='card-container' style={{ width: '24rem' }}>
+          <Col className='pick-up-container'>
+            <Card className='card-container'>
               <Card.Body>
                 <Card.Title className='card-title'>Where can we pick you up?</Card.Title>
                 <Form>
@@ -213,12 +213,12 @@ const Home = () => {
           </Col>
         </Row>
         <Row>
-          <Col>
+        <Col>
             {loading && <Spinner variant="light" />}
             {!loading && searchResults && orbitRef.current.value && locationRef.current.value && launchProviderRef.current.value &&
             <Row>
               <Col>
-              <Card className='card-container' style={{ width: '24rem' }}>
+              <Card className='card-container'>
                 <ListGroup variant="flush">
                   {
                     searchResults.map(item =>
@@ -250,20 +250,20 @@ const Home = () => {
                             </Row>
                             <Row>
                               <h6 className='list-detail'>
-                                LV current as of {item.updated_at.slice(0,10)}
+                                LV current as of {item.updated_at.slice(0, 10)}
                               </h6>
                             </Row>
                           </Col>
                           <Col>
-                            <RocketTakeoffFill className='search-rocket'/></Col>
-                        </Row>            
+                            <RocketTakeoffFill className='search-rocket' /></Col>
+                        </Row>
                       </ListGroupItem>
                     )
-                  }
-                </ListGroup>
-              </Card>
-              </Col>
-            </Row>
+                      }
+                    </ListGroup>
+                  </Card>
+                </Col>
+              </Row>
             }
           </Col>
         </Row>

@@ -9,6 +9,11 @@
   margin-bottom: 10px;
 }
 
+.pick-up-container{
+  padding: 0;
+  margin: 0;
+}
+
 .line-dash{
   rotate: 90deg;
   scale: 3;
@@ -59,6 +64,10 @@
 .search-rocket:hover{
   cursor: pointer;
   color:#755560
+}
+
+.card-container{
+  width: 24rem;
 }
 
 
