@@ -1,11 +1,15 @@
 import { React, useEffect, useState } from 'react';
 import { Row, Col, Card, ListGroup, Button, Modal } from 'react-bootstrap';
+import { useLocation } from 'react-router-dom';
 
 function LaunchRequest() {
   // already have: payload name, payload orbit, payload weight
   // need to fill: launch date, location
   const [vehicles, setVehicles] = useState([])
   const [modalShow, setModalShow] = useState(false)
+  let location = useLocation();
+
+  console.log(location)
 
   let payload = {
     id: 2,
