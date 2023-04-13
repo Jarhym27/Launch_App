@@ -1,0 +1,29 @@
+// /**
+//  * @param { import("knex").Knex } knex
+//  * @returns { Promise<void> }
+//  */
+exports.up = function(knex) {
+    return knex.schema.createTable('users', table => {
+        table.increments('id');
+        table.string('organization')
+        table.string('username');
+        table.string('password');
+<<<<<<< HEAD:back-end/migrations/20230407181743_create_users.js
+        table.enum('role',["launch_service_provider",'payload_user']);
+=======
+        table.enum('role',["lsp_user",'payload_user']);
+        table.timestamps(true,true)
+>>>>>>> 3fd75a4ba7a9bde6d3345a0ccbd34f6b66b2d513:back-end/migrations/01_usertable.js
+    })
+};
+
+// /**
+//  * @param { import("knex").Knex } knex
+//  * @returns { Promise<void> }
+//  */
+exports.down = function(knex) {
+ 
+        return knex.schema.dropTableIfExists('users');
+    
+  };
+    

@@ -18,3 +18,18 @@
     display:none;
     
 }
+
+.calendar{
+    border:black solid 1px;
+    width: 100%;
+}
+
+.text-center {
+    text-align: center;
+}
+
+button[type="button"]
+{
+    border: #000000 solid 1px;
+    
+}

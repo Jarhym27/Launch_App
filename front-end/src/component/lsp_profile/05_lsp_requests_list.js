@@ -1,11 +1,12 @@
-import React, {useState,useEffect, useReducer} from "react";
+import React, {useState, useContext, useEffect} from "react";
+import { LspDistro } from "./01_lsp_profile_page";
 
-const requestList = () =>{
+const RequestList = () =>{
 
-  const {}
+  const {launchRequest, setLaunchRequest,lspUser,setLspUser} = useContext(LspDistro)
 
   useEffect(() =>{
-  fetch('https://localhost:8080/table/launch_requests/:id')
+  fetch('https://localhost:8080/table/launch_requests')
   .then(res => res.json())
   .then(data => setLaunchRequest(data))
 },[])
@@ -14,7 +15,7 @@ const requestList = () =>{
   return(
     <>
     <div>
-      Launch Requests for {lsp.username}
+      Launch Requests for {lspUser.username}
       <div></div>
       <div>launch request 002</div>
       <div>launch request 003</div>
@@ -23,4 +24,4 @@ const requestList = () =>{
   )
 }
 
-export default requestList;
+export default RequestList;

@@ -3,13 +3,45 @@
     
 }
 
-h1 {
-    color: #66347F;
-    font-family: "ＭＳ Ｐゴシック";
+@font-face {
+    font-family: 'Silkscreen'; /*a name to be used later*/
+    src: url('../media/Silkscreen/slkscr.ttf'); /*URL to font*/
+}
+
+.loginPageHeader {
+    color: #f56666;
+    font-family: "Silkscreen";
     font-weight: normal;
-    font-smooth: never;
+    background-color: #444444;opacity: 0.75;;
+    width: 30%;
+    margin-inline: auto;
 }
 
 input {
     height: 5vh;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #DA0037;
+    background-color: #444444;
+    color:#DA0037
+}
+
+.btn {
+    border-style: solid;
+    border-width: 2px;
+    border-color: #DA0037;
+    background-color: #444444;
+}
+
+#hide {
+    display: inline-block;
+    max-width: 0%;
+    vertical-align: bottom;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: max-width 1s ease-in-out;
+  }
+
+  h1:hover #hide {
+  max-width: 100%;
 }
