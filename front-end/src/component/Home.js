@@ -9,7 +9,6 @@ import { GiEarthAmerica } from 'react-icons/gi'
 import { CgBorderStyleDashed } from 'react-icons/cg'
 import { useEffect, useRef, useState } from "react";
 import ListGroup from 'react-bootstrap/ListGroup';
-import Button from 'react-bootstrap/Button'
 import Spinner from "react-bootstrap/Spinner";
 
 const Home = () => {
@@ -272,34 +271,5 @@ const Home = () => {
     </div>
   );
 }
-
-{/* <div className="row">
-<div className="col-12 mt-3">
-  <div className="card">
-    <div className="card-horizontal">
-      <div className="img-square-wrapper">
-        <img
-          className=""
-          src="http://via.placeholder.com/180x180"
-          alt="Card image cap"
-        />
-      </div>
-      <div className="card-body">
-        <h4 className="card-title">{item.launch_vehicle}</h4>
-        <p className="card-text">
-          Some quick example text to build on the card title and make up
-          the bulk of the card's content.
-        </p>
-        <p>
-          Example from: https://codepen.io/SteveJRobertson/pen/POdvgz
-        </p>
-      </div>
-    </div>
-    <div className="card-footer">
-      <small className="text-muted">Last updated 3 mins ago</small>
-    </div>
-  </div>
-</div>
-</div> */}
 
 export default Home;
