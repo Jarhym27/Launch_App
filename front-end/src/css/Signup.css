@@ -1,10 +1,21 @@
 .background {
-    background-image: url(../media/space.gif);
-    height: 100vh
+    background: linear-gradient(-45deg, #171717, #444444, #DA0037, #EDEDED);
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+	height: 100vh;
 }
-/* .radiobutt{
-    margin-left: 30px;
-} */
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
 
 .radiogroup {
     width: 40%;
@@ -14,26 +25,3 @@
     border-width: 2px;
     color: #DA0037
 }
-
-/* .cards{
- background-color: purple;
- display:flex;
- align-items: center;
- justify-content: center;
-
-
- margin-top: 80px;
-margin-left: 25px;
-  border-radius: var(--card-radius);
- display:inline-block;
-
-} */
-
-
-/* .cards input[type="radio"]{
-    width:11px
-} */
-/* .cards label{
-    display: inline-block;
-    margin-left: 5px;
-} */
