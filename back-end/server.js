@@ -193,7 +193,7 @@ app.post('/login', (req, res) =>{
       .where('username', req.body.username)
       .then((data) => {
         // console.log(data[0].password)
-        
+
         bcrypt.compare(req.body.password, data[0].password,  async (err, result)=>{
           // console.log(result)
           if(result){

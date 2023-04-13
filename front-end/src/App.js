@@ -26,7 +26,7 @@ function App() {
     role: "",
   });
 
-  
+
   useEffect(() => {
     let cookies = cookie.parse(document.cookie);
     // console.log(cookies.userInfo)
@@ -55,9 +55,9 @@ function App() {
           <Route path='/home' element={< Home/>}></Route>
           {/* <Route path='/Login' element={< Login />}></Route> */}
           <Route path='/signup' element={<Signup/>}></Route>
-          <Route path='/request' element={<LaunchRequest/>}></Route>
+          <Route path='/request/:id' element={<LaunchRequest/>}></Route>
           <Route path='/header' element={<Header/>}></Route> {/*only needed for testing */}
-          <Route path='/rocket' element={< AnimeRocket />}></Route> 
+          <Route path='/rocket' element={< AnimeRocket />}></Route>
           <Route path='/aboutus' element={<About/>}></Route>
           <Route path='/payloadprofile' element={<PayloadProfile/>}></Route>
           <Route path='/lspprofile' element={<LspProfile/>}></Route>
