@@ -60,8 +60,8 @@ function App() {
           <Route path='/rocket' element={< AnimeRocket />}></Route> 
           <Route path='/aboutus' element={<About/>}></Route>
           <Route path='/payloadprofile' element={<PayloadProfile/>}></Route>
+          <Route path='/lsp_profile' element={<LspProfile/>}></Route>
           <Route path="*" element={<PageNotFound />} ></Route>
-          <Route path='/LSP_Profile' element={<LspProfile/>}></Route>
 
 
         </Routes>
