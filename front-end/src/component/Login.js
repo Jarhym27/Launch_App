@@ -9,6 +9,7 @@ import { RocketInfo } from "../App";
 const Login = () => {
   const [pass, setPassword] = useState("");
   const [user, setUser] = useState("");
+  const [failed, setFailed] = useState(false);
   const {userCreate, setUserCreate, userLogin, setUserLogin} = useContext(RocketInfo)
   const navigate = useNavigate();
   
@@ -19,7 +20,8 @@ const Login = () => {
     }
   }, [userLogin])
 
-  const submitLogin = () => {
+  const submitLogin = (e) => {
+    e.preventDefault()
     let body = { username: user, password: pass };
     fetch("http://localhost:8080/login", {
       method: "POST",
@@ -29,6 +31,7 @@ const Login = () => {
     })
     .then(res => {
       if(res.status !== 200){
+        setFailed(true)
         throw new Error('invalid login')
       } else {
         return res.json()
@@ -51,34 +54,39 @@ const Login = () => {
 
   return (
     <div className="background p-3" style={{ height: "100vh" }}>
-      <h1 className="text-center mt-5 loginPageHeader">L<span id="hide">aunch</span>-Uber </h1>
+      <h1 className="text-center topHeader loginPageHeader">L<span id="hide">aunch</span>-Uber </h1>
       <div className="d-flex w-100 h-100vh align-items-center">
         <div className="col">
-          
-          <div className="row my-3 justify-content-center">
-            <input
-              type="text"
-              placeholder="User Name"
-              className="w-50 rounded text-center"
-              onChange={(e) => handleChange("user", e.target.value)}
-            ></input>
-          </div>
-          <div className="row my-3 d-flex justify-content-center">
-            <input
-              type="password"
-              placeholder="Password"
-              className="w-50 rounded text-center"
-              onChange={(e) => handleChange("pass", e.target.value)}
-            ></input>
-          </div>
-          <div className="row my-3 d-flex justify-content-center">
-            <button
-              className="btn btn-secondary w-25"
-              onClick={() => submitLogin()}
-            >
-              Login!
-            </button>
-          </div>
+          {failed && <h1 className="text-center failed loginPageHeader">Invalid Login.</h1>}
+          <form onSubmit={(e) => submitLogin(e)}>
+            <div className="row my-3 justify-content-center">
+              <input
+                type="text"
+                placeholder="User Name"
+                className="w-50 rounded text-center"
+                required
+                onChange={(e) => handleChange("user", e.target.value)}
+              ></input>
+            </div>
+            <div className="row my-3 d-flex justify-content-center">
+              <input
+                type="password"
+                placeholder="Password"
+                className="w-50 rounded text-center"
+                required
+                onChange={(e) => handleChange("pass", e.target.value)}
+              ></input>
+            </div>
+            <div className="row my-3 d-flex justify-content-center">
+              <input
+                type="submit"
+                className="btn btn-secondary w-25"
+                
+                value="Login!"
+              >
+              </input>
+            </div>
+          </form>
           <h1 className="text-center loginPageHeader">Not a user yet?</h1>
           <div className="row my-3 d-flex justify-content-center">
             <button

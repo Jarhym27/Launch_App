@@ -2,11 +2,20 @@
     background-image: url(../media/space.gif);
     height: 100vh
 }
-.radiobutt{
+/* .radiobutt{
     margin-left: 30px;
+} */
+
+.radiogroup {
+    width: 40%;
+    background-color: #444444;opacity: 0.75;;
+    border-color: #DA0037;
+    border-style: solid;
+    border-width: 2px;
+    color: #DA0037
 }
 
-.cards{
+/* .cards{
  background-color: purple;
  display:flex;
  align-items: center;
@@ -18,11 +27,13 @@ margin-left: 25px;
   border-radius: var(--card-radius);
  display:inline-block;
 
-}
-.cards input[type="radio"]{
+} */
+
+
+/* .cards input[type="radio"]{
     width:11px
-}
-.cards label{
+} */
+/* .cards label{
     display: inline-block;
     margin-left: 5px;
-}
+} */
