@@ -36,7 +36,7 @@ abbr[title] {
 .react-calendar__tile:enabled:hover,
 .react-calendar__tile:enabled:focus {
     background: #f8f8fa;
-    color: #6f48eb;
+    color: #241652;
     border-radius: 6px;
 }
 
