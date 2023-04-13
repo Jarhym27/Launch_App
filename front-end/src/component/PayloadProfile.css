@@ -1,6 +1,6 @@
 .payloadProfileCard{
-    background-color:#DA0037 !important;  
-    width: 80%; 
+    background-color:#DA0037 !important;
+    width: 80%;
     color: #EDEDED;
 }
 .horizontalCard{
@@ -17,7 +17,7 @@
 }
 .payloadsCol{
     width: 100%;
-    background-color:#444444 ; 
+    background-color:#444444 ;
     color: #EDEDED;
 }
 .payloadsTitle{
@@ -44,12 +44,12 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    background-color:#444444 !important; 
-    color: #EDEDED; 
+    background-color:#444444 !important;
+    color: #EDEDED;
 }
 .addCol{
     padding-top: 2.75rem;
-    
+
 }
 .modalForm{
     background-color: #171717 !important;
