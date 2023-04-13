@@ -51,14 +51,15 @@ const Login = () => {
 
   return (
     <div className="background p-3" style={{ height: "100vh" }}>
-      <div className="d-flex w-100 h-100 align-items-center">
+      <h1 className="text-center mt-5 loginPageHeader">L<span id="hide">aunch</span>-Uber </h1>
+      <div className="d-flex w-100 h-100vh align-items-center">
         <div className="col">
-          <h1 className="text-center">L-Uber</h1>
+          
           <div className="row my-3 justify-content-center">
             <input
               type="text"
               placeholder="User Name"
-              className="w-50 rounded"
+              className="w-50 rounded text-center"
               onChange={(e) => handleChange("user", e.target.value)}
             ></input>
           </div>
@@ -66,7 +67,7 @@ const Login = () => {
             <input
               type="password"
               placeholder="Password"
-              className="w-50 rounded"
+              className="w-50 rounded text-center"
               onChange={(e) => handleChange("pass", e.target.value)}
             ></input>
           </div>
@@ -78,7 +79,7 @@ const Login = () => {
               Login!
             </button>
           </div>
-          <h1 className="text-center">Not a user yet?</h1>
+          <h1 className="text-center loginPageHeader">Not a user yet?</h1>
           <div className="row my-3 d-flex justify-content-center">
             <button
               className="btn btn-secondary w-25"
