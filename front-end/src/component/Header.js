@@ -2,11 +2,11 @@ import "../css/Header.css";
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown'
 import {RocketTakeoffFill} from "react-bootstrap-icons";
-import React, { useState, useContext } from "react";
-import  {Link}  from 'react-router-dom';
+import React, { useContext } from "react";
+import  {Link, useNavigate}  from 'react-router-dom';
 import { RocketInfo } from "../App";
+
 
 
 
@@ -14,6 +14,7 @@ const Header = () =>{
 
   const { userLogin, setUserLogin } = useContext(RocketInfo);
   let profilePath = '/';
+  const navigate = useNavigate();
 
   if (userLogin.role === 'lsp_user') {
 profilePath = '/lsphomepage??'
@@ -21,18 +22,34 @@ profilePath = '/lsphomepage??'
 profilePath = '/payloadhomepage??'
   }
 
+  const logout = () => {
+    document.cookie = "userInfo=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+    fetch("http://localhost:8080/logout", {
+      method: "PATCH",
+      headers: {'Content-Type': 'application/json'},
+      credentials: 'include',
+      body: JSON.stringify({username: userLogin.username}),
+    })
+    .then((res) => {
+      console.log(res)
+      setUserLogin('')
+      navigate('/')
+      
+    })
+  }
+
 
 
 return(
   <>
-<Navbar bg="dark" variant="dark" sticky="top">
+<Navbar id="headerc" bg="dark" variant="dark" sticky="top">
             <Link to={'/home'}> <Navbar.Brand>
-            <RocketTakeoffFill className="navbar-brand" color='white' size={50}/>
+            <RocketTakeoffFill className="navbar-logo" color='white' size={50}/>
           </Navbar.Brand></Link>
-          
           <Col className="me-auto">
-            <h1 className='title'>L-Uber</h1>
+            <h1 className='title' onClick={() => navigate('/home')}>L-Uber</h1>
           </Col>
+          
           <Navbar.Collapse className="justify-content-center">
               
               <Navbar.Text>
@@ -52,40 +69,12 @@ return(
               </Navbar.Text>}
               
             
-              <Button className='mx-4' onClick={()=>setUserLogin('')} 
+              <Button className='mx-4' onClick={()=>logout()} 
               variant="outline-light">Logout</Button>
           </Navbar.Collapse>
       </Navbar>
-
-
-
-
-
-
-
-  {/* <nav className="navbar navbar-expand-sm navbar-dark bg-dark"> */}
-  {/* <div  > */}
-    {/* <RocketTakeoffFill className="navbar-brand" color='white' size={50}/>
-  <a className="navbar-brand" href="#">L-Uber</a>
-    <ul className="nav navbar-nav">
-      <li className="nav-item active">
-        <a className="nav-link" href={homePath}>Home</a>
-      </li>
-      <li className="nav-item">
-        <a className="nav-link" href="/AboutUs">About Us</a>
-      </li>
-    </ul>
-        <ul className='nav navbar-nav navbar-right justify-content-end'>
-      <li class="nav-item">
-        <a class="nav-link" href="/" onClick={()=>setUserLogin('')}>Logout</a>
-      </li>
-      </ul> */}
-
-  {/* </div> */}
-{/* </nav> */}
 </>
 )
-
 }
 
 export default Header;

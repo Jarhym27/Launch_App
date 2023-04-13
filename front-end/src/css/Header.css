@@ -1,3 +1,13 @@
 .headerLink {
     margin: 15px;
 }
+
+.title {
+    color: #DA0037;
+    cursor: pointer;
+}
+
+#headerc {
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
