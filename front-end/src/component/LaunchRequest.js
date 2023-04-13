@@ -1,66 +1,26 @@
 import { React, useEffect, useState } from 'react';
-import { Row, Col, Card, ListGroup, Button, Modal } from 'react-bootstrap';
+import { Row, Col, Card, ListGroup, Button, Modal, Form } from 'react-bootstrap';
+import { useLocation } from 'react-router-dom';
+import Calendar from 'react-calendar'
 
 function LaunchRequest() {
   // already have: payload name, payload orbit, payload weight
   // need to fill: launch date, location
   const [vehicles, setVehicles] = useState([])
   const [modalShow, setModalShow] = useState(false)
+  const [launchpads, setLaunchpads] = useState([])
+  const [padID, setPadID] = useState('')
+  let location = useLocation();
+  let payload = location.state
+  // console.log('payload:\n', payload)
 
-  let payload = {
-    id: 2,
-    payload_user_id: 2,
-    name: 'ISS',
-    weight: 13,
-    orbit: 'LEO',
-  }
-
-  let launch_vehicles = [
-    {
-      id: 1,
-      name: 'Falcon 9',
-      LSP: 'SpaceX',
-      cost: 72,
-      meo_weight: 60,
-      leo_weight: 20,
-      geo_weight: 12,
-      heo_weight: 30,
-      booked_status: ''
-    },
-    {
-      id: 3,
-      name: 'Delta IV Heavy',
-      LSP: 'ULA',
-      cost: 300,
-      meo_weight: 80,
-      leo_weight: 40,
-      geo_weight: 20,
-      heo_weight: 10,
-      booked_status: ''
-    },
-    {
-      id: 2,
-      name: 'Falcon Heavy',
-      LSP: 'SpaceX',
-      cost: 200,
-      meo_weight: 75,
-      leo_weight: 45,
-      geo_weight: 25,
-      heo_weight: 15,
-      booked_status: ''
-    },
-    {
-      id: 4,
-      name: 'Vulcan',
-      LSP: 'ULA',
-      cost: 225,
-      meo_weight: 82,
-      leo_weight: 42,
-      geo_weight: 22,
-      heo_weight: 20,
-      booked_status: ''
-    }
-  ]
+  // let payload = {
+  //   id: 2,
+  //   payload_user_id: 2,
+  //   name: 'ISS',
+  //   weight: 13,
+  //   orbit: 'LEO',
+  // }
 
   useEffect(() => {
     fetch('http://localhost:8080/join/users-launch_vehicles')
@@ -70,9 +30,13 @@ function LaunchRequest() {
         let available_vehicles = data.filter(LV => LV.booked_status === 'available')
         setVehicles(available_vehicles)
       })
+    fetch('http://localhost:8080/table/launch_pads')
+      .then(res => res.json())
+      .then(data => setLaunchpads(data))
   }, [])
 
   // console.log('vehicles:\n', vehicles)
+  // console.log('launchpads:\n', launchpads)
 
   // Post to launch_requests table
   // payload_id, launch_pad_id, launch_vehicle_id, request_status, launch_date, request_cost
@@ -155,18 +119,28 @@ function LaunchRequest() {
     )
   }
 
+  function padChange(event){
+    setPadID(event.target.value)
+  }
+
   return (
     <>
       <h3>{payload.name}</h3>
       <span>Weight: {payload.weight} </span>
-      <span>Orbit: {payload.orbit} </span>
-      <div>Launch Pad Field</div>
+      <span>Orbit: {payload.orbital_requirement} </span>
+      <Form.Select aria-label="Default select example" value={padID} onChange={event=>setPadID(event.target.value)}>
+        <option value='' disabled>Launch Pads</option>
+      {launchpads.map((pad, index) => (
+        <option key={index} value={pad.id} >{pad.launch_pad}</option>
+      ))}
+    </Form.Select>
       <div>Launch Date Field</div>
+
       <h3 className='mt-5 mb-3'>Available Launch Vehicles</h3>
       <Row xs={1} md={5} className="g-4">
         {vehicles.map((LV, index) => (
           <Col key={index}>
-            <Card className='LV-card' style={{ width: '16rem' }}>
+            <Card style={{ width: '16rem' }}>
               <Card.Img className='mx-auto' variant="top" src="https://th.bing.com/th/id/OIP.I43U8c54_0BwRnHpemoZUgAAAA?pid=ImgDet&rs=1" style={{ width: '64px', height: '64px', objectFit: 'cover' }} />
               <Card.Body>
                 <Card.Title>{LV.launch_vehicle}</Card.Title>

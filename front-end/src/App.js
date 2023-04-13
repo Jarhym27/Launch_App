@@ -32,7 +32,7 @@ function App() {
           <Route path='/' element={< Login/>}></Route>
           {/* <Route path='/Login' element={< Login />}></Route> */}
           <Route path='/Signup' element={<Signup/>}></Route>
-          <Route path='/request' element={<LaunchRequest/>}></Route>
+          <Route path='/request/:id' element={<LaunchRequest/>}></Route>
           <Route path='/header' element={<Header/>}></Route> {/*only needed for testing */}
           <Route path='/AboutUs' element={<About/>}></Route>
           <Route path='/payloadProfile' element={<PayloadProfile/>}></Route>
