@@ -1,40 +1,20 @@
-import React from "react";
 import "../css/style.css";
 import { useNavigate } from "react-router-dom";
-import { useState, useContext } from "react";
-import { RocketInfo } from "../App";
+import React, { useState } from "react";
 import bcrypt from "bcryptjs";
-import cookie from "js-cookie";
 import axios from "axios";
-import Header from "./Header.js";
 import "../css/Signup.css";
-import * as Icon from "react-bootstrap-icons";
-import Form from "react-bootstrap/Form";
-import Container from "react-bootstrap/Container";
-import Card from "react-bootstrap/Card";
-import CardGroup from "react-bootstrap/CardGroup";
-
 
 const Signup = () => {
   const navigate = useNavigate();
-  const { userCreate, setUserCreate } = useContext(RocketInfo);
-  const [answer, setAnswer] = useState("");
+  const [ userCreate, setUserCreate ] = useState({username: "", password: "", organization: "", role: ""});
+  const [confirmPw, setConfirmPw] = useState("")
 
-  const inputChange = (event) => {
-    event.preventDefault();
-    if (event.target.name === "username") {
-      setUserCreate({ ...userCreate, username: event.target.value });
-      console.log(userCreate);
-    } else if (event.target.name === "password") {
-      setUserCreate({ ...userCreate, password: event.target.value });
-      console.log(userCreate);
-    } else if (event.target.name === "organization") {
-      setUserCreate({ ...userCreate, organization: event.target.value });
-      console.log(userCreate);
-    } else if (event.target.name === "role") {
-      setUserCreate({ ...userCreate, role: event.target.value });
-      console.log(userCreate);
-    }
+  const inputChange = async (field, value) => {
+    let shallowCopy = {...userCreate}
+    shallowCopy[field] = value;
+    await setUserCreate(shallowCopy)
+    console.log(shallowCopy)
   };
 
   const createAccount = async (event) => {
@@ -43,14 +23,12 @@ const Signup = () => {
       if (!userCreate.password) {
         throw new Error("Password is missing");
       }
+      else if(userCreate.password !== confirmPw){
+        throw new Error("Password is mismatched");
+      }
       const hashedPassword = await bcrypt.hash(userCreate.password, 10);
-      console.log(hashedPassword);
-      console.log(userCreate.password);
-      console.log(userCreate.username);
 
-      if (hashedPassword) {
-        cookie.set("username", userCreate.username, { expires: 1 / 24 });
-        cookie.set("password", hashedPassword, { expires: 1 / 24 });
+      if (hashedPassword){
         try {
           const res = await axios.post("http://localhost:8080/signup", {
             username: userCreate.username,
@@ -59,7 +37,7 @@ const Signup = () => {
             role: userCreate.role,
           });
           console.log(res.data);
-          alert(`You created ${userCreate.username}!`);
+          alert(`${userCreate.username}, you have made a new account!`);
 
           navigate("/");
         } catch (error) {
@@ -68,7 +46,7 @@ const Signup = () => {
         }
       }
     } catch (error) {
-      alert("error hashing");
+      alert(error);
       console.error(error);
     }
   };
@@ -81,92 +59,95 @@ const Signup = () => {
     { choice: "I am an Organizational Payload User", value: "payload_user" },
   ];
 
-  const choiceChecked = () => {
-    answer.every((selection) => selection !== null);
-  };
-
   return (
-    <div className="background">
-      <Header />
-      <h1 className="font-mono text-5xl text-center justify-center ">
-        Sign Up
-      </h1>
-      <Container>
-        <Form>
-          <input
-            className="form-control"
-            type="text"
-            onChange={inputChange}
-            name="organization"
-            placeholder="Organization"
-          />
-          <input
-            className="form-control"
-            type="text"
-            name="username"
-            onChange={inputChange}
-            placeholder="Username"
-          />
-          <input
-            className="form-control"
-            type="password"
-            name="password"
-            onChange={inputChange}
-            placeholder="Password"
-          />
-          <input
-            className="form-control"
-            type="password"
-            placeholder="Confirm Password"
-          />
-        </Form>
-      </Container>
-      <div>
-        <Card className="cards">
-          <input
-            name="role"
-            type="radio"
-            onChange={inputChange}
-            value={roleChoice[0].value}
-          />
-          <label className="text-white justify-center">
-            I am an Organizational Pad Owner{" "}
-          </label>
-        </Card>
-        <Card className="cards">
-            <span>
-          <input
-            name="role"
-            type="radio"
-            onChange={inputChange}
-            value={roleChoice[1].value}
-          />
-          <label className="text-white justify-center">
-            I am an Organizational Payload User
-          </label>
-          </span>
-        
-        </Card>
-      </div>
-     
-      <Card >
-      <input
-        type="radio"
-      />
-      <label>
-        I understand the risk of falsifying information and accept those risk
-        under penalty of law
-      </label>
-     
-      </Card>
-     <div className="row my-3 d-flex justify-content-center">
-      <button
-        type="button"
-        onClick={createAccount}
-        className="inline-block rounded bg-green-900 px-7 pb-2.5 pt-3 text-white font-medium uppercase leading-normal text-green-500 shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-rose-700 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
-      >
-        Submit
-      </button>
+    <div className="background d-flex p-3 align-items-center ">
+      <div className="col">
+        <h1 className="text-center loginPageHeader">Sign Up!</h1>
+        <form
+          onSubmit={(e) => {createAccount(e);}}
+        >
+          <div className="row p-2 justify-content-center">
+            <input
+              className="w-25 rounded mx-3 text-center"
+              type="text"
+              onChange={(e) => inputChange("orginization", e.target.value)}
+              name="organization"
+              placeholder="Organization"
+              required
+            />
+            <input
+              className="w-25 rounded mx-3 text-center"
+              type="text"
+              name="username"
+              onChange={(e) => inputChange("username", e.target.value)}
+              placeholder="Username"
+              required
+            />
+          </div>
+
+          <div className="row p-2 justify-content-center">
+            <input
+              className="w-25 rounded mx-3 text-center"
+              type="password"
+              name="password"
+              onChange={(e) => inputChange("password", e.target.value)}
+              placeholder="Password"
+              required
+            />
+            <input
+              className="w-25 rounded mx-3 text-center"
+              type="password"
+              onChange={(e) => setConfirmPw(e.target.value)}
+              placeholder="Confirm Password"
+              required
+            />
+          </div>
+
+          <div className="row justify-content-center my-2">
+            <div className="radiogroup">
+              <div className="my-2 text-center">
+                <label className="text-white justify-center">
+                  <input
+                    name="role"
+                    type="radio"
+                    onChange={(e) => inputChange("orginization", e.target.value)}
+                    className="form-check-input"
+                    value={roleChoice[0].value}
+                  />
+                  I am an Organizational Pad Owner
+                </label>
+              </div>
+              <div className="my-2  text-center">
+                <label className="text-white justify-center">
+                  <input
+                    name="role"
+                    type="radio"
+                    className="form-check-input"
+                    onChange={(e)=> inputChange("orginization", e.target.value)}
+                    value={roleChoice[1].value}
+                  />
+                  I am an Organizational Payload User
+                </label>
+              </div>
+
+              <div className="my-2 text-center">
+                <label className="text-white justify-center">
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
+                    required
+                  />
+                  I understand the risk of falsifying information and accept
+                  those risk under penalty of law
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div className="row my-3 d-flex justify-content-center">
+            <input type="submit" className="btn btn-secondary w-25"></input>
+          </div>
+        </form>
       </div>
     </div>
   );
