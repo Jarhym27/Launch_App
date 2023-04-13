@@ -15,8 +15,13 @@
 }
 
 .makeNew {
-    display:none;
-    
+   justify-content: space-around;
+}
+
+.container{
+    display:flex;
+    flex-direction: row;
+
 }
 
 

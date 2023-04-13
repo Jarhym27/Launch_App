@@ -1,6 +1,12 @@
 const express = require('express')
 const app = express()
 const port = 8080;
+// if you get following error, refresh the port by changing it and then changing it back
+//  code: 'EADDRINUSE',
+//   errno: -98,
+//   syscall: 'listen',
+//   address: '::',
+//   port: 8080
 const cors = require('cors')
 const cookieParser = require("cookie-parser")
 const cookieSession = require('express-session')
