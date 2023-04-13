@@ -1,85 +1,62 @@
 import { React, useEffect, useState } from 'react';
-import { Row, Col, Card, ListGroup, Button, Modal } from 'react-bootstrap';
-import { useLocation } from 'react-router-dom';
+import { Row, Col, Card, ListGroup, Button, Modal, Form } from 'react-bootstrap';
+import { useLocation, useNavigate } from 'react-router-dom';
+import Calendar from 'react-calendar'
+import '../css/LaunchRequest.css'
 
 function LaunchRequest() {
-  // already have: payload name, payload orbit, payload weight
-  // need to fill: launch date, location
   const [vehicles, setVehicles] = useState([])
   const [modalShow, setModalShow] = useState(false)
+  const [launchpads, setLaunchpads] = useState([])
+  const [selectedPad, setSelectedPad] = useState(null)
+  const [date, setDate] = useState(new Date());
   let location = useLocation();
-
-  console.log(location)
-
-  let payload = {
-    id: 2,
-    payload_user_id: 2,
-    name: 'ISS',
-    weight: 13,
-    orbit: 'LEO',
-  }
-
-  let launch_vehicles = [
-    {
-      id: 1,
-      name: 'Falcon 9',
-      LSP: 'SpaceX',
-      cost: 72,
-      meo_weight: 60,
-      leo_weight: 20,
-      geo_weight: 12,
-      heo_weight: 30,
-      booked_status: ''
-    },
-    {
-      id: 3,
-      name: 'Delta IV Heavy',
-      LSP: 'ULA',
-      cost: 300,
-      meo_weight: 80,
-      leo_weight: 40,
-      geo_weight: 20,
-      heo_weight: 10,
-      booked_status: ''
-    },
-    {
-      id: 2,
-      name: 'Falcon Heavy',
-      LSP: 'SpaceX',
-      cost: 200,
-      meo_weight: 75,
-      leo_weight: 45,
-      geo_weight: 25,
-      heo_weight: 15,
-      booked_status: ''
-    },
-    {
-      id: 4,
-      name: 'Vulcan',
-      LSP: 'ULA',
-      cost: 225,
-      meo_weight: 82,
-      leo_weight: 42,
-      geo_weight: 22,
-      heo_weight: 20,
-      booked_status: ''
-    }
-  ]
+  let payload = location.state
+  let navigate = useNavigate();
 
   useEffect(() => {
     fetch('http://localhost:8080/join/users-launch_vehicles')
       .then(res => res.json())
       .then(data => {
-        // console.log('data:\n', data)
         let available_vehicles = data.filter(LV => LV.booked_status === 'available')
         setVehicles(available_vehicles)
       })
+    fetch('http://localhost:8080/table/launch_pads')
+      .then(res => res.json())
+      .then(data => setLaunchpads(data))
   }, [])
-
-  // console.log('vehicles:\n', vehicles)
 
   // Post to launch_requests table
   // payload_id, launch_pad_id, launch_vehicle_id, request_status, launch_date, request_cost
+  function bookHandler(prop) {
+    let formattedDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+    console.log('prop after booking:\n', prop)
+    fetch('http://localhost:8080/table/launch_requests',
+      {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({
+          payload_id: prop.payload.id,
+          launch_pad_id: selectedPad.id,
+          launch_vehicle_id: prop.vehicle.id,
+          request_status: 'Pending',
+          launch_date: formattedDate,
+          request_cost: prop.vehicle.cost
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        }
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log('data:\n', data)
+        alert(`${prop.vehicle.organization} launch request for ${prop.vehicle.launch_vehicle} on '${data.launch_date}' sent!`)
+        navigate('/payloadprofile')
+      })
+      .catch(err => console.log(err))
+  }
+
   function LaunchRequestModal(prop) {
     return (
       <Modal
@@ -101,32 +78,14 @@ function LaunchRequest() {
             </ListGroup.Item>
             <ListGroup.Item as='li' className='d-flex justify-content-between align-items-start'>
               <div className='ms-2 me-auto'>
-                <div className='fw-bold'>Payload ID</div>
-                {prop.payload.id}
-              </div>
-            </ListGroup.Item>
-            <ListGroup.Item as='li' className='d-flex justify-content-between align-items-start'>
-              <div className='ms-2 me-auto'>
                 <div className='fw-bold'>Launch Service Provider</div>
                 {prop.vehicle.organization}
               </div>
             </ListGroup.Item>
             <ListGroup.Item as='li' className='d-flex justify-content-between align-items-start'>
               <div className='ms-2 me-auto'>
-                <div className='fw-bold'>Launch Pad ID</div>
-                'Insert Launch Pad ID'
-              </div>
-            </ListGroup.Item>
-            <ListGroup.Item as='li' className='d-flex justify-content-between align-items-start'>
-              <div className='ms-2 me-auto'>
                 <div className='fw-bold'>Launch Pad</div>
-                'Insert Launch Pad'
-              </div>
-            </ListGroup.Item>
-            <ListGroup.Item as='li' className='d-flex justify-content-between align-items-start'>
-              <div className='ms-2 me-auto'>
-                <div className='fw-bold'>Launch Vehicle ID</div>
-                {prop.vehicle.id}
+                {selectedPad && selectedPad.launch_pad}
               </div>
             </ListGroup.Item>
             <ListGroup.Item as='li' className='d-flex justify-content-between align-items-start'>
@@ -138,7 +97,7 @@ function LaunchRequest() {
             <ListGroup.Item as='li' className='d-flex justify-content-between align-items-start'>
               <div className='ms-2 me-auto'>
                 <div className='fw-bold'>Launch Date</div>
-                `Insert Launch Date`
+                {`${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`}
               </div>
             </ListGroup.Item>
           </ListGroup>
@@ -153,7 +112,7 @@ function LaunchRequest() {
         </Modal.Body>
         <Modal.Footer>
           <Button variant='dark' onClick={() => setModalShow(false)}>Close</Button>
-          <Button variant='dark' onClick={() => console.log('prop:\n', prop)}>Book</Button>
+          <Button variant='dark' onClick={() => bookHandler(prop)}>Book</Button>
         </Modal.Footer>
       </Modal>
     )
@@ -163,9 +122,16 @@ function LaunchRequest() {
     <>
       <h3>{payload.name}</h3>
       <span>Weight: {payload.weight} </span>
-      <span>Orbit: {payload.orbit} </span>
-      <div>Launch Pad Field</div>
-      <div>Launch Date Field</div>
+      <span>Orbit: {payload.orbital_requirement} </span>
+      <Form.Select aria-label="Default select example" value={selectedPad ? JSON.stringify(selectedPad) : ''} onChange={e => setSelectedPad(JSON.parse(e.target.value))}>
+        <option value='' disabled>Launch Pads</option>
+        {launchpads.map((pad, index) => (
+          <option key={index} value={JSON.stringify(pad)}>{pad.launch_pad}</option>
+        ))}
+      </Form.Select>
+      <div>Select Your Launch Date</div>
+      <Calendar onChange={setDate} value={date} />
+
       <h3 className='mt-5 mb-3'>Available Launch Vehicles</h3>
       <Row xs={1} md={5} className="g-4">
         {vehicles.map((LV, index) => (
@@ -188,7 +154,7 @@ function LaunchRequest() {
                   Cost: ${LV.cost} M
                 </ListGroup.Item>
               </ListGroup>
-              <Button variant='dark' onClick={() => setModalShow(true)}>Book</Button>
+              <Button variant='dark' onClick={() => {!selectedPad ? alert('Please select a launch pad before booking.') : setModalShow(true)}}>Book</Button>
               <LaunchRequestModal payload={payload} vehicle={LV} show={modalShow} onHide={() => setModalShow(false)} />
             </Card>
           </Col>

@@ -178,7 +178,7 @@ const {userLogin} = useContext(RocketInfo)
                         <Card.Title>{pay.name}</Card.Title>
                         <Card.Text>
                           Status: Cick{" "}
-                          <Link state={{ pay }} to={"/request"}>
+                          <Link state={pay} to={`/request/${pay.id}`}>
                             Here
                           </Link>{" "}
                           To send to LSP

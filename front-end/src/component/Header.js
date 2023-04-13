@@ -16,10 +16,11 @@ const Header = () =>{
   let profilePath = '/';
   const navigate = useNavigate();
 
+console.log(userLogin.role)
   if (userLogin.role === 'lsp_user') {
-profilePath = '/lsphomepage??'
+profilePath = '/lspprofile'
   } else {
-profilePath = '/payloadhomepage??'
+profilePath = '/payloadprofile'
   }
 
   const logout = () => {
