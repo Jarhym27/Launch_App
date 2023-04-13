@@ -17,6 +17,21 @@
     margin-inline: auto;
 }
 
+.failed{
+    animation:blinkingText 1.2s infinite;
+}
+@keyframes blinkingText{
+    0%{     color: #f56666;    }
+    49%{    color: #f56666; }
+    60%{    color: transparent; }
+    99%{    color:transparent;  }
+    100%{   color: #f56666;    }
+}
+
+.topHeader {
+    margin-top: 15%;
+}
+
 input {
     height: 5vh;
     border-style: solid;
