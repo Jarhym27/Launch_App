@@ -19,6 +19,20 @@ homePath = '/lsphomepage??'
 homePath = '/payloadhomepage??'
   }
 
+  const logout = () => {
+    document.cookie = "userInfo=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+    fetch("http://localhost:8080/logout", {
+      method: "PATCH",
+      headers: {'Content-Type': 'application/json'},
+      credentials: 'include',
+      body: JSON.stringify({username: userLogin.username}),
+    })
+    .then((res) => {
+      console.log(res)
+      setUserLogin('')
+    })
+  }
+
 
 
 return(
@@ -38,8 +52,11 @@ return(
       <li className="nav-item">
         <a className="nav-link" href="/AboutUs">About Us</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/" onClick={()=>setUserLogin('')}>Logout</a>
+      <li className="nav-item">
+        <a className="nav-link" href="/">Profile</a>
+      </li>
+      <li className="nav-item">
+        <a className="nav-link" href="/" onClick={()=>logout()}>Logout</a>
       </li>
     </ul>
 
