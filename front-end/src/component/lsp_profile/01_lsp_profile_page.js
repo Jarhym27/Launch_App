@@ -1,11 +1,29 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import lspReview from './06_lsp_request_review'
+import ReviewRequest from './06_lsp_request_review'
 
-export const LSP_distro = React.createContext();
+// import ReviewRequest from './06_lsp_request_review';
 
-function LSP_Profile() {
+
+
+import Calendar from 'react-calendar';
+
+function LspCalendar() {
+  const [value, onChange] = useState(new Date());
+
+  return (
+    <div>
+      <Calendar onChange={onChange} value={value} />
+    </div>
+  );
+}
+
+
+
+export const LspDistro = React.createContext();
+
+function LspProfile() {
   const navigate = useNavigate()
   const [lspUser, setLspUser] = useState(false)
   const [launchVehicle,setLaunchVehicle] = useState()
@@ -20,19 +38,19 @@ function LSP_Profile() {
 }})
 
   useEffect(() => {
-    fetch('https://localhost:8080/table/users')
+    fetch('https://localhost:8080/table/:users')
       .then(res => res.json())
-      .then(data => setLspuser(data))
+      .then(data => setLspUser(data))
   }, [])
 
   return (
-    <Distibution.Provider value={{ lspuser, setLspuser }}>
-      <Routes>
-        <Route path='/LSP_profile' element={<LSP_Profile />} />
-        <Route path='/LSP_profile/reviewrequest/:requestid' element={<lspReview />} />
-      </Routes>
-    </Distibution.Provider>
+    <>
+        <LspProfile />
+        <ReviewRequest/>
+        <LspCalendar/>
+    </>
+   
   )
 }
 
-// export default LSP_Profile;
+export default LspProfile;

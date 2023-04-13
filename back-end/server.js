@@ -225,6 +225,7 @@ app.patch('/logout', (req, res) => {
   knex('users')
     .where('username', req.body.username)
     .update({session: ''})
+    .then(res.status(201).send('user logged out'))
     .catch((err) =>
         res.status(404).json({
           message:

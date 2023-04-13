@@ -1,22 +1,25 @@
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
+import "../css/Header.css";
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown'
 import {RocketTakeoffFill} from "react-bootstrap-icons";
-import { useState, useContext } from "react";
+import React, { useContext } from "react";
+import  {Link, useNavigate}  from 'react-router-dom';
 import { RocketInfo } from "../App";
+
 
 
 
 const Header = () =>{
 
   const { userLogin, setUserLogin } = useContext(RocketInfo);
-  let homePath = '/';
+  let profilePath = '/';
+  const navigate = useNavigate();
 
   if (userLogin.role === 'lsp_user') {
-homePath = '/lsphomepage??'
+profilePath = '/lsphomepage??'
   } else {
-homePath = '/payloadhomepage??'
+profilePath = '/payloadhomepage??'
   }
 
   const logout = () => {
@@ -30,6 +33,8 @@ homePath = '/payloadhomepage??'
     .then((res) => {
       console.log(res)
       setUserLogin('')
+      navigate('/')
+      
     })
   }
 
@@ -37,34 +42,39 @@ homePath = '/payloadhomepage??'
 
 return(
   <>
-  <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-    <RocketTakeoffFill className="navbar-brand" color='white' size={50}/>
-  <a className="navbar-brand" href="#">L-Uber</a>
-  <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span className="navbar-toggler-icon"></span>
-  </button>
-
-  <div className="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul className="navbar-nav mr-auto">
-      <li className="nav-item active">
-        <a className="nav-link" href={homePath}>Home</a>
-      </li>
-      <li className="nav-item">
-        <a className="nav-link" href="/AboutUs">About Us</a>
-      </li>
-      <li className="nav-item">
-        <a className="nav-link" href="/">Profile</a>
-      </li>
-      <li className="nav-item">
-        <a className="nav-link" href="/" onClick={()=>logout()}>Logout</a>
-      </li>
-    </ul>
-
-  </div>
-</nav>
+<Navbar id="headerc" bg="dark" variant="dark" sticky="top">
+            <Link to={'/home'}> <Navbar.Brand>
+            <RocketTakeoffFill className="navbar-logo" color='white' size={50}/>
+          </Navbar.Brand></Link>
+          <Col className="me-auto">
+            <h1 className='title' onClick={() => navigate('/home')}>L-Uber</h1>
+          </Col>
+          
+          <Navbar.Collapse className="justify-content-center">
+              
+              <Navbar.Text>
+              <Link className="headerLink" to={'/home'}>Home</Link>
+              </Navbar.Text>
+              <Navbar.Text>
+              <Link className="headerLink" to={'/aboutus'}>About Us</Link>
+              </Navbar.Text>
+              <Navbar.Text>
+              <Link className="headerLink" to ={profilePath}>Profile</Link>
+              </Navbar.Text>
+          </Navbar.Collapse>
+          <Navbar.Collapse className="justify-content-end">
+              {userLogin && 
+              <Navbar.Text>
+                Signed in as:  <span id='user-name'>{userLogin.username}</span>
+              </Navbar.Text>}
+              
+            
+              <Button className='mx-4' onClick={()=>logout()} 
+              variant="outline-light">Logout</Button>
+          </Navbar.Collapse>
+      </Navbar>
 </>
 )
-
 }
 
 export default Header;
