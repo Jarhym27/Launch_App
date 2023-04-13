@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import ReviewRequest from './06_lsp_request_review'
-
-// import ReviewRequest from './06_lsp_request_review';
+// import ReviewRequest from './06_lsp_request_review'
+// import LspLaunchVehicles from "./02_lsp_launch_vehicles.js";
+// import LspLaunchPads from "./03_lsp_launch_pads";
+// import RequestList from "./05_lsp_requests_list";
+// import LspCalendar from "./04_lsp_calendar";
 
 
 
@@ -38,16 +40,21 @@ function LspProfile() {
 }})
 
   useEffect(() => {
-    fetch('https://localhost:8080/table/:users')
+    fetch('https://localhost:8080/table/users')
       .then(res => res.json())
       .then(data => setLspUser(data))
   }, [])
 
   return (
     <>
-        <LspProfile />
-        <ReviewRequest/>
-        <LspCalendar/>
+      {/* <><LspProfile/> */}
+      {/* <LspLaunchVehicles/> */}
+         {/* <LspCalendar/> */}
+          </>
+          {/* <ReviewRequest/> */}
+         {/* Make the add new into modals 
+         and same for reviewing a request with picking a date */}
+         
     </>
    
   )
