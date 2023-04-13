@@ -10,54 +10,96 @@ import { CgBorderStyleDashed } from 'react-icons/cg'
 import { useEffect, useRef, useState } from "react";
 import ListGroup from 'react-bootstrap/ListGroup';
 import Spinner from "react-bootstrap/Spinner";
+import {SiLaunchpad} from 'react-icons/si'
 
 const Home = () => {
 
-  const locationRef = useRef();
+  const siteRef = useRef();
+  const padRef = useRef();
   const launchProviderRef = useRef();
   const orbitRef = useRef();
 
   const [launchPads, setLaunchPads] = useState(null);
+  const [launchSites, setLaunchSites] = useState(null)
   const [launchProviders, setLaunchProviders] = useState(null);
   const [orbits, setOrbits] = useState(["LEO", "MEO", "GEO", "HEO"]);
-  const [filter, setFilter] = useState({ "pad": null, "provider": null, "orbit": null })
-  const [search, setSearch] = useState({ "padID": null, "lspID": null, "orbit": null })
+  const [filter, setFilter] = useState({"site": null, "pad": null, "provider": null, "orbit": null })
+  const [search, setSearch] = useState({"site": null,"padID": null, "lspID": null, "orbit": null })
   const [searchResults, setSearchResults] = useState(null)
   const [loading,setLoading] = useState(false)
 
-  const handleLocationChange = (e) => {
+  const grabPayloads = () => {
+    fetch('http://localhost:8080/join/users-payloads')
+      .then(res=>res.json())
+      .then(data=>console.log(data))
+  }
+
+  const handlePadChange = (e) => {
     setFilter({
       ...filter,
-      pad: locationRef.current.value,
+      pad: padRef.current.value,
+      site: null,
       provider: null,
       orbit: null
     })
-    setSearchResults(null)
+    if(padRef.current.value===''){
+      setSearch({
+        ...search,
+        padID: padRef.current.value
+      })
+    }
+  }
+  const handleSiteChange = (e) => {
+    setFilter({
+      ...filter,
+      site: siteRef.current.value,
+      pad: null,
+      provider: null,
+      orbit: null
+    })
+    if(siteRef.current.value===''){
+      setSearch({
+        ...search,
+        site: null
+      })
+    }
   }
 
   const handleProviderChange = (e) => {
     setFilter({
       ...filter,
       pad: null,
+      site: null,
       provider: launchProviderRef.current.value,
       orbit: null
     })
-    setSearchResults(null)
+    if(launchProviderRef.current.value===''){
+      setSearch({
+        ...search,
+        lspID: null
+      })
+    }
   }
 
   const handleOrbitChange = (e) => {
     setFilter({
       ...filter,
       pad: null,
+      site: null,
       provider: null,
       orbit: orbitRef.current.value
     })
-    setSearchResults(null)
+    if(orbitRef.current.value===''){
+      setSearch({
+        ...search,
+        orbit: null
+      })
+    }
   }
 
   const handleSelect = (e, item, ref, id) => {
-    if (ref === 'locationRef') {
-      locationRef.current.value = item
+    if (ref === 'padRef') {
+      padRef.current.value = item
       setFilter({
         ...filter,
         pad: null
@@ -88,6 +130,16 @@ const Home = () => {
         ...search,
         orbit: item
       })
+    } else if (ref === 'siteRef') {
+      siteRef.current.value = item
+      setFilter({
+        ...filter,
+        site: null
+      })
+      setSearch({
+        ...search,
+        site: item
+      })
     }
   }
 
@@ -103,17 +155,37 @@ const Home = () => {
     return () => clearTimeout(timer);
   }, [searchResults]);
 
+  //use effect to gather search results
   useEffect(() => {
-    if (!search.orbit || !search.lspID || !search.padID) { return }
+    if(Object.values(search).filter(item=>item===null).length===4){
+      setSearchResults(null)
+      return;
+    }
+    console.log('use effect to grab search results')
+
     const controller = new AbortController()
-    fetch('http://localhost:8080/table/launch_vehicles', {
+    fetch('http://localhost:8080/join/launch_vehicles-launch_pads', {
       signal: controller.signal,
     })
       .then(res => res.json())
       .then(data => {
-        let suggestedRides = data.filter(lvs => lvs.lsp_user_id === search.lspID && lvs.launch_pad_id === search.padID && lvs.booked_status === 'available' && lvs[search.orbit.toLowerCase().concat('_weight')] !== null)
+        let suggestedRides = [];
+        if(search.site){
+          suggestedRides = data.filter(lvs => lvs.launch_site === search.site && lvs.booked_status === 'available')
+        }
+        if(search.padID){
+          suggestedRides = data.filter(lvs => lvs.launch_pad_id === search.padID && lvs.booked_status === 'available')
+        }
+        if(search.lspID){
+          suggestedRides = data.filter(lvs => lvs.lsp_user_id === search.lspID && lvs.booked_status === 'available')
+        }
+        if(search.orbit){
+          suggestedRides = data.filter(lvs => lvs[search.orbit.toLowerCase().concat('_weight')] !== null && lvs.booked_status === 'available')
+        }
         if(suggestedRides.length>0){
           setSearchResults(suggestedRides)
+        } else {
+          setSearchResults(null)
         }
       })
     return () => controller.abort()
@@ -126,6 +198,8 @@ const Home = () => {
     })
       .then(res => res.json())
       .then(data => {
+        let launchSites = data.map(pad=>pad.launch_site)
+        setLaunchSites([...new Set(launchSites)])
         setLaunchPads(data)
       })
       .then(whatever => { return fetch('http://localhost:8080/table/users') })
@@ -147,27 +221,47 @@ const Home = () => {
               <Card.Body>
                 <Card.Title className='card-title'>Where can we pick you up?</Card.Title>
                 <Form>
-                  <InputGroup onChange={(e) => handleLocationChange(e)} className="mb-2">
+                  <InputGroup onChange={(e) => handleSiteChange(e)} className="mb-1">
                     <InputGroup.Text id="basic-addon1"><GiEarthAmerica /></InputGroup.Text>
                     <Form.Control
-                      ref={locationRef}
+                      ref={siteRef}
+                      placeholder="Launch Site"
+                      aria-label="Username"
+                      aria-describedby="basic-addon1"
+                    />
+                  </InputGroup>
+                  {filter.site && siteRef.current.value &&
+                    <ListGroup className='suggestions-list' variant="flush">
+                      {
+                        launchSites.filter(site => site.toLowerCase().includes(siteRef.current.value.toLowerCase())).map((item,index) =>
+                          <ListGroupItem key={index} onClick={(e) => handleSelect(e, item, "siteRef")} className='suggestion'>{item}</ListGroupItem>
+                        )
+                      }
+                      {launchPads.filter(pad => pad.launch_site.toLowerCase().includes(siteRef.current.value.toLowerCase())).length === 0 && <ListGroupItem className='suggestion'>No results</ListGroupItem>}
+                    </ListGroup>
+                  }
+                  <CgBorderStyleDashed className='line-dash' />
+                  <InputGroup onChange={(e) => handlePadChange(e)} className="mb-1">
+                    <InputGroup.Text id="basic-addon1"><SiLaunchpad /></InputGroup.Text>
+                    <Form.Control
+                      ref={padRef}
                       placeholder="Launch Pad"
                       aria-label="Username"
                       aria-describedby="basic-addon1"
                     />
                   </InputGroup>
-                  {filter.pad && locationRef.current.value &&
+                  {filter.pad && padRef.current.value &&
                     <ListGroup className='suggestions-list' variant="flush">
                       {
-                        launchPads.filter(pad => pad.launch_pad.toLowerCase().includes(locationRef.current.value.toLowerCase())).map(item =>
-                          <ListGroupItem key={item.id} onClick={(e) => handleSelect(e, item.launch_pad, "locationRef", item.id)} className='suggestion'>{item.launch_pad} | {item.launch_site} | {item.organization}</ListGroupItem>
+                        launchPads.filter(pad => pad.launch_pad.toLowerCase().includes(padRef.current.value.toLowerCase())).map(item =>
+                          <ListGroupItem key={item.id} onClick={(e) => handleSelect(e, item.launch_pad, "padRef", item.id)} className='suggestion'>{item.launch_pad} | {item.launch_site} | {item.organization}</ListGroupItem>
                         )
                       }
-                      {launchPads.filter(pad => pad.launch_pad.toLowerCase().includes(locationRef.current.value.toLowerCase())).length === 0 && <ListGroupItem className='suggestion'>No results</ListGroupItem>}
+                      {launchPads.filter(pad => pad.launch_pad.toLowerCase().includes(padRef.current.value.toLowerCase())).length === 0 && <ListGroupItem className='suggestion'>No results</ListGroupItem>}
                     </ListGroup>
                   }
                   <CgBorderStyleDashed className='line-dash' />
-                  <InputGroup onChange={(e) => handleProviderChange(e)} className="mb-2">
+                  <InputGroup onChange={(e) => handleProviderChange(e)} className="mb-1">
                     <InputGroup.Text id="basic-addon1"><RocketTakeoffFill /></InputGroup.Text>
                     <Form.Control
                       ref={launchProviderRef}
@@ -187,7 +281,7 @@ const Home = () => {
                     </ListGroup>
                   }
                   <CgBorderStyleDashed className='line-dash' />
-                  <InputGroup onChange={(e) => handleOrbitChange(e)} className="mb-2">
+                  <InputGroup onChange={(e) => handleOrbitChange(e)} className="mb-1">
 
                     <InputGroup.Text id="basic-addon1"><GiMoonOrbit /></InputGroup.Text>
                     <Form.Control
@@ -215,7 +309,7 @@ const Home = () => {
         <Row>
         <Col>
             {loading && <Spinner variant="light" />}
-            {!loading && searchResults && orbitRef.current.value && locationRef.current.value && launchProviderRef.current.value &&
+            {!loading && searchResults &&
             <Row>
               <Col>
               <Card className='card-container'>
@@ -235,19 +329,48 @@ const Home = () => {
                             <Row>
                               <h5>
                                 {item.launch_vehicle}
-
                               </h5>
+                            </Row>
+                            <Row>
+                              <h6 className='list-detail'>
+                                {item.launch_site}
+                              </h6>
                             </Row>
                             <Row>
                               <h6 className='list-detail'>
                                 ${item.cost} million
                               </h6>
                             </Row>
+                            {search.orbit && 
                             <Row>
                               <h6 className='list-detail'>
                                 Weight to {orbitRef.current.value} {item[search.orbit.toLowerCase().concat('_weight')]}
                               </h6>
-                            </Row>
+                            </Row>}
+                            {!search.orbit && 
+                              <>
+                                <Row>
+                                  <h6 className='list-detail'>
+                                    Weight to LEO {item.leo_weight}
+                                  </h6>
+                                </Row>
+                                <Row>
+                                  <h6 className='list-detail'>
+                                    Weight to MEO {item.meo_weight}
+                                  </h6>
+                                </Row>
+                                <Row>
+                                  <h6 className='list-detail'>
+                                    Weight to GEO {item.geo_weight}
+                                  </h6>
+                                </Row>
+                                <Row>
+                                  <h6 className='list-detail'>
+                                    Weight to HEO {item.heo_weight}
+                                  </h6>
+                                </Row>
+                              </>
+                            }
                             <Row>
                               <h6 className='list-detail'>
                                 LV current as of {item.updated_at.slice(0, 10)}
@@ -255,7 +378,7 @@ const Home = () => {
                             </Row>
                           </Col>
                           <Col>
-                            <RocketTakeoffFill className='search-rocket' /></Col>
+                            <RocketTakeoffFill onClick={()=>grabPayloads()} className='search-rocket' /></Col>
                         </Row>
                       </ListGroupItem>
                     )

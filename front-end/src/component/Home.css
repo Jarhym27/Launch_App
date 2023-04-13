@@ -16,9 +16,9 @@
 
 .line-dash{
   rotate: 90deg;
-  scale: 3;
+  scale: 2;
   margin-left: 15px;
-  margin-top: 10px;
+  margin-top: 0px;
   margin-bottom:0;
 }
 
