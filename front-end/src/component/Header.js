@@ -1,9 +1,11 @@
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
+import "../css/Header.css";
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import {RocketTakeoffFill} from "react-bootstrap-icons";
-import { useState, useContext } from "react";
+import React, { useState, useContext } from "react";
+import  {Link}  from 'react-router-dom';
 import { RocketInfo } from "../App";
 
 
@@ -11,21 +13,59 @@ import { RocketInfo } from "../App";
 const Header = () =>{
 
   const { userLogin, setUserLogin } = useContext(RocketInfo);
-  let homePath = '/';
+  let profilePath = '/';
 
   if (userLogin.role === 'lsp_user') {
-homePath = '/lsphomepage??'
+profilePath = '/lsphomepage??'
   } else {
-homePath = '/payloadhomepage??'
+profilePath = '/payloadhomepage??'
   }
 
 
 
 return(
   <>
-  <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+<Navbar bg="dark" variant="dark" sticky="top">
+            <Link to={'/home'}> <Navbar.Brand>
+            <RocketTakeoffFill className="navbar-brand" color='white' size={50}/>
+          </Navbar.Brand></Link>
+          
+          <Col className="me-auto">
+            <h1 className='title'>L-Uber</h1>
+          </Col>
+          <Navbar.Collapse className="justify-content-center">
+              
+              <Navbar.Text>
+              <Link className="headerLink" to={'/home'}>Home</Link>
+              </Navbar.Text>
+              <Navbar.Text>
+              <Link className="headerLink" to={'/aboutus'}>About Us</Link>
+              </Navbar.Text>
+              <Navbar.Text>
+              <Link className="headerLink" to ={profilePath}>Profile</Link>
+              </Navbar.Text>
+          </Navbar.Collapse>
+          <Navbar.Collapse className="justify-content-end">
+              {userLogin && 
+              <Navbar.Text>
+                Signed in as:  <span id='user-name'>{userLogin.username}</span>
+              </Navbar.Text>}
+              
+            
+              <Button className='mx-4' onClick={()=>setUserLogin('')} 
+              variant="outline-light">Logout</Button>
+          </Navbar.Collapse>
+      </Navbar>
+
+
+
+
+
+
+
+  {/* <nav className="navbar navbar-expand-sm navbar-dark bg-dark"> */}
   {/* <div  > */}
-    <RocketTakeoffFill className="navbar-brand" color='white' size={50}/>
+    {/* <RocketTakeoffFill className="navbar-brand" color='white' size={50}/>
   <a className="navbar-brand" href="#">L-Uber</a>
     <ul className="nav navbar-nav">
       <li className="nav-item active">
@@ -35,14 +75,14 @@ return(
         <a className="nav-link" href="/AboutUs">About Us</a>
       </li>
     </ul>
-        <ul className='nav navbar-nav navbar-right'>
+        <ul className='nav navbar-nav navbar-right justify-content-end'>
       <li class="nav-item">
         <a class="nav-link" href="/" onClick={()=>setUserLogin('')}>Logout</a>
       </li>
-      </ul>
+      </ul> */}
 
   {/* </div> */}
-</nav>
+{/* </nav> */}
 </>
 )
 
