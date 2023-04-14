@@ -17,7 +17,7 @@ const RequestList = () =>{
   useEffect(() =>{
   fetch('http://localhost:8080/join/launch_requests')
   .then(res => res.json())
-  .then(data => setLaunchRequest(data))
+  .then(data => {setLaunchRequest(data); console.log(data)})
 },[])
 
 console.log(launchRequest)
@@ -33,7 +33,7 @@ return(
     <Card key={i}>
     <Card.Body>
       <Card.Title border="danger">
-      Launch Requests for {user.username} 
+      Launch Requests from {user.username} 
       </Card.Title>
       <br />
       <div>launch request 002</div>
