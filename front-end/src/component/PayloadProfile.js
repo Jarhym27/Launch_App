@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import "./PayloadProfile.css";
 import { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
-import { Link, Routes, Route, useNavigate, Router } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -58,8 +58,8 @@ function PayloadProfile() {
   }, [fetchTime]);
 
 
-  let payloads = submittedPayloads?.filter((e, i) => e.payload_user_id == userLogin.id);
-  let newPayloads = userPayloads?.filter((e, i) => e.payload_user_id == userLogin.id);
+  let payloads = submittedPayloads?.filter((e, i) => e.payload_user_id === userLogin.id);
+  let newPayloads = userPayloads?.filter((e, i) => e.payload_user_id === userLogin.id);
 
   let filteredPayloads =   newPayloads?.filter((pay, i) =>  payloads?.map((item,i)=>item.payload_id).includes(pay.id) === false )
 
@@ -105,7 +105,7 @@ console.log(filteredPayloads)
     })
     .then(res => {
       setSelectedPayload()
-      if(res.status == 200){
+      if(res.status === 200){
         console.log('Deleted.')
         setFetchTime(true)
       }
@@ -238,7 +238,9 @@ console.log(filteredPayloads)
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Orbit</Form.Label>
-              <Form.Select onChange={(e) => setOrbit(e.target.value)}>
+              <Form.Select onChange={(e) =>
+                setOrbit(e.target.value)}>
+                <option></option>
                 <option>GEO</option>
                 <option>HEO</option>
                 <option>LEO</option>
