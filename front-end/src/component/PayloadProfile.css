@@ -67,6 +67,7 @@
     background-color:#444444 ; 
     color: #EDEDED;
 }
-/* .modalBg{
-    background-image: url(../media/space.gif);
-} */
+@font-face {
+    font-family: 'Silkscreen'; /*a name to be used later*/
+    src: url('../media/Silkscreen/slkscr.ttf'); /*URL to font*/
+}
