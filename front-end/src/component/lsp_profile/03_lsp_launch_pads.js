@@ -242,6 +242,7 @@ function LspLaunchPads() {
               className="mb-3"
               controlId="formBasicEmail"
             >
+              {console.log(selectedPad?.launch_pad)}
               <Form.Label>Pad Name</Form.Label>
               <Form.Control
                 defaultValue={selectedPad?.launch_pad}
@@ -249,6 +250,21 @@ function LspLaunchPads() {
                 placeholder=""
               />
             </Form.Group>
+            <Form.Group
+              onChange={(e) => setPadName(e.target.value)}
+              className="mb-3"
+              controlId="formBasicEmail"
+            >
+             </Form.Group>
+             <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>Pad Status</Form.Label>
+              <Form.Select onChange={(e) =>
+                setLaunchSite(e.target.value)}>
+                <option value={true}>Available</option>
+                <option value={false}>Unavailable</option>
+              </Form.Select>
+            </Form.Group>
+            
 
            
             <Button
