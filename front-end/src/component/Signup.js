@@ -53,6 +53,7 @@ const Signup = () => {
 
   const roleChoice = ["lsp_user","payload_user"];
 
+
   return (
     <div className="background d-flex p-3 align-items-center ">
       <div className="col">
@@ -104,7 +105,7 @@ const Signup = () => {
                   <input
                     name="role"
                     type="radio"
-                    onChange={(e) => inputChange("orginization", e.target.value)}
+                    onChange={(e) => inputChange("role", e.target.value)}
                     className="form-check-input"
                     value={roleChoice[0]}
                   />
@@ -117,7 +118,7 @@ const Signup = () => {
                     name="role"
                     type="radio"
                     className="form-check-input"
-                    onChange={(e)=> inputChange("orginization", e.target.value)}
+                    onChange={(e)=> inputChange("role", e.target.value)}
                     value={roleChoice[1]}
                   />
                   I am an Organizational Payload User
