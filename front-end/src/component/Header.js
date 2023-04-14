@@ -34,7 +34,7 @@ profilePath = '/payloadhomepage??'
       console.log(res)
       setUserLogin('')
       navigate('/')
-      
+
     })
   }
 
@@ -49,9 +49,9 @@ return(
           <Col className="me-auto">
             <h1 className='title' onClick={() => navigate('/home')}>L-Uber</h1>
           </Col>
-          
+
           <Navbar.Collapse className="justify-content-center">
-              
+
               <Navbar.Text>
               <Link className="headerLink" to={'/home'}>Home</Link>
               </Navbar.Text>
@@ -63,13 +63,13 @@ return(
               </Navbar.Text>
           </Navbar.Collapse>
           <Navbar.Collapse className="justify-content-end">
-              {userLogin && 
+              {userLogin &&
               <Navbar.Text>
                 Signed in as:  <span id='user-name'>{userLogin.username}</span>
               </Navbar.Text>}
-              
-            
-              <Button className='mx-4' onClick={()=>logout()} 
+
+
+              <Button className='mx-4' onClick={()=>logout()}
               variant="outline-light">Logout</Button>
           </Navbar.Collapse>
       </Navbar>

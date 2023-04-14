@@ -8,6 +8,7 @@ import Signup from "./component/Signup";
 import PayloadProfile from "./component/PayloadProfile";
 import AnimeRocket from "./component/Animated_Rocket";
 import LaunchRequest from './component/LaunchRequest';
+import LaunchRequest2 from './component/LaunchRequest2';
 import PageNotFound from "./component/PageNotFound";
 import Header from "./component/Header";
 import About from "./component/About";
@@ -56,6 +57,7 @@ function App() {
           {/* <Route path='/Login' element={< Login />}></Route> */}
           <Route path='/signup' element={<Signup/>}></Route>
           <Route path='/request/:id' element={<LaunchRequest/>}></Route>
+          <Route path='/request/test' element={<LaunchRequest2/>}></Route>
           <Route path='/header' element={<Header/>}></Route> {/*only needed for testing */}
           <Route path='/rocket' element={< AnimeRocket />}></Route>
           <Route path='/aboutus' element={<About/>}></Route>

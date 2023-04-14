@@ -130,7 +130,7 @@ function LaunchRequest() {
         ))}
       </Form.Select>
       <div>Select Your Launch Date</div>
-      <Calendar onChange={setDate} value={date} />
+      <Calendar className='request-calendar' onChange={setDate} value={date} />
 
       <h3 className='mt-5 mb-3'>Available Launch Vehicles</h3>
       <Row xs={1} md={5} className="g-4">

@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 // import LspLaunchVehicles from "./02_lsp_launch_vehicles.js";
 // import LspLaunchPads from "./03_lsp_launch_pads";
 // import RequestList from "./05_lsp_requests_list";
-// import LspCalendar from "./04_lsp_calendar";
+import LspCalendar from "./04_lsp_calendar";
 
 
 
@@ -29,11 +29,11 @@ function LspProfile() {
 
   return (
     <>
-      {/* <LspLaunchVehicles/> */} 
+      {/* <LspLaunchVehicles/> */}
       <LspCalendar/>
-       {/* <ReviewRequest/> */} 
+       {/* <ReviewRequest/> */}
     </>
-   
+
   )
 }
 
