@@ -8,7 +8,7 @@ import './00_lsp_profile.css'
 export default LspLaunchPads
 
 function LspLaunchPads() {
-  const { userLogin } = useContext(RocketInfo);
+  const { userLogin, availablePads, setAvailablePads } = useContext(RocketInfo);
   const [ launchPad, setLaunchPad ] = useState();
 
   const [fetchTime, setFetchTime] = useState(false)
@@ -47,7 +47,8 @@ function LspLaunchPads() {
       .then(data => setLaunchPad(data))
   }, [])
 
- // ADD PAYLOAD POST
+  
+  // ADD PAYLOAD POST
   const handlePost = (e) => {
     fetch("http://localhost:8080/table/launch_pads", {
       method: "POST",
@@ -64,7 +65,7 @@ function LspLaunchPads() {
       },
     }).then(() => setFetchTime(true));
   };
-
+  
   const handleUpdate = () => {
     fetch(`http://localhost:8080/table/launch_pads?id=${selectedPad.id}`, {
       method: "PATCH",
@@ -75,7 +76,8 @@ function LspLaunchPads() {
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },
-    }).then(() =>  setFetchTime(true));
+    })
+    .then(() =>  setFetchTime(true));
   };
   const handleDelete = () => {
     fetch('http://localhost:8080/table/launch_pads', {
@@ -97,17 +99,23 @@ function LspLaunchPads() {
         console.log(res.status)
       }
     })
-}
-
-
-  const availablePads = launchPad?.filter((element) => element.lsp_user_id === userLogin.id)
-
+  }
+  
+  
+  
+  useEffect(() => {
+    setTimeout(() => {
+      setAvailablePads(launchPad?.filter((element) => element.lsp_user_id === userLogin.id))
+    }, 1000);
+  }, availablePads)
+  
   return (
-  <>
+    <>
     <Row>
       <Col className="col-3">
     <h1>Launch Pads</h1> 
-    <Button> Add a New Pad</Button>
+    <Button show=
+              {show} onClick={handleShow}> Add a New Pad</Button>
       {availablePads?.map((pads, i) => {
         return (
           <Card key={i} >
@@ -119,8 +127,8 @@ function LspLaunchPads() {
                 {pads.lsp_user_id} <br></br>
                 {pads.launch_site} <br></br>
                 {pads.pad_status ? 'Status: Available' : 'Status : Unavailable'} <br></br>
-                <button>Edit</button>
-                <button>Delete</button>
+                <button onClick={() => [ handleShowUpdate(),]}>Edit</button>
+                <button onClick={() => [setSelectedPad(pads), handleShowDelete(),]}>Delete</button>
               </Card.Text>
               {/* <div>add New Pad</div> */}
             </Card.Body>
@@ -153,24 +161,48 @@ function LspLaunchPads() {
               <Form.Control type="text" placeholder="" />
             </Form.Group>
 
-            <Form.Group
-              onChange={(e) => setPadStatus(e.target.value)}
-              className="mb-3"
-              controlId="formBasicPassword"
-            >
-              <Form.Label>Status</Form.Label>
-              <Form.Control type="text" placeholder="" />
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>Pad Status</Form.Label>
+              <Form.Select onChange={(e) =>
+                setLaunchSite(e.target.value)}>
+                <option></option>
+                <option value={true}>Available</option>
+                <option value={false}>Unavailable</option>
+              </Form.Select>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Launch Site</Form.Label>
               <Form.Select onChange={(e) =>
                 setLaunchSite(e.target.value)}>
                 <option></option>
-                <option>GEO</option>
-                <option>HEO</option>
-                <option>LEO</option>
-                <option>MEO</option>
+                <option>Patrick SFB</option>
+                <option>Vandenberg SFB</option>
+                <option>Wallops Flight Facility</option>
               </Form.Select>
+            </Form.Group>
+            <Form.Group
+              onChange={(e) => setCity(e.target.value)}
+              className="mb-3"
+              controlId="formBasicPassword"
+            >
+              <Form.Label>City</Form.Label>
+              <Form.Control
+                defaultValue={selectedPad?.city}
+                type="text"
+                placeholder=""
+              />
+            </Form.Group>
+            <Form.Group
+              onChange={(e) => setlpState(e.target.value)}
+              className="mb-3"
+              controlId="formBasicPassword"
+            >
+              <Form.Label>State</Form.Label>
+              <Form.Control
+                defaultValue={selectedPad?.state}
+                type="text"
+                placeholder=""
+              />
             </Form.Group>
             <Button
               onClick={handleCloseUpdate}
@@ -202,7 +234,7 @@ function LspLaunchPads() {
             onSubmit={(e) => {
               e.preventDefault();
               handleUpdate();
-              setSubmittedPads();
+              setSelectedPad();
             }}
           >
             <Form.Group
@@ -218,30 +250,7 @@ function LspLaunchPads() {
               />
             </Form.Group>
 
-            <Form.Group
-              onChange={(e) => setCity(e.target.value)}
-              className="mb-3"
-              controlId="formBasicPassword"
-            >
-              <Form.Label>City</Form.Label>
-              <Form.Control
-                defaultValue={selectedPad?.city}
-                type="text"
-                placeholder=""
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>State</Form.Label>
-              <Form.Select
-                defaultValue={selectedPad?.state}
-                onChange={(e) => setlpState(e.target.value)}
-              >
-                <option>GEO</option>
-                <option>HEO</option>
-                <option>LEO</option>
-                <option>MEO</option>
-              </Form.Select>
-            </Form.Group>
+           
             <Button
               onClick={() =>handleCloseUpdate()}
               className="addPayload"
