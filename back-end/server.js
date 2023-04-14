@@ -51,6 +51,20 @@ app.get('/join/launch_requests', (req, res) => {
   );
 })
 
+//launch_vehicles joined launch_pads
+app.get('/join/launch_vehicles-launch_pads', (req, res) => {
+  knex('launch_vehicles')
+  .join('launch_pads', 'launch_pads.id', 'launch_vehicles.launch_pad_id')
+.select('launch_vehicles.created_at','launch_vehicles.updated_at','launch_vehicle','launch_pad_id','cost','leo_weight','meo_weight','geo_weight','heo_weight','booked_status','launch_vehicles.lsp_user_id','city','state','launch_site','launch_pad','pad_status')
+  .then(data => res.status(200).json(data))
+  .catch(err =>
+      res.status(404).json({
+          message:
+              'The data you are looking for could not be found. Please try again'
+      })
+  );
+})
+
 //users joined launch_vehicles
 app.get('/join/users-launch_vehicles',(req,res)=> {
   knex('users')
@@ -146,13 +160,14 @@ app.delete('/table/:table',(req,res) => {
 })
 
 app.post('/signup', (req, res) =>{
-        let {username, password,organization} = req.body
+        let {username, password,organization, role} = req.body
 
         knex
         .insert({
           username,
           password,
-          organization
+          organization,
+          role
         })
         .into("users")
         .then(() => {

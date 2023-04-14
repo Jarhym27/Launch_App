@@ -4,7 +4,7 @@ import * as icons from "react-bootstrap-icons";
 
 function About() {
 
-    let devs = ["Jaheem Chrstopher", "Tyler Hancock", "Kyle Mersinger", "Khoa Nguyen", "Mackenzie Nickle", "Jose Ocasio", "Izyk Pringle"]
+    let devs = ["Jaheem Christopher", "Tyler Hancock", "Kyle Mersinger", "Khoa Nguyen", "Mackenzie Nickle", "Jose Ocasio", "Izyk Pringle"]
     return (
         <>
             <div className="bg-dark">

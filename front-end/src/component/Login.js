@@ -1,10 +1,9 @@
 import "../css/Login.css";
 import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import cookie from 'cookie'
 import "bootstrap/dist/css/bootstrap.min.css";
 import { RocketInfo } from "../App";
-
+import AnimeRocket from "./Animated_Rocket";
 
 const Login = () => {
   const [pass, setPassword] = useState("");
@@ -53,7 +52,7 @@ const Login = () => {
   };
 
   return (
-    <div className="background p-3" style={{ height: "100vh" }}>
+    <div className="background p-3" style={{ height: "100vh" , backgroundSize: "cover"}}>
       <h1 className="text-center topHeader loginPageHeader">L<span id="hide">aunch</span>-Uber </h1>
       <div className="d-flex w-100 h-100vh align-items-center">
         <div className="col">

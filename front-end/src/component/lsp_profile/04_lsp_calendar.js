@@ -7,7 +7,10 @@ import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
+import LspLaunchPads from "./03_lsp_launch_pads";
+import LspLaunchVehicles from "./02_lsp_launch_vehicles"
+import RequestList from "./05_lsp_requests_list";
+import "./000_calendar.css"
 const locales = {
     "en-US": require("date-fns/locale/en-US"),
 };
@@ -51,8 +54,9 @@ function LspCalendar() {
     useEffect(() => {
       fetch('http://localhost:8080/join/launch_requests')
         .then(res => res.json())
-        .then(data => console.log(data))
+        .then(data => data)
     })
+    
     function handleAddEvent() {
         for (let i=0; i<allEvents.length; i++){
             const d1 = new Date (allEvents[i].start);
@@ -71,10 +75,14 @@ function LspCalendar() {
         setAllEvents([...allEvents, newEvent]);
     }
     return (
-        <div className="App">
+        <div >
+            <React.Fragment ><LspLaunchVehicles />
+            <LspLaunchPads /> 
+             </React.Fragment>
+            
             <h1>Calendar</h1>
             <h2>Add New Event</h2>
-            <div>
+            <div className="App">
                 <input type="text" placeholder="Add Title" style={{ width: "20%", marginRight: "10px" , border: "solid 1px", bordercolor: "black"}} value={newEvent.title} onChange={(e) => setNewEvent({ ...newEvent, title: e.target.value })} />
                 <DatePicker type= "text" placeholderText="Start Date" style={{ marginRight: "10px", border: "solid 1px", bordercolor: "black"}} selected={newEvent.start} onChange={(start) => setNewEvent({ ...newEvent, start })} />
                 <DatePicker type="text" placeholderText="End Date" style= {{ border: "solid 1px", bordercolor: "black"}} selected={newEvent.end}  onChange={(end) => setNewEvent({ ...newEvent, end })} />
@@ -82,6 +90,8 @@ function LspCalendar() {
                     Add Event
                 </button>
             </div>
+            
+             
             <Calendar localizer={localizer} events={allEvents} startAccessor="start" endAccessor="end" style={{ height: 500, margin: "50px" }} />
         </div>
     );

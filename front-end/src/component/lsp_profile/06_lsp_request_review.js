@@ -2,7 +2,7 @@ import React, {useContext,useEffect} from "react";
 import { LspDistro } from "./01_lsp_profile_page";
 
 const ReviewRequest = () =>{
-  const {LaunchRequest, setLaunchRequest} = useContext(LspDistro)
+  const {launchRequest, setLaunchRequest} = useContext(LspDistro)
   
   useEffect(() =>{
   fetch('https://localhost:8080/table/launch_requests')
@@ -13,7 +13,7 @@ const ReviewRequest = () =>{
   return(
     <>
       <div>
-        Review your Requests!
+        {launchRequest}
       </div>
     </>
 

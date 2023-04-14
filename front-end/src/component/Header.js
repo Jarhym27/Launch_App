@@ -17,9 +17,9 @@ const Header = () =>{
   const navigate = useNavigate();
 
   if (userLogin.role === 'lsp_user') {
-profilePath = '/lsphomepage??'
+profilePath = '/lspprofile'
   } else {
-profilePath = '/payloadhomepage??'
+profilePath = '/payloadprofile'
   }
 
   const logout = () => {

@@ -38,3 +38,6 @@ button[type="button"]
     width: 20%;
 
 }
+.sided{
+    flex:30%
+}

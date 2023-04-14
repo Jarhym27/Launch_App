@@ -13,6 +13,7 @@ const Signup = () => {
   const inputChange = async (field, value) => {
     let shallowCopy = {...userCreate}
     shallowCopy[field] = value;
+    console.log(shallowCopy)
     await setUserCreate(shallowCopy)
     console.log(shallowCopy)
   };
@@ -51,13 +52,8 @@ const Signup = () => {
     }
   };
 
-  const roleChoice = [
-    {
-      choice: "I am an Organizational Pad Owner",
-      value: "lsp_user",
-    },
-    { choice: "I am an Organizational Payload User", value: "payload_user" },
-  ];
+  const roleChoice = ["lsp_user","payload_user"];
+
 
   return (
     <div className="background d-flex p-3 align-items-center ">
@@ -70,7 +66,7 @@ const Signup = () => {
             <input
               className="w-25 rounded mx-3 text-center"
               type="text"
-              onChange={(e) => inputChange("orginization", e.target.value)}
+              onChange={(e) => inputChange("organization", e.target.value)}
               name="organization"
               placeholder="Organization"
               required
@@ -110,11 +106,11 @@ const Signup = () => {
                   <input
                     name="role"
                     type="radio"
-                    onChange={(e) => inputChange("orginization", e.target.value)}
+                    onChange={(e) => inputChange("role", e.target.value)}
                     className="form-check-input"
-                    value={roleChoice[0].value}
+                    value={roleChoice[0]}
                   />
-                  I am an Organizational Pad Owner
+                  I am a Launch Service Provider
                 </label>
               </div>
               <div className="my-2  text-center">
@@ -123,8 +119,8 @@ const Signup = () => {
                     name="role"
                     type="radio"
                     className="form-check-input"
-                    onChange={(e)=> inputChange("orginization", e.target.value)}
-                    value={roleChoice[1].value}
+                    onChange={(e)=> inputChange("role", e.target.value)}
+                    value={roleChoice[1]}
                   />
                   I am an Organizational Payload User
                 </label>
@@ -137,8 +133,8 @@ const Signup = () => {
                     className="form-check-input"
                     required
                   />
-                  I understand the risk of falsifying information and accept
-                  those risk under penalty of law
+                  I understand the risks of falsifying information and accept
+                  those risks under penalty of law
                 </label>
               </div>
             </div>
@@ -148,6 +144,7 @@ const Signup = () => {
             <input type="submit" className="btn btn-secondary w-25"></input>
           </div>
         </form>
+
       </div>
     </div>
   );
