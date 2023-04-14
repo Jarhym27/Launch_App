@@ -54,6 +54,7 @@ const Signup = () => {
 
   const roleChoice = ["lsp_user","payload_user"];
 
+
   return (
     <div className="background d-flex p-3 align-items-center ">
       <div className="col">
