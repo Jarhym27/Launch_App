@@ -1,11 +1,12 @@
 .home-container{
   background-image: linear-gradient(to right top, #171717, #1f1f1f, #272727, #2f2f2f, #383838, #413e48, #4d4256, #5c4663, #7c416d, #a03369, #c21c57, #da0037);
   height: 100vh;
+  padding-top: 15px;
   
 }
 
 .card-title{
-  font-size: 30px;
+  font-size: 25px;
   margin-bottom: 10px;
 }
 
@@ -49,6 +50,7 @@
 
 .list-detail{
   font-size: small;
+  margin-bottom: 2px;
 }
 
 .search-rocket{
@@ -63,12 +65,49 @@
 
 .search-rocket:hover{
   cursor: pointer;
-  color:#755560
+  color:#755560;
+  scale: 1.5
 }
 
 .card-container{
   width: 24rem;
 }
 
+.search-listgroup{
+  max-height: 400px;
+  margin-bottom: 10px;
+  overflow:scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+.payload-listgroup{
+  max-height: 700px;
+  margin-bottom: 10px;
+  overflow:scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+.search-list-item:hover{
+  background-color: #d4b1bd;
+}
+
+.available-payloads-container{
+  background-color:#1f1f1f;
+  padding: 15px;
+  border-radius: 2%;
+  animation: fadeIn 1s;
+}
+
+.payloads-title{
+  color: white;
+  margin: auto;
+  margin-bottom: 5px;
+}
+
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
 
 
