@@ -13,6 +13,7 @@ const Signup = () => {
   const inputChange = async (field, value) => {
     let shallowCopy = {...userCreate}
     shallowCopy[field] = value;
+    console.log(shallowCopy)
     await setUserCreate(shallowCopy)
     console.log(shallowCopy)
   };
@@ -64,7 +65,7 @@ const Signup = () => {
             <input
               className="w-25 rounded mx-3 text-center"
               type="text"
-              onChange={(e) => inputChange("orginization", e.target.value)}
+              onChange={(e) => inputChange("organization", e.target.value)}
               name="organization"
               placeholder="Organization"
               required
@@ -104,7 +105,7 @@ const Signup = () => {
                   <input
                     name="role"
                     type="radio"
-                    onChange={(e) => inputChange("orginization", e.target.value)}
+                    onChange={(e) => inputChange("role", e.target.value)}
                     className="form-check-input"
                     value={roleChoice[0]}
                   />
@@ -117,7 +118,7 @@ const Signup = () => {
                     name="role"
                     type="radio"
                     className="form-check-input"
-                    onChange={(e)=> inputChange("orginization", e.target.value)}
+                    onChange={(e)=> inputChange("role", e.target.value)}
                     value={roleChoice[1]}
                   />
                   I am an Organizational Payload User

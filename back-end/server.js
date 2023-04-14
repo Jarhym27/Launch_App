@@ -146,13 +146,14 @@ app.delete('/table/:table',(req,res) => {
 })
 
 app.post('/signup', (req, res) =>{
-        let {username, password,organization} = req.body
+        let {username, password,organization, role} = req.body
 
         knex
         .insert({
           username,
           password,
-          organization
+          organization,
+          role
         })
         .into("users")
         .then(() => {
