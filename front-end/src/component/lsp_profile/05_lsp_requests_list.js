@@ -11,30 +11,30 @@ const RequestList = () =>{
 
   const [launchVehicle, setLaunchVehicle] = useState([])
 
-  useEffect(() =>{
-    fetch('http://localhost:8080/table/launch_vehicles')
-    .then(res => res.json())
-    .then(data => {
-      data = data.filter(element => element.lsp_user_id === userLogin.id)
-      setLaunchVehicle(data)
-      fetch('http://localhost:8080/join/launch_requests')
-      .then(res => res.json())
-      .then(data => {
-        let rocketIDs = launchVehicle.map(e => e.id)
-        data = data.filter(element => rocketIDs.includes(element.launch_vehicle_id))
-        setLaunchRequest(data)
-        console.log(data)
-      })
-    })
-    .then(() => {
-      fetch('http://localhost:8080/table/users')
-      .then(res => res.json())
-      .then(data => {
-        let activeUsers = launchRequest.map(e => e.payload_user_id)
-        setLspUser(data.filter(element => element.role !== 'lsp_user' && activeUsers.includes(element.id)))
-      })  
-    })
-  },[])
+  // useEffect(() =>{
+  //   fetch('http://localhost:8080/table/launch_vehicles')
+  //   .then(res => res.json())
+  //   .then(data => {
+  //     data = data.filter(element => element.lsp_user_id === userLogin.id)
+  //     setLaunchVehicle(data)
+  //     fetch('http://localhost:8080/join/launch_requests')
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       let rocketIDs = launchVehicle.map(e => e.id)
+  //       data = data.filter(element => rocketIDs.includes(element.launch_vehicle_id))
+  //       setLaunchRequest(data)
+  //       console.log(data)
+  //     })
+  //   })
+  //   .then(() => {
+  //     fetch('http://localhost:8080/table/users')
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       let activeUsers = launchRequest.map(e => e.payload_user_id)
+  //       setLspUser(data.filter(element => element.role !== 'lsp_user' && activeUsers.includes(element.id)))
+  //     })  
+  //   })
+  // },[])
 
 
 return(
