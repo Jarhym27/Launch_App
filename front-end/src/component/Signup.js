@@ -3,12 +3,15 @@ import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import bcrypt from "bcryptjs";
 import axios from "axios";
+import { Modal, Button } from "react-bootstrap";
 import "../css/Signup.css";
 
 const Signup = () => {
   const navigate = useNavigate();
   const [ userCreate, setUserCreate ] = useState({username: "", password: "", organization: "", role: ""});
   const [confirmPw, setConfirmPw] = useState("")
+  const [show, setShow] = useState(false)
+  const [failed, setFailed] = useState("")
 
   const inputChange = async (field, value) => {
     let shallowCopy = {...userCreate}
@@ -37,18 +40,15 @@ const Signup = () => {
             organization: userCreate.organization,
             role: userCreate.role,
           });
-          console.log(res.data);
-          alert(`${userCreate.username}, you have made a new account!`);
-
-          navigate("/");
+          setShow(true)
         } catch (error) {
-          alert("login failed");
+          alert("Signup failed");
           console.error(error);
         }
       }
     } catch (error) {
-      alert(error);
-      console.error(error);
+      setFailed(error.message)
+      console.log(error.message);
     }
   };
 
@@ -59,6 +59,7 @@ const Signup = () => {
     <div className="background d-flex p-3 align-items-center ">
       <div className="col">
         <h1 className="text-center loginPageHeader">Sign Up!</h1>
+        {failed && <h1 className="text-center failed loginPageHeader">{failed}</h1>}
         <form
           onSubmit={(e) => {createAccount(e);}}
         >
@@ -145,7 +146,40 @@ const Signup = () => {
           </div>
         </form>
 
+        <h1 className="text-center loginPageHeader">Already a user?</h1>
+          <div className="row my-3 d-flex justify-content-center">
+            <button
+              className="btn btn-secondary w-25"
+              onClick={() => navigate('/')}
+            >
+              Login!
+            </button>
+          </div>
+
       </div>
+
+      <Modal show={show} onHide={() => navigate("/")} className="modalBg">
+        <Modal.Header closeButton className="modalForm">
+          <Modal.Title>Account Created!</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+        <p>
+          You have successfully created your account, please click the button 
+          below to take you to the login page
+        </p>
+        </Modal.Body>
+        
+        <Modal.Footer className="modalForm">
+          <Button
+            className="addPayload"
+            variant="secondary"
+            onClick={() => navigate("/")}
+          >
+            Login!
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };
