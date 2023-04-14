@@ -1,4 +1,4 @@
-import { Container, Row, Col, ListGroupItem } from "react-bootstrap";
+import { Container, Row, Col, ListGroupItem, Modal } from "react-bootstrap";
 import './Home.css'
 import Card from 'react-bootstrap/Card';
 import InputGroup from 'react-bootstrap/InputGroup';
@@ -18,10 +18,13 @@ import { RocketInfo } from "../App";
 const Home = () => {
   const { userLogin, setUserLogin } = useContext(RocketInfo);
 
+  //tweak rocket and payload fetches and trigger refetch after booking with modal
+
   const siteRef = useRef();
   const padRef = useRef();
   const launchProviderRef = useRef();
   const orbitRef = useRef();
+  const dateRef = useRef();
 
   const [launchPads, setLaunchPads] = useState(null);
   const [launchSites, setLaunchSites] = useState(null)
@@ -32,19 +35,17 @@ const Home = () => {
   const [searchResults, setSearchResults] = useState(null)
   const [userPayloads, setUserPayloads] = useState(null)
   const [loading, setLoading] = useState(false)
-  const [selectedLV,setSelectedLV] = useState(null)
+  const [selectedLV, setSelectedLV] = useState(null)
+  const [selectedPayload, setSelectedPayload] = useState(null)
+  const [modalShow, setModalShow] = useState(false)
 
   const grabPayloads = (item) => {
     fetch('http://localhost:8080/join/users-payloads')
       .then(res => res.json())
       .then(data => {
-        console.log('selected LV:',item)
         let usersPayloads = data.filter(payload => {
           return payload.payload_user_id === userLogin.id && payload.weight <= item[payload.orbital_requirement.toLowerCase().concat('_weight').toString()]
-        }
-          
-          
-          )
+        })
         setUserPayloads(usersPayloads)
         setSelectedLV(item)
       })
@@ -120,7 +121,6 @@ const Home = () => {
 
   const handleSelect = (e, item, ref, id) => {
     if (ref === 'padRef') {
-      console.log(id)
       padRef.current.value = item
       setFilter({
         ...filter,
@@ -232,6 +232,97 @@ const Home = () => {
 
     return () => controller.abort()
   }, [])
+
+  const bookHandler = () => {
+    fetch('http://localhost:8080/table/launch_requests',
+      {
+        method: "POST",
+        credentials: 'include',
+        body: JSON.stringify({
+          payload_id: selectedPayload.id,
+          launch_pad_id: selectedLV.launch_pad_id,
+          launch_vehicle_id: selectedLV.id,
+          request_status: 'Pending',
+          launch_date: dateRef.current.value,
+          request_cost: selectedLV.cost
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        }
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log('data:\n', data)
+        // navigate('/home')
+        setModalShow(false)
+      })
+      .catch(err => console.log(err))
+  }
+  
+  const LaunchRequestModal = (prop) => {
+    return (
+      <Modal
+        {...prop}
+        aria-labelledby='container-modal-title-vcenter'
+        backdrop='static'
+        keyboard={false}
+        centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Launch Request</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <ListGroup>
+            <ListGroup.Item as='li' className='d-flex justify-content-between align-items-start'>
+              <div className='ms-2 me-auto'>
+                <div className='fw-bold'>Payload</div>
+                {selectedPayload && prop.payload.name}
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item as='li' className='d-flex justify-content-between align-items-start'>
+              <div className='ms-2 me-auto'>
+                <div className='fw-bold'>Launch Service Provider</div>
+                {selectedLV && prop.vehicle.organization}
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item as='li' className='d-flex justify-content-between align-items-start'>
+              <div className='ms-2 me-auto'>
+                <div className='fw-bold'>Launch Pad</div>
+                {selectedLV && selectedLV.launch_pad}
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item as='li' className='d-flex justify-content-between align-items-start'>
+              <div className='ms-2 me-auto'>
+                <div className='fw-bold'>Launch Vehicle</div>
+                {selectedLV && selectedLV.launch_vehicle}
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item as='li' className='d-flex justify-content-between align-items-start'>
+              <div className='ms-2 me-auto'>
+                <div className='fw-bold'>Launch Date</div>
+                <Form>
+                  <Form.Group controlId="duedate">
+                    <Form.Control  ref={dateRef} type="date" name="duedate" placeholder="Launch date" />
+                  </Form.Group>
+                </Form>
+              </div>
+            </ListGroup.Item>
+          </ListGroup>
+          <ListGroup className='mt-3'>
+            <ListGroup.Item as='li' className='d-flex justify-content-between align-items-start'>
+              <div className='ms-2 me-auto'>
+                <div className='fw-bold'>Cost</div>
+                {selectedLV && selectedLV.cost}
+              </div>
+            </ListGroup.Item>
+          </ListGroup>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={() => setModalShow(false)}>Close</Button>
+          <Button onClick={() => bookHandler(prop)}>Book</Button>
+        </Modal.Footer>
+      </Modal>
+    )
+  }
 
   return (
     <div className='home-container'>
@@ -419,7 +510,15 @@ const Home = () => {
                             </Row>
                           </Col>
                           <Col>
-                            <RocketTakeoffFill onClick={() => grabPayloads()} className='search-rocket' /></Col>
+                            <RocketTakeoffFill onClick={() => {
+                              if (!selectedPayload && !selectedLV) return
+                              else {
+                                setSelectedPayload(item)
+                                setModalShow(true)
+                              }
+                            }}
+                              className='search-rocket' /></Col>
+
                         </Row>
                       </ListGroupItem>
                     )
@@ -429,6 +528,7 @@ const Home = () => {
             </Col>
           }
         </Row>
+        <LaunchRequestModal payload={selectedPayload} vehicle={selectedLV} show={modalShow} onHide={() => setModalShow(false)} />
       </Container>
     </div>
   );
