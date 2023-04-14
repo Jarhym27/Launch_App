@@ -1,10 +1,9 @@
 import "../css/Login.css";
 import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import cookie from 'cookie'
 import "bootstrap/dist/css/bootstrap.min.css";
 import { RocketInfo } from "../App";
-
+import AnimeRocket from "./Animated_Rocket";
 
 const Login = () => {
   const [pass, setPassword] = useState("");

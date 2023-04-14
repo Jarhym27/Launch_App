@@ -13,6 +13,7 @@ const Signup = () => {
   const inputChange = async (field, value) => {
     let shallowCopy = {...userCreate}
     shallowCopy[field] = value;
+    console.log(shallowCopy)
     await setUserCreate(shallowCopy)
     console.log(shallowCopy)
   };
@@ -65,7 +66,7 @@ const Signup = () => {
             <input
               className="w-25 rounded mx-3 text-center"
               type="text"
-              onChange={(e) => inputChange("orginization", e.target.value)}
+              onChange={(e) => inputChange("organization", e.target.value)}
               name="organization"
               placeholder="Organization"
               required
