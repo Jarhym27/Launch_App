@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 // import LspLaunchPads from "./03_lsp_launch_pads";
 // import RequestList from "./05_lsp_requests_list";
 import LspCalendar from "./04_lsp_calendar";
+import { RocketInfo } from '../../App';
 
 
 
@@ -15,9 +16,9 @@ export const LspDistro = React.createContext();
 
 function LspProfile() {
   const navigate = useNavigate()
-  const [lspUser, setLspUser] = useState(false)
-  const [launchVehicle,setLaunchVehicle] = useState()
-  const [launchPad,setLaunchPad] = useState()
+  const [lspUser, setLspUser] = useState()
+  const [launchVehicle,setLaunchVehicle] = useState([])
+  const [launchPad,setLaunchPad] = useState([])
   const [launchRequest, setLaunchRequest] = useState()
 
 
@@ -28,11 +29,11 @@ function LspProfile() {
   //  }})
 
   return (
-    <>
+    <LspDistro.Provider value={{launchVehicle, launchPad, setLaunchVehicle, setLaunchPad, lspUser, setLspUser, launchRequest, setLaunchRequest}}>
       {/* <LspLaunchVehicles/> */} 
       <LspCalendar/>
        {/* <ReviewRequest/> */} 
-    </>
+    </LspDistro.Provider>
    
   )
 }
