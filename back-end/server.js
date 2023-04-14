@@ -218,7 +218,7 @@ app.post('/login', (req, res) =>{
             res.header('Access-Control-Allow-Credentials','true')
             let rand = Math.floor(Math.random() * 1000000000).toString()
             var sessionID = bcrypt.hashSync(rand, 10)
-            res.cookie('userInfo', sessionID, {maxAge: 3600000, httpOnly:false})
+            res.cookie('userInfo', sessionID, {maxAge: 36000000, httpOnly:false})
             res.send(scrubbed)
             await knex('users').where('username', req.body.username).update({session: sessionID})
           }
