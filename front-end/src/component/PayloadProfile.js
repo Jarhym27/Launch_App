@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import "bootstrap/dist/css/bootstrap.min.css";
-import LaunchRequest from "./LaunchRequest";
+import LaunchRequest from "./OldLaunchRequest";
 import { RocketInfo } from "../App";
 
 function PayloadProfile() {
@@ -63,7 +63,6 @@ function PayloadProfile() {
 
   let filteredPayloads =   newPayloads?.filter((pay, i) =>  payloads?.map((item,i)=>item.payload_id).includes(pay.id) === false )
 
-console.log(filteredPayloads)
   // ADD PAYLOAD POST
   const handlePost = (e) => {
     fetch("http://localhost:8080/table/payloads", {
@@ -182,7 +181,7 @@ console.log(filteredPayloads)
                         <Card.Title>{pay.name}</Card.Title>
                         <Card.Text>
                           Status: Cick{" "}
-                          <Link state={pay} to={`/request/${pay.id}`}>
+                          <Link state={pay} to='/request'>
                             Here
                           </Link>{" "}
                           To send to LSP
