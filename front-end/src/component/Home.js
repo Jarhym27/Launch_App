@@ -12,8 +12,10 @@ import { CgBorderStyleDashed } from 'react-icons/cg'
 import { useEffect, useRef, useState, useContext } from "react";
 import ListGroup from 'react-bootstrap/ListGroup';
 import Spinner from "react-bootstrap/Spinner";
-import { SiLaunchpad } from 'react-icons/si'
+import { SiLaunchpad, SiTeamspeak } from 'react-icons/si'
 import { RocketInfo } from "../App";
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 
 const Home = () => {
   const { userLogin, setUserLogin } = useContext(RocketInfo);
@@ -43,7 +45,11 @@ const Home = () => {
     fetch('http://localhost:8080/join/users-payloads')
       .then(res => res.json())
       .then(data => {
-        usersPayloads = data.filter(payload => payload.payload_user_id === userLogin.id && payload.weight <= item[payload.orbital_requirement.toLowerCase().concat('_weight').toString()])
+        if(search.orbit){
+          usersPayloads = data.filter(payload =>payload.orbital_requirement===search.orbit && payload.payload_user_id === userLogin.id && payload.weight <= item[payload.orbital_requirement.toLowerCase().concat('_weight').toString()])
+        } else {
+          usersPayloads = data.filter(payload => payload.payload_user_id === userLogin.id && payload.weight <= item[payload.orbital_requirement.toLowerCase().concat('_weight').toString()])
+        }
         return fetch('http://localhost:8080/table/launch_requests')
       })
       .then(res => res.json())
@@ -208,6 +214,7 @@ const Home = () => {
       .then(res => res.json())
       .then(data => {
         suggestedRides = data;
+        
         if (search.site) {
           suggestedRides = suggestedRides.filter(lvs => lvs.launch_site === search.site && lvs.booked_status === 'available')
         }
@@ -224,18 +231,17 @@ const Home = () => {
       })
       .then(res =>res.json())
       .then(requestData => {
-        let copy = suggestedRides
-        for(let i=0;i<suggestedRides.length;i++){
+        let copy = JSON.parse(JSON.stringify(suggestedRides))
+        for(let i=0;i<copy.length;i++){
           for(let j=0;j<requestData.length;j++){
-            if(suggestedRides[i].id === requestData[j].launch_vehicle_id && requestData[j].payload_user_id === userLogin.id){
-              copy.splice(i,1)
+            if(copy[i] && copy[i].id === requestData[j].launch_vehicle_id && requestData[j].payload_user_id === userLogin.id){
+              delete copy[i]
             }
           }
-          suggestedRides = copy
         }
-        return requestData
-      })
-      .then(whatever => {
+
+        suggestedRides = copy.filter(val=>val)
+
         if (suggestedRides.length > 0) {
           setLoading(true)
           setSearchResults(suggestedRides)
@@ -243,6 +249,7 @@ const Home = () => {
           setLoading(true)
           setSearchResults([])
         }
+          return requestData
       })
 
 
@@ -251,7 +258,7 @@ const Home = () => {
 
   useEffect(() => {
     const controller = new AbortController()
-    fetch('http://localhost:8080/join/users-launch_pads', {
+    fetch('http://localhost:8080/table/launch_pads', {
       signal: controller.signal,
     })
       .then(res => res.json())
@@ -271,6 +278,7 @@ const Home = () => {
   }, [])
 
   const bookHandler = () => {
+    if(!dateRef.current.value) return;
     fetch('http://localhost:8080/table/launch_requests',
       {
         method: "POST",
@@ -290,7 +298,7 @@ const Home = () => {
       .then(res => res.json())
       .then(data => {
         setModalShow(false)
-        let newSearch = { ...search }
+        let newSearch = { ...search}
         setSearch(newSearch)
         setUserPayloads(null)
       })
@@ -373,16 +381,27 @@ const Home = () => {
                   <Card.Body>
                     <Card.Title className='card-title'>Where can we pick you up?</Card.Title>
                     <Form>
-                      <InputGroup onChange={(e) => handleSiteChange(e)} className="mb-1">
-                        <InputGroup.Text id="basic-addon1"><GiEarthAmerica /></InputGroup.Text>
-                        <Form.Control
-                          ref={siteRef}
-                          placeholder="Launch Site"
-                          aria-label="Username"
-                          aria-describedby="basic-addon1"
-                        />
-                      </InputGroup>
-
+                      <Row>
+                        <InputGroup onChange={(e) => handleSiteChange(e)} className="mb-1">
+                          <InputGroup.Text id="basic-addon1"><GiEarthAmerica /></InputGroup.Text>
+                          <Col md={9} lg={9} className='search-field-container'>
+                            <Form.Control
+                              className='search-field'
+                              ref={siteRef}
+                              placeholder="Launch Site"
+                              aria-label="Username"
+                              aria-describedby="basic-addon1"
+                            />
+                          </Col>
+                          <Col className='dropdown-field'>
+                            <DropdownButton id="dropdown-basic-button" drop={'start'} title="">
+                              {launchSites && launchSites.map(site =>
+                                <Dropdown.Item onClick={(e) => handleSelect(e, site, "siteRef")}>{site}</Dropdown.Item>
+                              )}
+                            </DropdownButton>
+                          </Col>
+                        </InputGroup>
+                      </Row>
                       {filter.site && siteRef.current.value &&
                         <ListGroup className='suggestions-list' variant="flush">
                           {
@@ -393,17 +412,29 @@ const Home = () => {
                           {launchPads.filter(pad => pad.launch_site.toLowerCase().includes(siteRef.current.value.toLowerCase())).length === 0 && <ListGroupItem className='suggestion'>No results</ListGroupItem>}
                         </ListGroup>
                       }
-                      <CgBorderStyleDashed className='line-dash' />
-                      <InputGroup onChange={(e) => handlePadChange(e)} className="mb-1">
-                        <InputGroup.Text id="basic-addon1"><SiLaunchpad /></InputGroup.Text>
-                        <Form.Control
-                          ref={padRef}
-                          placeholder="Launch Pad"
-                          aria-label="Username"
-                          aria-describedby="basic-addon1"
-                        />
-                      </InputGroup>
 
+                      <CgBorderStyleDashed className='line-dash' />
+                      <Row>
+                        <InputGroup onChange={(e) => handlePadChange(e)} className="mb-1">
+                            <InputGroup.Text id="basic-addon1"><SiLaunchpad /></InputGroup.Text>
+                          <Col md={9} lg={9} className='search-field-container'>
+                            <Form.Control
+                              className='search-field'
+                              ref={padRef}
+                              placeholder="Launch Pad"
+                              aria-label="Username"
+                              aria-describedby="basic-addon1"
+                            />
+                          </Col>
+                          <Col className='dropdown-field'>
+                            <DropdownButton id="dropdown-basic-button" drop={'start'} title="">
+                              {launchPads && launchPads.map(pad =>
+                                <Dropdown.Item onClick={(e) => handleSelect(e, pad.launch_pad, "padRef", pad.id)}>{pad.launch_pad}</Dropdown.Item>
+                              )}
+                            </DropdownButton>
+                          </Col>
+                        </InputGroup>
+                      </Row>
                       {filter.pad && padRef.current.value &&
                         <ListGroup className='suggestions-list' variant="flush">
                           {
@@ -414,17 +445,29 @@ const Home = () => {
                           {launchPads.filter(pad => pad.launch_pad.toLowerCase().includes(padRef.current.value.toLowerCase())).length === 0 && <ListGroupItem className='suggestion'>No results</ListGroupItem>}
                         </ListGroup>
                       }
+
                       <CgBorderStyleDashed className='line-dash' />
+                      <Row>
                       <InputGroup onChange={(e) => handleProviderChange(e)} className="mb-1">
                         <InputGroup.Text id="basic-addon1"><RocketTakeoffFill /></InputGroup.Text>
-                        <Form.Control
-                          ref={launchProviderRef}
-                          placeholder="Launch Provider"
-                          aria-label="Username"
-                          aria-describedby="basic-addon1"
-                        />
+                        <Col md={9} lg={9} className='search-field-container'>
+                          <Form.Control
+                            className='search-field'
+                            ref={launchProviderRef}
+                            placeholder="Launch Provider"
+                            aria-label="Username"
+                            aria-describedby="basic-addon1"
+                          />
+                        </Col>
+                        <Col className='dropdown-field'>
+                            <DropdownButton id="dropdown-basic-button" drop={'start'} title="">
+                              {launchProviders && launchProviders.map(item =>
+                                <Dropdown.Item onClick={(e) => handleSelect(e, item.organization, "launchProviderRef", item.id)}>{item.organization}</Dropdown.Item>
+                              )}
+                            </DropdownButton>
+                          </Col>
                       </InputGroup>
-
+                      </Row>
                       {filter.provider && launchProviderRef.current.value &&
                         <ListGroup className='suggestions-list' variant="flush">
                           {
@@ -435,18 +478,29 @@ const Home = () => {
                           {launchProviders.filter(lsps => lsps.organization.toLowerCase().includes(launchProviderRef.current.value.toLowerCase())).length === 0 && <ListGroupItem className='suggestion'>No results</ListGroupItem>}
                         </ListGroup>
                       }
-                      <CgBorderStyleDashed className='line-dash' />
-                      <InputGroup onChange={(e) => handleOrbitChange(e)} className="mb-1">
 
+                      <CgBorderStyleDashed className='line-dash' />
+                      <Row>
+                      <InputGroup onChange={(e) => handleOrbitChange(e)} className="mb-1">
                         <InputGroup.Text id="basic-addon1"><GiMoonOrbit /></InputGroup.Text>
-                        <Form.Control
-                          ref={orbitRef}
-                          placeholder="Desired Orbit"
-                          aria-label="Username"
-                          aria-describedby="basic-addon1"
-                        />
+                        <Col md={9} lg={9} className='search-field-container'>
+                          <Form.Control
+                          className='search-field'
+                            ref={orbitRef}
+                            placeholder="Desired Orbit"
+                            aria-label="Username"
+                            aria-describedby="basic-addon1"
+                          />
+                        </Col>
+                        <Col className='dropdown-field'>
+                            <DropdownButton id="dropdown-basic-button" drop={'start'} title="">
+                              {orbits && orbits.map(item =>
+                                <Dropdown.Item onClick={(e) => handleSelect(e, item, "orbitRef")}>{item}</Dropdown.Item>
+                              )}
+                            </DropdownButton>
+                          </Col>
                       </InputGroup>
-                      
+                      </Row>
                       {filter.orbit && orbitRef.current.value &&
                         <ListGroup className='suggestions-list' variant="flush">
                           {
@@ -469,7 +523,7 @@ const Home = () => {
                   <Card className='card-container'>
                     <ListGroup className='search-listgroup' variant="flush">
                       {
-                        searchResults.map(item =>
+                        searchResults.map(item => 
                           <ListGroupItem className='search-list-item' key={item.id}>
                             <Row>
                               <Col >
@@ -479,7 +533,7 @@ const Home = () => {
                                   alt="Card placeholder"
                                 />
                               </Col>
-                              <Col md={6} lg={6}>
+                              <Col md={3} lg={3}>
                                 <Row>
                                   <h5>
                                     {item.launch_vehicle}
@@ -495,11 +549,19 @@ const Home = () => {
                                     ${item.cost} million
                                   </h6>
                                 </Row>
+                              </Col>
+                              <Col md={4} lg={4}>
                                 <Row>
-                                  <h6 className='list-detail'>
-                                    Capacity - LEO: {item.leo_weight} MEO: {item.meo_weight} GEO {item.geo_weight} HEO {item.heo_weight}
-                                  </h6>
-                                </Row>
+                                    <h6 className='list-detail'>
+                                    Capacity
+                                    </h6>
+                                    <ul className='list-detail'>
+                                      <li>{item.leo_weight && `LEO: ${item.leo_weight}kg `}  </li>
+                                      <li>{item.meo_weight && `MEO: ${item.meo_weight}kg `} </li>
+                                      <li>{item.geo_weight && `GEO: ${item.geo_weight}kg `}</li>
+                                      <li>{item.heo_weight && `HEO: ${item.heo_weight}kg `}</li>
+                                    </ul>
+                                  </Row>
                               </Col>
                               <Col>
                                 <RocketTakeoffFill onClick={() => grabPayloads(item)} className='search-rocket' /></Col>
@@ -528,7 +590,7 @@ const Home = () => {
               <Card className='payloads-card-container'>
                 <ListGroup className='payload-listgroup' variant="flush">
                   {
-                    userPayloads.map(item =>
+                    userPayloads.map(item => 
                       <ListGroupItem className='payload-list-item' key={item.id}>
                         <Row>
                           <Col >

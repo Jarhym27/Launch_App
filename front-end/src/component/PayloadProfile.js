@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import "bootstrap/dist/css/bootstrap.min.css";
-import LaunchRequest from "./OldLaunchRequest";
 import { RocketInfo } from "../App";
 
 function PayloadProfile() {
@@ -180,11 +179,11 @@ function PayloadProfile() {
                       <Card.Body className="createdPayloadsCol">
                         <Card.Title>{pay.name}</Card.Title>
                         <Card.Text>
-                          Status: Cick{" "}
+                          Status: Click{" "}
                           <Link state={pay} to='/request'>
                             Here
                           </Link>{" "}
-                          To send to LSP
+                          to book with a Launch Provider
                         </Card.Text>
                         <footer>
                           <small>Payload Created: {pay.updated_at}</small>

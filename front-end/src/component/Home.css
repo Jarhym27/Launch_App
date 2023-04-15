@@ -45,7 +45,7 @@
 }
 
 .search-list-item{
-  height: 7rem;
+  height: 10rem;
 }
 
 .list-detail{
@@ -70,7 +70,7 @@
 }
 
 .card-container{
-  width: 24rem;
+  width: 28rem;
 }
 
 .search-listgroup{
@@ -104,10 +104,33 @@
   margin-bottom: 5px;
 }
 
+.search-field-container{
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.search-field{
+  border-radius: 0%;
+}
+
+.dropdown-field{
+  margin: 0;
+}
+
+#dropdown-basic-button{
+  border-top-left-radius: 0%;
+  border-bottom-left-radius: 0%;
+  height: 100%;
+  width: 100%;
+}
+
+#dropdown-basic-button:hover{
+  background-color: #a03369;
+  border: 1px aliceblue;
+}
+
 
 @keyframes fadeIn {
   0% { opacity: 0; }
   100% { opacity: 1; }
 }
-
-
