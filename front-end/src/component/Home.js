@@ -12,10 +12,11 @@ import { CgBorderStyleDashed } from 'react-icons/cg'
 import { useEffect, useRef, useState, useContext } from "react";
 import ListGroup from 'react-bootstrap/ListGroup';
 import Spinner from "react-bootstrap/Spinner";
-import { SiLaunchpad, SiTeamspeak } from 'react-icons/si'
+import { SiLaunchpad } from 'react-icons/si'
 import { RocketInfo } from "../App";
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
+import {BsCalendarPlus} from 'react-icons/bs'
 
 const Home = () => {
   const { userLogin, setUserLogin } = useContext(RocketInfo);
@@ -36,6 +37,8 @@ const Home = () => {
   const [userPayloads, setUserPayloads] = useState(null)
   const [launchRequests, setLaunchRequests] = useState(null)
   const [loading, setLoading] = useState(false)
+  const [payloadsLoading, setPayloadsLoading] = useState(false)
+
   const [selectedLV, setSelectedLV] = useState(null)
   const [selectedPayload, setSelectedPayload] = useState(null)
   const [modalShow, setModalShow] = useState(false)
@@ -63,6 +66,7 @@ const Home = () => {
           }
         }
         usersPayloads = filteredPayloads
+        setPayloadsLoading(true)
         setUserPayloads(usersPayloads)
         setLaunchRequests(data)
         return 
@@ -199,6 +203,17 @@ const Home = () => {
     return () => clearTimeout(timer);
   }, [searchResults]);
 
+  //use effect for payloads loading delay
+  useEffect(() => {
+    if (!searchResults) {
+      return
+    }
+    const timer = setTimeout(() => {
+      setPayloadsLoading(false)
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [userPayloads]);
+
   //use effect to gather search results
   useEffect(() => {
     if (Object.values(search).filter(item => item === null).length === 4) {
@@ -258,7 +273,7 @@ const Home = () => {
 
   useEffect(() => {
     const controller = new AbortController()
-    fetch('http://localhost:8080/table/launch_pads', {
+    fetch('http://localhost:8080/join/users-launch_pads', {
       signal: controller.signal,
     })
       .then(res => res.json())
@@ -383,7 +398,7 @@ const Home = () => {
                     <Form>
                       <Row>
                         <InputGroup onChange={(e) => handleSiteChange(e)} className="mb-1">
-                          <InputGroup.Text id="basic-addon1"><GiEarthAmerica /></InputGroup.Text>
+                          <InputGroup.Text id="basic-addon1"><GiEarthAmerica className='search-icon' /></InputGroup.Text>
                           <Col md={9} lg={9} className='search-field-container'>
                             <Form.Control
                               className='search-field'
@@ -416,7 +431,7 @@ const Home = () => {
                       <CgBorderStyleDashed className='line-dash' />
                       <Row>
                         <InputGroup onChange={(e) => handlePadChange(e)} className="mb-1">
-                            <InputGroup.Text id="basic-addon1"><SiLaunchpad /></InputGroup.Text>
+                            <InputGroup.Text id="basic-addon1"><SiLaunchpad className='search-icon'/></InputGroup.Text>
                           <Col md={9} lg={9} className='search-field-container'>
                             <Form.Control
                               className='search-field'
@@ -449,7 +464,7 @@ const Home = () => {
                       <CgBorderStyleDashed className='line-dash' />
                       <Row>
                       <InputGroup onChange={(e) => handleProviderChange(e)} className="mb-1">
-                        <InputGroup.Text id="basic-addon1"><RocketTakeoffFill /></InputGroup.Text>
+                        <InputGroup.Text id="basic-addon1"><RocketTakeoffFill className='search-icon' /></InputGroup.Text>
                         <Col md={9} lg={9} className='search-field-container'>
                           <Form.Control
                             className='search-field'
@@ -482,7 +497,7 @@ const Home = () => {
                       <CgBorderStyleDashed className='line-dash' />
                       <Row>
                       <InputGroup onChange={(e) => handleOrbitChange(e)} className="mb-1">
-                        <InputGroup.Text id="basic-addon1"><GiMoonOrbit /></InputGroup.Text>
+                        <InputGroup.Text id="basic-addon1"><GiMoonOrbit className='search-icon' /></InputGroup.Text>
                         <Col md={9} lg={9} className='search-field-container'>
                           <Form.Control
                           className='search-field'
@@ -523,8 +538,10 @@ const Home = () => {
                   <Card className='card-container'>
                     <ListGroup className='search-listgroup' variant="flush">
                       {
-                        searchResults.map(item => 
-                          <ListGroupItem className='search-list-item' key={item.id}>
+                        searchResults.map(item => {
+                          if(item===selectedLV)
+{ return (
+  <ListGroupItem className='search-list-item-selected' key={item.id}>
                             <Row>
                               <Col >
                                 <img
@@ -566,7 +583,53 @@ const Home = () => {
                               <Col>
                                 <RocketTakeoffFill onClick={() => grabPayloads(item)} className='search-rocket' /></Col>
                             </Row>
-                          </ListGroupItem>
+                          </ListGroupItem> )
+} else { return (
+  <ListGroupItem className='search-list-item' key={item.id}>
+  <Row>
+    <Col >
+      <img
+        className=""
+        src="http://via.placeholder.com/100x80"
+        alt="Card placeholder"
+      />
+    </Col>
+    <Col md={3} lg={3}>
+      <Row>
+        <h5>
+          {item.launch_vehicle}
+        </h5>
+      </Row>
+      <Row>
+        <h6 className='list-detail'>
+          {item.launch_site}
+        </h6>
+      </Row>
+      <Row>
+        <h6 className='list-detail'>
+          ${item.cost} million
+        </h6>
+      </Row>
+    </Col>
+    <Col md={4} lg={4}>
+      <Row>
+          <h6 className='list-detail'>
+          Capacity
+          </h6>
+          <ul className='list-detail'>
+            <li>{item.leo_weight && `LEO: ${item.leo_weight}kg `}  </li>
+            <li>{item.meo_weight && `MEO: ${item.meo_weight}kg `} </li>
+            <li>{item.geo_weight && `GEO: ${item.geo_weight}kg `}</li>
+            <li>{item.heo_weight && `HEO: ${item.heo_weight}kg `}</li>
+          </ul>
+        </Row>
+    </Col>
+    <Col>
+      <RocketTakeoffFill onClick={() => grabPayloads(item)} className='search-rocket' /></Col>
+  </Row>
+</ListGroupItem> )
+}                          
+                        }
                         )
                       }
                     </ListGroup>
@@ -584,7 +647,8 @@ const Home = () => {
               </Row>
             }
           </Col>
-          {userPayloads !== null && userPayloads.length > 0 &&
+          {payloadsLoading && <Spinner variant="light" />}
+          {!payloadsLoading && userPayloads !== null && userPayloads.length > 0 &&
             <Col className='available-payloads-container'>
               <h2 className='payloads-title'>Compatible Payloads</h2>
               <Card className='payloads-card-container'>
@@ -630,7 +694,7 @@ const Home = () => {
                               </h5>
                             }
                             { launchRequests && !launchRequests.map(request => request.payload_id).includes(item.id) &&
-                              <RocketTakeoffFill onClick={() => {
+                              <BsCalendarPlus onClick={() => {
                                 if (!selectedPayload && !selectedLV) return
                                 else {
                                   setSelectedPayload(item)
@@ -659,6 +723,7 @@ const Home = () => {
           }
         </Row>
         <LaunchRequestModal payload={selectedPayload} vehicle={selectedLV} show={modalShow} onHide={() => setModalShow(false)} />
+        
       </Container>
     </div>
   );

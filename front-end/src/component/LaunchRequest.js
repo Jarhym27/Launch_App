@@ -220,7 +220,7 @@ const LaunchRequest = () => {
 
   useEffect(() => {
     const controller = new AbortController()
-    fetch('http://localhost:8080/table/launch_pads', {
+    fetch('http://localhost:8080/join/users-launch_pads', {
       signal: controller.signal,
     })
       .then(res => res.json())
@@ -379,7 +379,7 @@ const LaunchRequest = () => {
                     <Form>
                       <Row>
                         <InputGroup onChange={(e) => handleSiteChange(e)} className="mb-1">
-                          <InputGroup.Text id="basic-addon1"><GiEarthAmerica /></InputGroup.Text>
+                          <InputGroup.Text id="basic-addon1"><GiEarthAmerica className='search-icon' /></InputGroup.Text>
                           <Col md={9} lg={9} className='search-field-container'>
                             <Form.Control
                               className='search-field'
@@ -412,7 +412,7 @@ const LaunchRequest = () => {
                       <CgBorderStyleDashed className='line-dash' />
                       <Row>
                         <InputGroup onChange={(e) => handlePadChange(e)} className="mb-1">
-                            <InputGroup.Text id="basic-addon1"><SiLaunchpad /></InputGroup.Text>
+                            <InputGroup.Text id="basic-addon1"><SiLaunchpad  className='search-icon'/></InputGroup.Text>
                           <Col md={9} lg={9} className='search-field-container'>
                             <Form.Control
                               className='search-field'
@@ -445,7 +445,7 @@ const LaunchRequest = () => {
                       <CgBorderStyleDashed className='line-dash' />
                       <Row>
                       <InputGroup onChange={(e) => handleProviderChange(e)} className="mb-1">
-                        <InputGroup.Text id="basic-addon1"><RocketTakeoffFill /></InputGroup.Text>
+                        <InputGroup.Text id="basic-addon1"><RocketTakeoffFill className='search-icon' /></InputGroup.Text>
                         <Col md={9} lg={9} className='search-field-container'>
                           <Form.Control
                             className='search-field'
@@ -478,7 +478,7 @@ const LaunchRequest = () => {
                       <CgBorderStyleDashed className='line-dash' />
                       <Row>
                       <InputGroup onChange={(e) => handleOrbitChange(e)} className="mb-1">
-                        <InputGroup.Text id="basic-addon1"><GiMoonOrbit /></InputGroup.Text>
+                        <InputGroup.Text id="basic-addon1"><GiMoonOrbit className='search-icon' /></InputGroup.Text>
                         <Col md={9} lg={9} className='search-field-container'>
                           <Form.Control
                           className='search-field'
@@ -519,7 +519,7 @@ const LaunchRequest = () => {
                   <Card className='card-container'>
                     <ListGroup className='search-listgroup' variant="flush">
                       {
-                        searchResults.map(item =>
+                        searchResults.map(item => 
                           <ListGroupItem className='search-list-item' key={item.id}>
                             <Row>
                               <Col >
@@ -529,7 +529,7 @@ const LaunchRequest = () => {
                                   alt="Card placeholder"
                                 />
                               </Col>
-                              <Col md={6} lg={6}>
+                              <Col md={3} lg={3}>
                                 <Row>
                                   <h5>
                                     {item.launch_vehicle}
@@ -545,16 +545,24 @@ const LaunchRequest = () => {
                                     ${item.cost} million
                                   </h6>
                                 </Row>
+                              </Col>
+                              <Col md={4} lg={4}>
                                 <Row>
-                                  <h6 className='list-detail'>
-                                    Capacity - LEO: {item.leo_weight} MEO: {item.meo_weight} GEO {item.geo_weight} HEO {item.heo_weight}
-                                  </h6>
-                                </Row>
+                                    <h6 className='list-detail'>
+                                    Capacity
+                                    </h6>
+                                    <ul className='list-detail'>
+                                      <li>{item.leo_weight && `LEO: ${item.leo_weight}kg `}  </li>
+                                      <li>{item.meo_weight && `MEO: ${item.meo_weight}kg `} </li>
+                                      <li>{item.geo_weight && `GEO: ${item.geo_weight}kg `}</li>
+                                      <li>{item.heo_weight && `HEO: ${item.heo_weight}kg `}</li>
+                                    </ul>
+                                  </Row>
                               </Col>
                               <Col>
                                 <RocketTakeoffFill onClick={() => {
                                   setSelectedLV(item)
-                                  setModalShow(true)
+                                  setModalShow(false)
                                 }} className='search-rocket' /></Col>
                             </Row>
                           </ListGroupItem>
