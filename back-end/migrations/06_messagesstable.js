@@ -12,7 +12,7 @@ exports.up = function(knex) {
         table.foreign('launch_request_id').references('launch_requests.id')
         table.integer('launch_request_id')
         table.string('message',1000)
-        table.boolean('is_notification')
+        table.enum('notification_type', ['New message','Request denied','Request accepted','Request received'])
         table.boolean('notification_ack')
         table.datetime('timestamp',{precision: 6})
     })
