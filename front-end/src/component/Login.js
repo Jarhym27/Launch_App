@@ -38,7 +38,11 @@ const Login = () => {
       })
     .then(data => {
       setUserLogin(data)
-      navigate('/home')
+      if(data.role==='payload_user'){
+        navigate('/home')
+      } else {
+        navigate('/lspprofile')
+      }
     })
     .catch(err=>console.error(err))
   };

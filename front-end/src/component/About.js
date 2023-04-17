@@ -47,11 +47,6 @@ function About() {
                     </div>
                 </div>
             </div>
-            <footer className="bg-dark pb-5">
-                <div className="container text-center">
-                    <p className="font-italic text-muted mb-0">&copy; 2023 L-Uber.com</p>
-                </div>
-            </footer>
         </>
     )
 }
