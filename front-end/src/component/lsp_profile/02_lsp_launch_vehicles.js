@@ -19,7 +19,7 @@ function LspLaunchVehicles() {
   const [submitVehicle, setSubmitVehicle] = useState()
   const [getInfo, setGetInfo] = useState(false)
   const [launchVehicle, setLaunchVehicle] = useState([]);
- 
+
 
   // useEffect(() => {
   //   fetch('http://localhost:8080/table/launch_vehicles')
@@ -32,7 +32,7 @@ function LspLaunchVehicles() {
             const interval = setInterval(getEvents, 2000)
             return () => clearInterval(interval)
        }, [])
-    
+
         const getEvents = () => {
             axios.get('http://localhost:8080/table/launch_vehicles')
             .then((res) => {
@@ -66,7 +66,7 @@ function LspLaunchVehicles() {
       }
     }).then(() => setGetInfo(true))
   }
-  
+
     const statusChoice = ["Available","Booked"]
   const filteredVehicle = launchVehicle?.filter(element => element.lsp_user_id === userLogin.id)
 
@@ -77,8 +77,7 @@ function LspLaunchVehicles() {
           <Card>
             <Card.Title>
               Launch Vehicle
-              <Button show=
-              {show} onClick={handleShow}> Add Launch Vehicle</Button>
+              <Button onClick={handleShow}> Add Launch Vehicle</Button>
             </Card.Title>
             {filteredVehicle?.map((vehicle, j) => {
               return (<Card.Body key={j}>
@@ -122,15 +121,15 @@ function LspLaunchVehicles() {
             className="mb-3"
             controlId="formDropDown">
             <Form.Label>Launch_Pad</Form.Label>
-            <Form.Select onChange={(e) => setPad(e.target.value)}> 
-            {availablePads?.map((element) => <option> {element.launch_pad} </option>)}
+            <Form.Select onChange={(e) => setPad(e.target.value)}>
+            {availablePads?.map((element, index) => <option key={index}> {element.launch_pad} </option>)}
             </Form.Select>
           </Form.Group>
           <Form.Group onChange={(e) => setStatus(e.target.value)}
             className="mb-3"
             controlId="formDropDown">
             <Form.Label>Status</Form.Label>
-            <Form.Select onChange={(e) => setStatus(e.target.value)}> 
+            <Form.Select onChange={(e) => setStatus(e.target.value)}>
           <option value={"available"}> Available </option>
           <option value={"booked"}> Booked </option>
             </Form.Select>

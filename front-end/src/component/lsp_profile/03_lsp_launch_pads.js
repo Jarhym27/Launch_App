@@ -47,7 +47,7 @@ function LspLaunchPads() {
       .then(data => setLaunchPad(data))
   }, [])
 
-  
+
   // ADD PAYLOAD POST
   const handlePost = (e) => {
     fetch("http://localhost:8080/table/launch_pads", {
@@ -65,7 +65,7 @@ function LspLaunchPads() {
       },
     }).then(() => setFetchTime(true));
   };
-  
+
   const handleUpdate = () => {
     fetch(`http://localhost:8080/table/launch_pads?id=${selectedPad.id}`, {
       method: "PATCH",
@@ -100,22 +100,21 @@ function LspLaunchPads() {
       }
     })
   }
-  
-  
-  
+
+
+
   useEffect(() => {
     setTimeout(() => {
       setAvailablePads(launchPad?.filter((element) => element.lsp_user_id === userLogin.id))
     }, 1000);
-  }, availablePads)
-  
+  }, [availablePads])
+
   return (
     <>
     <Row>
       <Col className="col-3">
-    <h1>Launch Pads</h1> 
-    <Button show=
-              {show} onClick={handleShow}> Add a New Pad</Button>
+    <h1>Launch Pads</h1>
+    <Button onClick={handleShow}> Add a New Pad</Button>
       {availablePads?.map((pads, i) => {
         return (
           <Card key={i} >
@@ -242,7 +241,7 @@ function LspLaunchPads() {
               className="mb-3"
               controlId="formBasicEmail"
             >
-              {console.log(selectedPad?.launch_pad)}
+              {/* {console.log(selectedPad?.launch_pad)} */}
               <Form.Label>Pad Name</Form.Label>
               <Form.Control
                 defaultValue={selectedPad?.launch_pad}
@@ -264,9 +263,9 @@ function LspLaunchPads() {
                 <option value={false}>Unavailable</option>
               </Form.Select>
             </Form.Group>
-            
 
-           
+
+
             <Button
               onClick={() =>handleCloseUpdate()}
               className="addPayload"
@@ -288,7 +287,7 @@ function LspLaunchPads() {
         </Modal.Footer>
       </Modal>
 
-      
+
 
 
 
@@ -299,7 +298,7 @@ function LspLaunchPads() {
 
         <Modal.Body>
         <Form.Label>Are you sure you want to delete: {selectedPad?.launch_pad} </Form.Label>
-      
+
         <Button
               onClick={() => {
                 handleDelete();
@@ -312,7 +311,7 @@ function LspLaunchPads() {
               Delete
             </Button>
         </Modal.Body>
-        
+
         <Modal.Footer className="modalForm">
           <Button
             className="addPayload"

@@ -8,7 +8,6 @@ import Signup from "./component/Signup";
 import PayloadProfile from "./component/PayloadProfile";
 import AnimeRocket from "./component/Animated_Rocket";
 import LaunchRequest from './component/LaunchRequest';
-import LaunchRequest2 from './component/LaunchRequest2';
 import PageNotFound from "./component/PageNotFound";
 import Header from "./component/Header";
 import About from "./component/About";
