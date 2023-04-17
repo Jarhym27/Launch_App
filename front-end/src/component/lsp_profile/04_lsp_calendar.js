@@ -11,6 +11,8 @@ import LspLaunchPads from "./03_lsp_launch_pads";
 import LspLaunchVehicles from "./02_lsp_launch_vehicles"
 import RequestList from "./05_lsp_requests_list";
 import "./000_calendar.css"
+import axios from "axios"
+
 const locales = {
     "en-US": require("date-fns/locale/en-US"),
 };
@@ -24,42 +26,52 @@ const localizer = dateFnsLocalizer({
 
 
 
-const events = [
-    {
-        title: "NaSA Launch",
-        pad: 4,
-        allDay: true,
-        start: new Date(2023, 4, 15),
-        end: new Date(2023, 4, 15),
-    },
-    {
-        title: "SpaceX Launch",
-        pad: 12,
-        start: new Date(2023, 6, 7),
-        end: new Date(2023, 6, 10),
-    },
-    {
-        title: "Blue Origin Launch",
-        pad: 5,
-        start: new Date(2023, 6, 20),
-        end: new Date(2023, 6, 23),
-    },
-    {
-        title: "Blue Origin Launch",
-        pad: 8,
-        start: new Date(2023, 6, 20),
-        end: new Date(2023, 6, 23),
-    },
-];
+// const events = [
+//     {
+//         title: "NaSA Launch",
+//         pad: 4,
+//         allDay: true,
+//         start: new Date(2023, 4, 15),
+//         end: new Date(2023, 4, 15),
+//     },
+//     {
+//         title: "SpaceX Launch",
+//         pad: 12,
+//         start: new Date(2023, 6, 7),
+//         end: new Date(2023, 6, 10),
+//     },
+//     {
+//         title: "Blue Origin Launch",
+//         pad: 5,
+//         start: new Date(2023, 6, 20),
+//         end: new Date(2023, 6, 23),
+//     },
+//     {
+//         title: "Blue Origin Launch",
+//         pad: 8,
+//         start: new Date(2023, 6, 20),
+//         end: new Date(2023, 6, 23),
+//     },
+// ];
 function LspCalendar() {
     const [newEvent, setNewEvent] = useState({ title: "", vehicle: "", pad: "", start: "", end: "" });
-    const [allEvents, setAllEvents] = useState(events);
-    // useEffect(() => {
-    //     fetch('http://localhost:8080/join/launch_requests')
-    //         .then(res => res.json())
-    //         .then(data => data)
-    // })
+    const [allEvents, setAllEvents] = useState([]);
+    useEffect(() => {
+        getEvents();
+        const interval = setInterval(getEvents, 87000)
+        return () => clearInterval(interval)
+        // fetch('http://localhost:8080/join/launch_requests')
+        //     .then(res => res.json())
+        //     .then(data => setAllEvents(data))
+    }, [])
 
+    const getEvents = () => {
+        axios.get('http://localhost:8080/join/launch_requests')
+        .then((res) => {
+            setAllEvents(res.data);
+        })
+    }
+  
     function handleAddEvent() {
         for (let i = 0; i < allEvents.length; i++) {
             const d1 = new Date(allEvents[i].start);
@@ -76,6 +88,15 @@ function LspCalendar() {
         }
         setAllEvents([...allEvents, newEvent]);
     }
+const eventInfo = ({ allEvents}) =>{
+    return(
+        <div>
+            <div>{allEvents.request_status}</div>
+            <div>{allEvents.launch_date}</div>
+        </div>
+    )
+}
+
     return (
         <div >
             <React.Fragment ><LspLaunchVehicles />
@@ -94,7 +115,7 @@ function LspCalendar() {
             </div>
 
 
-            <Calendar localizer={localizer} events={allEvents} startAccessor="start" endAccessor="end" style={{ height: 500, margin: "50px" }} />
+            <Calendar selectable={true} localizer={localizer} events={allEvents} eventContent={eventInfo} startAccessor="start" endAccessor="end" style={{ height: 500, margin: "50px" }} />
         </div>
     );
 }
