@@ -7,48 +7,46 @@ import { RocketInfo } from "../../App"
 const RequestList = () =>{
   const { userLogin, setUserLogin } = useContext(RocketInfo);
 
-  const {launchRequest, setLaunchRequest,lspUser,setLspUser} = useContext(LspDistro)
+  const {launchVehicles, launchPads,  payloadUsers,  launchRequests} = useContext(LspDistro)
 
-  const [launchVehicle, setLaunchVehicle] = useState([])
+  const [myRequests, setMyRequests] = useState([])
+  const [myVehicles, setMyVehicles] = useState([])
+  const [myPayloads, setMyPayloads] = useState([])
+  const [myUsers, setMyUsers] = useState([])
 
   useEffect(() =>{
-    fetch('http://localhost:8080/table/launch_vehicles')
-    .then(res => res.json())
-    .then(data => {
-      data = data.filter(element => element.lsp_user_id === userLogin.id)
-      setLaunchVehicle(data)
-      fetch('http://localhost:8080/join/launch_requests')
-      .then(res => res.json())
-      .then(data => {
-        let rocketIDs = launchVehicle.map(e => e.id)
-        data = data.filter(element => rocketIDs.includes(element.launch_vehicle_id))
-        setLaunchRequest(data)
-        console.log(data)
-      })
-    })
-    .then(() => {
-      fetch('http://localhost:8080/table/users')
-      .then(res => res.json())
-      .then(data => {
-        let activeUsers = launchRequest.map(e => e.payload_user_id)
-        setLspUser(data.filter(element => element.role !== 'lsp_user' && activeUsers.includes(element.id)))
-      })  
-    })
-  },[])
+    // setMyVehicles(launchVehicles.filter(e => e.lsp_user_id === userLogin.id))
+    // console.log(launchRequests);
+    // .then(() => {
+    //   fetch('http://localhost:8080/table/users')
+    //   .then(res => res.json())
+    //   .then(async data => {
+    //     await setActiveUsers(launchRequest.map(e => e.payload_user_id))
+    //     setLspUser(data.filter(element => element.role !== 'lsp_user' && activeUsers.includes(element.id)))
+    //   })  
+    // })
+    
+  },[launchVehicles, launchPads,  payloadUsers,  launchRequests, userLogin])
+  useEffect(() => {
+    setMyRequests(launchRequests?.filter(e => launchVehicles.filter(e => e.lsp_user_id === userLogin.id)?.map(e => e.id).includes(e.launch_vehicle_id)))
+    console.log('my requests', myRequests)
+  }, [myVehicles, launchRequests])
+  useEffect(() => {
+    
+  }, [myRequests])
 
 
 return(
 <Row>
   <Col className="col-start-9 col-end-12">
-    {userLogin.username}
-  {lspUser?.map((user, i) => {
+  {/* {activeUsers?.map((user, i) => {
     return(
     <Card key={i}>
     <Card.Body>
       <Card.Title border="danger">
       Launch Requests from {user.username} 
       </Card.Title>
-      {launchRequest?.map((e, i) => {
+      {launchRequests?.map((e, i) => {
         if(e.payload_user_id == user.id){
           return(
             <div className="border">
@@ -73,7 +71,7 @@ return(
     
   }
   
-  )}
+  )} */}
   
   </Col>
   </Row>

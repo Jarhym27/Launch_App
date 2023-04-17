@@ -16,20 +16,34 @@ export const LspDistro = React.createContext();
 
 function LspProfile() {
   const navigate = useNavigate()
-  const [lspUser, setLspUser] = useState()
-  const [launchVehicle,setLaunchVehicle] = useState([])
-  const [launchPad,setLaunchPad] = useState([])
-  const [launchRequest, setLaunchRequest] = useState()
+  const [payloadUsers, setPayloadUser] = useState()
+  const [launchVehicles,setLaunchVehicle] = useState([])
+  const [launchPads,setLaunchPad] = useState([])
+  const [payloads,setPayloads] = useState([])
+  const [launchRequests, setLaunchRequest] = useState([])
 
 
-  // useEffect(() => {
-  //  if(lspUser === false) {
-  //  return navigate('/login')
-  //  //also throw up pop-up that says 'Error: you must log in first!'
-  //  }})
+  useEffect(() => {
+    fetch('http://localhost:8080/table/launch_requests')
+      .then(res => res.json())
+      .then(data => setLaunchRequest(data))
+    fetch('http://localhost:8080/table/users')
+      .then(res => res.json())
+      .then(data => setPayloadUser(data.filter(e => e.role === 'payload_user')))
+    fetch('http://localhost:8080/table/launch_pads')
+      .then(res => res.json())
+      .then(data => setLaunchPad(data))
+    fetch('http://localhost:8080/table/launch_vehicles')
+      .then(res => res.json())
+      .then(data => setLaunchVehicle(data))
+    fetch('http://localhost:8080/join/users-payloads')
+      .then(res => res.json())
+      .then(data => setPayloads(data))
+    
+  }, [])
 
   return (
-    <LspDistro.Provider value={{launchVehicle, launchPad, setLaunchVehicle, setLaunchPad, lspUser, setLspUser, launchRequest, setLaunchRequest}}>
+    <LspDistro.Provider value={{launchVehicles, launchPads,  payloadUsers,  launchRequests, payloads}}>
       {/* <LspLaunchVehicles/> */} 
       <LspCalendar/>
        {/* <ReviewRequest/> */} 
