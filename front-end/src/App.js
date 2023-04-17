@@ -49,11 +49,7 @@ function App() {
   }, [])
 
   return (
-<<<<<<< HEAD
-    <RocketInfo.Provider value={{ userCreate, setUserCreate, userLogin, setUserLogin, availablePads, setAvailablePads }}>
-=======
     <RocketInfo.Provider value={{userCreate, setUserCreate, userLogin, setUserLogin, availablePads, setAvailablePads, launchVehicles, setLaunchVehicles}}>
->>>>>>> 6e6856a01b9284265f5e987d760d6581d62adefc
       <Router>
         {userLogin.username && <Header />}
         <Routes>
