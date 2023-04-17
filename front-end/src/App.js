@@ -15,6 +15,7 @@ import Home from "./component/Home"
 import cookie from 'cookie'
 import LspProfile from "./component/lsp_profile/01_lsp_profile_page";
 import LspCalendar from "./component/lsp_profile/04_lsp_calendar";
+import Notifications from "./component/Notifications";
 export const RocketInfo = createContext();
 
 function App() {
@@ -64,9 +65,9 @@ const [availablePads, setAvailablePads] = useState();
           <Route path="*" element={<PageNotFound />} ></Route>
 
 
-        </Routes>
-      </Router >
-    </RocketInfo.Provider>
+         </Routes>
+       </Router >
+     </RocketInfo.Provider>
   )
 }
 
