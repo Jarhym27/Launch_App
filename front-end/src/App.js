@@ -15,6 +15,7 @@ import Home from "./component/Home"
 import cookie from 'cookie'
 import LspProfile from "./component/lsp_profile/01_lsp_profile_page";
 import LspCalendar from "./component/lsp_profile/04_lsp_calendar";
+import Notifications from "./component/Notifications";
 export const RocketInfo = createContext();
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
     organization: "",
     role: "",
   });
+
 
 
   useEffect(() => {
@@ -47,26 +49,27 @@ function App() {
   }, [])
 
   return (
-    <RocketInfo.Provider value={{userCreate, setUserCreate, userLogin, setUserLogin}}>
-      <Router>
-        {userLogin.username && <Header/> }
-        <Routes>
-          <Route path='/' element={< Login/>}></Route>
-          <Route path='/home' element={< Home/>}></Route>
-          {/* <Route path='/Login' element={< Login />}></Route> */}
-          <Route path='/signup' element={<Signup/>}></Route>
-          <Route path='/request/:id' element={<LaunchRequest/>}></Route>
-          <Route path='/header' element={<Header/>}></Route> {/*only needed for testing */}
-          <Route path='/rocket' element={< AnimeRocket />}></Route>
-          <Route path='/aboutus' element={<About/>}></Route>
-          <Route path='/payloadprofile' element={<PayloadProfile/>}></Route>
-          <Route path='/lspprofile' element={<LspProfile/>}></Route>
-          <Route path="*" element={<PageNotFound />} ></Route>
+    <Notifications />
+    // <RocketInfo.Provider value={{userCreate, setUserCreate, userLogin, setUserLogin}}>
+    //   <Router>
+    //     {userLogin.username && <Header/> }
+    //     <Routes>
+    //       <Route path='/' element={< Login/>}></Route>
+    //       <Route path='/home' element={< Home/>}></Route>
+    //       {/* <Route path='/Login' element={< Login />}></Route> */}
+    //       <Route path='/signup' element={<Signup/>}></Route>
+    //       <Route path='/request/:id' element={<LaunchRequest/>}></Route>
+    //       <Route path='/header' element={<Header/>}></Route> {/*only needed for testing */}
+    //       <Route path='/rocket' element={< AnimeRocket />}></Route>
+    //       <Route path='/aboutus' element={<About/>}></Route>
+    //       <Route path='/payloadprofile' element={<PayloadProfile/>}></Route>
+    //       <Route path='/lspprofile' element={<LspProfile/>}></Route>
+    //       <Route path="*" element={<PageNotFound />} ></Route>
 
 
-        </Routes>
-      </Router >
-    </RocketInfo.Provider>
+    //     </Routes>
+    //   </Router >
+    // </RocketInfo.Provider>
   )
 }
 
