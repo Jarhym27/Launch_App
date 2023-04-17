@@ -10,6 +10,7 @@ exports.up = function(knex) {
     table.integer('weight')
     table.enu('orbital_requirement',['GEO','LEO','MEO', 'HEO'])
     table.string('name')
+    table.string('description')
     table.timestamps(true,true)
   })
 };

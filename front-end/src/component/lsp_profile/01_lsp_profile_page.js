@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 // import ReviewRequest from './06_lsp_request_review'
 // import LspLaunchVehicles from "./02_lsp_launch_vehicles.js";
 // import LspLaunchPads from "./03_lsp_launch_pads";
-// import RequestList from "./05_lsp_requests_list";
+import RequestList from "./05_lsp_requests_list";
 import LspCalendar from "./04_lsp_calendar";
 import { RocketInfo } from '../../App';
 
@@ -16,24 +16,38 @@ export const LspDistro = React.createContext();
 
 function LspProfile() {
   const navigate = useNavigate()
-  const [lspUser, setLspUser] = useState()
-  const [launchVehicle,setLaunchVehicle] = useState([])
-  const [launchPad,setLaunchPad] = useState([])
-  const [launchRequest, setLaunchRequest] = useState()
+  const [payloadUsers, setPayloadUser] = useState()
+  const [launchVehicles,setLaunchVehicle] = useState([])
+  const [launchPads,setLaunchPad] = useState([])
+  const [payloads,setPayloads] = useState([])
+  const [launchRequests, setLaunchRequest] = useState([])
 
 
   // useEffect(() => {
-  //  if(lspUser === false) {
-  //  return navigate('/login')
-  //  //also throw up pop-up that says 'Error: you must log in first!'
-  //  }})
+  //   fetch('http://localhost:8080/table/launch_requests')
+  //     .then(res => res.json())
+  //     .then(data => setLaunchRequest(data))
+  //   fetch('http://localhost:8080/table/users')
+  //     .then(res => res.json())
+  //     .then(data => setPayloadUser(data.filter(e => e.role === 'payload_user')))
+  //   fetch('http://localhost:8080/table/launch_pads')
+  //     .then(res => res.json())
+  //     .then(data => setLaunchPad(data))
+  //   fetch('http://localhost:8080/table/launch_vehicles')
+  //     .then(res => res.json())
+  //     .then(data => setLaunchVehicle(data))
+  //   fetch('http://localhost:8080/join/users-payloads')
+  //     .then(res => res.json())
+  //     .then(data => setPayloads(data))
+
+  // }, [])
 
   return (
-    <LspDistro.Provider value={{launchVehicle, launchPad, setLaunchVehicle, setLaunchPad, lspUser, setLspUser, launchRequest, setLaunchRequest}}>
+    <>
       {/* <LspLaunchVehicles/> */}
       <LspCalendar/>
        {/* <ReviewRequest/> */}
-    </LspDistro.Provider>
+    </>
 
   )
 }
