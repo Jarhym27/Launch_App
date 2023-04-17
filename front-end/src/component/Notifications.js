@@ -12,41 +12,52 @@ const moment = require('moment')
 function Notifications() {
 const [notifs, setNotifs] = useState();
 const [toastBools, setToastBools] = useState();
+const [myMessages,setMyMessages] = useState();
 const {userLogin} = useContext(RocketInfo)
 
 //Close TOASTS
-const toggleShowA = (index) => {
-    console.log('toggling index:',index)
-    let newBools = JSON.parse(JSON.stringify(toastBools))
-    newBools[index] = !newBools[index]
-    console.log('new booleans set:',newBools)
-    setToastBools(newBools)
+const toggleShowA = (index,message_id) => {
+  fetch(`http://localhost:8080/table/messages?id=${message_id}`, {
+      method: "PATCH",
+      body: JSON.stringify({
+        notification_ack: true
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8"
+      }
+    })
+    .then(res=>{
+      if(res.status===200){
+        let newBools = JSON.parse(JSON.stringify(toastBools))
+        newBools[index] = !newBools[index]
+        setToastBools(newBools)
+      }
+    })
+    
 };
 
 
 useEffect(() => {
     console.log('use effect triggered')
-    fetch("http://localhost:8080/join/launch_requests")
-    .then(res => res.json())
-    .then(data => {
-        console.log('data', data)
-        console.log('user id:',userLogin.id)
-        let myRequests = data?.filter(request=>request.payload_user_id===userLogin.id)
-        console.log('My requests',myRequests)
-        let myToasts = myRequests.filter((e,i)=> (new Date(e.updated_at).valueOf()) >  (new Date(e.created_at).valueOf()) )
-        console.log('My toasts',myToasts)
-        let numToasts = myToasts.length
-        let boolsArr = []
-        for(let i=0;i<numToasts;i++){
-            boolsArr.push(true)
-        }
-        setToastBools(boolsArr)
-        setNotifs(myToasts)
-        return myRequests})
+    fetch("http://localhost:8080/join/payload_user_messages")
+      .then(res =>res.json())
+      .then(data => {
+        let myNotifications = data.filter(msg=>msg.recipient_id===userLogin.id && !msg.notification_ack && (msg.notification_type ==='Request denied' || msg.notification_type ==='Request accepted') )
+        let numToasts = myNotifications.length
+          let boolsArr = []
+          for(let i=0;i<numToasts;i++){
+              boolsArr.push(true)
+          }
+          setToastBools(boolsArr)
+          setNotifs(myNotifications)
+      })
+
 }, [])
 
 console.log('current time',new Date())
 
+
+//Request denied by (SpaceX) for (Payload Name)
 
 return (
     <ToastContainer position={'middle-center'} autoClose={2000}>
@@ -57,14 +68,14 @@ return (
             if(toastBools[i]===true){
                 return (
                     
-                    <Toast key={i} show={toastBools[i]}  onClose={()=>toggleShowA(i)}>
+                    <Toast key={i} show={toastBools[i]}  onClose={()=>toggleShowA(i,update.msg_id)}>
                     <Toast.Header>
                         <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
                         <strong className="me-auto"> Launch Request Alert</strong>
                         <small className="text-muted">{formatted}</small>
                     </Toast.Header>
                     <Toast.Body>
-                        <span key={i}>Payload: {update.name} status has been changed to {update.request_status}</span>
+                        <span key={i}>{update.notification_type} by {update.organization} for {update.name}</span>
                         <br></br>
                         <Link>View Details</Link>
                     </Toast.Body>
