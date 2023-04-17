@@ -18,7 +18,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 
 const LaunchRequest = () => {
-  const { userLogin, setUserLogin } = useContext(RocketInfo);
+  const { userLogin } = useContext(RocketInfo);
   let location = useLocation();
 
   const siteRef = useRef();
@@ -562,7 +562,7 @@ const LaunchRequest = () => {
                               <Col>
                                 <RocketTakeoffFill onClick={() => {
                                   setSelectedLV(item)
-                                  setModalShow(false)
+                                  setModalShow(true)
                                 }} className='search-rocket' /></Col>
                             </Row>
                           </ListGroupItem>
