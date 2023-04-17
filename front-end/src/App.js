@@ -65,9 +65,9 @@ const [availablePads, setAvailablePads] = useState();
           <Route path="*" element={<PageNotFound />} ></Route>
 
 
-    //     </Routes>
-    //   </Router >
-    // </RocketInfo.Provider>
+         </Routes>
+       </Router >
+     </RocketInfo.Provider>
   )
 }
 
