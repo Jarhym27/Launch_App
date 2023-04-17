@@ -130,12 +130,11 @@ return newPad;
   
   return (
     <>
-   { console.log(availablePads)}
+   {/* { console.log(availablePads)} */}
     <Row>
       <Col className="col-3">
     <h1>Launch Pads</h1> 
-    <Button show=
-              {show} onClick={handleShow}> Add a New Pad</Button>
+    <Button  onClick={handleShow}> Add a New Pad</Button>
       {availablePads?.map((pads, i) => {
         return (
           <Card key={i} >

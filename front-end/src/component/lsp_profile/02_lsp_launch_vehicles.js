@@ -1,10 +1,18 @@
-import React, { useState, useContext, useEffect } from "react"
+import React, { useState, useContext, useEffect } from "react";
 import { LspDistro } from "./01_lsp_profile_page";
-import { Form, Modal, Container, Row, Col, Card, Button } from 'react-bootstrap'
+import {
+  Form,
+  Modal,
+  Container,
+  Row,
+  Col,
+  Card,
+  Button,
+} from "react-bootstrap";
 import RequestList from "./05_lsp_requests_list";
-import { RocketInfo } from "../../App"; import axios from "axios";
+import { RocketInfo } from "../../App";
+import axios from "axios";
 export default LspLaunchVehicles;
-
 
 function LspLaunchVehicles() {
   const { userLogin, setUserLogin, availablePads, setAvailablePads } = useContext(RocketInfo);
@@ -32,7 +40,7 @@ function LspLaunchVehicles() {
 
   const handleClose = () => setShow(false);
 
-  const handleShow = () => setShow(true)
+  const handleShow = () => setShow(true);
   //Add a new vehicle
   const addNewVehicle = (event) => {
     fetch("http://localhost:8080/table/launch_vehicles", {
@@ -109,7 +117,7 @@ function LspLaunchVehicles() {
             controlId="formDropDown">
             <Form.Label>Launch_Pad</Form.Label>
             <Form.Select onChange={(e) => setPad(e.target.value)}>
-              {availablePads?.map((element) => <option> {element.launch_pad} </option>)}
+              {availablePads?.map((element, i) => <option key={`option: ${i}`}> {element.launch_pad} </option>)}
             </Form.Select>
           </Form.Group>
           <Form.Group onChange={(e) => setStatus(e.target.value)}
@@ -158,4 +166,3 @@ function LspLaunchVehicles() {
 
 
 }
-
