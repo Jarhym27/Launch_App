@@ -12,24 +12,28 @@ const RequestList = () =>{
   const [myUsers, setMyUsers] = useState([])
 
   useEffect(() =>{
+    if(userLogin){
     fetch('http://localhost:8080/join/launch_requests')
       .then(res => res.json())
       .then(data => data.filter(e => e.lsp_user_id == userLogin.id))
       .then(filtered => setMyRequests(filtered))
+    }
   },[userLogin])
 
   useEffect(() => {
-    fetch('http://localhost:8080/table/users')
-      .then(res => res.json())
-      .then(data => data.filter(e => myRequests.map(e => e.payload_user_id).includes(e.id)))
-      .then(filtered => setMyUsers(filtered))
+    if(myRequests){
+      fetch('http://localhost:8080/table/users')
+        .then(res => res.json())
+        .then(data => data.filter(e => myRequests.map(e => e.payload_user_id).includes(e.id)))
+        .then(filtered => setMyUsers(filtered))
+    }
   }, [myRequests])
 
 
 
 return(
 <Row>
-  <Col className="">
+  <Col className="col-start-9 col-end-12">
   {myUsers?.map((user, i) => {
     return(
     <Card key={i}>
@@ -40,7 +44,7 @@ return(
       {myRequests?.map((e, i) => {
         if(e.payload_user_id == user.id){
           return(
-            <div className="border">
+            <div className="border" key={`request: ${i}`}>
               <p>
                 Launch Date: {e.launch_date}<br/>
                 Launch Site: {e.launch_site}<br/>
