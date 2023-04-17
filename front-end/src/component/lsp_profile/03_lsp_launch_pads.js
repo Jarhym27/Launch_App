@@ -129,7 +129,7 @@ return newPad;
   
   return (
     <>
-   { console.log(availablePads)}
+   {/* { console.log(availablePads)} */}
     <Row>
       <Col className="col-3">
     <h1>Launch Pads</h1> 

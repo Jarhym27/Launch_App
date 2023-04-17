@@ -137,8 +137,8 @@ function LspLaunchVehicles() {
             >
               <Form.Label>Launch_Pad</Form.Label>
               <Form.Select onChange={(e) => setPad(e.target.value)}>
-                {availablePads?.map((element) => (
-                  <option> {element.launch_pad} </option>
+                {availablePads?.map((element, i) => (
+                  <option key={`option ${i}`}> {element.launch_pad} </option>
                 ))}
               </Form.Select>
             </Form.Group>
