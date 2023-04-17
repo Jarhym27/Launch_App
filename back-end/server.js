@@ -25,14 +25,26 @@ app.get('/', (req,res) =>{
 //get all data from specific table
 app.get('/table/:table',(req,res) => {
   const {table} = req.params
-  getAll(table)
-  .then((data)=> {
-    res.status(200).send(data)
-  })
-  .catch((err) => {
-    console.error(err)
-    res.status(401).send(err)
-  })
+  if(table==='messages' && req.query.launch_request_id){
+    const launch_request_id = req.query.launch_request_id
+    knex.select('*').from('messages').where("launch_request_id",launch_request_id).orderBy('timestamp')
+    .then(data=>{
+      res.status(200).send(data)
+    })
+    .catch((err) => {
+      console.error(err)
+      res.status(401).send(err)
+    })
+  } else {
+    getAll(table)
+      .then((data)=> {
+        res.status(200).send(data)
+      })
+      .catch((err) => {
+        console.error(err)
+        res.status(401).send(err)
+      })
+  }
 })
 
 //launch_requests joined payloads, launch_vehicles, launch_pads
