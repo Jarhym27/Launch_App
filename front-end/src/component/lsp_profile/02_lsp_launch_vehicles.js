@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react"
 import { LspDistro } from "./01_lsp_profile_page";
 import { Form, Modal, Container, Row, Col, Card, Button } from 'react-bootstrap'
 import RequestList from "./05_lsp_requests_list";
-import { RocketInfo } from "../../App";
+import { RocketInfo } from "../../App"; import axios from "axios";
 export default LspLaunchVehicles;
 
 
@@ -19,12 +19,27 @@ function LspLaunchVehicles() {
   const [submitVehicle, setSubmitVehicle] = useState()
   const [getInfo, setGetInfo] = useState(false)
   const [launchVehicle, setLaunchVehicle] = useState([]);
+ 
 
-  useEffect(() => {
-    fetch('http://localhost:8080/table/launch_vehicles')
-      .then(res => res.json())
-      .then(data => setLaunchVehicle(data))
-  }, [])
+  // useEffect(() => {
+  //   fetch('http://localhost:8080/table/launch_vehicles')
+  //     .then(res => res.json())
+  //     .then(data => setLaunchVehicle(data))
+  // }, [])
+
+       useEffect(() => {
+            getEvents();
+            const interval = setInterval(getEvents, 2000)
+            return () => clearInterval(interval)
+       }, [])
+    
+        const getEvents = () => {
+            axios.get('http://localhost:8080/table/launch_vehicles')
+            .then((res) => {
+                setLaunchVehicle(res.data);
+            })
+        }
+        // console.log(launchVehicle)
 
   const [show, setShow] = useState(false);
 
