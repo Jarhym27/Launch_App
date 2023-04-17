@@ -107,15 +107,14 @@ function LspLaunchPads() {
     setTimeout(() => {
       setAvailablePads(launchPad?.filter((element) => element.lsp_user_id === userLogin.id))
     }, 1000);
-  }, availablePads)
+  }, [availablePads])
   
   return (
     <>
     <Row>
       <Col className="col-3">
     <h1>Launch Pads</h1> 
-    <Button show=
-              {show} onClick={handleShow}> Add a New Pad</Button>
+    <Button  onClick={handleShow}> Add a New Pad</Button>
       {availablePads?.map((pads, i) => {
         return (
           <Card key={i} >
@@ -242,7 +241,7 @@ function LspLaunchPads() {
               className="mb-3"
               controlId="formBasicEmail"
             >
-              {console.log(selectedPad?.launch_pad)}
+              
               <Form.Label>Pad Name</Form.Label>
               <Form.Control
                 defaultValue={selectedPad?.launch_pad}

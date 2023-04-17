@@ -99,8 +99,10 @@ const eventInfo = ({ allEvents}) =>{
 
     return (
         <div >
-            <React.Fragment ><LspLaunchVehicles />
+            <React.Fragment >
+                <LspLaunchVehicles />
                 <LspLaunchPads />
+                <RequestList/>
             </React.Fragment>
 
             <h1>Calendar</h1>

@@ -1,52 +1,43 @@
 import React, {useState, useContext, useEffect} from "react";
-import { LspDistro } from "./01_lsp_profile_page";
 import {Container,Row,Col,Card, Button} from 'react-bootstrap'
 import LaunchRequest from "../LaunchRequest";
 import { RocketInfo } from "../../App"
+import { resolvePath } from "react-router";
 
 const RequestList = () =>{
-  const { userLogin, setUserLogin } = useContext(RocketInfo);
-
-  const {launchVehicles, launchPads,  payloadUsers,  launchRequests} = useContext(LspDistro)
+  const {userLogin, setUserLogin, availablePads, setAvailablePads, launchVehicles, setLaunchVehicles } = useContext(RocketInfo);
 
   const [myRequests, setMyRequests] = useState([])
-  const [myVehicles, setMyVehicles] = useState([])
   const [myPayloads, setMyPayloads] = useState([])
   const [myUsers, setMyUsers] = useState([])
 
   useEffect(() =>{
-    // setMyVehicles(launchVehicles.filter(e => e.lsp_user_id === userLogin.id))
-    // console.log(launchRequests);
-    // .then(() => {
-    //   fetch('http://localhost:8080/table/users')
-    //   .then(res => res.json())
-    //   .then(async data => {
-    //     await setActiveUsers(launchRequest.map(e => e.payload_user_id))
-    //     setLspUser(data.filter(element => element.role !== 'lsp_user' && activeUsers.includes(element.id)))
-    //   })  
-    // })
-    
-  },[launchVehicles, launchPads,  payloadUsers,  launchRequests, userLogin])
+    fetch('http://localhost:8080/join/launch_requests')
+      .then(res => res.json())
+      .then(data => data.filter(e => e.lsp_user_id == userLogin.id))
+      .then(filtered => setMyRequests(filtered))
+  },[userLogin])
+
   useEffect(() => {
-    setMyRequests(launchRequests?.filter(e => launchVehicles.filter(e => e.lsp_user_id === userLogin.id)?.map(e => e.id).includes(e.launch_vehicle_id)))
-    console.log('my requests', myRequests)
-  }, [myVehicles, launchRequests])
-  useEffect(() => {
-    
+    fetch('http://localhost:8080/table/users')
+      .then(res => res.json())
+      .then(data => data.filter(e => myRequests.map(e => e.payload_user_id).includes(e.id)))
+      .then(filtered => setMyUsers(filtered))
   }, [myRequests])
+
 
 
 return(
 <Row>
-  <Col className="col-start-9 col-end-12">
-  {/* {activeUsers?.map((user, i) => {
+  <Col className="">
+  {myUsers?.map((user, i) => {
     return(
     <Card key={i}>
     <Card.Body>
       <Card.Title border="danger">
-      Launch Requests from {user.username} 
+      Launch Requests from {user.organization} 
       </Card.Title>
-      {launchRequests?.map((e, i) => {
+      {myRequests?.map((e, i) => {
         if(e.payload_user_id == user.id){
           return(
             <div className="border">
@@ -71,7 +62,7 @@ return(
     
   }
   
-  )} */}
+  )}
   
   </Col>
   </Row>
