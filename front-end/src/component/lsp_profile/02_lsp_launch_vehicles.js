@@ -15,38 +15,26 @@ import axios from "axios";
 export default LspLaunchVehicles;
 
 function LspLaunchVehicles() {
-  const {
-    userLogin,
-    setUserLogin,
-    availablePads,
-    setAvailablePads,
-    launchVehicles,
-    setLaunchVehicles,
-  } = useContext(RocketInfo);
+  const { userLogin, setUserLogin, availablePads, setAvailablePads } = useContext(RocketInfo);
   const [name, setName] = useState();
   const [cost, setCost] = useState();
   const [pad, setPad] = useState();
-  const [status, setStatus] = useState();
+  const [status, setStatus] = useState("available");
   const [meoWeight, setMeoWeight] = useState();
   const [leoWeight, setLeoWeight] = useState();
   const [heoWeight, setHeoWeight] = useState();
   const [geoWeight, setGeoWeight] = useState();
-  const [submitVehicle, setSubmitVehicle] = useState();
-  const [getInfo, setGetInfo] = useState(false);
-
-  // useEffect(() => {
-  //   fetch('http://localhost:8080/table/launch_vehicles')
-  //     .then(res => res.json())
-  //     .then(data => setLaunchVehicle(data))
-  // }, [])
+  const [submitVehicle, setSubmitVehicle] = useState()
+  const [getInfo, setGetInfo] = useState(false)
+  const [launchVehicle, setLaunchVehicle] = useState([]);
+  const [fetchTime, setFetchTime] = useState(false)
 
   useEffect(() => {
-    axios.get("http://localhost:8080/table/launch_vehicles").then((res) => {
-      setLaunchVehicles(
-        res.data.filter((element) => element.lsp_user_id === userLogin.id)
-      );
-    });
-  }, [userLogin]);
+    fetch('http://localhost:8080/table/launch_vehicles')
+      .then(res => res.json())
+      .then(data => { setLaunchVehicle(data); setFetchTime(false) })
+  }, [fetchTime])
+
 
   const [show, setShow] = useState(false);
 
@@ -70,127 +58,111 @@ function LspLaunchVehicles() {
       }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-      },
-    }).then(() => setGetInfo(true));
-  };
+      }
+    }).then(() => setFetchTime(true))
+  }
 
-  const statusChoice = ["Available", "Booked"];
 
-  return (
-    <>
-      {/* <Container> */}
-      <Row>
-        <Col className="col-3">
-          <Card>
-            <Card.Title>
-              Launch Vehicle
-              <Button onClick={() => handleShow()}> Add Launch Vehicle</Button>
-            </Card.Title>
-            {launchVehicles?.map((vehicle, j) => {
-              return (
-                <Card.Body key={j}>
-                  <Card.Text>
-                    ID: {vehicle.id}
-                    <br></br>
-                    Rocket: {vehicle.launch_vehicle}
-                    <br></br>
-                    Status: {vehicle.booked_status}
-                  </Card.Text>
-                </Card.Body>
-              );
-            })}
-          </Card>
-        </Col>
-      </Row>
-      {/* </Container> */}
+  const filteredVehicle = launchVehicle?.filter(element => element.lsp_user_id === userLogin.id)
 
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header> Add Vehicle</Modal.Header>
-        <Modal.Body>
-          <Form
-            onSubmit={(event) => {
-              event.preventDefault();
-              addNewVehicle();
-              setSubmitVehicle();
-            }}
-          >
-            <Form.Group
-              onChange={(e) => setName(e.target.value)}
-              className="mb-3"
-              controlId="formBasicEmail"
-            >
-              <Form.Label>Launch Vehicle</Form.Label>
-              <Form.Control type="text" placeholder="name" />
-            </Form.Group>
-            <Form.Group
-              onChange={(e) => setCost(e.target.value)}
-              className="mb-3"
-              controlId="formBasicEmail"
-            >
-              <Form.Label>Cost</Form.Label>
-              <Form.Control type="text" placeholder="cost" />
-            </Form.Group>
-            <Form.Group
-              onChange={(e) => setPad(e.target.value)}
-              className="mb-3"
-              controlId="formDropDown"
-            >
-              <Form.Label>Launch_Pad</Form.Label>
-              <Form.Select onChange={(e) => setPad(e.target.value)}>
-                {availablePads?.map((element, i) => (
-                  <option key={`option ${i}`}> {element.launch_pad} </option>
-                ))}
-              </Form.Select>
-            </Form.Group>
-            <Form.Group
-              onChange={(e) => setStatus(e.target.value)}
-              className="mb-3"
-              controlId="formDropDown"
-            >
-              <Form.Label>Status</Form.Label>
-              <Form.Select onChange={(e) => setStatus(e.target.value)}>
-                <option value={"available"}> Available </option>
-                <option value={"booked"}> Booked </option>
-              </Form.Select>
-            </Form.Group>
-            <Form.Group
-              onChange={(e) => setMeoWeight(e.target.value)}
-              className="mb-3"
-              controlId="formBasicEmail"
-            >
-              <Form.Label>Meo Weight in tons</Form.Label>
-              <Form.Control type="text" placeholder="Meo Weight" />
-            </Form.Group>
-            <Form.Group
-              onChange={(e) => setLeoWeight(e.target.value)}
-              className="mb-3"
-              controlId="formBasicEmail"
-            >
-              <Form.Label>Leo Weight in tons</Form.Label>
-              <Form.Control type="text" placeholder="Leo Weight" />
-            </Form.Group>
-            <Form.Group
-              onChange={(e) => setGeoWeight(e.target.value)}
-              className="mb-3"
-              controlId="formBasicEmail"
-            >
-              <Form.Label>Geo Weight in tons</Form.Label>
-              <Form.Control type="text" placeholder="Geo Weight" />
-            </Form.Group>
-            <Form.Group
-              onChange={(e) => setHeoWeight(e.target.value)}
-              className="mb-3"
-              controlId="formBasicEmail"
-            >
-              <Form.Label>Heo Weight in tons</Form.Label>
-              <Form.Control type="text" placeholder="Heo Weight" />
-            </Form.Group>
-            <Button onClick={handleClose} type="submit">
-              Submit
-            </Button>
-          </Form>
-        </Modal.Body>
-      </Modal>
-    </>
-  );
+  return (<>
+    {/* <Container> */}
+    <Row>
+      <Col className="col-3">
+        <Card>
+          <Card.Title>
+            Launch Vehicle
+            <Button onClick={handleShow}> Add Launch Vehicle</Button>
+          </Card.Title>
+          {filteredVehicle?.map((vehicle, j) => {
+            return (<Card.Body key={j}>
+              <Card.Text>
+                ID: {vehicle.id}
+                <br></br>
+                Rocket: {vehicle.launch_vehicle}
+                <br></br>
+                Status: {vehicle.booked_status}
+              </Card.Text>
+            </Card.Body>)
+          })}
+        </Card>
+      </Col>
+    </Row>
+    {/* </Container> */}
+
+    <Modal  show={show} onHide={() => handleClose}>
+      <Modal.Header closeButton onClick={handleClose}> Add Vehicle</Modal.Header>
+      <Modal.Body>
+        <Form onSubmit={(event) => {
+          event.preventDefault();
+          addNewVehicle()
+          setSubmitVehicle()
+        }}>
+          <Form.Group
+            onChange={(e) => setName(e.target.value)}
+            className="mb-3"
+            controlId="formBasicEmail">
+            <Form.Label>Launch Vehicle</Form.Label>
+            <Form.Control type="text" placeholder="name" />
+          </Form.Group>
+          <Form.Group
+            onChange={(e) => setCost(e.target.value)}
+            className="mb-3"
+            controlId="formBasicEmail">
+            <Form.Label>Cost</Form.Label>
+            <Form.Control type="text" placeholder="cost" />
+          </Form.Group>
+          <Form.Group onChange={(e) => setPad(e.target.value)}
+            className="mb-3"
+            controlId="formDropDown">
+            <Form.Label>Launch_Pad</Form.Label>
+            <Form.Select onChange={(e) => setPad(e.target.value)}>
+              {availablePads?.map((element) => <option> {element.launch_pad} </option>)}
+            </Form.Select>
+          </Form.Group>
+          <Form.Group onChange={(e) => setStatus(e.target.value)}
+            className="mb-3"
+            controlId="formDropDown">
+            <Form.Label>Status</Form.Label>
+            <Form.Select onChange={(e) => setStatus(e.target.value)}>
+              <option value={"available"}> Available </option>
+            </Form.Select>
+          </Form.Group>
+          <Form.Group onChange={(e) => setMeoWeight(e.target.value)}
+            className="mb-3"
+            controlId="formBasicEmail">
+            <Form.Label>Meo Weight in tons</Form.Label>
+            <Form.Control type="text" placeholder="Meo Weight" />
+          </Form.Group>
+          <Form.Group onChange={(e) => setLeoWeight(e.target.value)}
+            className="mb-3"
+            controlId="formBasicEmail">
+            <Form.Label>Leo Weight in tons</Form.Label>
+            <Form.Control type="text" placeholder="Leo Weight" />
+          </Form.Group>
+          <Form.Group onChange={(e) => setGeoWeight(e.target.value)}
+            className="mb-3"
+            controlId="formBasicEmail">
+            <Form.Label>Geo Weight in tons</Form.Label>
+            <Form.Control type="text" placeholder="Geo Weight" />
+          </Form.Group>
+          <Form.Group onChange={(e) => setHeoWeight(e.target.value)}
+            className="mb-3"
+            controlId="formBasicEmail">
+            <Form.Label>Heo Weight in tons</Form.Label>
+            <Form.Control type="text" placeholder="Heo Weight" />
+          </Form.Group>
+          <Button onClick={handleClose}
+            type="submit"
+          >Submit</Button>
+        </Form>
+      </Modal.Body>
+    </Modal>
+  </>
+
+
+
+  )
+
+
 }
