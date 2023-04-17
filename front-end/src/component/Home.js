@@ -6,8 +6,7 @@ import Form from 'react-bootstrap/Form';
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import { RocketTakeoffFill } from "react-bootstrap-icons";
-import { GiMoonOrbit } from 'react-icons/gi'
-import { GiEarthAmerica } from 'react-icons/gi'
+import { GiMoonOrbit,GiEarthAmerica } from 'react-icons/gi'
 import { CgBorderStyleDashed } from 'react-icons/cg'
 import { useEffect, useRef, useState, useContext } from "react";
 import ListGroup from 'react-bootstrap/ListGroup';
@@ -19,7 +18,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import {BsCalendarPlus} from 'react-icons/bs'
 
 const Home = () => {
-  const { userLogin, setUserLogin } = useContext(RocketInfo);
+  const { userLogin } = useContext(RocketInfo);
 
   const siteRef = useRef();
   const padRef = useRef();

@@ -6,7 +6,7 @@ import Form from 'react-bootstrap/Form';
 import { useLocation } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import { RocketTakeoffFill } from "react-bootstrap-icons";
-import { GiMoonOrbit,GiEarthAmerica } from 'react-icons/gi'
+import { GiEarthAmerica } from 'react-icons/gi'
 import { CgBorderStyleDashed } from 'react-icons/cg'
 import { useEffect, useRef, useState, useContext } from "react";
 import ListGroup from 'react-bootstrap/ListGroup';
@@ -18,13 +18,12 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 
 const LaunchRequest = () => {
-  const { userLogin, setUserLogin } = useContext(RocketInfo);
+  const { userLogin } = useContext(RocketInfo);
   let location = useLocation();
 
   const siteRef = useRef();
   const padRef = useRef();
   const launchProviderRef = useRef();
-  const orbitRef = useRef();
   const dateRef = useRef();
 
   const navigate = useNavigate();
@@ -33,9 +32,8 @@ const LaunchRequest = () => {
   const [launchPads, setLaunchPads] = useState(null);
   const [launchSites, setLaunchSites] = useState(null)
   const [launchProviders, setLaunchProviders] = useState(null);
-  const [orbits, setOrbits] = useState(["LEO", "MEO", "GEO", "HEO"]);
-  const [filter, setFilter] = useState({ "site": null, "pad": null, "provider": null, "orbit": null })
-  const [search, setSearch] = useState({ "site": null, "padID": null, "lspID": null, "orbit": null })
+  const [filter, setFilter] = useState({ "site": null, "pad": null, "provider": null})
+  const [search, setSearch] = useState({ "site": null, "padID": null, "lspID": null})
   const [searchResults, setSearchResults] = useState(null)
   const [loading, setLoading] = useState(false)
   const [selectedLV, setSelectedLV] = useState(null)
@@ -47,7 +45,6 @@ const LaunchRequest = () => {
       pad: padRef.current.value,
       site: null,
       provider: null,
-      orbit: null
     })
     if (padRef.current.value === '') {
       setSearch({
@@ -63,7 +60,6 @@ const LaunchRequest = () => {
       site: siteRef.current.value,
       pad: null,
       provider: null,
-      orbit: null
     })
     if (siteRef.current.value === '') {
       setSearch({
@@ -79,7 +75,6 @@ const LaunchRequest = () => {
       pad: null,
       site: null,
       provider: launchProviderRef.current.value,
-      orbit: null
     })
     if (launchProviderRef.current.value === '') {
       setSearch({
@@ -89,21 +84,6 @@ const LaunchRequest = () => {
     }
   }
 
-  const handleOrbitChange = (e) => {
-    setFilter({
-      ...filter,
-      pad: null,
-      site: null,
-      provider: null,
-      orbit: orbitRef.current.value
-    })
-    if (orbitRef.current.value === '') {
-      setSearch({
-        ...search,
-        orbit: null
-      })
-    }
-  }
 
   const handleSelect = (e, item, ref, id) => {
     if (ref === 'padRef') {
@@ -128,16 +108,6 @@ const LaunchRequest = () => {
         lspID: id
       })
       return
-    } else if (ref === 'orbitRef') {
-      orbitRef.current.value = item
-      setFilter({
-        ...filter,
-        orbit: null
-      })
-      setSearch({
-        ...search,
-        orbit: item
-      })
     } else if (ref === 'siteRef') {
       siteRef.current.value = item
       setFilter({
@@ -164,7 +134,7 @@ const LaunchRequest = () => {
 
   //use effect to gather search results
   useEffect(() => {
-    if (Object.values(search).filter(item => item === null).length === 4) {
+    if (Object.values(search).filter(item => item === null).length === 3) {
       setSearchResults(null)
       return;
     }
@@ -185,9 +155,6 @@ const LaunchRequest = () => {
         }
         if (search.lspID) {
           suggestedRides = suggestedRides.filter(lvs => lvs.lsp_user_id === search.lspID && lvs.booked_status === 'available')
-        }
-        if (search.orbit) {
-          suggestedRides = suggestedRides.filter(lvs => lvs[search.orbit.toLowerCase().concat('_weight')] !== null && lvs.booked_status === 'available')
         }
         return (fetch('http://localhost:8080/join/launch_requests'))
       })
@@ -474,39 +441,6 @@ const LaunchRequest = () => {
                           {launchProviders.filter(lsps => lsps.organization.toLowerCase().includes(launchProviderRef.current.value.toLowerCase())).length === 0 && <ListGroupItem className='suggestion'>No results</ListGroupItem>}
                         </ListGroup>
                       }
-
-                      <CgBorderStyleDashed className='line-dash' />
-                      <Row>
-                      <InputGroup onChange={(e) => handleOrbitChange(e)} className="mb-1">
-                        <InputGroup.Text id="basic-addon1"><GiMoonOrbit className='search-icon' /></InputGroup.Text>
-                        <Col md={9} lg={9} className='search-field-container'>
-                          <Form.Control
-                          className='search-field'
-                            ref={orbitRef}
-                            placeholder="Desired Orbit"
-                            aria-label="Username"
-                            aria-describedby="basic-addon1"
-                          />
-                        </Col>
-                        <Col className='dropdown-field'>
-                            <DropdownButton id="dropdown-basic-button" drop={'start'} title="">
-                              {orbits && orbits.map(item =>
-                                <Dropdown.Item onClick={(e) => handleSelect(e, item, "orbitRef")}>{item}</Dropdown.Item>
-                              )}
-                            </DropdownButton>
-                          </Col>
-                      </InputGroup>
-                      </Row>
-                      {filter.orbit && orbitRef.current.value &&
-                        <ListGroup className='suggestions-list' variant="flush">
-                          {
-                            orbits.filter(orbit => orbit.toLowerCase().includes(orbitRef.current.value.toLowerCase())).map(item =>
-                              <ListGroupItem key={item.id} onClick={(e) => handleSelect(e, item, "orbitRef")} className='suggestion'>{item}</ListGroupItem>
-                            )
-                          }
-                          {orbits.filter(orbit => orbit.toLowerCase().includes(orbitRef.current.value.toLowerCase())).length === 0 && <ListGroupItem className='suggestion'>No results</ListGroupItem>}
-                        </ListGroup>
-                      }
                     </Form>
                   </Card.Body>
                 </Card>
@@ -562,7 +496,7 @@ const LaunchRequest = () => {
                               <Col>
                                 <RocketTakeoffFill onClick={() => {
                                   setSelectedLV(item)
-                                  setModalShow(false)
+                                  setModalShow(true)
                                 }} className='search-rocket' /></Col>
                             </Row>
                           </ListGroupItem>
