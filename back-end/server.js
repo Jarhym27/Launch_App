@@ -55,7 +55,8 @@ app.get('/join/launch_requests', (req, res) => {
 app.get('/join/launch_vehicles-launch_pads', (req, res) => {
   knex('launch_vehicles')
   .join('launch_pads', 'launch_pads.id', 'launch_vehicles.launch_pad_id')
-.select('launch_vehicles.created_at','launch_vehicles.updated_at','launch_vehicle','launch_pad_id','cost','leo_weight','meo_weight','geo_weight','heo_weight','booked_status','launch_vehicles.lsp_user_id','city','state','launch_site','launch_pad','pad_status')
+  .join('users','users.id','launch_vehicles.lsp_user_id')
+.select('launch_vehicles.id','launch_vehicles.created_at','launch_vehicles.updated_at','launch_vehicle','launch_pad_id','cost','leo_weight','meo_weight','geo_weight','heo_weight','booked_status','launch_vehicles.lsp_user_id','city','state','launch_site','launch_pad','pad_status','users.organization')
   .then(data => res.status(200).json(data))
   .catch(err =>
       res.status(404).json({
@@ -217,7 +218,7 @@ app.post('/login', (req, res) =>{
             res.header('Access-Control-Allow-Credentials','true')
             let rand = Math.floor(Math.random() * 1000000000).toString()
             var sessionID = bcrypt.hashSync(rand, 10)
-            res.cookie('userInfo', sessionID, {maxAge: 3600000, httpOnly:false})
+            res.cookie('userInfo', sessionID, {maxAge: 36000000, httpOnly:false})
             res.send(scrubbed)
             await knex('users').where('username', req.body.username).update({session: sessionID})
           }

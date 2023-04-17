@@ -6,6 +6,7 @@ exports.seed = async function(knex) {
   // Deletes ALL existing entries
   await knex('users').del()
   await knex('users').insert([
+    
     {
       organization:'Delta 8',
       username: 'del8',
@@ -38,19 +39,19 @@ exports.seed = async function(knex) {
     },
     {
       organization: 'Blue Origin',
-      username: "borigin",
+      username: "blue",
       password: "$2a$10$oALz3ZARcEoKwIcPxuBh6.XUlo44MzkN6YpmzMx3Sinmhes.BiQKy",
       role: 'lsp_user'
     },
     {
       organization: 'Firefly Aerospace',
-      username: "ffas",
+      username: "firefly",
       password: "$2a$10$oALz3ZARcEoKwIcPxuBh6.XUlo44MzkN6YpmzMx3Sinmhes.BiQKy",
       role: 'lsp_user'
     },
     {
       organization: 'SpaceX',
-      username: "ModernEdison",
+      username: "spacex",
       password: "$2a$10$oALz3ZARcEoKwIcPxuBh6.XUlo44MzkN6YpmzMx3Sinmhes.BiQKy",
       role: 'lsp_user'
     },
@@ -66,5 +67,11 @@ exports.seed = async function(knex) {
       password: "$2a$10$oALz3ZARcEoKwIcPxuBh6.XUlo44MzkN6YpmzMx3Sinmhes.BiQKy",
       role: 'lsp_user'
     },
+    {
+      organization:'Space and Missile Systems Center',
+      username: 'smc',
+      password: '$2a$10$oALz3ZARcEoKwIcPxuBh6.XUlo44MzkN6YpmzMx3Sinmhes.BiQKy',
+      role:'payload_user',
+    }
   ]);
 };
