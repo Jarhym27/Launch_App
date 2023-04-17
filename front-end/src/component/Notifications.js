@@ -20,13 +20,14 @@ const toggleShowA = (index,message_id) => {
   fetch(`http://localhost:8080/table/messages?id=${message_id}`, {
       method: "PATCH",
       body: JSON.stringify({
-        notification_ack: true
+        notification_ack: "true"
       }),
       headers: {
         "Content-type": "application/json; charset=UTF-8"
       }
     })
     .then(res=>{
+      console.log(res)
       if(res.status===200){
         let newBools = JSON.parse(JSON.stringify(toastBools))
         newBools[index] = !newBools[index]
