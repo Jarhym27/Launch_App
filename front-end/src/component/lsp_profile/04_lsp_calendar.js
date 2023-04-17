@@ -53,13 +53,17 @@ const events = [
 ];
 function LspCalendar() {
     const [newEvent, setNewEvent] = useState({ title: "", vehicle: "", pad: "", start: "", end: "" });
-    const [allEvents, setAllEvents] = useState(events);
-    // useEffect(() => {
-    //     fetch('http://localhost:8080/join/launch_requests')
-    //         .then(res => res.json())
-    //         .then(data => data)
-    // })
+    const [allEvents, setAllEvents] = useState();
+    useEffect(() => {
+        fetch('http://localhost:8080/join/launch_requests')
+            .then(res => res.json())
+            .then(data => setAllEvents(data))
+    }, [])
+ console.log(allEvents)
 
+ const displayEvents = allEvents?.map(element =>{return{launch_date: element.launch_date
+
+ }})
     function handleAddEvent() {
         for (let i = 0; i < allEvents.length; i++) {
             const d1 = new Date(allEvents[i].start);
