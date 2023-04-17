@@ -103,7 +103,7 @@ exports.seed = async function(knex) {
       geo_weight:6000,
       heo_weight:8500,
       booked_status: 'available',
-      launch_pad_id: 15
+      launch_pad_id: 14
     },
     {
       lsp_user_id: 8,
@@ -268,7 +268,7 @@ exports.seed = async function(knex) {
       geo_weight:13000,
       heo_weight:32000,
       booked_status: 'available',
-      launch_pad_id: 11
+      launch_pad_id: 9
     },
     {
       lsp_user_id: 6,
@@ -290,7 +290,7 @@ exports.seed = async function(knex) {
       geo_weight:13000,
       heo_weight:32000,
       booked_status: 'available',
-      launch_pad_id: 11
+      launch_pad_id: 9
     },
     {
       lsp_user_id: 10,
