@@ -7,7 +7,11 @@ const getAll = (table) => {
 }
 
 const insertRow = (data,table) => {
-  return knex.insert(data).into(`${table}`)
+  let updatedData = {
+    ...data,
+    timestamp: new Date().toISOString()
+  }
+  return knex.insert(updatedData).into(`${table}`)
 }
 
 const deleteRow = (id,table) => {
