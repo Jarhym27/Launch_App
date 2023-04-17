@@ -23,6 +23,8 @@ exports.seed = async function (knex) {
     { payload_id: 19, launch_pad_id: 12, launch_vehicle_id: 5, request_status: "Pending", launch_date: "2027-10-23", request_cost: 286 },
     { payload_id: 30, launch_pad_id: 14, launch_vehicle_id: 20, request_status: "Scheduled", launch_date: "2026-07-28", request_cost: 89 },
     { payload_id: 16, launch_pad_id: 18, launch_vehicle_id: 18, request_status: "Scheduled", launch_date: "2033-01-23", request_cost: 105 },
+    { payload_id: 5, launch_pad_id: 1, launch_vehicle_id: 1, request_status: "Scheduled", launch_date: "2023-04-21", request_cost: 126 },
+    { payload_id: 35, launch_pad_id: 2, launch_vehicle_id: 12, request_status: "Scheduled", launch_date: "2023-04-28", request_cost: 148 },
   ]
   );
 };
