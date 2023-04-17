@@ -48,31 +48,46 @@ function LspLaunchPads() {
   }, [])
 
   
-  // ADD PAYLOAD POST
+  // ADD lanchpad POST
   const handlePost = (e) => {
+    let newPad = {
+      lsp_user_id: userLogin.id,
+      city: city,
+      state: lpState,
+      launch_site: launchSite,
+      launch_pad: padName,
+      pad_status: padStatus
+    }
     fetch("http://localhost:8080/table/launch_pads", {
       method: "POST",
-      body: JSON.stringify({
-        lsp_user_id: userLogin.id,
-        city: city,
-        state: lpState,
-        launch_site: launchSite,
-        launch_pad: padName,
-        pad_status: padStatus
-      }),
+      body: JSON.stringify(newPad),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },
-    }).then(() => setFetchTime(true));
+    })
+    .then(res => res.json())
+    .then(data => {
+//  not pulling id from backend
+// newPad.id = data[0].id;
+return newPad;
+    })
+    .then(() => setFetchTime(true));
+    setLaunchPad((items) => [...items, newPad])
   };
   
   const handleUpdate = () => {
+    let newPadList = launchPad.filter(item => item.id !== selectedPad.id);
+    let updatedPad = selectedPad;
+    updatedPad.launch_pad = padName;
+    updatedPad.pad_status = padStatus;
+    setLaunchPad(newPadList);
+    setLaunchPad((items) => [...items, updatedPad]);
     fetch(`http://localhost:8080/table/launch_pads?id=${selectedPad.id}`, {
       method: "PATCH",
       body: JSON.stringify({
         launch_pad: padName,
         pad_status: padStatus
-      }),
+    }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },
@@ -80,6 +95,9 @@ function LspLaunchPads() {
     .then(() =>  setFetchTime(true));
   };
   const handleDelete = () => {
+    let newPadList = launchPad.filter(item => item.id !== selectedPad.id);
+    setLaunchPad(newPadList);
+    setSelectedPad([]);
     fetch('http://localhost:8080/table/launch_pads', {
       method: "DELETE",
       body: JSON.stringify({
@@ -104,13 +122,14 @@ function LspLaunchPads() {
   
   
   useEffect(() => {
-    setTimeout(() => {
-      setAvailablePads(launchPad?.filter((element) => element.lsp_user_id === userLogin.id))
-    }, 1000);
-  }, [availablePads])
+    
+      let filteredPads =launchPad?.filter((element) => element.lsp_user_id === userLogin.id)
+      setAvailablePads(filteredPads)
+  }, [launchPad, userLogin])
   
   return (
     <>
+   { console.log(availablePads)}
     <Row>
       <Col className="col-3">
     <h1>Launch Pads</h1> 
@@ -126,8 +145,8 @@ function LspLaunchPads() {
                 {pads.lsp_user_id} <br></br>
                 {pads.launch_site} <br></br>
                 {pads.pad_status ? 'Status: Available' : 'Status : Unavailable'} <br></br>
-                <button onClick={() => [ handleShowUpdate(),]}>Edit</button>
-                <button onClick={() => [setSelectedPad(pads), handleShowDelete(),]}>Delete</button>
+                <button onClick={() => [setSelectedPad(pads), handleShowUpdate(), console.log(selectedPad)]}>Edit</button>
+                <button onClick={() => [setSelectedPad(pads), handleShowDelete(), console.log(selectedPad)]}>Delete</button>
               </Card.Text>
               {/* <div>add New Pad</div> */}
             </Card.Body>
@@ -241,7 +260,7 @@ function LspLaunchPads() {
               className="mb-3"
               controlId="formBasicEmail"
             >
-              
+              {/* {console.log(selectedPad)} */}
               <Form.Label>Pad Name</Form.Label>
               <Form.Control
                 defaultValue={selectedPad?.launch_pad}
