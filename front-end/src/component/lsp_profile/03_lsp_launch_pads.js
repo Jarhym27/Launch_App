@@ -9,7 +9,7 @@ export default LspLaunchPads
 
 function LspLaunchPads() {
   const { userLogin, availablePads, setAvailablePads } = useContext(RocketInfo);
-  const [ launchPad, setLaunchPad ] = useState();
+  const [launchPad, setLaunchPad] = useState();
 
   const [fetchTime, setFetchTime] = useState(false)
   const [userPads, setUserPads] = useState();
@@ -47,8 +47,9 @@ function LspLaunchPads() {
       .then(data => setLaunchPad(data))
   }, [])
 
-  
+ 
   // ADD lanchpad POST
+  
   const handlePost = (e) => {
     let newPad = {
       lsp_user_id: userLogin.id,
@@ -74,7 +75,7 @@ return newPad;
     .then(() => setFetchTime(true));
     setLaunchPad((items) => [...items, newPad])
   };
-  
+
   const handleUpdate = () => {
     let newPadList = launchPad.filter(item => item.id !== selectedPad.id);
     let updatedPad = selectedPad;
@@ -92,7 +93,7 @@ return newPad;
         "Content-type": "application/json; charset=UTF-8",
       },
     })
-    .then(() =>  setFetchTime(true));
+      .then(() => setFetchTime(true));
   };
   const handleDelete = () => {
     let newPadList = launchPad.filter(item => item.id !== selectedPad.id);
@@ -107,20 +108,20 @@ return newPad;
         "Content-type": "application/json; charset=UTF-8"
       }
     })
-    .then(res => {
-      setSelectedPad()
-      if(res.status === 200){
-        console.log('Deleted.')
-        setFetchTime(true)
-      }
-      else{
-        console.log(res.status)
-      }
-    })
+      .then(res => {
+        setSelectedPad()
+        if (res.status === 200) {
+          console.log('Deleted.')
+          setFetchTime(true)
+        }
+        else {
+          console.log(res.status)
+        }
+      })
   }
-  
-  
-  
+
+
+
   useEffect(() => {
     
       let filteredPads =launchPad?.filter((element) => element.lsp_user_id === userLogin.id)
@@ -132,8 +133,7 @@ return newPad;
     <Row>
       <Col className="col-3">
     <h1>Launch Pads</h1> 
-    <Button show=
-              {show} onClick={handleShow}> Add a New Pad</Button>
+    <Button  onClick={handleShow}> Add a New Pad</Button>
       {availablePads?.map((pads, i) => {
         return (
           <Card key={i} >
@@ -272,8 +272,8 @@ return newPad;
               className="mb-3"
               controlId="formBasicEmail"
             >
-             </Form.Group>
-             <Form.Group className="mb-3" controlId="formBasicPassword">
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Pad Status</Form.Label>
               <Form.Select onChange={(e) =>
                 setLaunchSite(e.target.value)}>
@@ -281,11 +281,11 @@ return newPad;
                 <option value={false}>Unavailable</option>
               </Form.Select>
             </Form.Group>
-            
 
-           
+
+
             <Button
-              onClick={() =>handleCloseUpdate()}
+              onClick={() => handleCloseUpdate()}
               className="addPayload"
               variant="primary"
               type="submit"
@@ -305,7 +305,7 @@ return newPad;
         </Modal.Footer>
       </Modal>
 
-      
+
 
 
 
@@ -315,21 +315,21 @@ return newPad;
         </Modal.Header>
 
         <Modal.Body>
-        <Form.Label>Are you sure you want to delete: {selectedPad?.launch_pad} </Form.Label>
-      
-        <Button
-              onClick={() => {
-                handleDelete();
-                handleCloseDelete();
-              }}
-              className="addPayload"
-              variant="outline-primary"
-              type="submit"
-            >
-              Delete
-            </Button>
+          <Form.Label>Are you sure you want to delete: {selectedPad?.launch_pad} </Form.Label>
+
+          <Button
+            onClick={() => {
+              handleDelete();
+              handleCloseDelete();
+            }}
+            className="addPayload"
+            variant="outline-primary"
+            type="submit"
+          >
+            Delete
+          </Button>
         </Modal.Body>
-        
+
         <Modal.Footer className="modalForm">
           <Button
             className="addPayload"
@@ -342,6 +342,6 @@ return newPad;
       </Modal>
 
 
-      </>
-      )
+    </>
+  )
 }

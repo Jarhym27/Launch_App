@@ -20,6 +20,7 @@ export const RocketInfo = createContext();
 
 function App() {
   const [userLogin, setUserLogin] = useState("");
+  const [launchVehicles, setLaunchVehicles] = useState()
   const [userCreate, setUserCreate] = useState({
     username: "",
     password: "",
@@ -48,7 +49,11 @@ function App() {
   }, [])
 
   return (
+<<<<<<< HEAD
     <RocketInfo.Provider value={{ userCreate, setUserCreate, userLogin, setUserLogin, availablePads, setAvailablePads }}>
+=======
+    <RocketInfo.Provider value={{userCreate, setUserCreate, userLogin, setUserLogin, availablePads, setAvailablePads, launchVehicles, setLaunchVehicles}}>
+>>>>>>> 6e6856a01b9284265f5e987d760d6581d62adefc
       <Router>
         {userLogin.username && <Header />}
         <Routes>
