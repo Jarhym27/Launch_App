@@ -15,11 +15,19 @@ const deleteRow = (id,table) => {
 }
 
 const updateRow = (id,body,table) => {
-  let updatedBody = {
-    ...body,
-    updated_at: new Date().toISOString()
+  if(table==='messages'){
+    let updatedBody = {
+      ...body,
+      timestamp: new Date().toISOString()
+    }
+    return knex(`${table}`).where('id', id).update(updatedBody)
+  } else {
+    let updatedBody = {
+      ...body,
+      updated_at: new Date().toISOString()
+    }
+    return knex(`${table}`).where('id', id).update(updatedBody)
   }
-  return knex(`${table}`).where('id', id).update(updatedBody)
 }
 
 module.exports = {getAll,insertRow,deleteRow,updateRow}
