@@ -56,18 +56,23 @@ const [availablePads, setAvailablePads] = useState();
           <Route path='/home' element={< Home/>}></Route>
           {/* <Route path='/Login' element={< Login />}></Route> */}
           <Route path='/signup' element={<Signup/>}></Route>
-          <Route path='/request/:id' element={<LaunchRequest/>}></Route>
+          <Route path='/request' element={<LaunchRequest/>}></Route>
           <Route path='/header' element={<Header/>}></Route> {/*only needed for testing */}
           <Route path='/rocket' element={< AnimeRocket />}></Route>
           <Route path='/aboutus' element={<About/>}></Route>
           <Route path='/payloadprofile' element={<PayloadProfile/>}></Route>
           <Route path='/lspprofile' element={<LspProfile/>}></Route>
           <Route path="*" element={<PageNotFound />} ></Route>
-
-
-         </Routes>
-       </Router >
-     </RocketInfo.Provider>
+        </Routes>
+      </Router >
+      {userLogin.username &&
+        <footer className="bg-dark">
+          <div className="container text-center">
+            <p className="font-italic text-muted pt-2 mb-0">&copy; 2023 L-Uber.com</p>
+          </div>
+        </footer>
+      }
+    </RocketInfo.Provider>
   )
 }
 

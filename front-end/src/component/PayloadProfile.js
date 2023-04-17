@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import "bootstrap/dist/css/bootstrap.min.css";
-import LaunchRequest from "./LaunchRequest";
 import { RocketInfo } from "../App";
 
 function PayloadProfile() {
@@ -63,7 +62,6 @@ function PayloadProfile() {
 
   let filteredPayloads =   newPayloads?.filter((pay, i) =>  payloads?.map((item,i)=>item.payload_id).includes(pay.id) === false )
 
-console.log(filteredPayloads)
   // ADD PAYLOAD POST
   const handlePost = (e) => {
     fetch("http://localhost:8080/table/payloads", {
@@ -181,11 +179,11 @@ console.log(filteredPayloads)
                       <Card.Body className="createdPayloadsCol">
                         <Card.Title>{pay.name}</Card.Title>
                         <Card.Text>
-                          Status: Cick{" "}
-                          <Link state={pay} to={`/request/${pay.id}`}>
+                          Status: Click{" "}
+                          <Link state={pay} to='/request'>
                             Here
                           </Link>{" "}
-                          To send to LSP
+                          to book with a Launch Provider
                         </Card.Text>
                         <footer>
                           <small>Payload Created: {pay.updated_at}</small>
