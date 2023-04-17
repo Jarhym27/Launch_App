@@ -129,7 +129,6 @@ return newPad;
   
   return (
     <>
-   { console.log(availablePads)}
     <Row>
       <Col className="col-3">
     <h1>Launch Pads</h1> 
@@ -146,8 +145,8 @@ return newPad;
                 {pads.lsp_user_id} <br></br>
                 {pads.launch_site} <br></br>
                 {pads.pad_status ? 'Status: Available' : 'Status : Unavailable'} <br></br>
-                <button onClick={() => [setSelectedPad(pads), handleShowUpdate(), console.log(selectedPad)]}>Edit</button>
-                <button onClick={() => [setSelectedPad(pads), handleShowDelete(), console.log(selectedPad)]}>Delete</button>
+                <button onClick={() => [setSelectedPad(pads), handleShowUpdate()]}>Edit</button>
+                <button onClick={() => [setSelectedPad(pads), handleShowDelete()]}>Delete</button>
               </Card.Text>
               {/* <div>add New Pad</div> */}
             </Card.Body>
@@ -261,7 +260,6 @@ return newPad;
               className="mb-3"
               controlId="formBasicEmail"
             >
-              {/* {console.log(selectedPad)} */}
               <Form.Label>Pad Name</Form.Label>
               <Form.Control
                 defaultValue={selectedPad?.launch_pad}
