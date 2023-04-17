@@ -15,6 +15,7 @@ import Home from "./component/Home"
 import cookie from 'cookie'
 import LspProfile from "./component/lsp_profile/01_lsp_profile_page";
 import LspCalendar from "./component/lsp_profile/04_lsp_calendar";
+import Notifications from "./component/Notifications";
 export const RocketInfo = createContext();
 
 function App() {
@@ -25,7 +26,7 @@ function App() {
     organization: "",
     role: "",
   });
-
+const [availablePads, setAvailablePads] = useState();
 
   useEffect(() => {
     let cookies = cookie.parse(document.cookie);
@@ -47,7 +48,7 @@ function App() {
   }, [])
 
   return (
-    <RocketInfo.Provider value={{userCreate, setUserCreate, userLogin, setUserLogin}}>
+    <RocketInfo.Provider value={{userCreate, setUserCreate, userLogin, setUserLogin, availablePads, setAvailablePads}}>
       <Router>
         {userLogin.username && <Header/> }
         <Routes>
@@ -64,9 +65,9 @@ function App() {
           <Route path="*" element={<PageNotFound />} ></Route>
 
 
-        </Routes>
-      </Router >
-    </RocketInfo.Provider>
+         </Routes>
+       </Router >
+     </RocketInfo.Provider>
   )
 }
 
