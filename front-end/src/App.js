@@ -17,6 +17,7 @@ import LspProfile from "./component/lsp_profile/01_lsp_profile_page";
 import LspCalendar from "./component/lsp_profile/04_lsp_calendar";
 import RequestDetails from "./component/RequestDetails";
 import AllMessages from "./component/AllMessages";
+import NotificationsBadge from "./component/NotificationsBadge";
 export const RocketInfo = createContext();
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
   });
   const [availablePads, setAvailablePads] = useState();
   const [refresh, setRefresh] = useState(false);
+  const [myRequests, setMyRequests] = useState([])
 
   useEffect(() => {
     let cookies = cookie.parse(document.cookie);

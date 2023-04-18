@@ -9,9 +9,9 @@ import { SiJsonwebtokens } from "react-icons/si";
 import { now } from "moment";
 
 const RequestList = () => {
-  const { userLogin, setRefresh } = useContext(RocketInfo);
+  const { userLogin, setRefresh, myRequests, setMyRequests} = useContext(RocketInfo);
 
-  const [myRequests, setMyRequests] = useState([])
+  // const [myRequests, setMyRequests] = useState([])
   const [myPayloads, setMyPayloads] = useState([])
   const [showModal, setShowModal] = useState(false)
   const [myUsers, setMyUsers] = useState([])
@@ -31,7 +31,7 @@ const RequestList = () => {
     }
   }, [userLogin, fetchTime])
 
-
+    
   useEffect(() => {
     if (myRequests) {
       fetch('http://localhost:8080/table/users')
@@ -121,7 +121,7 @@ const RequestList = () => {
                         Weight: {e.weight} Tons<br />
                         Request Status: {e.request_status}<br />
                       </p>
-                      <button className="btn" onClick={() => { setDecision('approve'); setSelectedRequest(e) }}>Approve</button>
+                      <button className="btn" onClick={() => { setDecision('approve'); setSelectedRequest(e)}}>Approve</button>
                       <button className="btn" onClick={() => { setDecision('deny'); setSelectedRequest(e) }}>Deny</button>
                     </div>
                   )
