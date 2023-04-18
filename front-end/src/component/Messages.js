@@ -39,6 +39,9 @@ const Messages = ({selectedRequest}) => {
               {msg.notification_type==='Request denied' && 
                 <h5>Request Denied</h5>
               }
+              {msg.notification_type==='New request' && 
+                <h5>New Request</h5>
+              }
               {msg.notification_type==='Request accepted' && 
                 <h5>Request Accepted</h5>
               }
@@ -65,6 +68,9 @@ const Messages = ({selectedRequest}) => {
             <Row className='message-container-them'>
               {msg.notification_type==='Request denied' && 
                 <h5>Request Denied</h5>
+              }
+              {msg.notification_type==='New request' && 
+                <h5>New Request</h5>
               }
               {msg.notification_type==='Request accepted' && 
                 <h5>Request Accepted</h5>
