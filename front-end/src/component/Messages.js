@@ -1,13 +1,49 @@
-import { useState,useContext, useEffect } from "react";
+import { useState,useContext, useEffect,useRef } from "react";
 import { RocketInfo } from "../App";
 import {Container, Row, Col} from 'react-bootstrap'
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 import './Messages.css'
 
 
 const Messages = ({selectedRequest}) => {
 
+  const messageRef = useRef();
+
+  console.log(selectedRequest)
+
   const [messages,setMessages] = useState(null)
   const { userLogin } = useContext(RocketInfo);
+
+  let recipientID = userLogin.role==='lsp_user' ? selectedRequest.payload_user_id : selectedRequest.lsp_user_id
+
+  const handleSendMessage = () => {
+    fetch('http://localhost:8080/table/messages',
+        {
+          method: "POST",
+          credentials: 'include',
+          body: JSON.stringify({
+            sender_id: userLogin.id,
+            recipient_id: recipientID,
+            launch_request_id: selectedRequest.id,
+            message: messageRef.current.value,
+            notification_type: "New message",
+            notification_ack: 'false'
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8"
+          }
+        })
+        .then(res=>res.json())
+        .then(data=>{
+          return(fetch(`http://localhost:8080/join/messages-users?launch_request_id=${selectedRequest.id}`))
+        })
+        .then(res=>res.json())
+        .then(data=> {
+          messageRef.current.value = ''
+          setMessages(data)})
+  }
+
 
   useEffect(()=> {
     fetch(`http://localhost:8080/join/messages-users?launch_request_id=${selectedRequest.id}`)
@@ -85,6 +121,15 @@ const Messages = ({selectedRequest}) => {
       </div>
       }
       )}
+      <Form>
+      <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+        <Form.Label>New Message</Form.Label>
+        <Form.Control ref={messageRef} as="textarea" rows={4} />
+      </Form.Group>
+      <Button onClick={()=>handleSendMessage()} variant="primary" type="button">
+        Send
+      </Button>
+    </Form>
     </Container>
     
     );
