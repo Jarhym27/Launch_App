@@ -3,7 +3,7 @@ import getDay from "date-fns/getDay";
 import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
 import React, { useState, useEffect, useContext } from "react";
-import { Calendar,  momentLocalizer } from "react-big-calendar";
+import { Calendar, momentLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -19,7 +19,7 @@ import { RocketInfo } from "../../App";
 const localizer = momentLocalizer(moment)
 
 function LspCalendar() {
-    const {userLogin} = useContext(RocketInfo)
+    const { userLogin, myRequests } = useContext(RocketInfo)
     const [newEvent, setNewEvent] = useState({ title: "", vehicle: "", pad: "", start: "", end: "" });
     const [allEvents, setAllEvents] = useState([]);
     const [modalShow, setModalShow] = useState(false);
@@ -29,11 +29,17 @@ function LspCalendar() {
         fetch('http://localhost:8080/join/launch_requests')
             .then(res => res.json())
             .then(data => setAllEvents(data))
-    }, [])
+    }, [myRequests])
 
-    console.log('userLogin:\n',userLogin)
-    console.log('allEvents:\n',allEvents)
-    const filteredSchedule = allEvents?.filter(element => element.request_status === "Scheduled" && element.organization === userLogin.organization)
+    // <lsp_requests_list>
+    //   <lsp_calendar prop={launch_requests}>
+    //     
+    // <lsp_launch_vehicles>
+    //   <lsp_requests_list>
+
+    // console.log('userLogin:\n', userLogin)
+    // console.log('allEvents:\n', allEvents)
+    const filteredSchedule = allEvents?.filter(element => (element.request_status === "Scheduled" || element.request_status === 'Launched') && element.organization === userLogin.organization)
 
     function handleAddEvent() {
         for (let i = 0; i < allEvents.length; i++) {
@@ -60,7 +66,8 @@ function LspCalendar() {
             launch_date: new Date(event.launch_date),
             city: event.city,
             state: event.state,
-            cost: event.cost
+            cost: event.cost,
+            status: event.request_status
         }
     })
 
@@ -116,12 +123,22 @@ function LspCalendar() {
                 <React.Fragment ><LspLaunchVehicles />
                     <LspLaunchPads />
                 </React.Fragment>
-                <h3 className='center' style={{display:'flex', justifyContent:"center"}}>Launch Schedule</h3>
-                <Calendar selectable={true} localizer={localizer} events={eventInfo} eventContent={eventInfo} startAccessor="launch_date" endAccessor="launch_date" style={{ height: 500, margin: "50px" }}
-                    onShowMore={(events, date) => this.setState({ showModal: true, events })} onSelectEvent={(e) => {
-                        setModalShow(true)
-                        setSelectedEvent(e)
-                    }} />
+                <h3 className='center' style={{ display: 'flex', justifyContent: "center" }}>Launch Schedule</h3>
+                <Calendar 
+                  selectable={true} 
+                  localizer={localizer} 
+                  events={eventInfo} 
+                  eventContent={eventInfo} 
+                  startAccessor="launch_date" 
+                  endAccessor="launch_date" 
+                  style={{ height: 500, margin: "50px" }}
+                  onShowMore={(events, date) => this.setState({ showModal: true,events})} 
+                  onSelectEvent={(e) => {setModalShow(true); setSelectedEvent(e)}}
+                  eventPropGetter={(event) => {
+                    const backgroundColor = event.status === 'Launched' ? 'green' : 'blue';
+                    return {style:{backgroundColor}} 
+                  }}
+                />
                 <CalendarModal show={modalShow} onHide={() => setModalShow(false)} />
             </div>
         );

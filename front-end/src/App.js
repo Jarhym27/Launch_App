@@ -29,6 +29,7 @@ function App() {
     role: "",
   });
   const [availablePads, setAvailablePads] = useState();
+  const [myRequests, setMyRequests] = useState([])
 
   useEffect(() => {
     let cookies = cookie.parse(document.cookie);
@@ -48,7 +49,7 @@ function App() {
   }, [])
 
   return (
-    <RocketInfo.Provider value={{ userCreate, setUserCreate, userLogin, setUserLogin, availablePads, setAvailablePads, launchVehicles, setLaunchVehicles }}>
+    <RocketInfo.Provider value={{ userCreate, setUserCreate, userLogin, setUserLogin, availablePads, setAvailablePads, launchVehicles, setLaunchVehicles, myRequests, setMyRequests }}>
       <Router>
         {userLogin.username && <Header />}
         <Routes>
