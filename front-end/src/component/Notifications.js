@@ -1,15 +1,13 @@
 import React, { useEffect } from 'react'
 import { useState, useContext } from 'react'
-import { json } from 'react-router';
 import { RocketInfo } from "../App";
 import Toast from 'react-bootstrap/Toast';
 import ToastContainer from 'react-bootstrap/ToastContainer';
 import { Link } from 'react-router-dom';
-import { momentLocalizer } from 'react-big-calendar';
 
 const moment = require('moment')
 
-function Notifications({setSelectedRequest}) {
+function Notifications() {
 const [notifs, setNotifs] = useState();
 const [toastBools, setToastBools] = useState();
 const [myMessages,setMyMessages] = useState();
@@ -52,13 +50,13 @@ useEffect(() => {
           setNotifs(myNotifications)
       })
 
-}, [])
+}, [userLogin.id])
 
 
 //Request denied by (SpaceX) for (Payload Name)
 
 return (
-    <ToastContainer position={'middle-center'} autoClose={2000}>
+    <ToastContainer position={'middle-center'}>
         {notifs?.map((update, i) => {
             const timestamp = update.timestamp
             const formatted = moment(timestamp).fromNow()
@@ -75,7 +73,7 @@ return (
                     <Toast.Body>
                         <span key={i}>{update.notification_type} by {update.organization} for {update.name}</span>
                         <br></br>
-                        <Link to={'/requestdetails'} onClick={() => {setSelectedRequest(update); toggleShowA(i, update.msg_id)}}>View Details</Link>
+                        <Link state={update} to={'/requestdetails'} onClick={() => {toggleShowA(i, update.msg_id)}}>View Details</Link>
                     </Toast.Body>
                     </Toast>
               )

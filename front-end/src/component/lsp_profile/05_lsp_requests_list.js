@@ -5,6 +5,8 @@ import { RocketInfo } from "../../App"
 import { Modal } from "react-bootstrap";
 import { resolvePath } from "react-router";
 import '../../css/lsp_requests_list.css'
+import { SiJsonwebtokens } from "react-icons/si";
+import { now } from "moment";
 
 const RequestList = () => {
   const { userLogin, setUserLogin, availablePads, setAvailablePads, launchVehicles, setLaunchVehicles } = useContext(RocketInfo);
@@ -17,6 +19,17 @@ const RequestList = () => {
   const [responseMessage, setResponseMessage] = useState('')
   const [decision, setDecision] = useState('')
   const [selectedLaunchVehicle, setSelectedLaunchVehicle] = useState();
+  const [fetchTime, setFetchTime] = useState(false)
+
+  useEffect(() =>{
+    if(userLogin){
+    fetch('http://localhost:8080/join/launch_requests')
+      .then(res => res.json())
+      .then(data => data.filter(e => e.lsp_user_id == userLogin.id))
+      .then(filtered => setMyRequests(filtered.sort((a,b) => a.id - b.id)))
+      .then(() => setFetchTime(false))
+    }
+  },[userLogin, fetchTime])
 
   useEffect(() => {
     if (userLogin) {
@@ -33,8 +46,8 @@ const RequestList = () => {
     if (myRequests) {
       fetch('http://localhost:8080/table/users')
       .then(res => res.json())
-      .then(data => data.filter(e => myRequests.map(e => e.payload_user_id).includes(e.id)))
-      .then(filtered => setMyUsers(filtered))
+        .then(data => data.filter(e => myRequests.map(e => e.payload_user_id).includes(e.id)))
+        .then(filtered => setMyUsers(filtered.sort((a,b) => a.id - b.id)))
     }
   }, [myRequests])
 
@@ -54,6 +67,7 @@ const RequestList = () => {
           "Content-type": "application/json; charset=UTF-8"
         }
       })
+
         .then(res => res.json())
         .then(data => console.log(data))
         .catch(err => console.error(err))
@@ -62,15 +76,28 @@ const RequestList = () => {
           method: "PATCH",
           body: JSON.stringify({
             booked_status: 'booked',
+          })
+        })
+      }
+       fetch(`http://localhost:8080/table/launch_requests?id=${selectedRequest.id}`, {
+          method: "PATCH",
+          body: JSON.stringify({
+            request_status:  decision === "deny" ? "Denied" : "Scheduled",
+            updated_at: new Date().toISOString()
           }),
           headers: {
             "Content-type": "application/json; charset=UTF-8"
           }
         })
-          .then(res => res.json())
-          .then(data => console.log(data))
-          .catch(err => console.error(err))
-      }
+        .then(res => res.json())
+        .then(data => {
+          console.log(data)
+          setDecision('')
+          setResponseMessage('')
+          setSelectedRequest()
+          setFetchTime(true)
+        })
+        .catch(err=>console.error(err))
     }
   }
 
