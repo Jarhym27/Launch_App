@@ -10,16 +10,13 @@ export default LspLaunchPads
 function LspLaunchPads() {
   const { userLogin, availablePads, setAvailablePads } = useContext(RocketInfo);
   const [launchPad, setLaunchPad] = useState();
-
   const [fetchTime, setFetchTime] = useState(false)
-  const [userPads, setUserPads] = useState();
   const [selectedPad, setSelectedPad] = useState();
-  const [submittedPads, setSubmittedPads] = useState();
   const [city, setCity] = useState();
   const [lpState, setlpState] = useState();
   const [launchSite, setLaunchSite] = useState();
   const [padName, setPadName] = useState();
-  const [padStatus, setPadStatus] = useState();
+  const [padStatus, setPadStatus] = useState(true);
   //ADD BUTTON PAYLOAD USESTATES
   const [show, setShow] = useState(false);
 
@@ -47,9 +44,9 @@ function LspLaunchPads() {
       .then(data => setLaunchPad(data))
   }, [])
 
- 
+
   // ADD lanchpad POST
-  
+
   const handlePost = (e) => {
     let newPad = {
       lsp_user_id: userLogin.id,
@@ -66,13 +63,13 @@ function LspLaunchPads() {
         "Content-type": "application/json; charset=UTF-8",
       },
     })
-    .then(res => res.json())
-    .then(data => {
-//  not pulling id from backend
-// newPad.id = data[0].id;
-return newPad;
-    })
-    .then(() => setFetchTime(true));
+      .then(res => res.json())
+      .then(data => {
+        //  not pulling id from backend
+        // newPad.id = data[0].id;
+        return newPad;
+      })
+      .then(() => setFetchTime(true));
     setLaunchPad((items) => [...items, newPad])
   };
 
@@ -83,12 +80,13 @@ return newPad;
     updatedPad.pad_status = padStatus;
     setLaunchPad(newPadList);
     setLaunchPad((items) => [...items, updatedPad]);
+    setPadName(updatedPad.launch_pad)
     fetch(`http://localhost:8080/table/launch_pads?id=${selectedPad.id}`, {
       method: "PATCH",
       body: JSON.stringify({
         launch_pad: padName,
         pad_status: padStatus
-    }),
+      }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },
@@ -98,7 +96,6 @@ return newPad;
   const handleDelete = () => {
     let newPadList = launchPad.filter(item => item.id !== selectedPad.id);
     setLaunchPad(newPadList);
-    setSelectedPad([]);
     fetch('http://localhost:8080/table/launch_pads', {
       method: "DELETE",
       body: JSON.stringify({
@@ -108,66 +105,66 @@ return newPad;
         "Content-type": "application/json; charset=UTF-8"
       }
     })
-      .then(res => {
-        setSelectedPad()
-        if (res.status === 200) {
-          console.log('Deleted.')
-          setFetchTime(true)
-        }
-        else {
-          console.log(res.status)
-        }
-      })
+    .then(res => {
+      setSelectedPad()
+      if (res.status === 200) {
+        console.log('Deleted.')
+        setFetchTime(true)
+      }
+      else {
+        console.log(res.status)
+      }
+    })
+    setSelectedPad([]);
   }
 
 
 
   useEffect(() => {
-    
-      let filteredPads =launchPad?.filter((element) => element.lsp_user_id === userLogin.id)
-      setAvailablePads(filteredPads)
+
+    let filteredPads = launchPad?.filter((element) => element.lsp_user_id === userLogin.id)
+    setAvailablePads(filteredPads)
   }, [launchPad, userLogin])
-  
+
   return (
     <>
-    <Row>
-      <Col className="col-3">
-    <h1>Launch Pads</h1> 
-    <Button  onClick={handleShow}> Add a New Pad</Button>
-      {availablePads?.map((pads, i) => {
-        return (
-          <Card key={i} >
-            <Card.Body>
-              <Card.Title>
-              </Card.Title>
-              <Card.Text>
-                Pad: {pads.launch_pad} <br></br>
-                {pads.lsp_user_id} <br></br>
-                {pads.launch_site} <br></br>
-                {pads.pad_status ? 'Status: Available' : 'Status : Unavailable'} <br></br>
-                <button onClick={() => [setSelectedPad(pads), handleShowUpdate()]}>Edit</button>
-                <button onClick={() => [setSelectedPad(pads), handleShowDelete()]}>Delete</button>
-              </Card.Text>
-              {/* <div>add New Pad</div> */}
-            </Card.Body>
-          </Card>
+      <Row>
+        <Col className="col-3">
+          <h1>Launch Pads</h1>
+          <Button onClick={handleShow}> Add a New Pad</Button>
+          {availablePads?.map((pads, i) => {
+            return (
+              <Card key={i} >
+                <Card.Body>
+                  <Card.Title>
+                  </Card.Title>
+                  <Card.Text>
+                    Pad: {pads.launch_pad} <br></br>
+                    {pads.lsp_user_id} <br></br>
+                    {pads.launch_site} <br></br>
+                    {pads.pad_status ? 'Status: Available' : 'Status : Unavailable'} <br></br>
+                    <button onClick={() => [setSelectedPad(pads), handleShowUpdate(),]}>Edit</button>
+                    <button onClick={() => [setSelectedPad(pads), handleShowDelete()]}>Delete</button>
+                  </Card.Text>
+                  {/* <div>add New Pad</div> */}
+                </Card.Body>
+              </Card>
 
-        )
-      })}</Col>
+            )
+          })}</Col>
       </Row>
 
 
 
       <Modal show={show} onHide={handleClose} className="modalBg">
         <Modal.Header closeButton className="modalForm">
-          <Modal.Title>Add Payload</Modal.Title>
+          <Modal.Title>Add Launch Pad</Modal.Title>
         </Modal.Header>
         <Modal.Body className="modalForm">
           <Form
             onSubmit={(e) => {
               e.preventDefault();
               handlePost();
-              setSubmittedPads();
             }}
           >
             <Form.Group
@@ -182,7 +179,7 @@ return newPad;
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Pad Status</Form.Label>
               <Form.Select onChange={(e) =>
-                setLaunchSite(e.target.value)}>
+                setPadStatus(e.target.value)}>
                 <option></option>
                 <option value={true}>Available</option>
                 <option value={false}>Unavailable</option>
@@ -256,6 +253,7 @@ return newPad;
             }}
           >
             <Form.Group
+            value={selectedPad?.launch_pad}
               onChange={(e) => setPadName(e.target.value)}
               className="mb-3"
               controlId="formBasicEmail"
@@ -267,18 +265,13 @@ return newPad;
                 placeholder=""
               />
             </Form.Group>
-            <Form.Group
-              onChange={(e) => setPadName(e.target.value)}
-              className="mb-3"
-              controlId="formBasicEmail"
-            >
-            </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPassword">
+            value={selectedPad?.pad_status}
               <Form.Label>Pad Status</Form.Label>
               <Form.Select onChange={(e) =>
-                setLaunchSite(e.target.value)}>
+                setPadStatus(e.target.value)}>
                 <option value={true}>Available</option>
-                <option value={false}>Unavailable</option>
+                <option value={false}>Unavailable</option>          
               </Form.Select>
             </Form.Group>
 

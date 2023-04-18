@@ -33,7 +33,6 @@ function App() {
     let cookies = cookie.parse(document.cookie);
     // console.log(cookies.userInfo)
     if (cookies.userInfo) {
-      // console.log(cookies.userInfo)
       fetch("http://localhost:8080/login", {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
@@ -49,7 +48,7 @@ function App() {
   }, [])
 
   return (
-    <RocketInfo.Provider value={{userCreate, setUserCreate, userLogin, setUserLogin, availablePads, setAvailablePads, launchVehicles, setLaunchVehicles}}>
+    <RocketInfo.Provider value={{ userCreate, setUserCreate, userLogin, setUserLogin, availablePads, setAvailablePads, launchVehicles, setLaunchVehicles }}>
       <Router>
         {userLogin.username && <Header />}
         <Routes>
