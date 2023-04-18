@@ -78,11 +78,8 @@ function LspLaunchPads() {
     let updatedPad = selectedPad;
     updatedPad.launch_pad = padName;
     updatedPad.pad_status = padStatus;
-    console.log('launch pad', updatedPad.launch_pad)
-    console.log(selectedPad)
     if (updatedPad.launch_pad === undefined) {
       updatedPad.launch_pad = selectedPad?.launchPad
-      console.log('launch pad', updatedPad.launch_pad)
     }
     if (updatedPad.pad_status === undefined) {
 updatedPad.pad_status = selectedPad?.pad_status
@@ -152,7 +149,7 @@ updatedPad.pad_status = selectedPad?.pad_status
                     {pads.lsp_user_id} <br></br>
                     {pads.launch_site} <br></br>
                     {pads.pad_status ? 'Status: Available' : 'Status : Unavailable'} <br></br>
-                    <button onClick={() => [setSelectedPad(pads), console.log(pads), handleShowUpdate(),]}>Edit</button>
+                    <button onClick={() => [setSelectedPad(pads), handleShowUpdate(),]}>Edit</button>
                     <button onClick={() => [setSelectedPad(pads), handleShowDelete()]}>Delete</button>
                   </Card.Text>
                   {/* <div>add New Pad</div> */}
