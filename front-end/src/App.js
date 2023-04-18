@@ -31,6 +31,7 @@ function App() {
   });
   const [availablePads, setAvailablePads] = useState();
   const [refresh, setRefresh] = useState(false);
+  const [myRequests, setMyRequests] = useState([])
 
   useEffect(() => {
     let cookies = cookie.parse(document.cookie);
