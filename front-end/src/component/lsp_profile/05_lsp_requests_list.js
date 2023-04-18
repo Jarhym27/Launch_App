@@ -4,6 +4,7 @@ import LaunchRequest from "../LaunchRequest";
 import { RocketInfo } from "../../App"
 import { Modal } from "react-bootstrap";
 import { resolvePath } from "react-router";
+import '../../css/lsp_requests_list.css'
 
 const RequestList = () =>{
   const {userLogin, setUserLogin, availablePads, setAvailablePads, launchVehicles, setLaunchVehicles } = useContext(RocketInfo);
@@ -98,10 +99,7 @@ return(
         <Modal.Title>Payload Request Response: {decision.toUpperCase()}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <input 
-          onChange={(e) => {setResponseMessage(e.target.value); console.log(responseMessage)}}
-          placeholder="Enter your response message here">
-        </input>
+        <textarea id="paraBox" rows="2" cols="25" placeholder="Enter your response message here"   onChange={(e) => setResponseMessage(e.target.value)}></textarea>
       </Modal.Body>
       <Modal.Footer>
         <button disabled={!responseMessage} onClick={() => respondRequest()}>Submit Decision</button>
