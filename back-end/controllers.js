@@ -20,11 +20,7 @@ const deleteRow = (id,table) => {
 
 const updateRow = (id,body,table) => {
   if(table==='messages'){
-    let updatedBody = {
-      ...body,
-      timestamp: new Date().toISOString()
-    }
-    return knex(`${table}`).where('id', id).update(updatedBody)
+    return knex(`${table}`).where('id', id).update(body)
   } else {
     let updatedBody = {
       ...body,
