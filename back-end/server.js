@@ -208,6 +208,8 @@ app.post('/table/:table',(req,res) => {
     })
 })
 
+
+
 //delete row of data from table by id
 app.delete('/table/:table',(req,res) => {
   const {table} = req.params;

@@ -113,13 +113,11 @@ function LspLaunchVehicles() {
  
   const handleDelete = () => {
     let newVehicleList = launchVehicle.filter(item => item.id !== selectedVehicle.id);
+    console.log('selectedVehicle:\n', selectedVehicle)
     setLaunchVehicle(newVehicleList);
-    setSelectedVehicle([]);
-    fetch('http://localhost:8080/table/launch_vehicle', {
+    fetch('http://localhost:8080/table/launch_vehicles', {
       method: "DELETE",
-      body: JSON.stringify({
-        id: selectedVehicle.id
-      }),
+      body: JSON.stringify({id: selectedVehicle.id}),
       headers: {
         "Content-type": "application/json; charset=UTF-8"
       }
@@ -134,6 +132,7 @@ function LspLaunchVehicles() {
           console.log(res.status)
         }
       })
+      .catch(err => console.log('Error:\n', err))
   }
 
   const theVehicle = submitVehicle?.filter(element => element.lsp_user_id === userLogin.id)
@@ -360,6 +359,7 @@ function LspLaunchVehicles() {
         </Modal.Footer>
       </Modal>
 
+    
     <Modal show={showDelete} onHide={handleCloseDelete} className="modalBg">
       <Modal.Header closeButton className="modalForm">
         <Modal.Title>DELETE Vehicle?</Modal.Title>
