@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react"
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { RocketInfo } from "../../App"
-import { Container, Row, Col, Card, Button } from 'react-bootstrap'
+import { Row, Col, Card, Button } from 'react-bootstrap'
 
 import './00_lsp_profile.css'
 export default LspLaunchPads
@@ -79,27 +79,30 @@ function LspLaunchPads() {
     updatedPad.launch_pad = padName;
     updatedPad.pad_status = padStatus;
     console.log('launch pad', updatedPad.launch_pad)
-    if (updatedPad.launchPad === '') {
-      updatedPad.launchPad = selectedPad.launchPad
+    console.log(selectedPad)
+    if (updatedPad.launch_pad === undefined) {
+      updatedPad.launch_pad = selectedPad?.launchPad
+      console.log('launch pad', updatedPad.launch_pad)
     }
-    if (updatedPad.pad_status === '') {
-updatedPad.pad_status = selectedPad.pad_status
+    if (updatedPad.pad_status === undefined) {
+updatedPad.pad_status = selectedPad?.pad_status
     }
     setLaunchPad(newPadList);
     setLaunchPad((items) => [...items, updatedPad]);
-    setPadName(updatedPad.launch_pad)
     fetch(`http://localhost:8080/table/launch_pads?id=${selectedPad.id}`, {
       method: "PATCH",
       body: JSON.stringify({
-        launch_pad: padName,
-        pad_status: padStatus
+        launch_pad: updatedPad.launch_pad,
+        pad_status: updatedPad.pad_status
       }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },
     })
       .then(() => setFetchTime(true));
+      setSelectedPad();
   };
+
   const handleDelete = () => {
     let newPadList = launchPad.filter(item => item.id !== selectedPad.id);
     setLaunchPad(newPadList);
@@ -113,7 +116,6 @@ updatedPad.pad_status = selectedPad.pad_status
       }
     })
     .then(res => {
-      setSelectedPad()
       if (res.status === 200) {
         console.log('Deleted.')
         setFetchTime(true)
@@ -122,7 +124,7 @@ updatedPad.pad_status = selectedPad.pad_status
         console.log(res.status)
       }
     })
-    setSelectedPad([]);
+    setSelectedPad();
   }
 
 
@@ -131,7 +133,7 @@ updatedPad.pad_status = selectedPad.pad_status
 
     let filteredPads = launchPad?.filter((element) => element.lsp_user_id === userLogin.id)
     setAvailablePads(filteredPads)
-  }, [launchPad, userLogin])
+  }, [launchPad, userLogin, selectedPad, setAvailablePads, setSelectedPad])
 
   return (
     <>
@@ -150,7 +152,7 @@ updatedPad.pad_status = selectedPad.pad_status
                     {pads.lsp_user_id} <br></br>
                     {pads.launch_site} <br></br>
                     {pads.pad_status ? 'Status: Available' : 'Status : Unavailable'} <br></br>
-                    <button onClick={() => [setSelectedPad(pads), handleShowUpdate(),]}>Edit</button>
+                    <button onClick={() => [setSelectedPad(pads), console.log(pads), handleShowUpdate(),]}>Edit</button>
                     <button onClick={() => [setSelectedPad(pads), handleShowDelete()]}>Delete</button>
                   </Card.Text>
                   {/* <div>add New Pad</div> */}
@@ -182,7 +184,6 @@ updatedPad.pad_status = selectedPad.pad_status
               <Form.Label>Pad Name</Form.Label>
               <Form.Control type="text" placeholder="" />
             </Form.Group>
-
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Pad Status</Form.Label>
               <Form.Select onChange={(e) =>
@@ -256,11 +257,9 @@ updatedPad.pad_status = selectedPad.pad_status
             onSubmit={(e) => {
               e.preventDefault();
               handleUpdate();
-              setSelectedPad();
             }}
           >
             <Form.Group
-            value={selectedPad?.launch_pad}
               onChange={(e) => setPadName(e.target.value)}
               className="mb-3"
               controlId="formBasicEmail"
@@ -273,7 +272,6 @@ updatedPad.pad_status = selectedPad.pad_status
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPassword">
-            value={selectedPad?.pad_status}
               <Form.Label>Pad Status</Form.Label>
               <Form.Select onChange={(e) =>
                 setPadStatus(e.target.value)}>
