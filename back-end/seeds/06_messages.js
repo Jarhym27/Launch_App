@@ -19,6 +19,15 @@ exports.seed = async function (knex) {
       notification_ack: 'false',
       timestamp: "2023-04-18T03:25:44.621Z",
     },
+    {
+      sender_id: 2,
+      recipient_id: 8,
+      launch_request_id: 1,
+      message: "Can you support?",
+      notification_type: "New request",
+      notification_ack: 'false',
+      timestamp: '2023-04-15 16:52:12',
+    },
   ]
   );
 };
