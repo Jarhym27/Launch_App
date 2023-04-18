@@ -121,8 +121,6 @@ function PayloadProfile({setSelectedRequest}) {
     })
 }
 
-
-
   return (
     <>
     <Notifications />
