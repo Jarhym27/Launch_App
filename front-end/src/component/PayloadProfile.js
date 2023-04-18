@@ -114,8 +114,6 @@ function PayloadProfile() {
     })
 }
 
-
-
   return (
     <>
     <Notifications />
