@@ -123,7 +123,7 @@ function PayloadProfile({setSelectedRequest}) {
 
   return (
     <>
-    <Notifications />
+    <Notifications setSelectedRequest={setSelectedRequest} />
       <Container fluid className="App py-2 overflow-hidden">
         <Row className="justify-content-center profileRow">
           <Col className="profileCol">
