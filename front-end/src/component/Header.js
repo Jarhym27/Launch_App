@@ -75,6 +75,9 @@ const Header = () => {
           <Navbar.Text>
             <Link className="headerLink" to={profilePath}>Profile</Link>
           </Navbar.Text>
+          <Navbar.Text>
+            <Link className="headerLink" to={'/messages'}>Messages</Link>
+          </Navbar.Text>
         </Navbar.Collapse>
         <Navbar.Collapse className="justify-content-end">
           {userLogin &&
