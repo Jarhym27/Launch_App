@@ -39,7 +39,6 @@ const toggleShowA = (index,message_id) => {
 
 
 useEffect(() => {
-    console.log('use effect triggered')
     fetch("http://localhost:8080/join/payload_user_messages")
       .then(res =>res.json())
       .then(data => {
@@ -54,7 +53,6 @@ useEffect(() => {
       })
 
 }, [])
-
 
 
 //Request denied by (SpaceX) for (Payload Name)
