@@ -63,7 +63,7 @@ console.log('current time',new Date())
 return (
     <ToastContainer position={'middle-center'} autoClose={2000}>
         {notifs?.map((update, i) =>{
-            const timestamp = update.updated_at
+            const timestamp = update.timestamp
             const formatted = moment(timestamp).fromNow()
 
             if(toastBools[i]===true){
