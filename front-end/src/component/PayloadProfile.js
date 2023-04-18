@@ -248,7 +248,7 @@ function PayloadProfile() {
               </Form.Select>
             </Form.Group>
             <Button
-              onClick={handleCloseUpdate}
+              onClick={handleClose}
               className="addPayload"
               variant="primary"
               type="submit"

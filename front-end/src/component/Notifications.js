@@ -55,7 +55,6 @@ useEffect(() => {
 
 }, [])
 
-console.log('current time',new Date())
 
 
 //Request denied by (SpaceX) for (Payload Name)
