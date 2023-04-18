@@ -31,16 +31,6 @@ const RequestList = () => {
     }
   },[userLogin, fetchTime])
 
-  useEffect(() => {
-    if (userLogin) {
-      fetch('http://localhost:8080/join/launch_requests')
-        .then(res => res.json())
-        .then(data => data.filter(e => e.lsp_user_id == userLogin.id))
-        .then(filtered => setMyRequests(filtered))
-        // setSelectedLaunchVehiclelaunchVehicles.filter(e => e.id == myRequests.map(item => item.launch_vehicle_id))
-        console.log(launchVehicles)
-      }
-    }, [userLogin])
     
   useEffect(() => {
     if (myRequests) {
