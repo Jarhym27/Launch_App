@@ -115,7 +115,7 @@ function LspLaunchVehicles() {
     let newVehicleList = launchVehicle.filter(item => item.id !== selectedVehicle.id);
     setLaunchVehicle(newVehicleList);
     setSelectedVehicle([]);
-    fetch('http://localhost:8080/table/launch_vehicle', {
+    fetch('http://localhost:8080/table/launch_vehicles', {
       method: "DELETE",
       body: JSON.stringify({
         id: selectedVehicle.id

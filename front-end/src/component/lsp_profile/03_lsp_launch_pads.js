@@ -103,7 +103,8 @@ function LspLaunchPads() {
   const handleDelete = () => {
     let newPadList = launchPad.filter(item => item.id !== selectedPad.id);
     setLaunchPad(newPadList);
-    fetch('http://localhost:8080/table/launch_pads', {
+    console.log('slected pad id: ',selectedPad.id)
+    fetch(`http://localhost:8080/table/launch_pads`, {
       method: "DELETE",
       body: JSON.stringify({
         id: selectedPad.id
