@@ -102,7 +102,7 @@ return(
         <textarea id="paraBox" rows="2" cols="25" placeholder="Enter your response message here"   onChange={(e) => setResponseMessage(e.target.value)}></textarea>
       </Modal.Body>
       <Modal.Footer>
-        <button disabled={!responseMessage} onClick={() => respondRequest()}>Submit Decision</button>
+        <button  className= 'btn' disabled={!responseMessage} onClick={() => respondRequest()}>Submit Decision</button>
       </Modal.Footer>
     </Modal>
   
