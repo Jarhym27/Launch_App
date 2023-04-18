@@ -17,6 +17,7 @@ import LspProfile from "./component/lsp_profile/01_lsp_profile_page";
 import LspCalendar from "./component/lsp_profile/04_lsp_calendar";
 import RequestDetails from "./component/RequestDetails";
 import AllMessages from "./component/AllMessages";
+import NotificationsBadge from "./component/NotificationsBadge";
 export const RocketInfo = createContext();
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
     role: "",
   });
   const [availablePads, setAvailablePads] = useState();
+  const [refresh, setRefresh] = useState(false);
   const [myRequests, setMyRequests] = useState([])
 
   useEffect(() => {
@@ -49,7 +51,7 @@ function App() {
   }, [])
 
   return (
-    <RocketInfo.Provider value={{ userCreate, setUserCreate, userLogin, setUserLogin, availablePads, setAvailablePads, launchVehicles, setLaunchVehicles, myRequests, setMyRequests }}>
+    <RocketInfo.Provider value={{ userCreate, setUserCreate, userLogin, setUserLogin, availablePads, setAvailablePads, launchVehicles, setLaunchVehicles }}>
       <Router>
         {userLogin.username && <Header />}
         <Routes>

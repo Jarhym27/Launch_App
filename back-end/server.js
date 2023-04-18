@@ -200,7 +200,7 @@ app.post('/table/:table',(req,res) => {
   const data = req.body
   insertRow(data,table)
     .then((response)=> {
-      res.status(200).send(data)
+      res.status(200).send(response)
     })
     .catch((err) => {
       console.error(err)
@@ -347,9 +347,10 @@ app.patch('/table/:table', (req,res) => {
   if(!id || !body || body.id){
     res.status(401).send({error: 'Bad request. Potential problems: missing body, missing query string with id, included id in the body (id should not be in body)'})
   } else{
+    console.log('body:',body)
     updateRow(id,body,table)
       .then(response => {
-        res.status(200).send(body)
+        res.status(200).send(response)
       })
       .catch(err => {
         console.error(err)

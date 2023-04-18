@@ -6,6 +6,7 @@ import { RocketTakeoffFill } from "react-bootstrap-icons";
 import React, { useContext } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import { RocketInfo } from "../App";
+import NotificationsBadge from "./NotificationsBadge";
 
 
 
@@ -81,9 +82,13 @@ const Header = () => {
         </Navbar.Collapse>
         <Navbar.Collapse className="justify-content-end">
           {userLogin &&
-            <Navbar.Text>
-              Signed in as:  <span id='user-name'>{userLogin.username}</span>
-            </Navbar.Text>}
+          <>
+            <NotificationsBadge />
+              <Navbar.Text>
+                Signed in as:  <span id='user-name'>{userLogin.username}</span>
+            </Navbar.Text>
+          </>
+          }
 
 
           <Button className='mx-4' onClick={() => logout()}

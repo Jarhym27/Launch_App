@@ -15,7 +15,7 @@ import { RocketInfo } from "../../App";
 export default LspLaunchVehicles;
 
 function LspLaunchVehicles() {
-  const { userLogin, setUserLogin, availablePads, setAvailablePads } = useContext(RocketInfo);
+  const { userLogin, availablePads, refresh, setRefresh } = useContext(RocketInfo);
   const [name, setName] = useState();
   const [cost, setCost] = useState();
   const [pad, setPad] = useState();
@@ -48,8 +48,8 @@ function LspLaunchVehicles() {
   useEffect(() => {
     fetch('http://localhost:8080/table/launch_vehicles')
       .then(res => res.json())
-      .then(data => { setLaunchVehicle(data); setFetchTime(false) })
-  }, [fetchTime])
+      .then(data => { setLaunchVehicle(data); setFetchTime(false); setRefresh(false); })
+  }, [fetchTime, refresh])
 
  //Add a new vehicle
   const addNewVehicle = (event) => {

@@ -25,6 +25,7 @@ const LaunchRequest = () => {
   const padRef = useRef();
   const launchProviderRef = useRef();
   const dateRef = useRef();
+  const messageRef = useRef();
 
   const navigate = useNavigate();
 
@@ -226,6 +227,25 @@ const LaunchRequest = () => {
       })
       .then(res => res.json())
       .then(data => {
+        let newRequestID = data[0].id
+        return(fetch('http://localhost:8080/table/messages',
+        {
+          method: "POST",
+          credentials: 'include',
+          body: JSON.stringify({
+            sender_id: userLogin.id,
+            recipient_id: selectedLV.lsp_user_id,
+            launch_request_id: newRequestID,
+            message: messageRef.current.value,
+            notification_type: "New request",
+            notification_ack: 'false'
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8"
+          }
+        }))})
+      .then(res=>res.json())
+      .then(data=>{
         setModalShow(false)
         navigate('/payloadprofile')
       })
@@ -275,6 +295,11 @@ const LaunchRequest = () => {
                 <Form>
                   <Form.Group controlId="duedate">
                     <Form.Control ref={dateRef} type="date" name="duedate" placeholder="Launch date" />
+                  </Form.Group>
+                  <div className='fw-bold'>Include a message (optional)</div>
+                  <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                    <Form.Label></Form.Label>
+                    <Form.Control ref={messageRef} as="textarea" rows={3} />
                   </Form.Group>
                 </Form>
               </div>
