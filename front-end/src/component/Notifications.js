@@ -37,6 +37,7 @@ const toggleShowA = (index,message_id) => {
 
 
 useEffect(() => {
+  if(userLogin.role === 'payload_user'){
     fetch("http://localhost:8080/join/payload_user_messages")
       .then(res =>res.json())
       .then(data => {
@@ -49,6 +50,20 @@ useEffect(() => {
           setToastBools(boolsArr)
           setNotifs(myNotifications)
       })
+  } else {
+    fetch("http://localhost:8080/join/lsp_user_messages")
+      .then(res =>res.json())
+      .then(data => {
+        let myNotifications = data.filter(msg=>msg.recipient_id===userLogin.id && !msg.notification_ack && msg.notification_type ==='New request' )
+        let numToasts = myNotifications.length
+          let boolsArr = []
+          for(let i=0;i<numToasts;i++){
+              boolsArr.push(true)
+          }
+          setToastBools(boolsArr)
+          setNotifs(myNotifications)
+      })
+  }
 
 }, [userLogin.id])
 
@@ -62,16 +77,16 @@ return (
             const formatted = moment(timestamp).fromNow()
 
             if(toastBools[i]===true){
-                return (
-                    
-                    <Toast key={i} show={toastBools[i]}  onClose={()=>toggleShowA(i,update.msg_id)}>
-                    <Toast.Header>
+                return ( 
+                    <Toast key={i} show={toastBools[i]}  onClose={()=>toggleShowA(i,update.msg_id)}  className={'bg-dark text-white'}>
+                    <Toast.Header className={'bg-dark text-white'}>
                         <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
                         <strong className="me-auto"> Launch Request Alert</strong>
                         <small className="text-muted">{formatted}</small>
                     </Toast.Header>
                     <Toast.Body>
-                        <span key={i}>{update.notification_type} by {update.organization} for {update.name}</span>
+                        {userLogin.role==='payload_user' && <span key={i}>{update.notification_type} by {update.organization} for {update.name}</span>}
+                        {userLogin.role==='lsp_user' && <span key={i}>{update.notification_type} from {update.organization} for {update.name}</span>}
                         <br></br>
                         <Link state={update} to={'/requestdetails'} onClick={() => {toggleShowA(i, update.msg_id)}}>View Details</Link>
                     </Toast.Body>
@@ -81,6 +96,7 @@ return (
             })}
   </ToastContainer>
   )
+
 }
 
 export default Notifications
