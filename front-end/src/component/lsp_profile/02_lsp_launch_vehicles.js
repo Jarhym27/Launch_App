@@ -81,7 +81,7 @@ function LspLaunchVehicles() {
     console.log(newVehicleList)
     setLaunchVehicle((items) => [...items, updateVehicle]);
     
-    fetch(`http://localhost:8080/table/launch_vehicles?id=${selectedVehicle.id}}`, {
+    fetch(`http://localhost:8080/table/launch_vehicles?id=${selectedVehicle.id}`, {
       
       method: "PATCH",
       body: JSON.stringify({
