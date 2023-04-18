@@ -7,6 +7,7 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { RocketInfo } from "../App";
+import Notifications from "./Notifications";
 
 function PayloadProfile() {
   const [submittedPayloads, setSubmittedPayloads] = useState();
@@ -115,6 +116,7 @@ function PayloadProfile() {
 
   return (
     <>
+    <Notifications />
       <Container fluid className="App py-2 overflow-hidden">
         <Row className="justify-content-center profileRow">
           <Col className="profileCol">
