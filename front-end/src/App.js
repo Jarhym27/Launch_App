@@ -75,7 +75,7 @@ const [availablePads, setAvailablePads] = useState();
       {userLogin.username &&
         <footer className="bg-dark">
           <div className="container text-center">
-            <p className="font-italic text-muted pt-2 mb-0">&copy; 2023 L-Uber.com</p>
+            <p className="font-italic text-muted pt-2 mb-0">2023 L-Uber.com</p>
           </div>
         </footer>
       }
