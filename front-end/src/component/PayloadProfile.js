@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import "./PayloadProfile.css";
 import { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
-import { Link,useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -15,8 +15,6 @@ function PayloadProfile({setSelectedRequest}) {
   const [selectedPayload, setSelectedPayload] = useState();
   const [fetchTime, setFetchTime] = useState(false)
 
-  const navigate = useNavigate();
-
   //USECONTEXT
   const {userLogin} = useContext(RocketInfo)
 
@@ -24,7 +22,6 @@ function PayloadProfile({setSelectedRequest}) {
   const [weight, setWeight] = useState();
   const [orbit, setOrbit] = useState();
   const [name, setName] = useState();
-  const [userID, setUserID] = useState();
   // PAYLOADS USESTATES
 
   //ADD BUTTON PAYLOAD USESTATES
@@ -47,11 +44,6 @@ function PayloadProfile({setSelectedRequest}) {
   const handleCloseDelete = () => setShowDelete(false);
   const handleShowDelete = () => setShowDelete(true);
   //UPDATE BUTTON PAYLOAD USESTATES
-
-  const handleClick = (request) => {
-    setSelectedRequest(request)
-    navigate('/requestdetails')
-  }
 
   useEffect(() => {
     fetch("http://localhost:8080/join/launch_requests")
@@ -112,18 +104,15 @@ function PayloadProfile({setSelectedRequest}) {
     .then(res => {
       setSelectedPayload()
       if(res.status === 200){
-        console.log('Deleted.')
         setFetchTime(true)
       }
-      else{
-        console.log(res.status)
-      }
     })
+    .catch(err=>console.log(err))
 }
 
   return (
     <>
-    <Notifications setSelectedRequest={setSelectedRequest} />
+    <Notifications/>
       <Container fluid className="App py-2 overflow-hidden">
         <Row className="justify-content-center profileRow">
           <Col className="profileCol">
@@ -145,15 +134,17 @@ function PayloadProfile({setSelectedRequest}) {
             </Row>
             {payloads?.map((payload, i) => {
               return (
-                <Card onClick={()=>handleClick(payload)}>
-                  <Card.Body className="payloadsCol">
-                    <Card.Title>{payload.name}</Card.Title>
-                    <Card.Text>Status: {payload.request_status}</Card.Text>
-                    <footer>
-                      <small>Payload Created: {payload.updated_at}</small>
-                    </footer>
-                  </Card.Body>
-                </Card>
+                <Link state={payload} to='/requestdetails' className='request-link-to-details'> 
+                  <Card>
+                    <Card.Body className="payloadsCol">
+                      <Card.Title>{payload.name}</Card.Title>
+                      <Card.Text>Status: {payload.request_status}</Card.Text>
+                      <footer>
+                        <small>Payload Created: {payload.updated_at}</small>
+                      </footer>
+                    </Card.Body>
+                  </Card>
+                </Link>
               );
             })}
           </Col>

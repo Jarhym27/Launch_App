@@ -14,7 +14,7 @@ exports.seed = async function (knex) {
       sender_id: 2,
       recipient_id: 8,
       launch_request_id: 3,
-      message: "Do you have any available on other Falcon 9 Rockets at the Cape?",
+      message: "Do you have any availability on other Falcon 9 Rockets at the Cape in the next 6 months?",
       notification_type: "New message",
       notification_ack: 'false',
       timestamp: "2023-04-18T03:25:44.621Z",

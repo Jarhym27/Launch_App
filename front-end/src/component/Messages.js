@@ -24,7 +24,7 @@ const Messages = ({selectedRequest}) => {
       {messages.map(msg=> {
 
       return msg.sender_id===userLogin.id ? 
-      <div>
+      <div key={msg.id}>
         <Row className='justify-content-end'>
           <Col md={7} lg={7}>
             <Row>
@@ -45,7 +45,7 @@ const Messages = ({selectedRequest}) => {
         <hr></hr>
       </div>
       :
-      <div>
+      <div key={msg.id}>
         <Row className='justify-content-start'>
           <Col md={7} lg={7}>
             <Row>
