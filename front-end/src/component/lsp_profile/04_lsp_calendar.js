@@ -2,7 +2,7 @@ import format from "date-fns/format";
 import getDay from "date-fns/getDay";
 import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Calendar,  momentLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import DatePicker from "react-datepicker";
@@ -13,10 +13,12 @@ import RequestList from "./05_lsp_requests_list";
 import "./000_calendar.css"
 import { Modal, ListGroup } from "react-bootstrap"
 import moment from 'moment'
+import { RocketInfo } from "../../App";
 
 const localizer = momentLocalizer(moment)
 
 function LspCalendar() {
+    const {userLogin} = useContext(RocketInfo)
     const [newEvent, setNewEvent] = useState({ title: "", vehicle: "", pad: "", start: "", end: "" });
     const [allEvents, setAllEvents] = useState([]);
     const [modalShow, setModalShow] = useState(false);
@@ -28,7 +30,9 @@ function LspCalendar() {
             .then(data => setAllEvents(data))
     }, [])
 
-    const filteredSchedule = allEvents?.filter(element => element.request_status === "Scheduled")
+    console.log('userLogin:\n',userLogin)
+    console.log('allEvents:\n',allEvents)
+    const filteredSchedule = allEvents?.filter(element => element.request_status === "Scheduled" && element.organization === userLogin.organization)
 
     function handleAddEvent() {
         for (let i = 0; i < allEvents.length; i++) {
