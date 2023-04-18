@@ -70,13 +70,13 @@ const Header = () => {
             {userLogin.role === 'payload_user' && <Link className="headerLink" to={'/home'}>Home</Link>}
           </Navbar.Text>
           <Navbar.Text>
-            <Link className="headerLink" to={'/aboutus'}>About Us</Link>
-          </Navbar.Text>
-          <Navbar.Text>
             <Link className="headerLink" to={profilePath}>Profile</Link>
           </Navbar.Text>
           <Navbar.Text>
             <Link className="headerLink" to={'/messages'}>Messages</Link>
+          </Navbar.Text>
+          <Navbar.Text>
+            <Link className="headerLink" to={'/aboutus'}>About Us</Link>
           </Navbar.Text>
         </Navbar.Collapse>
         <Navbar.Collapse className="justify-content-end">

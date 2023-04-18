@@ -1,20 +1,14 @@
 import { useState,useContext, useEffect } from "react";
 import { RocketInfo } from "../App";
-import { useNavigate } from "react-router";
 import {Container, Row, Col} from 'react-bootstrap'
 import './AllMessages.css'
+import { Link } from 'react-router-dom';
 
-const AllMessages = ({setSelectedRequest}) => {
+const AllMessages = () => {
 
   const [feeds,setFeeds] = useState(null)
   const { userLogin } = useContext(RocketInfo);
 
-  const navigate = useNavigate();
-
-  const handleClick = (request) => {
-    setSelectedRequest(request)
-    navigate('/requestdetails')
-  }
 
   useEffect(()=> {
     fetch(`http://localhost:8080/join/launch_requests-messages`)
@@ -29,7 +23,7 @@ const AllMessages = ({setSelectedRequest}) => {
           }
         }
         setFeeds(filteredFeeds)})
-  },[])
+  },[userLogin.id])
 
   if(feeds){
 
@@ -42,13 +36,11 @@ const AllMessages = ({setSelectedRequest}) => {
               <Row>
               <Col>
               {feeds.map(request=> 
-                <Row>
-                  <Col onClick={()=>{handleClick(request)}}>
-                    Payload: {request.name}
+                <Row key={request.id}>
+                  <Col>
+                    <Link state={request} to={'/requestdetails'}> Request for: {request.name} </Link>
                   </Col>
                 </Row>
-
-              
                 )}
               </Col>
             </Row>
