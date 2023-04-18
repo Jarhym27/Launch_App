@@ -13,6 +13,7 @@ import RequestList from "./05_lsp_requests_list";
 import "./000_calendar.css"
 import { Modal, ListGroup } from "react-bootstrap"
 import moment from 'moment'
+import LaunchRequest from "../LaunchRequest";
 
 const localizer = momentLocalizer(moment)
 
