@@ -25,7 +25,7 @@ const RequestList = () => {
     if(userLogin){
     fetch('http://localhost:8080/join/launch_requests')
       .then(res => res.json())
-      .then(data => data.filter(e => e.lsp_user_id == userLogin.id))
+      .then(data => data.filter(e => e.lsp_user_id == userLogin.id && e.request_status == "Pending"))
       .then(filtered => setMyRequests(filtered.sort((a,b) => a.id - b.id)))
       .then(() => setFetchTime(false))
     }
@@ -147,5 +147,6 @@ const RequestList = () => {
     </Col>
   )
 }
+
 
 export default RequestList;

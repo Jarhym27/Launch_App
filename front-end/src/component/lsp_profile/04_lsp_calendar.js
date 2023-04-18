@@ -31,8 +31,8 @@ function LspCalendar() {
             .then(data => setAllEvents(data))
     }, [])
 
-    console.log('userLogin:\n',userLogin)
-    console.log('allEvents:\n',allEvents)
+    // console.log('userLogin:\n',userLogin)
+    // console.log('allEvents:\n',allEvents)
     const filteredSchedule = allEvents?.filter(element => element.request_status === "Scheduled" && element.organization === userLogin.organization)
 
     function handleAddEvent() {
@@ -112,7 +112,7 @@ function LspCalendar() {
 
     if (filteredSchedule) {
         return (
-            <div >
+            <div className="container">
                 <React.Fragment ><LspLaunchVehicles />
                     <LspLaunchPads />
                 </React.Fragment>
