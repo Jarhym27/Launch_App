@@ -9,7 +9,7 @@ import { momentLocalizer } from 'react-big-calendar';
 
 const moment = require('moment')
 
-function Notifications() {
+function Notifications({setSelectedRequest}) {
 const [notifs, setNotifs] = useState();
 const [toastBools, setToastBools] = useState();
 const [myMessages,setMyMessages] = useState();
@@ -75,7 +75,7 @@ return (
                     <Toast.Body>
                         <span key={i}>{update.notification_type} by {update.organization} for {update.name}</span>
                         <br></br>
-                        <Link>View Details</Link>
+                        <Link to={'/requestdetails'} onClick={() => {setSelectedRequest(update); toggleShowA(i, update.msg_id)}}>View Details</Link>
                     </Toast.Body>
                     </Toast>
               )
