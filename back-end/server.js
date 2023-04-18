@@ -130,16 +130,36 @@ app.get('/join/payload_user_messages', (req, res) => {
   knex('launch_requests')
   .join('payloads', 'payloads.id', 'launch_requests.payload_id')
   .join('launch_vehicles', 'launch_vehicles.id', 'launch_requests.launch_vehicle_id')
+  .join('launch_pads', 'launch_vehicles.launch_pad_id', 'launch_pads.id' )
   .join('users', 'users.id', 'launch_vehicles.lsp_user_id')
-  // .join('users', 'users.id', 'payloads.payload_user_id')
   .join('messages', 'messages.launch_request_id', 'launch_requests.id')
-  .select('launch_requests.id','messages.id as msg_id','launch_requests.payload_id','launch_requests.launch_pad_id','launch_requests.launch_vehicle_id','request_status','launch_date','request_cost','payloads.payload_user_id','name','launch_vehicle','cost','booked_status','launch_vehicles.lsp_user_id','messages.notification_type','messages.notification_ack','messages.message','users.organization','messages.recipient_id','messages.timestamp')
+  .select('launch_requests.id','launch_requests.created_at', 'launch_pads.launch_pad', 'launch_pads.launch_site','payloads.description', 'payloads.orbital_requirement','messages.id as msg_id','launch_requests.payload_id','launch_requests.launch_pad_id','launch_requests.launch_vehicle_id','request_status','launch_date','request_cost','payloads.payload_user_id','name','launch_vehicle','cost','booked_status','launch_vehicles.lsp_user_id','messages.notification_type','messages.notification_ack','messages.message','users.organization','messages.recipient_id','messages.timestamp')
   .then(data => res.status(200).json(data))
-  .catch(err =>
+  .catch(err =>{
+    console.log(err)
       res.status(404).json({
           message:
               'The data you are looking for could not be found. Please try again'
-      })
+      })}
+  );
+})
+
+//launch_requests joined payloads, launch_vehicles, users, messages for use by notifications
+app.get('/join/lsp_user_messages', (req, res) => {
+  knex('launch_requests')
+  .join('payloads', 'payloads.id', 'launch_requests.payload_id')
+  .join('launch_vehicles', 'launch_vehicles.id', 'launch_requests.launch_vehicle_id')
+  .join('launch_pads', 'launch_vehicles.launch_pad_id', 'launch_pads.id' )
+  .join('users', 'users.id', 'payloads.payload_user_id')
+  .join('messages', 'messages.launch_request_id', 'launch_requests.id')
+  .select('launch_requests.id','launch_requests.created_at', 'launch_pads.launch_pad', 'launch_pads.launch_site','payloads.description', 'payloads.orbital_requirement','messages.id as msg_id','launch_requests.payload_id','launch_requests.launch_pad_id','launch_requests.launch_vehicle_id','request_status','launch_date','request_cost','payloads.payload_user_id','name','launch_vehicle','cost','booked_status','launch_vehicles.lsp_user_id','messages.notification_type','messages.notification_ack','messages.message','users.organization','messages.recipient_id','messages.timestamp')
+  .then(data => res.status(200).json(data))
+  .catch(err =>{
+    console.log(err)
+      res.status(404).json({
+          message:
+              'The data you are looking for could not be found. Please try again'
+      })}
   );
 })
 

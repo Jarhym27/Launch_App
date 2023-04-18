@@ -16,9 +16,7 @@ const Signup = () => {
   const inputChange = async (field, value) => {
     let shallowCopy = {...userCreate}
     shallowCopy[field] = value;
-    console.log(shallowCopy)
     await setUserCreate(shallowCopy)
-    console.log(shallowCopy)
   };
 
   const createAccount = async (event) => {
@@ -48,7 +46,6 @@ const Signup = () => {
       }
     } catch (error) {
       setFailed(error.message)
-      console.log(error.message);
     }
   };
 
