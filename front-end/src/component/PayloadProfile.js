@@ -2,18 +2,20 @@ import React, { useContext } from "react";
 import "./PayloadProfile.css";
 import { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { RocketInfo } from "../App";
 import Notifications from "./Notifications";
 
-function PayloadProfile() {
+function PayloadProfile({setSelectedRequest}) {
   const [submittedPayloads, setSubmittedPayloads] = useState();
   const [userPayloads, setUserPayloads] = useState();
   const [selectedPayload, setSelectedPayload] = useState();
   const [fetchTime, setFetchTime] = useState(false)
+
+  const navigate = useNavigate();
 
   //USECONTEXT
   const {userLogin} = useContext(RocketInfo)
@@ -45,6 +47,11 @@ function PayloadProfile() {
   const handleCloseDelete = () => setShowDelete(false);
   const handleShowDelete = () => setShowDelete(true);
   //UPDATE BUTTON PAYLOAD USESTATES
+
+  const handleClick = (request) => {
+    setSelectedRequest(request)
+    navigate('/requestdetails')
+  }
 
   useEffect(() => {
     fetch("http://localhost:8080/join/launch_requests")
@@ -138,7 +145,7 @@ function PayloadProfile() {
             </Row>
             {payloads?.map((payload, i) => {
               return (
-                <Card>
+                <Card onClick={()=>handleClick(payload)}>
                   <Card.Body className="payloadsCol">
                     <Card.Title>{payload.name}</Card.Title>
                     <Card.Text>Status: {payload.request_status}</Card.Text>
