@@ -82,7 +82,7 @@ function LspLaunchPads() {
       updatedPad.launch_pad = selectedPad?.launchPad
     }
     if (updatedPad.pad_status === undefined) {
-updatedPad.pad_status = selectedPad?.pad_status
+      updatedPad.pad_status = selectedPad?.pad_status
     }
     setLaunchPad(newPadList);
     setLaunchPad((items) => [...items, updatedPad]);
@@ -97,7 +97,7 @@ updatedPad.pad_status = selectedPad?.pad_status
       },
     })
       .then(() => setFetchTime(true));
-      setSelectedPad();
+    setSelectedPad();
   };
 
   const handleDelete = () => {
@@ -112,22 +112,20 @@ updatedPad.pad_status = selectedPad?.pad_status
         "Content-type": "application/json; charset=UTF-8"
       }
     })
-    .then(res => {
-      if (res.status === 200) {
-        console.log('Deleted.')
-        setFetchTime(true)
-      }
-      else {
-        console.log(res.status)
-      }
-    })
+      .then(res => {
+        if (res.status === 200) {
+          console.log('Deleted.')
+          setFetchTime(true)
+        }
+        else {
+          console.log(res.status)
+        }
+      })
     setSelectedPad();
   }
 
 
-
   useEffect(() => {
-
     let filteredPads = launchPad?.filter((element) => element.lsp_user_id === userLogin.id)
     setAvailablePads(filteredPads)
   }, [launchPad, userLogin, selectedPad, setAvailablePads, setSelectedPad])
@@ -155,11 +153,9 @@ updatedPad.pad_status = selectedPad?.pad_status
                   {/* <div>add New Pad</div> */}
                 </Card.Body>
               </Card>
-
             )
           })}</Col>
       </Row>
-
 
 
       <Modal show={show} onHide={handleClose} className="modalBg">
@@ -273,11 +269,9 @@ updatedPad.pad_status = selectedPad?.pad_status
               <Form.Select onChange={(e) =>
                 setPadStatus(e.target.value)}>
                 <option value={true}>Available</option>
-                <option value={false}>Unavailable</option>          
+                <option value={false}>Unavailable</option>
               </Form.Select>
             </Form.Group>
-
-
 
             <Button
               onClick={() => handleCloseUpdate()}
@@ -301,9 +295,6 @@ updatedPad.pad_status = selectedPad?.pad_status
       </Modal>
 
 
-
-
-
       <Modal show={showDelete} onHide={handleCloseDelete} className="modalBg">
         <Modal.Header closeButton className="modalForm">
           <Modal.Title>DELETE Payload?</Modal.Title>
@@ -311,7 +302,6 @@ updatedPad.pad_status = selectedPad?.pad_status
 
         <Modal.Body>
           <Form.Label>Are you sure you want to delete: {selectedPad?.launch_pad} </Form.Label>
-
           <Button
             onClick={() => {
               handleDelete();
@@ -335,8 +325,6 @@ updatedPad.pad_status = selectedPad?.pad_status
           </Button>
         </Modal.Footer>
       </Modal>
-
-
     </>
   )
 }
