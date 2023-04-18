@@ -78,6 +78,13 @@ function LspLaunchPads() {
     let updatedPad = selectedPad;
     updatedPad.launch_pad = padName;
     updatedPad.pad_status = padStatus;
+    console.log('launch pad', updatedPad.launch_pad)
+    if (updatedPad.launchPad === '') {
+      updatedPad.launchPad = selectedPad.launchPad
+    }
+    if (updatedPad.pad_status === '') {
+updatedPad.pad_status = selectedPad.pad_status
+    }
     setLaunchPad(newPadList);
     setLaunchPad((items) => [...items, updatedPad]);
     setPadName(updatedPad.launch_pad)
