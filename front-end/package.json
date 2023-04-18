@@ -66,5 +66,10 @@
   },
   "browser": {
     "crypto": false
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "axios": "axios/dist/node/axios.cjs"
+    }
   }
 }

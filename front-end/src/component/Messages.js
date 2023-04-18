@@ -24,7 +24,7 @@ const Messages = ({selectedRequest}) => {
       {messages.map(msg=> {
 
       return msg.sender_id===userLogin.id ? 
-      <div>
+      <div key={msg.id}>
         <Row className='justify-content-end'>
           <Col md={7} lg={7}>
             <Row>
@@ -36,6 +36,12 @@ const Messages = ({selectedRequest}) => {
               </Col>
             </Row>
             <Row className='message-container-me'>
+              {msg.notification_type==='Request denied' && 
+                <h5>Request Denied</h5>
+              }
+              {msg.notification_type==='Request accepted' && 
+                <h5>Request Accepted</h5>
+              }
               <Col>
                 <p className='message-me'>{msg.message}</p> 
               </Col>
@@ -45,7 +51,7 @@ const Messages = ({selectedRequest}) => {
         <hr></hr>
       </div>
       :
-      <div>
+      <div key={msg.id}>
         <Row className='justify-content-start'>
           <Col md={7} lg={7}>
             <Row>
@@ -57,6 +63,12 @@ const Messages = ({selectedRequest}) => {
               </Col>
             </Row>
             <Row className='message-container-them'>
+              {msg.notification_type==='Request denied' && 
+                <h5>Request Denied</h5>
+              }
+              {msg.notification_type==='Request accepted' && 
+                <h5>Request Accepted</h5>
+              }
               <Col>
                 <p>{msg.message}</p>
               </Col>

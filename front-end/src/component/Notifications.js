@@ -5,10 +5,9 @@ import Toast from 'react-bootstrap/Toast';
 import ToastContainer from 'react-bootstrap/ToastContainer';
 import { Link } from 'react-router-dom';
 
-
 const moment = require('moment')
 
-function Notifications({setSelectedRequest}) {
+function Notifications() {
 const [notifs, setNotifs] = useState();
 const [toastBools, setToastBools] = useState();
 const [myMessages,setMyMessages] = useState();
@@ -66,13 +65,12 @@ useEffect(() => {
       })
   }
 
-}, [])
+}, [userLogin.id])
 
 
 //Request denied by (SpaceX) for (Payload Name)
 
 return (
-
     <ToastContainer position={'middle-center'}>
         {notifs?.map((update, i) => {
             const timestamp = update.timestamp
@@ -90,7 +88,7 @@ return (
                         {userLogin.role==='payload_user' && <span key={i}>{update.notification_type} by {update.organization} for {update.name}</span>}
                         {userLogin.role==='lsp_user' && <span key={i}>{update.notification_type} from {update.organization} for {update.name}</span>}
                         <br></br>
-                        <Link to={'/requestdetails'} onClick={() => {setSelectedRequest(update); toggleShowA(i, update.msg_id)}}>View Details</Link>
+                        <Link state={update} to={'/requestdetails'} onClick={() => {toggleShowA(i, update.msg_id)}}>View Details</Link>
                     </Toast.Body>
                     </Toast>
               )
