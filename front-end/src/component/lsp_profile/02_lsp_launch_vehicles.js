@@ -19,7 +19,7 @@ function LspLaunchVehicles() {
   const [name, setName] = useState();
   const [cost, setCost] = useState();
   const [pad, setPad] = useState();
-  const [status, setStatus] = useState([]);
+  const [status, setStatus] = useState('available');
   const [meoWeight, setMeoWeight] = useState();
   const [leoWeight, setLeoWeight] = useState();
   const [heoWeight, setHeoWeight] = useState();
@@ -53,46 +53,61 @@ function LspLaunchVehicles() {
 
  //Add a new vehicle
   const addNewVehicle = (event) => {
-    fetch("http://localhost:8080/table/launch_vehicles", {
-      method: "POST",
-      body: JSON.stringify({
-        lsp_user_id: userLogin.id,
+    let newVehicle = {
+      lsp_user_id: userLogin.id,
         launch_vehicle: name,
-        launch_pad_id: availablePads.id,
         cost: cost,
-        booked_status: status,
         meo_weight: meoWeight,
         leo_weight: leoWeight,
         geo_weight: geoWeight,
         heo_weight: heoWeight,
-      }),
+        booked_status: status,
+        launch_pad_id: availablePads.id
+    }
+    // console.log('newVehicle:\n',newVehicle)
+    fetch("http://localhost:8080/table/launch_vehicles", {
+      method: "POST",
+      body: JSON.stringify(newVehicle
+        
+      ),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       }
-    }).then(() => setFetchTime(true))
-  }
-  const handleUpdate = () => {
-    let newVehicleList = launchVehicle.filter(item => item.id !== selectedVehicle.id);
-    console.log('\n', selectedVehicle.launch_vehicle)
-    let updateVehicle = selectedVehicle;
-    updateVehicle.launch_vehicle = name;
-    updateVehicle.booked_status = status;
-    setLaunchVehicle(newVehicleList);
-    console.log(newVehicleList)
-    setLaunchVehicle((items) => [...items, updateVehicle]);
+    })
+      .then(res => {
+        if(res.status === 200) console.log('Successfully added vehicle')
+        setFetchTime(true);
+      })
+      .catch(err => console.log('Error:\n', err))
+   
+  };
+// let newVehicleList = launchVehicle.filter(item => item.id !== selectedVehicle.id);
+//     console.log('\n', selectedVehicle.launch_vehicle)
+//     let updateVehicle = selectedVehicle;
+//     updateVehicle.launch_vehicle = name;
+//     updateVehicle.booked_status = status;
+//     setLaunchVehicle(newVehicleList);
+//     console.log(newVehicleList)
+//     setLaunchVehicle((items) => [...items, updateVehicle]);
     
-    fetch(`http://localhost:8080/table/launch_vehicles?id=${selectedVehicle.id}}`, {
-      
+  const handleUpdate = () => {
+    console.log('name from update:\n', name)
+    console.log('status from update:\n', status)
+    fetch(`http://localhost:8080/table/launch_vehicles?id=${selectedVehicle.id}`, {
       method: "PATCH",
       body: JSON.stringify({
-        launch_vehicle: launchVehicle.name,
+        launch_vehicle: name,
         booked_status: status
       }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },
     })
-      .then(() => setFetchTime(true));
+      .then((res) => {
+        if(res.status === 200) console.log('Successfully updated')
+        setFetchTime(true)
+      })
+      .catch((err) => console.log('Error:\n', err))
   
   };
  
@@ -121,14 +136,10 @@ function LspLaunchVehicles() {
       })
   }
 
-  
- 
-
-
+  const theVehicle = submitVehicle?.filter(element => element.lsp_user_id === userLogin.id)
   const filteredVehicle = launchVehicle?.filter(element => element.lsp_user_id === userLogin.id)
 
   return (<>
-    {/* <Container> */}
     <Row>
       <Col className="col-3">
         <Card>
@@ -145,7 +156,8 @@ function LspLaunchVehicles() {
                 <br></br>
                 Status: {vehicle.booked_status}
                 <br></br>
-                <button onClick={() => {setSelectedVehicle(vehicle);   handleShowUpdate(); 
+                <button onClick={() => {setSelectedVehicle(vehicle);   handleShowUpdate();
+                setName(vehicle.launch_vehicle);
                   console.log('selectedVehicle:\n',selectedVehicle)}}>
                     Edit</button>
                     <button onClick={() => {setSelectedVehicle(vehicle); handleShowDelete();}}>Delete</button>
@@ -160,7 +172,7 @@ function LspLaunchVehicles() {
         <RequestList />
       </Col>
     </Row>
-    {/* </Container> */}
+   
 
     <Modal show={show} onHide={() => handleClose} className="modalBg">
       <Modal.Header closeButton className="modalForm" onClick={handleClose} > Add Vehicle</Modal.Header>
@@ -188,7 +200,7 @@ function LspLaunchVehicles() {
             className="mb-3"
             controlId="formDropDown">
             <Form.Label>Launch_Pad</Form.Label>
-            <Form.Select onChange={(e) => setPad(e.target.value)}>
+            <Form.Select>
               {availablePads?.map((element, i) => <option key={`option: ${i}`}> {element.launch_pad} </option>)}
             </Form.Select>
           </Form.Group>
@@ -196,8 +208,8 @@ function LspLaunchVehicles() {
             className="mb-3"
             controlId="formDropDown">
             <Form.Label>Status</Form.Label>
-            <Form.Select onChange={(e) => setStatus(e.target.value)}>
-              <option value={"available"}> Available </option>
+            <Form.Select >
+              <option value={status}> Available </option>
             </Form.Select>
           </Form.Group>
           <Form.Group onChange={(e) => setMeoWeight(e.target.value)}
@@ -225,9 +237,8 @@ function LspLaunchVehicles() {
             <Form.Control type="text" placeholder="Heo Weight" />
           </Form.Group>
           <Button 
+           onClick={handleClose}
           className="addPayload"
-          variant="primary"
-          onClick={handleClose}
             type="submit"
           >Submit</Button>
         </Form>
@@ -244,7 +255,7 @@ function LspLaunchVehicles() {
             onSubmit={(e) => {
               e.preventDefault();
               handleUpdate();
-              setSelectedVehicle();
+              setSubmitVehicle();
             }}
           >
             <Form.Group
@@ -254,15 +265,16 @@ function LspLaunchVehicles() {
             >
               <Form.Label>Launch Vehicle Name</Form.Label>
               <Form.Control
-                defaultValue={selectedVehicle?.launch_vehicle}
+                 defaultValue={selectedVehicle?.launch_vehicle}
                 type="text"
                 placeholder=""
               />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Group className="mb-3" controlId="formBasicEmail"
+            >
               <Form.Label>Launch Vehicle Status</Form.Label>
-              <Form.Select onChange={() =>
-                setStatus}>
+              <Form.Select onChange={(event) =>
+                setStatus(event.target.value)} defaultValue={selectedVehicle?.status}>
                 <option value={"available"}>Available</option>
                 <option value={"booked"}>Booked</option>
               </Form.Select>
@@ -322,7 +334,7 @@ function LspLaunchVehicles() {
             >
               <Form.Label>Heo weight in tons</Form.Label>
               <Form.Control
-                defaultValue={selectedVehicle?.heo}
+                defaultValue={selectedVehicle?.heo_weight}
                 type="text"
                 placeholder=""
               />

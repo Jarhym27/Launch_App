@@ -11,6 +11,7 @@ import { RocketInfo } from '../../App';
 
 
 import Calendar from 'react-calendar';
+import Notifications from '../Notifications';
 
 export const LspDistro = React.createContext();
 
@@ -25,9 +26,8 @@ function LspProfile() {
 
   return (
     <>
-      
-      <LspCalendar/>
-       
+        <Notifications/>
+        <LspCalendar/>
     </>
    
   )

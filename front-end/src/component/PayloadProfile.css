@@ -67,6 +67,9 @@
     background-color:#444444 ; 
     color: #EDEDED;
 }
+.request-link-to-details{
+    text-decoration: none;
+}
 @font-face {
     font-family: 'Silkscreen'; /*a name to be used later*/
     src: url('../media/Silkscreen/slkscr.ttf'); /*URL to font*/
