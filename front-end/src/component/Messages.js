@@ -37,13 +37,13 @@ const Messages = ({selectedRequest}) => {
             </Row>
             <Row className='message-container-me'>
               {msg.notification_type==='Request denied' && 
-                <h5>Request Denied</h5>
+                <h5 className='message-me'>Request Denied</h5>
               }
               {msg.notification_type==='New request' && 
-                <h5>New Request</h5>
+                <h5 className='message-me'>New Request</h5>
               }
               {msg.notification_type==='Request accepted' && 
-                <h5>Request Accepted</h5>
+                <h5 className='message-me'>Request Accepted</h5>
               }
               <Col>
                 <p className='message-me'>{msg.message}</p> 
