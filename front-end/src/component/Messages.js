@@ -57,6 +57,12 @@ const Messages = ({selectedRequest}) => {
               </Col>
             </Row>
             <Row className='message-container-them'>
+              {msg.notification_type==='Request denied' && 
+                <h5>Request Denied</h5>
+              }
+              {msg.notification_type==='Request accepted' && 
+                <h5>Request Accepted</h5>
+              }
               <Col>
                 <p>{msg.message}</p>
               </Col>
