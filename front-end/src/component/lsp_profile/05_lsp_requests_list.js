@@ -5,6 +5,8 @@ import { RocketInfo } from "../../App"
 import { Modal } from "react-bootstrap";
 import { resolvePath } from "react-router";
 import '../../css/lsp_requests_list.css'
+import { SiJsonwebtokens } from "react-icons/si";
+import { now } from "moment";
 
 const RequestList = () =>{
   const {userLogin, setUserLogin, availablePads, setAvailablePads, launchVehicles, setLaunchVehicles } = useContext(RocketInfo);
@@ -16,22 +18,24 @@ const RequestList = () =>{
   const [selectedRequest, setSelectedRequest] = useState()
   const [responseMessage, setResponseMessage] = useState('')
   const [decision, setDecision] = useState('')
+  const [fetchTime, setFetchTime] = useState(false)
 
   useEffect(() =>{
     if(userLogin){
     fetch('http://localhost:8080/join/launch_requests')
       .then(res => res.json())
       .then(data => data.filter(e => e.lsp_user_id == userLogin.id))
-      .then(filtered => setMyRequests(filtered))
+      .then(filtered => setMyRequests(filtered.sort((a,b) => a.id - b.id)))
+      .then(() => setFetchTime(false))
     }
-  },[userLogin])
+  },[userLogin, fetchTime])
 
   useEffect(() => {
     if(myRequests){
       fetch('http://localhost:8080/table/users')
         .then(res => res.json())
         .then(data => data.filter(e => myRequests.map(e => e.payload_user_id).includes(e.id)))
-        .then(filtered => setMyUsers(filtered))
+        .then(filtered => setMyUsers(filtered.sort((a,b) => a.id - b.id)))
     }
   }, [myRequests])
 
@@ -52,7 +56,27 @@ const RequestList = () =>{
       }
       })
         .then(res=> res.json())
-        .then(data=>console.log(data))
+        .then(data=>{
+          console.log(data)
+        })
+        .then(() => fetch(`http://localhost:8080/table/launch_requests?id=${selectedRequest.id}`, {
+          method: "PATCH",
+          body: JSON.stringify({
+            request_status:  decision === "deny" ? "Denied" : "Scheduled",
+            updated_at: new Date().toISOString()
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8"
+          }
+        }))
+        .then(res => res.json())
+        .then(data => {
+          console.log(data)
+          setDecision('')
+          setResponseMessage('')
+          setSelectedRequest()
+          setFetchTime(true)
+        })
         .catch(err=>console.error(err))
     }
   }
@@ -94,7 +118,7 @@ return(
   
   )}
 
-    <Modal show={decision} onHide={() => {setDecision(''); setResponseMessage('')}}>
+    <Modal show={decision} onHide={() => {setDecision(''); setResponseMessage(''); setSelectedRequest()}}>
       <Modal.Header closeButton>
         <Modal.Title>Payload Request Response: {decision.toUpperCase()}</Modal.Title>
       </Modal.Header>
@@ -102,7 +126,7 @@ return(
         <textarea id="paraBox" rows="2" cols="25" placeholder="Enter your response message here"   onChange={(e) => setResponseMessage(e.target.value)}></textarea>
       </Modal.Body>
       <Modal.Footer>
-        <button disabled={!responseMessage} onClick={() => respondRequest()}>Submit Decision</button>
+        <button className="btn" disabled={!responseMessage} onClick={() => respondRequest()}>Submit Decision</button>
       </Modal.Footer>
     </Modal>
   
