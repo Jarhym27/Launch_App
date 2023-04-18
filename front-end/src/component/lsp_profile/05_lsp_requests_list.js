@@ -2,6 +2,7 @@ import React, {useState, useContext, useEffect} from "react";
 import {Container,Row,Col,Card, Button} from 'react-bootstrap'
 import LaunchRequest from "../LaunchRequest";
 import { RocketInfo } from "../../App"
+import { Modal } from "react-bootstrap";
 import { resolvePath } from "react-router";
 
 const RequestList = () =>{
@@ -9,7 +10,10 @@ const RequestList = () =>{
 
   const [myRequests, setMyRequests] = useState([])
   const [myPayloads, setMyPayloads] = useState([])
+  const [showModal, setShowModal] = useState(false)
   const [myUsers, setMyUsers] = useState([])
+  const [responseMessage, setResponseMessage] = useState('')
+  const [decision, setDecision] = useState('')
 
   useEffect(() =>{
     if(userLogin){
@@ -29,10 +33,13 @@ const RequestList = () =>{
     }
   }, [myRequests])
 
+  const respondRequest = (decision, message) => {
+
+  }
+
 
 
 return(
-<Row>
   <Col className="col-start-9 col-end-12">
   {myUsers?.map((user, i) => {
     return(
@@ -53,9 +60,9 @@ return(
                 Orbit: {e.orbital_requirement}<br/>
                 Weight: {e.weight} Tons<br/>
                 Request Status: {e.request_status}<br/>
-                
-
               </p>
+              <button className="btn" onClick={() => setDecision('approve')}>Approve</button>
+              <button className="btn">Deny</button>
             </div>
           )
         }
@@ -67,9 +74,23 @@ return(
   }
   
   )}
+
+    <Modal show={decision} onHide={() => setDecision('')}>
+      <Modal.Header closeButton>
+        <Modal.Title>Payload Request Response: {decision}</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <input 
+          onChange={(e) => setResponseMessage(e.target.value)}
+          placeholder="Enter your response message here">
+        </input>
+      </Modal.Body>
+      <Modal.Footer>
+
+      </Modal.Footer>
+    </Modal>
   
   </Col>
-  </Row>
 )}
 
 export default RequestList;
