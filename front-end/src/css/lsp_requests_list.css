@@ -1,0 +1,9 @@
+#paraBox {
+    display: grid;
+    align-self: center;
+    height: 200px;
+    width: 468px;
+    color: #EDEDED;
+    background-color: #171717;
+    border-radius: 5px;
+}
