@@ -31,38 +31,37 @@ function App() {
     organization: "",
     role: "",
   });
-const [availablePads, setAvailablePads] = useState();
+  const [availablePads, setAvailablePads] = useState();
 
   useEffect(() => {
     let cookies = cookie.parse(document.cookie);
     // console.log(cookies.userInfo)
-    if(cookies.userInfo){
-      // console.log(cookies.userInfo)
+    if (cookies.userInfo) {
       fetch("http://localhost:8080/login", {
-      method: "POST",
-      headers: {'Content-Type': 'application/json'},
-      credentials: 'include',
-      body: JSON.stringify({userInfo: cookies.userInfo}),
-    })
-    .then((res) => res.json())
-    .then((data) => {
-      setUserLogin(data)
-    })
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ userInfo: cookies.userInfo }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setUserLogin(data)
+        })
     }
 
   }, [])
 
   return (
-    <RocketInfo.Provider value={{userCreate, setUserCreate, userLogin, setUserLogin, availablePads, setAvailablePads, launchVehicles, setLaunchVehicles}}>
+    <RocketInfo.Provider value={{ userCreate, setUserCreate, userLogin, setUserLogin, availablePads, setAvailablePads, launchVehicles, setLaunchVehicles }}>
       <Router>
-        {userLogin.username && <Header/> }
+        {userLogin.username && <Header />}
         <Routes>
-          <Route path='/' element={< Login/>}></Route>
-          <Route path='/home' element={< Home/>}></Route>
+          <Route path='/' element={< Login />}></Route>
+          <Route path='/home' element={< Home />}></Route>
           {/* <Route path='/Login' element={< Login />}></Route> */}
-          <Route path='/signup' element={<Signup/>}></Route>
-          <Route path='/request' element={<LaunchRequest/>}></Route>
-          <Route path='/header' element={<Header/>}></Route> {/*only needed for testing */}
+          <Route path='/signup' element={<Signup />}></Route>
+          <Route path='/request' element={<LaunchRequest />}></Route>
+          <Route path='/header' element={<Header />}></Route> {/*only needed for testing */}
           <Route path='/rocket' element={< AnimeRocket />}></Route>
           <Route path='/aboutus' element={<About/>}></Route>
           <Route path='/payloadprofile' element={<PayloadProfile setSelectedRequest={setSelectedRequest}/>}></Route>
@@ -85,4 +84,3 @@ const [availablePads, setAvailablePads] = useState();
 
 export default App;
 
-//<RocketInfo.Provider value={{ userCreate, setUserCreate, userLogin, setUserLogin }}></RocketInfo.Provider>
