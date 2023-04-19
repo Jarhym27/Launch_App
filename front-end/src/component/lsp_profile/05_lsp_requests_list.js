@@ -17,7 +17,7 @@ const RequestList = () => {
     if (userLogin) {
       fetch('http://localhost:8080/join/launch_requests')
         .then(res => res.json())
-        .then(data => data.filter(e => e.lsp_user_id == userLogin.id && e.request_status == "Pending"))
+        .then(data => data.filter(e => e.lsp_user_id === userLogin.id && e.request_status === "Pending"))
         .then(filtered => setMyRequests(filtered.sort((a, b) => a.id - b.id)))
         .then(() => setFetchTime(false))
     }
@@ -93,13 +93,15 @@ const RequestList = () => {
 
   return (
     <Col className="col-start-9 col-end-12">
-      {myUsers?.map((user, i) => {
-        return (
-          <Card key={i}>
-            <Card.Body>
-              <Card.Title border="danger">
-                Launch Requests from {user.organization}
+        <Card >
+          <Card.Title border="danger">
               </Card.Title>
+      {myUsers?.map((user, i) => {
+        return (<>
+         <h1>Launch Requests from {user.organization}</h1>
+             
+              <Card.Body key={i}>
+             
               {myRequests?.map((e, i) => {
                 if (e.payload_user_id == user.id) {
                   return (
@@ -118,12 +120,13 @@ const RequestList = () => {
                     </div>
                   )
                 }
-              })}
+              } 
+              )}
             </Card.Body>
-          </Card>
-        )
+         
+        </>)
       }
-      )}
+      )}</Card>
 
       <Modal show={decision} onHide={() => { setDecision(''); setResponseMessage('') }}>
         <Modal.Header closeButton>
