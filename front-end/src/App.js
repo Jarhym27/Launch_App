@@ -17,6 +17,7 @@ import LspProfile from "./component/lsp_profile/01_lsp_profile_page";
 import RequestDetails from "./component/RequestDetails";
 import AllMessages from "./component/AllMessages";
 import NotificationsBadge from "./component/NotificationsBadge";
+import Vehicles from "./component/vehicles";
 import Metrics from "./component/lspmetrics";
 export const RocketInfo = createContext();
 
@@ -68,6 +69,7 @@ function App() {
           <Route path='/lspprofile' element={<LspProfile/>}></Route>
           <Route path='/requestdetails' element={<RequestDetails/>}></Route>
           <Route path='/messages' element={<AllMessages/>}></Route>
+          <Route path='/vehicles' element={<Vehicles/>}></Route>
           <Route path="*" element={<PageNotFound />} ></Route>
         </Routes>
       </Router >
