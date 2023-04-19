@@ -48,18 +48,24 @@
 
 .search-list-item{
   height: 10rem;
-  border: solid black;
+  background-color: rgb(207, 207, 207);
+  margin-bottom: 5px ;
+  transition: all .1s ease-in-out;
+}
+
+.search-list-item:hover{
+  scale: 0.98;
 }
 
 .payload-list-item{
-  border: solid black;
-  height: 100px;
+  height: 10rem;
+  margin-bottom: 5px ;
 }
 
 .search-list-item-selected{
   height: 10rem;
+  margin-bottom: 5px ;
   background-color:#d4b1bd;
-  border: solid black;
 
 }
 
@@ -85,35 +91,47 @@
 }
 
 .card-container{
-  width: 28rem;
+  width: 36rem;
+  background-color: aliceblue;
+  padding: 10px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.search-results-container{
+  width: 36rem;
+  background-color: aliceblue;
+  padding: 10px;
+  
 }
 
 .search-listgroup{
   max-height: 400px;
   margin-bottom: 10px;
-  overflow:scroll;
+  overflow:auto;
   -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
 }
 
 .payload-listgroup{
   max-height: 700px;
   margin-bottom: 10px;
-  overflow:scroll;
+  overflow:auto;
   -webkit-overflow-scrolling: touch;
-}
-
-.search-list-item:hover{
-  background-color: #d4b1bd;
+  scroll-behavior: smooth;
 }
 
 .available-payloads-container{
-  background-color:#1f1f1f;
+  background-color:aliceblue;
   padding: 15px;
-  border-radius: 2%;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 
 .payloads-title{
-  color: white;
+  color: black;
   margin: auto;
   margin-bottom: 5px;
 }
@@ -166,6 +184,8 @@
 .search-icon{
   scale:1.5;
 }
+
+
 
 
 

@@ -19,3 +19,12 @@
 .message-me{
   color: aliceblue;
 }
+
+#messages-container{
+  min-height: 500px;
+  max-height: 500px;
+  margin-bottom: 10px;
+  overflow:auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}

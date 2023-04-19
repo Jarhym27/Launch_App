@@ -164,6 +164,8 @@ function LspLaunchVehicles() {
                 <br></br>
                 Status: {vehicle.booked_status}
                 <br></br>
+                <img src={`${vehicle.picture}`} />
+                <br></br>
                 <button onClick={() => {setSelectedVehicle(vehicle);   handleShowUpdate();
                 setName(vehicle.launch_vehicle);
                   console.log('selectedVehicle:\n',selectedVehicle)}}>

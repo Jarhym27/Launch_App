@@ -10,7 +10,6 @@ const moment = require('moment')
 function Notifications() {
 const [notifs, setNotifs] = useState();
 const [toastBools, setToastBools] = useState();
-const [myMessages,setMyMessages] = useState();
 const {userLogin} = useContext(RocketInfo)
 
 //Close TOASTS

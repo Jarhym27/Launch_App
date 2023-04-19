@@ -35,6 +35,15 @@ exports.seed = async function (knex) {
       notification_type: "Request accepted",
       notification_ack: 'true',
       timestamp: '2023-04-15 16:52:12',
+    },
+    {
+      sender_id: 2,
+      recipient_id: 8,
+      launch_request_id: 4,
+      message: "We need this payload launched in June and we need this to be the only payload onboard.",
+      notification_type: "New request",
+      notification_ack: 'true',
+      timestamp: '2023-04-15 16:52:12',
     }
   ]
   );
