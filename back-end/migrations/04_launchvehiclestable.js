@@ -11,7 +11,7 @@ exports.up = function(knex) {
         table.integer('leo_weight')
         table.integer('geo_weight')
         table.integer('heo_weight')
-        table.enu('booked_status',['booked','available'])
+        table.enu('booked_status',['booked','available','launched'])
         table.foreign('launch_pad_id').references('launch_pads.id')
         table.integer('launch_pad_id')
         table.foreign('lsp_user_id').references('users.id')
