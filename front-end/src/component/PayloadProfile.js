@@ -8,6 +8,8 @@ import Form from "react-bootstrap/Form";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { RocketInfo } from "../App";
 import Notifications from "./Notifications";
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
 import PayloadCalendar from './PayloadCalendar.js'
 
 function PayloadProfile({setSelectedRequest}) {
@@ -15,6 +17,9 @@ function PayloadProfile({setSelectedRequest}) {
   const [userPayloads, setUserPayloads] = useState();
   const [selectedPayload, setSelectedPayload] = useState();
   const [fetchTime, setFetchTime] = useState(false)
+
+  //For tabs to be active
+  const [key, setKey] = useState('home');
 
   //USECONTEXT
   const {userLogin} = useContext(RocketInfo)
@@ -111,6 +116,14 @@ function PayloadProfile({setSelectedRequest}) {
     .catch(err=>console.log(err))
 }
 
+
+let launched = submittedPayloads?.filter((e, i) =>  e.request_status === 'Launched')
+let pending = submittedPayloads?.filter((e, i) =>  e.request_status === 'Pending')
+let approved = submittedPayloads?.filter((e, i) =>  (e.request_status === 'Approved'))
+let denied = submittedPayloads?.filter((e, i) =>  (e.request_status === 'Denied'))
+
+
+
   return (
     <>
     <Notifications/>
@@ -130,24 +143,119 @@ function PayloadProfile({setSelectedRequest}) {
 
 
           <Col xs={6}>
-            <Row className="payloadsTitle">
+          <Row className="payloadsTitle">
               <h3>Submitted Payloads</h3>
-            </Row>
-            {payloads?.map((payload, i) => {
-              return (
-                <Link state={payload} to='/requestdetails' className='request-link-to-details'> 
-                  <Card>
-                    <Card.Body className="payloadsCol">
-                      <Card.Title>{payload.name}</Card.Title>
-                      <Card.Text>Status: {payload.request_status}</Card.Text>
-                      <footer>
-                        <small>Payload Created: {payload.updated_at}</small>
-                      </footer>
-                    </Card.Body>
-                  </Card>
-                </Link>
-              );
-            })}
+          </Row>
+            <Tabs
+              id="controlled-tab-example"
+              activeKey={key}
+              onSelect={(k) => setKey(k)}
+              className="mb-3 tabsPayloads"
+            >
+              <Tab eventKey="home" title="Launched">
+                {launched?.map((e, i) => {
+                  return (
+                    <Link state={e} to='/requestdetails' className='request-link-to-details'> 
+                    <Card key={i}>
+                      <Card.Body className="payloadsCol">
+                        <Card.Title>{e.name}</Card.Title>
+                        <Card.Text>Status: {e.request_status}</Card.Text>
+                        <footer>
+                          <small>Payload Created: {e.updated_at}</small>
+                        </footer>
+                      </Card.Body>
+                    </Card>
+                  </Link>
+                  )
+                })}
+              </Tab>
+              <Tab eventKey="profile" title="Pending">
+              {pending?.map((e, i) => {
+                  return (
+                    <Link state={e} to='/requestdetails' className='request-link-to-details'> 
+                    <Card key={i}>
+                      <Card.Body className="payloadsCol">
+                        <Card.Title>{e.name}</Card.Title>
+                        <Card.Text>Status: {e.request_status}</Card.Text>
+                        <footer>
+                          <small>Payload Created: {e.updated_at}</small>
+                        </footer>
+                      </Card.Body>
+                    </Card>
+                  </Link>
+                  )
+                })}
+              </Tab>
+              <Tab eventKey="longer-tab" title="Approved" >
+              {approved?.map((e, i) => {
+                  return (
+                    <Link state={e} to='/requestdetails' className='request-link-to-details'> 
+                    <Card key={i}>
+                      <Card.Body className="payloadsCol">
+                        <Card.Title>{e.name}</Card.Title>
+                        <Card.Text>Status: {e.request_status}</Card.Text>
+                        <footer>
+                          <small>Payload Created: {e.updated_at}</small>
+                        </footer>
+                      </Card.Body>
+                    </Card>
+                  </Link>
+                  )
+                })}
+              </Tab>
+              <Tab eventKey="denied" title="Denied" >
+              {denied?.map((e, i) => {
+                  return (
+                    <Link state={e} to='/requestdetails' className='request-link-to-details'> 
+                    <Card key={i}>
+                      <Card.Body className="payloadsCol">
+                        <Card.Title>{e.name}</Card.Title>
+                        <Card.Text>Status: {e.request_status}</Card.Text>
+                        Status: Click{" "}
+                              <Link state={e} to='/request'>
+                                Here
+                              </Link>{" "}
+                              to book with a Launch Provider
+                        <footer>
+                          <small>Payload Created: {e.updated_at}</small>
+                        </footer>
+                      </Card.Body>
+                    </Card>
+                  </Link>
+                  )
+                })}
+              </Tab>
+              <Tab eventKey="test" title="Non submitted" >
+              {filteredPayloads?.map((pay,i)=> {
+                    return (
+                      <>
+                        <Card>
+                          <Card.Body className="createdPayloadsCol">
+                            <Card.Title>{pay.name}</Card.Title>
+                            <Card.Text>
+                              Status: Click{" "}
+                              <Link state={pay} to='/request'>
+                                Here
+                              </Link>{" "}
+                              to book with a Launch Provider
+                            </Card.Text>
+                            <footer>
+                              <small>Payload Created: {pay.updated_at}</small>
+                            </footer>
+                            <Button onClick={() => [setSelectedPayload(pay), handleShowUpdate(),]}>
+                              Update
+                            </Button>
+                            <Button onClick={() => [setSelectedPayload(pay), handleShowDelete(),]}>
+                              Delete
+                            </Button>
+                          </Card.Body>
+                        </Card>
+                      </>
+                    );
+                    }
+                    )}
+              </Tab>
+            </Tabs>
           </Col>
 
           <Col xs lg="2" className="addCol">
@@ -164,47 +272,11 @@ function PayloadProfile({setSelectedRequest}) {
               </Card.Body>
             </Card>
           </Col>
-        </Row>
-        <Row className="createdPayloads">
-          <Col></Col>
-          <Col xs={6}>
-            <h3>Non Submitted Payloads:</h3>
-          
-         {filteredPayloads?.map((pay,i)=> {
-
-                return (
-                  <>
-                    <Card>
-                      <Card.Body className="createdPayloadsCol">
-                        <Card.Title>{pay.name}</Card.Title>
-                        <Card.Text>
-                          Status: Click{" "}
-                          <Link state={pay} to='/request'>
-                            Here
-                          </Link>{" "}
-                          to book with a Launch Provider
-                        </Card.Text>
-                        <footer>
-                          <small>Payload Created: {pay.updated_at}</small>
-                        </footer>
-                        <Button onClick={() => [setSelectedPayload(pay), handleShowUpdate(),]}>
-                          Update
-                        </Button>
-                        <Button onClick={() => [setSelectedPayload(pay), handleShowDelete(),]}>
-                          Delete
-                        </Button>
-                      </Card.Body>
-                    </Card>
-                  </>
-                );
-              }
-            )}
-            <PayloadCalendar/>
-          </Col>
-          <Col xs lg="2"></Col>
-        </Row>
+        </Row>          
       </Container>
 
+
+      <PayloadCalendar/>
       <Modal show={show} onHide={handleClose} className="modalBg">
         <Modal.Header closeButton className="modalForm">
           <Modal.Title>Add Payload</Modal.Title>
