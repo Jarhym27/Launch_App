@@ -14,7 +14,6 @@ import About from "./component/About";
 import Home from "./component/Home"
 import cookie from 'cookie'
 import LspProfile from "./component/lsp_profile/01_lsp_profile_page";
-import LspCalendar from "./component/lsp_profile/04_lsp_calendar";
 import RequestDetails from "./component/RequestDetails";
 import AllMessages from "./component/AllMessages";
 import NotificationsBadge from "./component/NotificationsBadge";
