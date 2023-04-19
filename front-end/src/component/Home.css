@@ -91,15 +91,17 @@
 .search-listgroup{
   max-height: 400px;
   margin-bottom: 10px;
-  overflow:scroll;
+  overflow:auto;
   -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
 }
 
 .payload-listgroup{
   max-height: 700px;
   margin-bottom: 10px;
-  overflow:scroll;
+  overflow:auto;
   -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
 }
 
 .search-list-item:hover{

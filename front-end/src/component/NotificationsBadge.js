@@ -46,6 +46,14 @@ const toggleShowA = (index,message_id) => {
                 setTotalMess(tempNotifs.length);
                 setNotifs(tempNotifs)
             })        
+        } else {
+            fetch("http://localhost:8080/join/lsp_user_messages") 
+            .then(res =>res.json())
+            .then(data => {
+               let tempNotifs= data.filter(msg=>msg.recipient_id===userLogin.id && !msg.notification_ack )          
+                setTotalMess(tempNotifs.length);
+                setNotifs(tempNotifs)
+            }) 
         }
       }, [userLogin.id])
 
