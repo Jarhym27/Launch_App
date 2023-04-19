@@ -2,8 +2,11 @@ import React, { useState, useContext, useEffect } from "react"
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { RocketInfo } from "../../App"
-import { Row, Col, Card, Button } from 'react-bootstrap'
-
+import { Row, Col, Card, Button, InputGroup } from 'react-bootstrap'
+import {GiIsland, GiEarthAmerica} from 'react-icons/gi'
+import {FaCity} from 'react-icons/fa'
+import { SiLaunchpad } from 'react-icons/si'
+import {BsCalendar4Week} from 'react-icons/bs';
 import './00_lsp_profile.css'
 export default LspLaunchPads
 
@@ -170,57 +173,61 @@ function LspLaunchPads() {
               handlePost();
             }}
           >
-            <Form.Group
+            <Form.Label>Pad Name</Form.Label>
+            <InputGroup
               onChange={(e) => setPadName(e.target.value)}
               className="mb-3"
-              controlId="formBasicEmail"
-            >
-              <Form.Label>Pad Name</Form.Label>
+              controlId="formBasicEmail">
+            <InputGroup.Text><SiLaunchpad/></InputGroup.Text>
               <Form.Control type="text" placeholder="" />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Pad Status</Form.Label>
-              <Form.Select onChange={(e) =>
+            </InputGroup>
+            <Form.Label>Pad Status</Form.Label>
+            <InputGroup className="mb-3" controlId="formBasicPassword">
+              <InputGroup.Text><BsCalendar4Week/></InputGroup.Text>
+              <Form.Select size='lg' onChange={(e) =>
                 setPadStatus(e.target.value)}>
                 <option></option>
                 <option value={true}>Available</option>
                 <option value={false}>Unavailable</option>
               </Form.Select>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Launch Site</Form.Label>
-              <Form.Select onChange={(e) =>
+            </InputGroup>
+            <Form.Label>Launch Site</Form.Label>
+            <InputGroup className="mb-3" controlId="formBasicPassword">
+              <InputGroup.Text><GiEarthAmerica/></InputGroup.Text>
+              <Form.Select size='lg' onChange={(e) =>
                 setLaunchSite(e.target.value)}>
                 <option></option>
                 <option>Patrick SFB</option>
                 <option>Vandenberg SFB</option>
                 <option>Wallops Flight Facility</option>
               </Form.Select>
-            </Form.Group>
-            <Form.Group
+            </InputGroup>
+            <Form.Label>City</Form.Label>
+            <InputGroup
               onChange={(e) => setCity(e.target.value)}
               className="mb-3"
               controlId="formBasicPassword"
             >
-              <Form.Label>City</Form.Label>
+              <InputGroup.Text><FaCity/></InputGroup.Text>
               <Form.Control
                 defaultValue={selectedPad?.city}
                 type="text"
                 placeholder=""
               />
-            </Form.Group>
-            <Form.Group
+            </InputGroup>
+            <Form.Label>State</Form.Label>
+            <InputGroup
               onChange={(e) => setlpState(e.target.value)}
               className="mb-3"
               controlId="formBasicPassword"
             >
-              <Form.Label>State</Form.Label>
+              <InputGroup.Text><GiIsland/></InputGroup.Text>
               <Form.Control
                 defaultValue={selectedPad?.state}
                 type="text"
                 placeholder=""
               />
-            </Form.Group>
+            </InputGroup>
             <Button
               onClick={handleCloseUpdate}
               className="addPayload"
@@ -253,27 +260,24 @@ function LspLaunchPads() {
               handleUpdate();
             }}
           >
-            <Form.Group
+            <Form.Label>Pad Name</Form.Label>
+            <InputGroup
               onChange={(e) => setPadName(e.target.value)}
               className="mb-3"
-              controlId="formBasicEmail"
-            >
-              <Form.Label>Pad Name</Form.Label>
-              <Form.Control
-                defaultValue={selectedPad?.launch_pad}
-                type="text"
-                placeholder=""
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Pad Status</Form.Label>
-              <Form.Select onChange={(e) =>
+              controlId="formBasicEmail">
+            <InputGroup.Text><SiLaunchpad/></InputGroup.Text>
+              <Form.Control type="text" placeholder={selectedPad?.launch_pad} />
+            </InputGroup>
+            <Form.Label>Pad Status</Form.Label>
+            <InputGroup className="mb-3" controlId="formBasicPassword">
+              <InputGroup.Text><BsCalendar4Week/></InputGroup.Text>
+              <Form.Select size='lg' onChange={(e) =>
                 setPadStatus(e.target.value)}>
+                <option></option>
                 <option value={true}>Available</option>
                 <option value={false}>Unavailable</option>
               </Form.Select>
-            </Form.Group>
-
+            </InputGroup>
             <Button
               onClick={() => handleCloseUpdate()}
               className="addPayload"

@@ -13,9 +13,11 @@ import {
 import RequestList from "./05_lsp_requests_list";
 import { RocketInfo } from "../../App";
 import { RocketTakeoffFill} from "react-bootstrap-icons";
+import {BsCalendar4Week} from 'react-icons/bs';
 import { GiMoonOrbit,GiEarthAmerica, GiWeight} from 'react-icons/gi'
 import{ FcMoneyTransfer} from 'react-icons/fc'
 import { SiLaunchpad } from 'react-icons/si'
+
 
 export default LspLaunchVehicles;
 
@@ -219,17 +221,17 @@ function LspLaunchVehicles() {
               {availablePads?.map((element, i) => <option key={`option: ${i}`}> {element.launch_pad} </option>)}
             </Form.Select>
           </InputGroup>
-          <InputGroup onChange={(e) => setMeoWeight(e.target.value)}
-            className="mb-3"
-            controlId="formBasicEmail">
-              <InputGroup.Text><GiWeight/></InputGroup.Text>
-            <Form.Control type="text" placeholder="Mass Capacity to MEO" />
-          </InputGroup>
           <InputGroup onChange={(e) => setLeoWeight(e.target.value)}
             className="mb-3"
             controlId="formBasicEmail">
               <InputGroup.Text><GiWeight/></InputGroup.Text>
             <Form.Control type="text" placeholder="Mass Capacity to LEO" />
+          </InputGroup>
+          <InputGroup onChange={(e) => setMeoWeight(e.target.value)}
+            className="mb-3"
+            controlId="formBasicEmail">
+              <InputGroup.Text><GiWeight/></InputGroup.Text>
+            <Form.Control type="text" placeholder="Mass Capacity to MEO" />
           </InputGroup>
           <InputGroup onChange={(e) => setGeoWeight(e.target.value)}
             className="mb-3"
@@ -265,98 +267,70 @@ function LspLaunchVehicles() {
               setSubmitVehicle();
             }}
           >
-            <Form.Group
-              onChange={(e) => setName(e.target.value)}
-              className="mb-3"
-              controlId="formBasicEmail"
-            >
-              <Form.Label>Launch Vehicle Name</Form.Label>
-              <Form.Control
-                 defaultValue={selectedVehicle?.launch_vehicle}
-                type="text"
-                placeholder=""
-              />
-            </Form.Group>
-            <Form.Group
-              onChange={(e) => setPad(e.target.value)}
-              className="mb-3"
-              controlId="formBasicEmail"
-            >
-            <Form.Label>Launch Pad Name</Form.Label>
-              <Form.Select>
-               {availablePads?.map((element, i) => <option key={`option: ${i}`}> {element.launch_pad} </option>)}
-              </Form.Select>
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formBasicEmail"
-            >
-              <Form.Label>Launch Vehicle Status</Form.Label>
-              <Form.Select onChange={(event) =>
-                setStatus(event.target.value)} defaultValue={selectedVehicle?.status}>
-                <option value={"available"}>Available</option>
+            <Form.Label>Launch Vehicle</Form.Label>
+             <InputGroup
+            onChange={(e) => setName(e.target.value)}
+            className="mb-3"
+            controlId="formBasicEmail">
+              <InputGroup.Text><RocketTakeoffFill/></InputGroup.Text>
+            <Form.Control type="text" placeholder={selectedVehicle?.launch_vehicle} />
+          </InputGroup>
+          <Form.Label>Launch Cost</Form.Label>
+          <InputGroup
+            onChange={(e) => setCost(e.target.value)}
+            className="mb-3"
+            controlId="formBasicEmail">
+              <InputGroup.Text><FcMoneyTransfer/></InputGroup.Text>
+            <Form.Control type="text" placeholder="Cost" />
+          </InputGroup>
+          <Form.Label>Launchpad</Form.Label>
+          <InputGroup onChange={(e) => setPad(e.target.value)}
+            className="mb-3"
+            controlId="formDropDown">
+              <InputGroup.Text><SiLaunchpad/></InputGroup.Text>
+            <Form.Select size='lg'>
+              {availablePads?.map((element, i) => <option key={`option: ${i}`}> {element.launch_pad} </option>)}
+            </Form.Select>
+          </InputGroup>
+          <Form.Label>Vehicle Status</Form.Label>
+          <InputGroup onChange={(e) => setStatus(e.target.value)}
+            className="mb-3"
+            controlId="formDropDown">
+              <InputGroup.Text><BsCalendar4Week/></InputGroup.Text>
+            <Form.Select size='lg'>
+            <option value={"available"}>Available</option>
                 <option value={"booked"}>Booked</option>
-              </Form.Select>
-            </Form.Group>
-            <Form.Group
-              onChange={(e) => setCost(e.target.value)}
-              className="mb-3"
-              controlId="formBasicEmail"
-            >
-              <Form.Label>Launch Vehicle Cost</Form.Label>
-              <Form.Control
-                defaultValue={selectedVehicle?.cost}
-                type="text"
-                placeholder=""
-              />
-            </Form.Group>
-            <Form.Group
-              onChange={(e) => setMeoWeight(e.target.value)}
-              className="mb-3"
-              controlId="formBasicEmail"
-            >
-              <Form.Label>Meo weight in tons</Form.Label>
-              <Form.Control
-                defaultValue={selectedVehicle?.geo_weight}
-                type="text"
-                placeholder=""
-              />
-            </Form.Group>
-            <Form.Group
-              onChange={(e) => setLeoWeight(e.target.value)}
-              className="mb-3"
-              controlId="formBasicEmail"
-            >
-              <Form.Label>Leo weight in tons</Form.Label>
-              <Form.Control
-                defaultValue={selectedVehicle?.leo_weight}
-                type="text"
-                placeholder=""
-              />
-            </Form.Group>
-            <Form.Group
-              onChange={(e) => setGeoWeight(e.target.value)}
-              className="mb-3"
-              controlId="formBasicEmail"
-            >
-              <Form.Label>Geo weight in tons </Form.Label>
-              <Form.Control
-                defaultValue={selectedVehicle?.geo_weight}
-                type="text"
-                placeholder=""
-              />
-            </Form.Group>
-            <Form.Group
-              onChange={(e) => setHeoWeight(e.target.value)}
-              className="mb-3"
-              controlId="formBasicEmail"
-            >
-              <Form.Label>Heo weight in tons</Form.Label>
-              <Form.Control
-                defaultValue={selectedVehicle?.heo_weight}
-                type="text"
-                placeholder=""
-              />
-            </Form.Group>
+            </Form.Select>
+          </InputGroup>
+          
+          <Form.Label>LEO Mass Capacity</Form.Label>
+          <InputGroup onChange={(e) => setLeoWeight(e.target.value)}
+            className="mb-3"
+            controlId="formBasicEmail">
+              <InputGroup.Text><GiWeight/></InputGroup.Text>
+            <Form.Control type="text" placeholder= {`${selectedVehicle?.leo_weight}kg`} />
+          </InputGroup>
+          <Form.Label>MEO Mass Capacity</Form.Label>
+          <InputGroup onChange={(e) => setMeoWeight(e.target.value)}
+            className="mb-3"
+            controlId="formBasicEmail">
+              <InputGroup.Text><GiWeight/></InputGroup.Text>
+            <Form.Control type="text" placeholder={`${selectedVehicle?.meo_weight}kg`} />
+          </InputGroup>
+          <Form.Label>GEO Mass Capacity</Form.Label>
+          <InputGroup onChange={(e) => setGeoWeight(e.target.value)}
+            className="mb-3"
+            controlId="formBasicEmail">
+              <InputGroup.Text><GiWeight/></InputGroup.Text>
+            <Form.Control type="text" placeholder={`${selectedVehicle?.geo_weight}kg` }/>
+          </InputGroup>
+          <Form.Label>HEO Mass Capacity</Form.Label>
+          <InputGroup onChange={(e) => setHeoWeight(e.target.value)}
+            className="mb-3"
+            controlId="formBasicEmail">
+              <InputGroup.Text><GiWeight/></InputGroup.Text>
+            <Form.Control type="text" placeholder={`${selectedVehicle?.heo_weight}kg`} />
+          </InputGroup>
             <Button
               onClick={() => handleCloseUpdate()}
               className="addPayload"

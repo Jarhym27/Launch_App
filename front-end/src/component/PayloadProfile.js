@@ -10,6 +10,7 @@ import { RocketInfo } from "../App";
 import Notifications from "./Notifications";
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
+import PayloadCalendar from './PayloadCalendar.js'
 
 function PayloadProfile({setSelectedRequest}) {
   const [submittedPayloads, setSubmittedPayloads] = useState();
@@ -274,6 +275,8 @@ let denied = submittedPayloads?.filter((e, i) =>  (e.request_status === 'Denied'
         </Row>          
       </Container>
 
+
+      <PayloadCalendar/>
       <Modal show={show} onHide={handleClose} className="modalBg">
         <Modal.Header closeButton className="modalForm">
           <Modal.Title>Add Payload</Modal.Title>
