@@ -74,7 +74,7 @@ const Header = () => {
             <Link className="headerLink" to={profilePath}>Profile</Link>
           </Navbar.Text>
           <Navbar.Text>
-            <Link className="headerLink" to={'/metrics'}>My Metrics</Link>
+            {userLogin.role ==='lsp_user' && <Link className="headerLink" to={'/metrics'}>My Metrics</Link>}
           </Navbar.Text>
           <Navbar.Text>
             <Link className="headerLink" to={'/messages'}>Messages</Link>
