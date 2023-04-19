@@ -55,7 +55,7 @@ function LspLaunchVehicles() {
   useEffect(() => {
     fetch('http://localhost:8080/table/launch_vehicles')
       .then(res => res.json())
-      .then(data => { setLaunchVehicle(data); setFetchTime(false) })
+      .then(data => { setLaunchVehicle(data); setFetchTime(false); setRefresh(false); })
   }, [fetchTime, refresh])
 
  //Add a new vehicle
