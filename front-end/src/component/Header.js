@@ -90,7 +90,6 @@ const Header = () => {
           </>
           }
 
-
           <Button className='mx-4' onClick={() => logout()}
             variant="outline-light">Logout</Button>
         </Navbar.Collapse>
