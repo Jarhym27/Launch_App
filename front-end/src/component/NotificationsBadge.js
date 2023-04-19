@@ -14,6 +14,28 @@ const [notifs, setNotifs] = useState();
 const [totalMess, setTotalMess] = useState();
 const [myMessages,setMyMessages] = useState();
 const {userLogin} = useContext(RocketInfo);
+const [bools, setBools] = useState();
+
+const toggleShowA = (index,message_id) => {
+    fetch(`http://localhost:8080/table/messages?id=${message_id}`, {
+        method: "PATCH",
+        body: JSON.stringify({
+          notification_ack: "true"
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        }
+      })
+      .then(res=>{
+        console.log(res)
+        if(res.status===200){
+          let newBools = JSON.parse(JSON.stringify(bools))
+          newBools[index] = !newBools[index]
+          setBools(newBools)
+        }
+      })
+      
+  };
 
     useEffect(() => {
         if(userLogin.role === 'payload_user'){
@@ -40,7 +62,7 @@ const {userLogin} = useContext(RocketInfo);
                 {notifs?.map((mess, i) => {
                     return (
                         <>
-                            <Link state={mess} to={'/requestdetails'}><span>{mess.notification_type}: {mess.name} </span><br></br></Link>
+                            <Link onClick={() => {toggleShowA(i, mess.msg_id)}} state={mess} to={'/requestdetails'}  key={i}><span>{mess.notification_type}: {mess.name} </span><br></br></Link>
                             
                         </>
                     )
