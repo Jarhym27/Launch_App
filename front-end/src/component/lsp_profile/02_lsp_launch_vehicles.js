@@ -145,7 +145,7 @@ function LspLaunchVehicles() {
         <h1>Launch Vehicle</h1>
             <Button  className="addPayload" onClick={handleShow}> 
             Add Launch Vehicle</Button>
-        <Card className="payloadProfileCard">
+        <Card className="payloadProfileCardv">
           <Card.Title>
           </Card.Title>
           {filteredVehicle?.map((vehicle, j) => {
