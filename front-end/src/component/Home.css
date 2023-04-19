@@ -48,16 +48,23 @@
 
 .search-list-item{
   height: 10rem;
-  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  background-color: rgb(207, 207, 207);
+  margin-bottom: 5px ;
+  transition: all .1s ease-in-out;
+}
+
+.search-list-item:hover{
+  scale: 0.98;
 }
 
 .payload-list-item{
-  height: 100px;
-  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  height: 10rem;
+  margin-bottom: 5px ;
 }
 
 .search-list-item-selected{
   height: 10rem;
+  margin-bottom: 5px ;
   background-color:#d4b1bd;
 
 }
@@ -120,6 +127,7 @@
   border-top-left-radius: 5px;
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 
 .payloads-title{
