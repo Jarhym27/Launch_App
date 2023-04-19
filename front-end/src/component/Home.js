@@ -76,6 +76,13 @@ const Home = () => {
       })
   }
 
+  const sortRocketsbyCheapest = () => {
+    let current = JSON.parse(JSON.stringify(searchResults))
+    let sorted = current.sort((a,b) => (a.cost > b.cost) ? 1 : ((b.cost > a.cost) ? -1 : 0))
+    setSearchResults(sorted)
+    setLoading(true)
+  }
+
 
   const handlePadChange = (e) => {
     setFilter({
@@ -560,6 +567,11 @@ const Home = () => {
               <Row>
                 <Col className='pick-up-container'>
                   <Card className='search-results-container'>
+                    <Row className='my-2'>
+                      <Col className='text-end'>
+                        <Button onClick={()=>sortRocketsbyCheapest()}>Sort by cheapest</Button>
+                      </Col>
+                    </Row>
                     <ListGroup className='search-listgroup' variant="flush">
                       {
                         searchResults.map(item => {

@@ -162,6 +162,24 @@ exports.seed = async function (knex) {
       notification_ack: 'true',
       timestamp: '2023-04-20 16:52:12',
     },
+    {
+      sender_id: 3,
+      recipient_id: 8,
+      launch_request_id: 12,
+      message: "Hoping to launch our latest GPS sat",
+      notification_type: "New request",
+      notification_ack: 'true',
+      timestamp: '2023-04-19 16:52:12',
+    },
+    {
+      sender_id: 8,
+      recipient_id: 3,
+      launch_request_id: 12,
+      message: "Great, we have you scheduled for our Falcon Heavy out of 39B",
+      notification_type: "Request accepted",
+      notification_ack: 'true',
+      timestamp: '2023-04-20 16:52:12',
+    },
   ]
   );
 };

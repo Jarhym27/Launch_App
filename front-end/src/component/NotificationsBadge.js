@@ -35,8 +35,6 @@ const {userLogin} = useContext(RocketInfo);
         }
       }, [userLogin.id])
 
-         console.log('alerts ', notifs);
-         console.log('total Mess ', totalMess);
     if(totalMess) {
   return (
     <div >
