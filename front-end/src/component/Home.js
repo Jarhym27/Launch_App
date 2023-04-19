@@ -50,7 +50,6 @@ const Home = () => {
       .then(data => {
         if(search.orbit){
           usersPayloads = data.filter(payload =>payload.orbital_requirement===search.orbit && payload.payload_user_id === userLogin.id && payload.weight <= item[payload.orbital_requirement.toLowerCase().concat('_weight').toString()])
-          console.log("first filter:",data.filter(payload =>payload.orbital_requirement===search.orbit && payload.payload_user_id === userLogin.id && payload.weight <= item[payload.orbital_requirement.toLowerCase().concat('_weight').toString()]))
           
         } else {
           usersPayloads = data.filter(payload => payload.payload_user_id === userLogin.id && payload.weight <= item[payload.orbital_requirement.toLowerCase().concat('_weight').toString()])
@@ -738,7 +737,7 @@ const Home = () => {
               </Card>
             </Col>
           }
-          {userPayloads !== null && userPayloads.length === 0 &&
+          {!payloadsLoading && userPayloads !== null && userPayloads.length === 0 &&
             <Col className='available-payloads-container'>
               <h2 className='payloads-title'>No compatible payloads for the available launch vehicles.</h2>
               <Card className='payloads-card-container'>
