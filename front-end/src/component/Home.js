@@ -44,12 +44,14 @@ const Home = () => {
   const [modalShow, setModalShow] = useState(false)
 
   const grabPayloads = (item) => {
-    let usersPayloads = []
+    var usersPayloads = []
     fetch('http://localhost:8080/join/users-payloads')
       .then(res => res.json())
       .then(data => {
         if(search.orbit){
           usersPayloads = data.filter(payload =>payload.orbital_requirement===search.orbit && payload.payload_user_id === userLogin.id && payload.weight <= item[payload.orbital_requirement.toLowerCase().concat('_weight').toString()])
+          console.log("first filter:",data.filter(payload =>payload.orbital_requirement===search.orbit && payload.payload_user_id === userLogin.id && payload.weight <= item[payload.orbital_requirement.toLowerCase().concat('_weight').toString()]))
+          
         } else {
           usersPayloads = data.filter(payload => payload.payload_user_id === userLogin.id && payload.weight <= item[payload.orbital_requirement.toLowerCase().concat('_weight').toString()])
         }
@@ -57,14 +59,15 @@ const Home = () => {
       })
       .then(res => res.json())
       .then(data => {
-        let filteredPayloads = usersPayloads;
+        let filteredPayloads = [...usersPayloads];
         for(let i=0;i<usersPayloads.length;i++){
           for(let j=0;j<data.length;j++){
             if(usersPayloads[i].id===data[j].payload_id && (data[j].request_status==="Launched" || data[j].request_status==="Scheduled" )){
-              filteredPayloads.splice(i,1)
+              delete filteredPayloads[i]
             }
           }
         }
+        filteredPayloads = filteredPayloads.filter(val=>val)
         usersPayloads = filteredPayloads
         setPayloadsLoading(true)
         setUserPayloads(usersPayloads)

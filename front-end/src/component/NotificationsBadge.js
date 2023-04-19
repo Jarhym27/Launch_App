@@ -6,7 +6,7 @@ import { RocketInfo } from '../App';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 import { Link } from 'react-router-dom';
-import { red } from '@mui/material/colors';
+
 
 
 function NotificationsBadge() {
@@ -15,6 +15,7 @@ const [totalMess, setTotalMess] = useState();
 const [myMessages,setMyMessages] = useState();
 const {userLogin} = useContext(RocketInfo);
 const [trigger, setTrigger] = useState(false);
+const [clickTrigger, setClickTrigger] = useState('click');
 
 const toggleShowA = (index,message_id) => {
     fetch(`http://localhost:8080/table/messages?id=${message_id}`, {
@@ -36,7 +37,6 @@ const toggleShowA = (index,message_id) => {
   };
 
     useEffect(() => {
-        console.log('Yo it entered')
         if(userLogin.role === 'payload_user'){
           fetch("http://localhost:8080/join/payload_user_messages") 
             .then(res =>res.json())
@@ -60,7 +60,7 @@ const toggleShowA = (index,message_id) => {
   return (
     <div >
         
-         <OverlayTrigger trigger="click" placement="bottom" overlay={ 
+         <OverlayTrigger trigger={'click'} rootClose placement="bottom" overlay={ 
          <Popover id="popover-position-bottom">
                 <Popover.Header as="h3" className='test'>Notifications</Popover.Header>
                 <Popover.Body className={'bg-dark text-white'}>
@@ -85,7 +85,7 @@ const toggleShowA = (index,message_id) => {
   )
     } else {
         return (
-            <OverlayTrigger trigger="click" placement="bottom" overlay={ 
+            <OverlayTrigger trigger={'click'} rootClose placement="bottom" overlay={ 
                 <Popover id="popover-position-bottom">
                        <Popover.Header as="h3" className='test'>Notifications</Popover.Header>
                        <Popover.Body className={'bg-dark text-white'}>

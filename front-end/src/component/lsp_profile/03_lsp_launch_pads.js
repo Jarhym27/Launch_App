@@ -139,26 +139,27 @@ function LspLaunchPads() {
       <Row>
         <Col className="col-3">
           <h1>Launch Pads</h1>
-          <Button onClick={handleShow}> Add a New Pad</Button>
+          <Button className='addPayload' onClick={handleShow}> 
+          Add New Pad</Button>
+        <Card className="payloadProfileCard">
+          <Card.Title>
+          </Card.Title>
           {availablePads?.map((pads, i) => {
             return (
-              <Card key={i} >
-                <Card.Body>
-                  <Card.Title>
-                  </Card.Title>
+                <Card.Body  key={i} >
                   <Card.Text>
                     Pad: {pads.launch_pad} <br></br>
-                    {pads.lsp_user_id} <br></br>
-                    {pads.launch_site} <br></br>
-                    {pads.pad_status ? 'Status: Available' : 'Status : Unavailable'} <br></br>
-                    <button onClick={() => [setSelectedPad(pads), handleShowUpdate(),]}>Edit</button>
-                    <button onClick={() => [setSelectedPad(pads), handleShowDelete()]}>Delete</button>
+                    Site: {pads.launch_site} <br></br>
+                    Status: {pads.pad_status ? 'Available' : 'Unavailable'} <br></br>
+                    <Button className="addPayload"  onClick={() => [setSelectedPad(pads), handleShowUpdate(),]}>Edit</Button>
+                    <Button  className="addPayload" onClick={() => [setSelectedPad(pads), handleShowDelete()]}>Delete</Button>
                   </Card.Text>
                   {/* <div>add New Pad</div> */}
                 </Card.Body>
+                 )})}
               </Card>
-            )
-          })}</Col>
+           
+         </Col>
       </Row>
 
 
@@ -281,9 +282,7 @@ function LspLaunchPads() {
             <Button
               onClick={() => handleCloseUpdate()}
               className="addPayload"
-              variant="primary"
-              type="submit"
-            >
+              type="submit">
               Update
             </Button>
           </Form>
@@ -291,7 +290,6 @@ function LspLaunchPads() {
         <Modal.Footer className="modalForm">
           <Button
             className="addPayload"
-            variant="outline-primary"
             onClick={() => handleCloseUpdate()}
           >
             Cancel
@@ -302,7 +300,7 @@ function LspLaunchPads() {
 
       <Modal show={showDelete} onHide={handleCloseDelete} className="modalBg">
         <Modal.Header closeButton className="modalForm">
-          <Modal.Title>DELETE Payload?</Modal.Title>
+          <Modal.Title>Delete Pad?</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
