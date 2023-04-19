@@ -6,7 +6,7 @@ import { RocketInfo } from '../App';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 import { Link } from 'react-router-dom';
-import Button from 'react-bootstrap/Button';
+import { red } from '@mui/material/colors';
 
 
 function NotificationsBadge() {
@@ -14,7 +14,7 @@ const [notifs, setNotifs] = useState();
 const [totalMess, setTotalMess] = useState();
 const [myMessages,setMyMessages] = useState();
 const {userLogin} = useContext(RocketInfo);
-const [bools, setBools] = useState();
+const [trigger, setTrigger] = useState(false);
 
 const toggleShowA = (index,message_id) => {
     fetch(`http://localhost:8080/table/messages?id=${message_id}`, {
@@ -29,15 +29,14 @@ const toggleShowA = (index,message_id) => {
       .then(res=>{
         console.log(res)
         if(res.status===200){
-          let newBools = JSON.parse(JSON.stringify(bools))
-          newBools[index] = !newBools[index]
-          setBools(newBools)
+            setTrigger(!trigger)
         }
       })
       
   };
 
     useEffect(() => {
+        console.log('Yo it entered')
         if(userLogin.role === 'payload_user'){
           fetch("http://localhost:8080/join/payload_user_messages") 
             .then(res =>res.json())
@@ -55,10 +54,11 @@ const toggleShowA = (index,message_id) => {
                 setNotifs(tempNotifs)
             }) 
         }
-      }, [userLogin.id])
+      }, [userLogin.id, trigger])
 
          console.log('alerts ', notifs);
          console.log('total Mess ', totalMess);
+
     if(totalMess) {
   return (
     <div >
@@ -81,11 +81,28 @@ const toggleShowA = (index,message_id) => {
             }>
            
             <Badge badgeContent={totalMess} color="primary">
-                <MailIcon color="action" />
+                <MailIcon style={{fill: '#DA0037'}} />
             </Badge>
         </OverlayTrigger>
     </div>
   )
+    } else {
+        return (
+            <OverlayTrigger trigger="click" placement="bottom" overlay={ 
+                <Popover id="popover-position-bottom">
+                       <Popover.Header as="h3" className='test'>Notifications</Popover.Header>
+                       <Popover.Body className={'bg-dark text-white'}>
+                            No New Messages
+                      
+                       </Popover.Body>
+                   </Popover>
+                   }>
+
+                   <Badge badgeContent={0} color="primary">
+                       <MailIcon style={{fill: '#DA0037'}} />
+                   </Badge>
+               </OverlayTrigger>
+        )
     }
 }
 
