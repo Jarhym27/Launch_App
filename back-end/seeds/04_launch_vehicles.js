@@ -26,7 +26,7 @@ exports.seed = async function(knex) {
       geo_weight:8300,
       heo_weight:10200,
       booked_status: 'available',
-      launch_pad_id: 6
+      launch_pad_id: 5
     },
     {
       lsp_user_id: 8,
@@ -37,7 +37,7 @@ exports.seed = async function(knex) {
       geo_weight:8300,
       heo_weight:10200,
       booked_status: 'available',
-      launch_pad_id: 13
+      launch_pad_id: 12
     },
     {
       lsp_user_id: 8,
@@ -48,7 +48,7 @@ exports.seed = async function(knex) {
       geo_weight:8300,
       heo_weight:10200,
       booked_status: 'available',
-      launch_pad_id: 13
+      launch_pad_id: 12
     },
     {
       lsp_user_id: 8,
@@ -70,7 +70,7 @@ exports.seed = async function(knex) {
       geo_weight:8300,
       heo_weight:10200,
       booked_status: 'available',
-      launch_pad_id: 6
+      launch_pad_id: 5
     },
     {
       lsp_user_id: 8,
@@ -81,7 +81,7 @@ exports.seed = async function(knex) {
       geo_weight:8300,
       heo_weight:10200,
       booked_status: 'available',
-      launch_pad_id: 13
+      launch_pad_id: 12
     },
     {
       lsp_user_id: 4,
@@ -92,7 +92,7 @@ exports.seed = async function(knex) {
       geo_weight:6000,
       heo_weight:8500,
       booked_status: 'available',
-      launch_pad_id: 14
+      launch_pad_id: 13
     },
     {
       lsp_user_id: 4,
@@ -103,7 +103,7 @@ exports.seed = async function(knex) {
       geo_weight:6000,
       heo_weight:8500,
       booked_status: 'available',
-      launch_pad_id: 14
+      launch_pad_id: 13
     },
     {
       lsp_user_id: 8,
@@ -114,7 +114,7 @@ exports.seed = async function(knex) {
       geo_weight:22200,
       heo_weight:16700,
       booked_status: 'available',
-      launch_pad_id: 3
+      launch_pad_id: 1
     },
     {
       lsp_user_id: 8,
@@ -136,7 +136,7 @@ exports.seed = async function(knex) {
       geo_weight:22200,
       heo_weight:16700,
       booked_status: 'available',
-      launch_pad_id: 3
+      launch_pad_id: 1
     },
     {
       lsp_user_id: 8,
@@ -169,7 +169,7 @@ exports.seed = async function(knex) {
       geo_weight:6000,
       heo_weight:8500,
       booked_status: 'available',
-      launch_pad_id: 14
+      launch_pad_id: 13
     },
     {
       lsp_user_id: 4,
@@ -180,7 +180,7 @@ exports.seed = async function(knex) {
       geo_weight:6000,
       heo_weight:8500,
       booked_status: 'available',
-      launch_pad_id: 7
+      launch_pad_id: 6
     },
     {
       lsp_user_id: 4,
@@ -191,7 +191,7 @@ exports.seed = async function(knex) {
       geo_weight:6000,
       heo_weight:8500,
       booked_status: 'available',
-      launch_pad_id: 8
+      launch_pad_id: 7
     },
     {
       lsp_user_id: 5,
@@ -202,7 +202,7 @@ exports.seed = async function(knex) {
       geo_weight: null,
       heo_weight: null,
       booked_status: 'booked',
-      launch_pad_id: 15
+      launch_pad_id: 14
     },
     {
       lsp_user_id: 5,
@@ -213,7 +213,7 @@ exports.seed = async function(knex) {
       geo_weight: null,
       heo_weight: null,
       booked_status: 'available',
-      launch_pad_id: 15
+      launch_pad_id: 14
     },
     {
       lsp_user_id: 7,
@@ -224,7 +224,7 @@ exports.seed = async function(knex) {
       geo_weight:null,
       heo_weight:null,
       booked_status: 'booked',
-      launch_pad_id: 9
+      launch_pad_id: 8
     },
     {
       lsp_user_id: 7,
@@ -235,7 +235,7 @@ exports.seed = async function(knex) {
       geo_weight:null,
       heo_weight:null,
       booked_status: 'available',
-      launch_pad_id: 9
+      launch_pad_id: 8
     },
     {
       lsp_user_id: 7,
@@ -246,18 +246,7 @@ exports.seed = async function(knex) {
       geo_weight:null,
       heo_weight:null,
       booked_status: 'available',
-      launch_pad_id: 9
-    },
-    {
-      lsp_user_id: 6,
-      launch_vehicle:'New Glenn',
-      cost:95,
-      meo_weight:32500,
-      leo_weight:41000,
-      geo_weight:13000,
-      heo_weight:32000,
-      booked_status: 'available',
-      launch_pad_id: 10
+      launch_pad_id: 8
     },
     {
       lsp_user_id: 6,
@@ -269,6 +258,17 @@ exports.seed = async function(knex) {
       heo_weight:32000,
       booked_status: 'available',
       launch_pad_id: 9
+    },
+    {
+      lsp_user_id: 6,
+      launch_vehicle:'New Glenn',
+      cost:95,
+      meo_weight:32500,
+      leo_weight:41000,
+      geo_weight:13000,
+      heo_weight:32000,
+      booked_status: 'available',
+      launch_pad_id: 8
     },
     {
       lsp_user_id: 6,
@@ -279,7 +279,7 @@ exports.seed = async function(knex) {
       geo_weight:13000,
       heo_weight:32000,
       booked_status: 'available',
-      launch_pad_id: 10
+      launch_pad_id: 9
     },
     {
       lsp_user_id: 6,
@@ -290,17 +290,6 @@ exports.seed = async function(knex) {
       geo_weight:13000,
       heo_weight:32000,
       booked_status: 'available',
-      launch_pad_id: 9
-    },
-    {
-      lsp_user_id: 10,
-      launch_vehicle:'Rocket 2.0',
-      cost:3,
-      meo_weight:null,
-      leo_weight:600,
-      geo_weight:null,
-      heo_weight:null,
-      booked_status: 'available',
       launch_pad_id: 8
     },
     {
@@ -312,7 +301,18 @@ exports.seed = async function(knex) {
       geo_weight:null,
       heo_weight:null,
       booked_status: 'available',
-      launch_pad_id: 8
+      launch_pad_id: 7
+    },
+    {
+      lsp_user_id: 10,
+      launch_vehicle:'Rocket 2.0',
+      cost:3,
+      meo_weight:null,
+      leo_weight:600,
+      geo_weight:null,
+      heo_weight:null,
+      booked_status: 'available',
+      launch_pad_id: 7
     },
     {
       lsp_user_id: 10,
@@ -323,7 +323,7 @@ exports.seed = async function(knex) {
       geo_weight:null,
       heo_weight:null,
       booked_status: 'available',
-      launch_pad_id: 8
+      launch_pad_id: 7
     },
     {
       lsp_user_id: 10,
@@ -334,7 +334,7 @@ exports.seed = async function(knex) {
       geo_weight:null,
       heo_weight:null,
       booked_status: 'available',
-      launch_pad_id: 8
+      launch_pad_id: 7
     },
     {
       lsp_user_id: 9,
@@ -345,7 +345,7 @@ exports.seed = async function(knex) {
       geo_weight:12000,
       heo_weight:16000,
       booked_status: 'available',
-      launch_pad_id: 4
+      launch_pad_id: 3
     },
     {
       lsp_user_id: 9,
@@ -356,7 +356,7 @@ exports.seed = async function(knex) {
       geo_weight:12000,
       heo_weight:16000,
       booked_status: 'available',
-      launch_pad_id: 4
+      launch_pad_id: 3
     },
     {
       lsp_user_id: 9,
@@ -367,7 +367,7 @@ exports.seed = async function(knex) {
       geo_weight:12000,
       heo_weight:16000,
       booked_status: 'available',
-      launch_pad_id: 4
+      launch_pad_id: 3
     },
     {
       lsp_user_id: 9,
@@ -378,7 +378,7 @@ exports.seed = async function(knex) {
       geo_weight:12000,
       heo_weight:16000,
       booked_status: 'available',
-      launch_pad_id: 4
+      launch_pad_id: 3
     },
     {
       lsp_user_id: 9,
@@ -389,7 +389,7 @@ exports.seed = async function(knex) {
       geo_weight:12000,
       heo_weight:16000,
       booked_status: 'available',
-      launch_pad_id: 4
+      launch_pad_id: 3
     },
     {
       lsp_user_id: 9,
@@ -400,7 +400,7 @@ exports.seed = async function(knex) {
       geo_weight:12000,
       heo_weight:16000,
       booked_status: 'available',
-      launch_pad_id: 4
+      launch_pad_id: 3
     },
   ]);
 };
