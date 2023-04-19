@@ -142,20 +142,19 @@ function LspLaunchVehicles() {
   return (<>
     <Row>
       <Col className="col-3">
+        <h1>Launch Vehicle</h1>
+            <Button  className="addPayload" onClick={handleShow}> 
+            Add Launch Vehicle</Button>
         <Card className="payloadProfileCard">
           <Card.Title>
-            Launch Vehicle
-            <Button  className="addPayload" onClick={handleShow}> Add Launch Vehicle</Button>
           </Card.Title>
           {filteredVehicle?.map((vehicle, j) => {
-            return (<Card.Body key={j}>
+            return (
+            <Card.Body key={j}>
               <Card.Text>
-                Serial ID: {vehicle.id}
-                <br></br>
-                Rocket: {vehicle.launch_vehicle}
-                <br></br>
-                Status: {vehicle.booked_status}
-                <br></br>
+                Serial ID: {vehicle.id}<br></br>
+                Rocket: {vehicle.launch_vehicle}<br></br>
+                Status: {vehicle.booked_status}<br></br>
                 <Button className="addPayload" onClick={() => {setSelectedVehicle(vehicle);   handleShowUpdate();
                 setName(vehicle.launch_vehicle);
                   console.log('selectedVehicle:\n',selectedVehicle)}}>
@@ -163,7 +162,8 @@ function LspLaunchVehicles() {
                     <Button  className="addPayload" onClick={() => {setSelectedVehicle(vehicle); handleShowDelete();}}>
                       Delete</Button>
               </Card.Text>
-            </Card.Body>)
+            </Card.Body>
+            )
           })}
         </Card>
       </Col>
@@ -250,7 +250,7 @@ function LspLaunchVehicles() {
 
     <Modal show={showUpdate} onHide={handleCloseUpdate} className="modalBg">
         <Modal.Header closeButton className="modalForm">
-          <Modal.Title>Update Pad</Modal.Title>
+          <Modal.Title>Update Vehicle</Modal.Title>
         </Modal.Header>
         <Modal.Body className="modalForm">
           <Form
@@ -286,7 +286,7 @@ function LspLaunchVehicles() {
               className="mb-3"
               controlId="formBasicEmail"
             >
-              <Form.Label>Launch Vehicle Cost</Form.Label>
+              <Form.Label>Cost in USD Millions</Form.Label>
               <Form.Control
                 defaultValue={selectedVehicle?.cost}
                 type="text"
@@ -298,7 +298,7 @@ function LspLaunchVehicles() {
               className="mb-3"
               controlId="formBasicEmail"
             >
-              <Form.Label>Meo weight in tons</Form.Label>
+              <Form.Label>MEO weight in tons</Form.Label>
               <Form.Control
                 defaultValue={selectedVehicle?.geo_weight}
                 type="text"
@@ -310,7 +310,7 @@ function LspLaunchVehicles() {
               className="mb-3"
               controlId="formBasicEmail"
             >
-              <Form.Label>Leo weight in tons</Form.Label>
+              <Form.Label>LEO weight in tons</Form.Label>
               <Form.Control
                 defaultValue={selectedVehicle?.leo_weight}
                 type="text"
@@ -322,7 +322,7 @@ function LspLaunchVehicles() {
               className="mb-3"
               controlId="formBasicEmail"
             >
-              <Form.Label>Geo weight in tons </Form.Label>
+              <Form.Label>GEO weight in tons </Form.Label>
               <Form.Control
                 defaultValue={selectedVehicle?.geo_weight}
                 type="text"
@@ -334,7 +334,7 @@ function LspLaunchVehicles() {
               className="mb-3"
               controlId="formBasicEmail"
             >
-              <Form.Label>Heo weight in tons</Form.Label>
+              <Form.Label>HEO weight in tons</Form.Label>
               <Form.Control
                 defaultValue={selectedVehicle?.heo_weight}
                 type="text"

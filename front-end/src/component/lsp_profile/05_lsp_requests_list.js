@@ -103,10 +103,12 @@ const RequestList = () => {
     <Col className="col-start-9 col-end-12">
       {myUsers?.map((user, i) => {
         return (
-          <Card key={i}>
-            <Card.Body>
+        
+          <Card >
+            <h1>Launch Requests from {user.organization}</h1>
+            <Card.Body key={i}>
               <Card.Title border="danger">
-                Launch Requests from {user.organization}
+              
               </Card.Title>
               {myRequests?.map((e, i) => {
                 if (e.payload_user_id == user.id) {

@@ -136,26 +136,27 @@ function LspLaunchPads() {
       <Row>
         <Col className="col-3">
           <h1>Launch Pads</h1>
-          <Button className='addPayload' onClick={handleShow}> Add a New Pad</Button>
+          <Button className='addPayload' onClick={handleShow}> 
+          Add New Pad</Button>
+        <Card className="payloadProfileCard">
+          <Card.Title>
+          </Card.Title>
           {availablePads?.map((pads, i) => {
             return (
-              <Card className="buttonCard" key={i} >
-                <Card.Body>
-                  <Card.Title>
-                  </Card.Title>
+                <Card.Body  key={i} >
                   <Card.Text>
                     Pad: {pads.launch_pad} <br></br>
-                    {pads.lsp_user_id} <br></br>
-                    {pads.launch_site} <br></br>
-                    {pads.pad_status ? 'Status: Available' : 'Status : Unavailable'} <br></br>
+                    Site: {pads.launch_site} <br></br>
+                    Status: {pads.pad_status ? 'Available' : 'Unavailable'} <br></br>
                     <Button className="addPayload"  onClick={() => [setSelectedPad(pads), handleShowUpdate(),]}>Edit</Button>
                     <Button  className="addPayload" onClick={() => [setSelectedPad(pads), handleShowDelete()]}>Delete</Button>
                   </Card.Text>
                   {/* <div>add New Pad</div> */}
                 </Card.Body>
+                 )})}
               </Card>
-            )
-          })}</Col>
+           
+         </Col>
       </Row>
 
 
