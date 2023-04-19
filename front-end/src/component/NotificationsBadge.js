@@ -35,8 +35,8 @@ const {userLogin} = useContext(RocketInfo);
         }
       }, [userLogin.id])
 
-         console.log('alerts ', notifs);
-         console.log('total Mess ', totalMess);
+        //  console.log('alerts ', notifs);
+        //  console.log('total Mess ', totalMess);
     if(totalMess) {
   return (
     <div >
@@ -47,10 +47,10 @@ const {userLogin} = useContext(RocketInfo);
                 <Popover.Body className={'bg-dark text-white'}>
                 {notifs?.map((mess, i) => {
                     return (
-                        <>
-                            <Link state={mess} to={'/requestdetails'}><span>{mess.notification_type}: {mess.name} </span><br></br></Link>
+                        <div key={i}>
+                            <Link state={mess}  to={'/requestdetails'}><span>{mess.notification_type}: {mess.name} </span><br></br></Link>
                             
-                        </>
+                        </div>
                     )
                     })}
                
