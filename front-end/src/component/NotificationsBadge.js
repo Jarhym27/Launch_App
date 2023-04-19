@@ -69,7 +69,7 @@ const toggleShowA = (index,message_id) => {
                         <>
                             <Link onClick={() => {toggleShowA(i, mess.msg_id)}} state={mess} to={'/requestdetails'}  key={i}><span>{mess.notification_type}: {mess.name} </span><br></br></Link>
                             
-                        </div>
+                        </>
                     )
                     })}
                
