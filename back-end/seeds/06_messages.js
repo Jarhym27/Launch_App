@@ -144,6 +144,24 @@ exports.seed = async function (knex) {
       notification_ack: 'true',
       timestamp: '2023-04-16 16:52:12',
     },
+    {
+      sender_id: 11,
+      recipient_id: 8,
+      launch_request_id: 11,
+      message: "We are looking to launch an experimental payload into LEO. We request that we are the only payload onboard.",
+      notification_type: "New request",
+      notification_ack: 'true',
+      timestamp: '2023-04-16 16:52:12',
+    },
+    {
+      sender_id: 8,
+      recipient_id: 11,
+      launch_request_id: 11,
+      message: "Yes, we can support! We will make sure you are the only payload on the vehicle. Our team for classified launches will be in contact shortly.",
+      notification_type: "Request accepted",
+      notification_ack: 'true',
+      timestamp: '2023-04-20 16:52:12',
+    },
   ]
   );
 };
