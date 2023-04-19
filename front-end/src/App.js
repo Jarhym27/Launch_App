@@ -50,7 +50,7 @@ function App() {
   }, [])
 
   return (
-    <RocketInfo.Provider value={{ userCreate, setUserCreate, userLogin, setUserLogin, availablePads, setAvailablePads, launchVehicles, setLaunchVehicles, refresh, setRefresh }}>
+    <RocketInfo.Provider value={{ userCreate, setUserCreate, userLogin, setUserLogin, availablePads, setAvailablePads, launchVehicles, setLaunchVehicles, myRequests, setMyRequests, refresh, setRefresh }}>
       <Router>
         {userLogin.username && <Header />}
         <Routes>
