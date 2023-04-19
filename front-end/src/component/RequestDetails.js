@@ -21,6 +21,7 @@ const RequestDetails = () => {
             <Row>Payload: {location.state.name}</Row>
             <Row>Description: {location.state.description}</Row>
             <Row>Target Orbit: {location.state.orbital_requirement}</Row>
+            <Row>Launch Date: {location.state.launch_date}</Row>
             </Col>
             <Col>
               <Messages selectedRequest={location.state}/>

@@ -74,10 +74,16 @@ const Header = () => {
             <Link className="headerLink" to={profilePath}>Profile</Link>
           </Navbar.Text>
           <Navbar.Text>
+            {userLogin.role ==='lsp_user' && <Link className="headerLink" to={'/metrics'}>My Metrics</Link>}
+          </Navbar.Text>
+          <Navbar.Text>
             <Link className="headerLink" to={'/messages'}>Messages</Link>
           </Navbar.Text>
           <Navbar.Text>
             <Link className="headerLink" to={'/aboutus'}>About Us</Link>
+          </Navbar.Text>
+          <Navbar.Text>
+            <Link className="headerLink" to={'/vehicles'}>Launch Vehicles</Link>
           </Navbar.Text>
         </Navbar.Collapse>
         <Navbar.Collapse className="justify-content-end">
@@ -89,7 +95,6 @@ const Header = () => {
             </Navbar.Text>
           </>
           }
-
 
           <Button className='mx-4' onClick={() => logout()}
             variant="outline-light">Logout</Button>
