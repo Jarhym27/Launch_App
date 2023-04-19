@@ -142,9 +142,9 @@ let denied = submittedPayloads?.filter((e, i) =>  (e.request_status === 'Denied'
           </Col>
 
 
-          <Col xs={6}>
+          <Col xs={6} className='secondCol'>
           <Row className="payloadsTitle">
-              <h3>Submitted Payloads</h3>
+              <h3> Payloads</h3>
           </Row>
             <Tabs
               id="controlled-tab-example"
@@ -215,7 +215,7 @@ let denied = submittedPayloads?.filter((e, i) =>  (e.request_status === 'Denied'
                               <Link state={e} to='/request'>
                                 Here
                               </Link>{" "}
-                              to book with a Launch Provider
+                              to resubmit
                         <footer>
                           <small>Payload Created: {e.updated_at}</small>
                         </footer>

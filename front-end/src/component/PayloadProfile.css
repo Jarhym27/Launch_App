@@ -21,8 +21,10 @@
     color: #EDEDED;
 }
 .payloadsTitle{
+    text-align: center;
     width: 50%;
 }
+
 .profileCol{
     width: 100%;
     padding-top: 2.75rem;
@@ -71,8 +73,8 @@
     text-decoration: none;
 }
 .tabsPayloads{
-    background-color: #171717;
-color:#EDEDED !important;
+    /* background-color: #171717; */
+    color:#EDEDED !important;
 }
 @font-face {
     font-family: 'Silkscreen'; /*a name to be used later*/
