@@ -93,11 +93,20 @@ function LspLaunchVehicles() {
   const handleUpdate = () => {
     console.log('name from update:\n', name)
     console.log('status from update:\n', status)
+    console.log('status from update:\n', pad)
     fetch(`http://localhost:8080/table/launch_vehicles?id=${selectedVehicle.id}`, {
       method: "PATCH",
       body: JSON.stringify({
         launch_vehicle: name,
-        booked_status: status
+        booked_status: status,
+        cost: cost,
+        meo_weight: meoWeight,
+        leo_weight: leoWeight,
+        geo_weight: geoWeight,
+        heo_weight: heoWeight,
+        booked_status: status,
+        launch_pad_id: availablePads.id
+        
       }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -203,14 +212,6 @@ function LspLaunchVehicles() {
               {availablePads?.map((element, i) => <option key={`option: ${i}`}> {element.launch_pad} </option>)}
             </Form.Select>
           </Form.Group>
-          <Form.Group onChange={(e) => setStatus(e.target.value)}
-            className="mb-3"
-            controlId="formDropDown">
-            <Form.Label>Status</Form.Label>
-            <Form.Select >
-              <option value={status}> Available </option>
-            </Form.Select>
-          </Form.Group>
           <Form.Group onChange={(e) => setMeoWeight(e.target.value)}
             className="mb-3"
             controlId="formBasicEmail">
@@ -269,6 +270,17 @@ function LspLaunchVehicles() {
                 placeholder=""
               />
             </Form.Group>
+            <Form.Group
+              onChange={(e) => setPad(e.target.value)}
+              className="mb-3"
+              controlId="formBasicEmail"
+            >
+            <Form.Label>Launch Pad Name</Form.Label>
+              <Form.Select>
+               {availablePads?.map((element, i) => <option key={`option: ${i}`}> {element.launch_pad} </option>)}
+              </Form.Select>
+            </Form.Group>
+
             <Form.Group className="mb-3" controlId="formBasicEmail"
             >
               <Form.Label>Launch Vehicle Status</Form.Label>
