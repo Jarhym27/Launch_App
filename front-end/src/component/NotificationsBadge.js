@@ -36,7 +36,6 @@ const toggleShowA = (index,message_id) => {
   };
 
     useEffect(() => {
-        console.log('Yo it entered')
         if(userLogin.role === 'payload_user'){
           fetch("http://localhost:8080/join/payload_user_messages") 
             .then(res =>res.json())
