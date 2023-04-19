@@ -56,7 +56,7 @@ const Login = () => {
   };
 
   return (
-    <div className="background p-3" style={{ height: "100vh" , backgroundSize: "cover"}}>
+    <div className="background p-3">
       <h1 className="text-center topHeader loginPageHeader">L<span id="hide">aunch</span>-Uber </h1>
       <div className="d-flex w-100 h-100vh align-items-center">
         <div className="col">

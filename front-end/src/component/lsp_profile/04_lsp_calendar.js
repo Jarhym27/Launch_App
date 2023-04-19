@@ -11,10 +11,15 @@ import LspLaunchPads from "./03_lsp_launch_pads";
 import LspLaunchVehicles from "./02_lsp_launch_vehicles"
 import RequestList from "./05_lsp_requests_list";
 import "./000_calendar.css"
+<<<<<<< HEAD
 import { Modal, ListGroup, Form } from "react-bootstrap"
+=======
+import { Modal, ListGroup, Form, Card, Row, Container } from "react-bootstrap"
+>>>>>>> 1e19bcbc91148db95110d2ccb0dc5617485afdc2
 import moment from 'moment'
 import LaunchRequest from "../LaunchRequest";
 import { RocketInfo } from "../../App";
+import { RocketTakeoffFill, RocketFill } from "react-bootstrap-icons";
 
 const localizer = momentLocalizer(moment)
 
@@ -77,6 +82,11 @@ function LspCalendar() {
                                 $ {selectedEvent.cost}M
                             </div>
                         </ListGroup.Item>
+                        <ListGroup.Item as='li' className='d-flex justify-content-between align-items-start'>
+                            <div className="ms-2 me-auto">
+                                <div className='fw-bold'>Status</div>
+                                {selectedEvent.request_status}</div>
+                        </ListGroup.Item>
                     </ListGroup>
                 </Modal.Body>
             </Modal>
@@ -87,6 +97,7 @@ function LspCalendar() {
         return (
             <div >
                 <React.Fragment >
+<<<<<<< HEAD
                 <LspLaunchVehicles />
                     <LspLaunchPads />
                 </React.Fragment>
@@ -96,6 +107,40 @@ function LspCalendar() {
                         setModalShow(true)
                         setSelectedEvent(e)
                     }} />
+=======
+                    <LspLaunchVehicles />
+                    <LspLaunchPads />
+                </React.Fragment>
+                <Container>
+                    <Card>
+                        <Card.Title className='center' style={{ display: 'flex', justifyContent: "center" }}>Launch Schedule</Card.Title>
+                        <Row>
+                            <Card.Subtitle style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                <div className='mx-3' style={{ display:'flex', alignItems:'center'}}>
+                                    <RocketTakeoffFill color="green" /> 
+                                    <span className='mx-2'>Launched  |</span>
+                                    <RocketFill color="blue" /> 
+                                    <span className='mx-2'>Scheduled</span> 
+                                </div>
+                            </Card.Subtitle>
+                        </Row>
+                        <Calendar
+                            selectable={true}
+                            localizer={localizer}
+                            events={allEvents}
+                            eventContent={allEvents}
+                            startAccessor="launch_date"
+                            endAccessor="launch_date"
+                            style={{ height: 500, margin: "25px" }}
+                            onShowMore={(events, date) => this.setState({ showModal: true, events })}
+                            onSelectEvent={(e) => { setModalShow(true); setSelectedEvent(e) }}
+                            eventPropGetter={(event) => {
+                                const backgroundColor = event.request_status === 'Launched' ? 'green' : 'blue';
+                                return { style: { backgroundColor } }
+                            }} />
+                    </Card>
+                </Container>
+>>>>>>> 1e19bcbc91148db95110d2ccb0dc5617485afdc2
                 <CalendarModal show={modalShow} onHide={() => setModalShow(false)} />
             </div>
         );
