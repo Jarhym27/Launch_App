@@ -10,7 +10,8 @@ import {
   PointElement,
   LineElement,
 } from "chart.js";
-import { Doughnut, Line } from "react-chartjs-2";
+import { Doughnut, Line, Pie } from "react-chartjs-2";
+import "../css/metrics.css";
 
 const Metrics = () => {
   const { userLogin } = useContext(RocketInfo);
@@ -33,8 +34,6 @@ const Metrics = () => {
 
   //TODO:
   //CHART FOR LAUNCH VEHICLES
-  //CHART FOR ORBIT POPULARITY
-  //KGS OF PAYLOADS LAUNCHED
 
   useEffect(() => {
     if (userLogin) {
@@ -71,6 +70,7 @@ const Metrics = () => {
               return users;
             })
             .then((users) => {
+              //Customer Sales Data
               let data0 = {
                 labels: users.map((e) => e.organization),
                 datasets: [
@@ -104,36 +104,94 @@ const Metrics = () => {
                     borderWidth: 1,
                   },
                 ],
-              }
-							console.log(requests)
-							let yearsKgs = []
-							requests.forEach((req) => {
-								if(yearsKgs.map(e => e.year).includes(req.launch_date.slice(0, 4))){
-									yearsKgs[yearsKgs.map(e => e.year).indexOf(req.launch_date.slice(0, 4))].weight += req.weight
-								}
-								else{
-									yearsKgs.push({
-										year: req.launch_date.slice(0, 4),
-										weight: req.weight
-									})
-								}
-								yearsKgs = yearsKgs.sort((a,b) => a.year - b.year)
-							})
-							let data3 = {
-								labels: yearsKgs.map(e => e.year),
-								datasets: [
-									{
-										label: 'Weight in Kilograms',
-										data: yearsKgs.map(e => e.weight),
-										borderColor: 'rgb(61, 13, 25)',
-										backgroundColor: 'rgba(255, 99, 132, 0.5)',
-									},
-								],
-							};
-							console.log(data3)
+              };
+
+              //KGS Launched Data
+              let yearsKgs = [];
+              requests.forEach((req) => {
+                if (
+                  yearsKgs
+                    .map((e) => e.year)
+                    .includes(req.launch_date.slice(0, 4))
+                ) {
+                  yearsKgs[
+                    yearsKgs
+                      .map((e) => e.year)
+                      .indexOf(req.launch_date.slice(0, 4))
+                  ].weight += req.weight;
+                } else {
+                  yearsKgs.push({
+                    year: req.launch_date.slice(0, 4),
+                    weight: req.weight,
+                  });
+                }
+                yearsKgs = yearsKgs.sort((a, b) => a.year - b.year);
+              });
+              let data3 = {
+                labels: yearsKgs.map((e) => e.year),
+                datasets: [
+                  {
+                    label: "Weight in Kilograms",
+                    data: yearsKgs.map((e) => e.weight),
+                    borderColor: "rgb(61, 13, 25)",
+                    backgroundColor: "rgba(255, 99, 132, 0.5)",
+                  },
+                ],
+              };
+
+              //Orbit Popularity Data
+              let orbitData = [];
+              requests.forEach((req) => {
+                if (
+                  orbitData.map((e) => e.type).includes(req.orbital_requirement)
+                ) {
+                  orbitData[
+                    orbitData
+                      .map((e) => e.type)
+                      .indexOf(req.orbital_requirement)
+                  ].count++;
+                } else {
+                  orbitData.push({
+                    type: req.orbital_requirement,
+                    count: 1,
+                  });
+                }
+              });
+              let data1 = {
+                labels: orbitData.map((e) => e.type), //orbitData.map((e) => e.type)
+                datasets: [
+                  {
+                    label: "# of Votes",
+                    data: orbitData.map((e) => e.count), //orbitData.map(e => e.count)
+                    backgroundColor: [
+                      "rgba(255, 99, 132, 0.2)",
+                      "rgba(54, 162, 235, 0.2)",
+                      "rgba(255, 206, 86, 0.2)",
+                      "rgba(75, 192, 192, 0.2)",
+                      "rgba(153, 102, 255, 0.2)",
+                      "rgba(255, 159, 64, 0.2)",
+                    ],
+                    borderColor: [
+                      "rgba(255, 99, 132, 1)",
+                      "rgba(54, 162, 235, 1)",
+                      "rgba(255, 206, 86, 1)",
+                      "rgba(75, 192, 192, 1)",
+                      "rgba(153, 102, 255, 1)",
+                      "rgba(255, 159, 64, 1)",
+                    ],
+                    borderWidth: 1,
+                  },
+                ],
+              };
+
+							//Launch Vehicle Data
+							let lvData = [];
+							
+
               let copy = dataSet;
+              copy[1] = data1;
               copy[0] = data0;
-							copy[3] = data3;
+              copy[3] = data3;
               setDataSet(copy);
             });
         });
@@ -143,18 +201,8 @@ const Metrics = () => {
   return (
     <>
       <h1 className="text-center">Metrics for: {userLogin.organization}</h1>
-      <div className="row">
-        <div className="col">
-          {dataSet[0] ? (
-            <>
-              <h2 className="text-center">Customer Sales Data</h2>
-              <Doughnut data={dataSet[0]} />
-            </>
-          ) : (
-            <></>
-          )}
-        </div>
-        <div className="col">
+      <div className="row my-3 mx-2">
+        <div className="col chart">
           {dataSet[0] ? (
             <>
               <h2 className="text-center">Weight Launched / Launching</h2>
@@ -164,9 +212,40 @@ const Metrics = () => {
             <></>
           )}
         </div>
+        <div className="col chart">
+          {dataSet[0] ? (
+            <>
+              <h2 className="text-center">Customer Sales Data</h2>
+              <Doughnut
+                data={dataSet[0]}
+                className="mx-5"
+                options={{
+                  maintainAspectRatio: false, // Don't maintain w/h ratio
+                }}
+              />
+            </>
+          ) : (
+            <></>
+          )}
+        </div>
       </div>
-      <div className="row">
-        <div className="col">c</div>
+      <div className="row my-5 mx-2">
+        <div className="col chart ">
+          {dataSet[0] ? (
+            <>
+              <h2 className="text-center">Popularity of Orbits</h2>
+              <Pie
+                data={dataSet[1]}
+                className="mx-5"
+                options={{
+                  maintainAspectRatio: false, // Don't maintain w/h ratio
+                }}
+              />
+            </>
+          ) : (
+            <></>
+          )}
+        </div>
         <div className="col">d</div>
       </div>
     </>
