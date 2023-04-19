@@ -15,7 +15,8 @@ exports.seed = async function(knex) {
       geo_weight:8300,
       heo_weight:10200,
       booked_status: 'available',
-      launch_pad_id: 1
+      launch_pad_id: 1,
+      picture: '/falcon_9.jpg'
     },
     {
       lsp_user_id: 8,
@@ -26,7 +27,8 @@ exports.seed = async function(knex) {
       geo_weight:8300,
       heo_weight:10200,
       booked_status: 'available',
-      launch_pad_id: 5
+      launch_pad_id: 5,
+      picture: '/falcon_9.jpg'
     },
     {
       lsp_user_id: 8,
@@ -37,7 +39,8 @@ exports.seed = async function(knex) {
       geo_weight:8300,
       heo_weight:10200,
       booked_status: 'available',
-      launch_pad_id: 12
+      launch_pad_id: 12,
+      picture: '/falcon_9.jpg'
     },
     {
       lsp_user_id: 8,
@@ -48,7 +51,8 @@ exports.seed = async function(knex) {
       geo_weight:8300,
       heo_weight:10200,
       booked_status: 'available',
-      launch_pad_id: 12
+      launch_pad_id: 12,
+      picture: '/falcon_9.jpg'
     },
     {
       lsp_user_id: 8,
@@ -59,7 +63,8 @@ exports.seed = async function(knex) {
       geo_weight:8300,
       heo_weight:10200,
       booked_status: 'booked',
-      launch_pad_id: 1
+      launch_pad_id: 1,
+      picture: '/falcon_9.jpg'
     },
     {
       lsp_user_id: 8,
@@ -70,7 +75,8 @@ exports.seed = async function(knex) {
       geo_weight:8300,
       heo_weight:10200,
       booked_status: 'available',
-      launch_pad_id: 5
+      launch_pad_id: 5,
+      picture: '/falcon_9.jpg'
     },
     {
       lsp_user_id: 8,
@@ -81,7 +87,8 @@ exports.seed = async function(knex) {
       geo_weight:8300,
       heo_weight:10200,
       booked_status: 'available',
-      launch_pad_id: 12
+      launch_pad_id: 12,
+      picture: '/falcon_9.jpg'
     },
     {
       lsp_user_id: 4,
@@ -92,7 +99,8 @@ exports.seed = async function(knex) {
       geo_weight:6000,
       heo_weight:8500,
       booked_status: 'available',
-      launch_pad_id: 13
+      launch_pad_id: 13,
+      picture: '/atlas_v.jpg'
     },
     {
       lsp_user_id: 4,
@@ -103,7 +111,8 @@ exports.seed = async function(knex) {
       geo_weight:6000,
       heo_weight:8500,
       booked_status: 'available',
-      launch_pad_id: 13
+      launch_pad_id: 13,
+      picture: '/atlas_v.jpg'
     },
     {
       lsp_user_id: 8,
@@ -114,7 +123,8 @@ exports.seed = async function(knex) {
       geo_weight:22200,
       heo_weight:16700,
       booked_status: 'available',
-      launch_pad_id: 1
+      launch_pad_id: 1,
+      picture: '/falcon_heavy.jpg'
     },
     {
       lsp_user_id: 8,
@@ -125,7 +135,8 @@ exports.seed = async function(knex) {
       geo_weight:8300,
       heo_weight:10200,
       booked_status: 'available',
-      launch_pad_id: 1
+      launch_pad_id: 1,
+      picture: '/falcon_9.jpg'
     },
     {
       lsp_user_id: 8,
@@ -136,7 +147,8 @@ exports.seed = async function(knex) {
       geo_weight:22200,
       heo_weight:16700,
       booked_status: 'available',
-      launch_pad_id: 1
+      launch_pad_id: 1,
+      picture: '/falcon_heavy.jpg'
     },
     {
       lsp_user_id: 8,
@@ -147,7 +159,8 @@ exports.seed = async function(knex) {
       geo_weight:22200,
       heo_weight:16700,
       booked_status: 'available',
-      launch_pad_id: 1
+      launch_pad_id: 1,
+      picture: '/falcon_heavy.jpg'
     },
     {
       lsp_user_id: 8,
@@ -158,7 +171,8 @@ exports.seed = async function(knex) {
       geo_weight:22200,
       heo_weight:16700,
       booked_status: 'available',
-      launch_pad_id: 1
+      launch_pad_id: 1,
+      picture: '/falcon_heavy.jpg'
     },
     {
       lsp_user_id: 4,
@@ -169,7 +183,8 @@ exports.seed = async function(knex) {
       geo_weight:6000,
       heo_weight:8500,
       booked_status: 'available',
-      launch_pad_id: 13
+      launch_pad_id: 13,
+      picture: '/atlas_v.jpg'
     },
     {
       lsp_user_id: 4,
@@ -180,7 +195,8 @@ exports.seed = async function(knex) {
       geo_weight:6000,
       heo_weight:8500,
       booked_status: 'available',
-      launch_pad_id: 6
+      launch_pad_id: 6,
+      picture: '/atlas_v.jpg'
     },
     {
       lsp_user_id: 4,
@@ -191,7 +207,8 @@ exports.seed = async function(knex) {
       geo_weight:6000,
       heo_weight:8500,
       booked_status: 'available',
-      launch_pad_id: 7
+      launch_pad_id: 7,
+      picture: '/atlas_v.jpg'
     },
     {
       lsp_user_id: 5,
@@ -202,7 +219,8 @@ exports.seed = async function(knex) {
       geo_weight: null,
       heo_weight: null,
       booked_status: 'booked',
-      launch_pad_id: 14
+      launch_pad_id: 14,
+      picture: '/electron.jfif'
     },
     {
       lsp_user_id: 5,
@@ -213,7 +231,8 @@ exports.seed = async function(knex) {
       geo_weight: null,
       heo_weight: null,
       booked_status: 'available',
-      launch_pad_id: 14
+      launch_pad_id: 14,
+      picture: '/electron.jfif'
     },
     {
       lsp_user_id: 7,
@@ -224,7 +243,8 @@ exports.seed = async function(knex) {
       geo_weight:null,
       heo_weight:null,
       booked_status: 'booked',
-      launch_pad_id: 8
+      launch_pad_id: 8,
+      picture: '/firefly_alpha.jpg'
     },
     {
       lsp_user_id: 7,
@@ -235,7 +255,8 @@ exports.seed = async function(knex) {
       geo_weight:null,
       heo_weight:null,
       booked_status: 'available',
-      launch_pad_id: 8
+      launch_pad_id: 8,
+      picture: '/firefly_alpha.jpg'
     },
     {
       lsp_user_id: 7,
@@ -246,7 +267,8 @@ exports.seed = async function(knex) {
       geo_weight:null,
       heo_weight:null,
       booked_status: 'available',
-      launch_pad_id: 8
+      launch_pad_id: 8,
+      picture: '/firefly_alpha.jpg'
     },
     {
       lsp_user_id: 6,
@@ -257,7 +279,8 @@ exports.seed = async function(knex) {
       geo_weight:13000,
       heo_weight:32000,
       booked_status: 'available',
-      launch_pad_id: 9
+      launch_pad_id: 9,
+      picture: '/new_glenn.png'
     },
     {
       lsp_user_id: 6,
@@ -268,7 +291,8 @@ exports.seed = async function(knex) {
       geo_weight:13000,
       heo_weight:32000,
       booked_status: 'available',
-      launch_pad_id: 8
+      launch_pad_id: 8,
+      picture: '/new_glenn.png'
     },
     {
       lsp_user_id: 6,
@@ -279,7 +303,8 @@ exports.seed = async function(knex) {
       geo_weight:13000,
       heo_weight:32000,
       booked_status: 'available',
-      launch_pad_id: 9
+      launch_pad_id: 9,
+      picture: '/new_glenn.png'
     },
     {
       lsp_user_id: 6,
@@ -290,7 +315,8 @@ exports.seed = async function(knex) {
       geo_weight:13000,
       heo_weight:32000,
       booked_status: 'available',
-      launch_pad_id: 8
+      launch_pad_id: 8,
+      picture: '/new_glenn.png'
     },
     {
       lsp_user_id: 10,
@@ -301,7 +327,8 @@ exports.seed = async function(knex) {
       geo_weight:null,
       heo_weight:null,
       booked_status: 'available',
-      launch_pad_id: 7
+      launch_pad_id: 7,
+      picture: '/rocket3.0.jpg'
     },
     {
       lsp_user_id: 10,
@@ -312,7 +339,8 @@ exports.seed = async function(knex) {
       geo_weight:null,
       heo_weight:null,
       booked_status: 'available',
-      launch_pad_id: 7
+      launch_pad_id: 7,
+      picture: '/rocket3.0.jpg'
     },
     {
       lsp_user_id: 10,
@@ -323,7 +351,8 @@ exports.seed = async function(knex) {
       geo_weight:null,
       heo_weight:null,
       booked_status: 'available',
-      launch_pad_id: 7
+      launch_pad_id: 7,
+      picture: '/rocket3.0.jpg'
     },
     {
       lsp_user_id: 10,
@@ -334,7 +363,8 @@ exports.seed = async function(knex) {
       geo_weight:null,
       heo_weight:null,
       booked_status: 'available',
-      launch_pad_id: 7
+      launch_pad_id: 7,
+      picture: '/rocket3.0.jpg'
     },
     {
       lsp_user_id: 9,
@@ -345,7 +375,8 @@ exports.seed = async function(knex) {
       geo_weight:12000,
       heo_weight:16000,
       booked_status: 'available',
-      launch_pad_id: 3
+      launch_pad_id: 3,
+      picture: '/terran_r.png'
     },
     {
       lsp_user_id: 9,
@@ -356,7 +387,8 @@ exports.seed = async function(knex) {
       geo_weight:12000,
       heo_weight:16000,
       booked_status: 'available',
-      launch_pad_id: 3
+      launch_pad_id: 3,
+      picture: '/terran_r.png'
     },
     {
       lsp_user_id: 9,
@@ -367,7 +399,8 @@ exports.seed = async function(knex) {
       geo_weight:12000,
       heo_weight:16000,
       booked_status: 'available',
-      launch_pad_id: 3
+      launch_pad_id: 3,
+      picture: '/terran_r.png'
     },
     {
       lsp_user_id: 9,
@@ -378,7 +411,8 @@ exports.seed = async function(knex) {
       geo_weight:12000,
       heo_weight:16000,
       booked_status: 'available',
-      launch_pad_id: 3
+      launch_pad_id: 3,
+      picture: '/terran_r.png'
     },
     {
       lsp_user_id: 9,
@@ -389,7 +423,8 @@ exports.seed = async function(knex) {
       geo_weight:12000,
       heo_weight:16000,
       booked_status: 'available',
-      launch_pad_id: 3
+      launch_pad_id: 3,
+      picture: '/terran_r.png'
     },
     {
       lsp_user_id: 9,
@@ -400,7 +435,8 @@ exports.seed = async function(knex) {
       geo_weight:12000,
       heo_weight:16000,
       booked_status: 'available',
-      launch_pad_id: 3
+      launch_pad_id: 3,
+      picture: '/terran_r.png'
     },
   ]);
 };
