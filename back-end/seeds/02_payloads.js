@@ -178,7 +178,24 @@ exports.seed = async function (knex) {
         { payload_user_id: 1, weight: 2200, orbital_requirement: "GEO", name: "Sun Monitor 42", description: "Cutting-edge satellite with powerful instruments to observe the sun's activity from a geostationary orbit." },
         { payload_user_id: 2, weight: 4300, orbital_requirement: "GEO", name: "Sun Monitor 52", description: "State-of-the-art satellite designed to capture detailed images of the sun's surface and corona from a geostationary orbit." },
         { payload_user_id: 3, weight: 3070, orbital_requirement: "LEO", name: "RfG 20", description: "Advanced satellite equipped with a radio frequency generator to conduct experiments in a low Earth orbit." },
-        { payload_user_id: 1, weight: 2004, orbital_requirement: "LEO", name: "RfG 22", description: "Innovative satellite with a sophisticated radio frequency generator for conducting experiments in a low Earth orbit." }
+        { payload_user_id: 1, weight: 2004, orbital_requirement: "LEO", name: "RfG 22", description: "Innovative satellite with a sophisticated radio frequency generator for conducting experiments in a low Earth orbit." },
+        ///adding launched payloads starting at id 47
+        { payload_user_id: 11, weight: 2008, orbital_requirement: "MEO", name: "RfG 28", description: "Innovative satellite with a sophisticated radio frequency generator for conducting experiments in a medium Earth orbit." },
+        { payload_user_id: 11, weight: 4000, orbital_requirement: "GEO", name: "NROL-35", description: "Highly maneuverable spy satellite for experimentation in GEO." },
+        { payload_user_id: 1, weight: 6700, orbital_requirement: "GEO", name: "MILSTAR 56", description: "High bandwidth comm satellite for 4 SOPS." },
+        { payload_user_id: 1, weight: 540, orbital_requirement: "LEO", name: "SmallStar-6", description: "High bandwidth mini comm satellite for testing." },
+        { payload_user_id: 2, weight: 540, orbital_requirement: "LEO", name: "SmallStar-12", description: "High bandwidth mini imaging for testing." },
+        { payload_user_id: 2, weight: 740, orbital_requirement: "MEO", name: "Cube-Sat 7", description: "Highly maneuverable satellite used to test the van allen belts." },
+        { payload_user_id: 3, weight: 500, orbital_requirement: "LEO", name: "Cube-Sat 13", description: "Highly maneuverable satellite used to test the van allen belts." },
+        { payload_user_id: 3, weight: 550, orbital_requirement: "LEO", name: "Cube-Sat 17", description: "Highly maneuverable satellite used to test the van allen belts." },
+        { payload_user_id: 11, weight: 1750, orbital_requirement: "LEO", name: "SBIRS-12", description: "High tech missile warning satellite." },
+        { payload_user_id: 11, weight: 6750, orbital_requirement: "GEO", name: "Comm Sat 19", description: "High tech comm satellite in GEO." },
+        { payload_user_id: 11, weight: 4750, orbital_requirement: "MEO", name: "Comm Sat 29", description: "High tech comm satellite in MEO." },
+        { payload_user_id: 2, weight: 6750, orbital_requirement: "MEO", name: "Test Sat 79", description: "High tech sat to test manufacturing in space." },
+        { payload_user_id: 2, weight: 4750, orbital_requirement: "MEO", name: "Test Sat 80", description: "High tech sat to test manufacturing in space." },
+        { payload_user_id: 3, weight: 3750, orbital_requirement: "GEO", name: "Refuel Sat 14", description: "Experimental satellite to test orbital refueling." },
+        { payload_user_id: 11, weight: 500, orbital_requirement: "LEO", name: "CubeSat 1", description: "Experimental satellite to test orbital refueling." },
+        { payload_user_id: 11, weight: 1500, orbital_requirement: "LEO", name: "Print-Sat 1", description: "High tech sat to test 3d printing in space." },
     ]
   );
 };
