@@ -10,7 +10,7 @@ import {
   PointElement,
   LineElement,
 } from "chart.js";
-import { Doughnut } from "react-chartjs-2";
+import { Doughnut, Line } from "react-chartjs-2";
 
 const Metrics = () => {
   const { userLogin } = useContext(RocketInfo);
@@ -32,7 +32,6 @@ const Metrics = () => {
   const [dataSet, setDataSet] = useState([]); //0 - Customer Spent, 1 - Orbit Popularity, 2 - Launch Vehicles, 3 - KGs Launched
 
   //TODO:
-  //CHART FOR CUSTOMER % SPENT
   //CHART FOR LAUNCH VEHICLES
   //CHART FOR ORBIT POPULARITY
   //KGS OF PAYLOADS LAUNCHED
@@ -106,8 +105,35 @@ const Metrics = () => {
                   },
                 ],
               }
+							console.log(requests)
+							let yearsKgs = []
+							requests.forEach((req) => {
+								if(yearsKgs.map(e => e.year).includes(req.launch_date.slice(0, 4))){
+									yearsKgs[yearsKgs.map(e => e.year).indexOf(req.launch_date.slice(0, 4))].weight += req.weight
+								}
+								else{
+									yearsKgs.push({
+										year: req.launch_date.slice(0, 4),
+										weight: req.weight
+									})
+								}
+								yearsKgs = yearsKgs.sort((a,b) => a.year - b.year)
+							})
+							let data3 = {
+								labels: yearsKgs.map(e => e.year),
+								datasets: [
+									{
+										label: 'Weight in Kilograms',
+										data: yearsKgs.map(e => e.weight),
+										borderColor: 'rgb(61, 13, 25)',
+										backgroundColor: 'rgba(255, 99, 132, 0.5)',
+									},
+								],
+							};
+							console.log(data3)
               let copy = dataSet;
               copy[0] = data0;
+							copy[3] = data3;
               setDataSet(copy);
             });
         });
@@ -131,8 +157,8 @@ const Metrics = () => {
         <div className="col">
           {dataSet[0] ? (
             <>
-              <h2 className="text-center">Customer Sales Data</h2>
-              <Doughnut data={dataSet[0]} />
+              <h2 className="text-center">Weight Launched / Launching</h2>
+              <Line data={dataSet[3]} />
             </>
           ) : (
             <></>
