@@ -136,10 +136,10 @@ function LspLaunchPads() {
       <Row>
         <Col className="col-3">
           <h1>Launch Pads</h1>
-          <Button onClick={handleShow}> Add a New Pad</Button>
+          <Button className='addPayload' onClick={handleShow}> Add a New Pad</Button>
           {availablePads?.map((pads, i) => {
             return (
-              <Card key={i} >
+              <Card className="buttonCard" key={i} >
                 <Card.Body>
                   <Card.Title>
                   </Card.Title>
@@ -148,8 +148,8 @@ function LspLaunchPads() {
                     {pads.lsp_user_id} <br></br>
                     {pads.launch_site} <br></br>
                     {pads.pad_status ? 'Status: Available' : 'Status : Unavailable'} <br></br>
-                    <button onClick={() => [setSelectedPad(pads), handleShowUpdate(),]}>Edit</button>
-                    <button onClick={() => [setSelectedPad(pads), handleShowDelete()]}>Delete</button>
+                    <Button className="addPayload"  onClick={() => [setSelectedPad(pads), handleShowUpdate(),]}>Edit</Button>
+                    <Button  className="addPayload" onClick={() => [setSelectedPad(pads), handleShowDelete()]}>Delete</Button>
                   </Card.Text>
                   {/* <div>add New Pad</div> */}
                 </Card.Body>
@@ -277,9 +277,7 @@ function LspLaunchPads() {
             <Button
               onClick={() => handleCloseUpdate()}
               className="addPayload"
-              variant="primary"
-              type="submit"
-            >
+              type="submit">
               Update
             </Button>
           </Form>
@@ -287,7 +285,6 @@ function LspLaunchPads() {
         <Modal.Footer className="modalForm">
           <Button
             className="addPayload"
-            variant="outline-primary"
             onClick={() => handleCloseUpdate()}
           >
             Cancel
@@ -298,7 +295,7 @@ function LspLaunchPads() {
 
       <Modal show={showDelete} onHide={handleCloseDelete} className="modalBg">
         <Modal.Header closeButton className="modalForm">
-          <Modal.Title>DELETE Payload?</Modal.Title>
+          <Modal.Title>Delete Pad?</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>

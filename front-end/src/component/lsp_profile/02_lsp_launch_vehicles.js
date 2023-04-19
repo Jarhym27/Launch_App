@@ -15,7 +15,7 @@ import { RocketInfo } from "../../App";
 export default LspLaunchVehicles;
 
 function LspLaunchVehicles() {
-  const { userLogin, availablePads, refresh, setRefresh } = useContext(RocketInfo);
+  const { userLogin, setUserLogin, availablePads, setAvailablePads } = useContext(RocketInfo);
   const [name, setName] = useState();
   const [cost, setCost] = useState();
   const [pad, setPad] = useState();
@@ -48,8 +48,8 @@ function LspLaunchVehicles() {
   useEffect(() => {
     fetch('http://localhost:8080/table/launch_vehicles')
       .then(res => res.json())
-      .then(data => { setLaunchVehicle(data); setFetchTime(false); setRefresh(false); })
-  }, [fetchTime, refresh])
+      .then(data => { setLaunchVehicle(data); setFetchTime(false) })
+  }, [fetchTime])
 
  //Add a new vehicle
   const addNewVehicle = (event) => {
@@ -113,11 +113,13 @@ function LspLaunchVehicles() {
  
   const handleDelete = () => {
     let newVehicleList = launchVehicle.filter(item => item.id !== selectedVehicle.id);
-    console.log('selectedVehicle:\n', selectedVehicle)
     setLaunchVehicle(newVehicleList);
-    fetch('http://localhost:8080/table/launch_vehicles', {
+    setSelectedVehicle([]);
+    fetch('http://localhost:8080/table/launch_vehicle', {
       method: "DELETE",
-      body: JSON.stringify({id: selectedVehicle.id}),
+      body: JSON.stringify({
+        id: selectedVehicle.id
+      }),
       headers: {
         "Content-type": "application/json; charset=UTF-8"
       }
@@ -132,7 +134,6 @@ function LspLaunchVehicles() {
           console.log(res.status)
         }
       })
-      .catch(err => console.log('Error:\n', err))
   }
 
   const theVehicle = submitVehicle?.filter(element => element.lsp_user_id === userLogin.id)
@@ -141,10 +142,10 @@ function LspLaunchVehicles() {
   return (<>
     <Row>
       <Col className="col-3">
-        <Card>
+        <Card className="payloadProfileCard">
           <Card.Title>
             Launch Vehicle
-            <Button onClick={handleShow}> Add Launch Vehicle</Button>
+            <Button  className="addPayload" onClick={handleShow}> Add Launch Vehicle</Button>
           </Card.Title>
           {filteredVehicle?.map((vehicle, j) => {
             return (<Card.Body key={j}>
@@ -155,11 +156,12 @@ function LspLaunchVehicles() {
                 <br></br>
                 Status: {vehicle.booked_status}
                 <br></br>
-                <button onClick={() => {setSelectedVehicle(vehicle);   handleShowUpdate();
+                <Button className="addPayload" onClick={() => {setSelectedVehicle(vehicle);   handleShowUpdate();
                 setName(vehicle.launch_vehicle);
                   console.log('selectedVehicle:\n',selectedVehicle)}}>
-                    Edit</button>
-                    <button onClick={() => {setSelectedVehicle(vehicle); handleShowDelete();}}>Delete</button>
+                    Edit</Button>
+                    <Button  className="addPayload" onClick={() => {setSelectedVehicle(vehicle); handleShowDelete();}}>
+                      Delete</Button>
               </Card.Text>
             </Card.Body>)
           })}
@@ -192,13 +194,13 @@ function LspLaunchVehicles() {
             onChange={(e) => setCost(e.target.value)}
             className="mb-3"
             controlId="formBasicEmail">
-            <Form.Label>Cost</Form.Label>
+            <Form.Label>Cost in Million USD</Form.Label>
             <Form.Control type="text" placeholder="cost" />
           </Form.Group>
           <Form.Group onChange={(e) => setPad(e.target.value)}
             className="mb-3"
             controlId="formDropDown">
-            <Form.Label>Launch_Pad</Form.Label>
+            <Form.Label>Launch Pad</Form.Label>
             <Form.Select>
               {availablePads?.map((element, i) => <option key={`option: ${i}`}> {element.launch_pad} </option>)}
             </Form.Select>
@@ -214,30 +216,31 @@ function LspLaunchVehicles() {
           <Form.Group onChange={(e) => setMeoWeight(e.target.value)}
             className="mb-3"
             controlId="formBasicEmail">
-            <Form.Label>Meo Weight in tons</Form.Label>
+            <Form.Label>MEO Weight in tons</Form.Label>
             <Form.Control type="text" placeholder="Meo Weight" />
           </Form.Group>
           <Form.Group onChange={(e) => setLeoWeight(e.target.value)}
             className="mb-3"
             controlId="formBasicEmail">
-            <Form.Label>Leo Weight in tons</Form.Label>
+            <Form.Label>LEO Weight in tons</Form.Label>
             <Form.Control type="text" placeholder="Leo Weight" />
           </Form.Group>
           <Form.Group onChange={(e) => setGeoWeight(e.target.value)}
             className="mb-3"
             controlId="formBasicEmail">
-            <Form.Label>Geo Weight in tons</Form.Label>
+            <Form.Label>GEO Weight in tons</Form.Label>
             <Form.Control type="text" placeholder="Geo Weight" />
           </Form.Group>
           <Form.Group onChange={(e) => setHeoWeight(e.target.value)}
             className="mb-3"
             controlId="formBasicEmail">
-            <Form.Label>Heo Weight in tons</Form.Label>
+            <Form.Label>HEO Weight in tons</Form.Label>
             <Form.Control type="text" placeholder="Heo Weight" />
           </Form.Group>
           <Button 
            onClick={handleClose}
-          className="addPayload"
+           className="addPayload" 
+          variant="primary"
             type="submit"
           >Submit</Button>
         </Form>
@@ -359,7 +362,6 @@ function LspLaunchVehicles() {
         </Modal.Footer>
       </Modal>
 
-    
     <Modal show={showDelete} onHide={handleCloseDelete} className="modalBg">
       <Modal.Header closeButton className="modalForm">
         <Modal.Title>DELETE Vehicle?</Modal.Title>

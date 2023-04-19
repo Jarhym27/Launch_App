@@ -120,11 +120,11 @@ function LspCalendar() {
     if (filteredSchedule) {
         return (
             <div className="container">
-                <React.Fragment ><LspLaunchVehicles />
+                <React.Fragment ><LspLaunchVehicles /><RequestList/>
                     <LspLaunchPads />
                 </React.Fragment>
                 <h3 className='center' style={{ display: 'flex', justifyContent: "center" }}>Launch Schedule</h3>
-                <Calendar 
+                <Calendar className="buttonCard"
                   selectable={true} 
                   localizer={localizer} 
                   events={eventInfo} 
