@@ -57,8 +57,6 @@ const toggleShowA = (index,message_id) => {
         }
       }, [userLogin.id, trigger])
 
-
-
     if(totalMess) {
   return (
     <div >
