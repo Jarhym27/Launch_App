@@ -74,6 +74,9 @@ const Header = () => {
             <Link className="headerLink" to={profilePath}>Profile</Link>
           </Navbar.Text>
           <Navbar.Text>
+            <Link className="headerLink" to={'/metrics'}>My Metrics</Link>
+          </Navbar.Text>
+          <Navbar.Text>
             <Link className="headerLink" to={'/messages'}>Messages</Link>
           </Navbar.Text>
           <Navbar.Text>
