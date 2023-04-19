@@ -1,24 +1,16 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Container, Row, Col, Card, Button } from 'react-bootstrap'
-import LaunchRequest from "../LaunchRequest";
+import { Col, Card} from 'react-bootstrap'
 import { RocketInfo } from "../../App"
 import { Modal } from "react-bootstrap";
-import { resolvePath } from "react-router";
 import '../../css/lsp_requests_list.css'
-import { SiJsonwebtokens } from "react-icons/si";
-import { now } from "moment";
 
 const RequestList = () => {
   const { userLogin, setRefresh, myRequests, setMyRequests} = useContext(RocketInfo);
 
-  // const [myRequests, setMyRequests] = useState([])
-  const [myPayloads, setMyPayloads] = useState([])
-  const [showModal, setShowModal] = useState(false)
   const [myUsers, setMyUsers] = useState([])
   const [selectedRequest, setSelectedRequest] = useState()
   const [responseMessage, setResponseMessage] = useState('')
   const [decision, setDecision] = useState('')
-  const [selectedLaunchVehicle, setSelectedLaunchVehicle] = useState();
   const [fetchTime, setFetchTime] = useState(false)
 
   useEffect(() => {

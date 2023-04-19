@@ -44,12 +44,14 @@ const Home = () => {
   const [modalShow, setModalShow] = useState(false)
 
   const grabPayloads = (item) => {
-    let usersPayloads = []
+    var usersPayloads = []
     fetch('http://localhost:8080/join/users-payloads')
       .then(res => res.json())
       .then(data => {
         if(search.orbit){
           usersPayloads = data.filter(payload =>payload.orbital_requirement===search.orbit && payload.payload_user_id === userLogin.id && payload.weight <= item[payload.orbital_requirement.toLowerCase().concat('_weight').toString()])
+          console.log("first filter:",data.filter(payload =>payload.orbital_requirement===search.orbit && payload.payload_user_id === userLogin.id && payload.weight <= item[payload.orbital_requirement.toLowerCase().concat('_weight').toString()]))
+          
         } else {
           usersPayloads = data.filter(payload => payload.payload_user_id === userLogin.id && payload.weight <= item[payload.orbital_requirement.toLowerCase().concat('_weight').toString()])
         }
@@ -57,14 +59,15 @@ const Home = () => {
       })
       .then(res => res.json())
       .then(data => {
-        let filteredPayloads = usersPayloads;
+        let filteredPayloads = [...usersPayloads];
         for(let i=0;i<usersPayloads.length;i++){
           for(let j=0;j<data.length;j++){
             if(usersPayloads[i].id===data[j].payload_id && (data[j].request_status==="Launched" || data[j].request_status==="Scheduled" )){
-              filteredPayloads.splice(i,1)
+              delete filteredPayloads[i]
             }
           }
         }
+        filteredPayloads = filteredPayloads.filter(val=>val)
         usersPayloads = filteredPayloads
         setPayloadsLoading(true)
         setUserPayloads(usersPayloads)
@@ -74,6 +77,13 @@ const Home = () => {
       .then(data => {
         setSelectedLV(item)
       })
+  }
+
+  const sortRocketsbyCheapest = () => {
+    let current = JSON.parse(JSON.stringify(searchResults))
+    let sorted = current.sort((a,b) => (a.cost > b.cost) ? 1 : ((b.cost > a.cost) ? -1 : 0))
+    setSearchResults(sorted)
+    setLoading(true)
   }
 
 
@@ -559,7 +569,12 @@ const Home = () => {
             {!loading && Array.isArray(searchResults) && searchResults.length > 0 &&
               <Row>
                 <Col className='pick-up-container'>
-                  <Card className='card-container'>
+                  <Card className='search-results-container'>
+                    <Row className='my-2'>
+                      <Col className='text-end'>
+                        <Button onClick={()=>sortRocketsbyCheapest()}>Sort by cheapest</Button>
+                      </Col>
+                    </Row>
                     <ListGroup className='search-listgroup' variant="flush">
                       {
                         searchResults.map(item => {
@@ -567,13 +582,6 @@ const Home = () => {
 { return (
   <ListGroupItem className='search-list-item-selected' key={item.id}>
                             <Row>
-                              <Col >
-                                <img
-                                  className=""
-                                  src="http://via.placeholder.com/100x80"
-                                  alt="Card placeholder"
-                                />
-                              </Col>
                               <Col md={3} lg={3}>
                                 <Row>
                                   <h5>
@@ -591,7 +599,7 @@ const Home = () => {
                                   </h6>
                                 </Row>
                               </Col>
-                              <Col md={4} lg={4}>
+                              <Col md={6} lg={6}>
                                 <Row>
                                     <h6 className='list-detail'>
                                     Capacity
@@ -611,13 +619,6 @@ const Home = () => {
 } else { return (
   <ListGroupItem className='search-list-item' key={item.id}>
   <Row>
-    <Col >
-      <img
-        className=""
-        src="http://via.placeholder.com/100x80"
-        alt="Card placeholder"
-      />
-    </Col>
     <Col md={3} lg={3}>
       <Row>
         <h5>
@@ -635,7 +636,7 @@ const Home = () => {
         </h6>
       </Row>
     </Col>
-    <Col md={4} lg={4}>
+    <Col md={6} lg={6}>
       <Row>
           <h6 className='list-detail'>
           Capacity

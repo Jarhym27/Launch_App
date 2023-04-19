@@ -1,8 +1,6 @@
-import { useState,useContext, useEffect,useRef } from "react";
+import { useState,useContext, useEffect, useRef } from "react";
 import { RocketInfo } from "../App";
-import {Container, Row, Col} from 'react-bootstrap'
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import {Container, Row, Col, Form, Button} from 'react-bootstrap'
 import './Messages.css'
 const moment = require('moment')
 

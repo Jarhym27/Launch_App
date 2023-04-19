@@ -105,6 +105,10 @@
 .request-link-to-details{
     text-decoration: none;
 }
+.tabsPayloads{
+    background-color: #171717;
+color:#EDEDED !important;
+}
 @font-face {
     font-family: 'Silkscreen'; /*a name to be used later*/
     src: url('../media/Silkscreen/slkscr.ttf'); /*URL to font*/
