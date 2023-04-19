@@ -6,11 +6,12 @@ import {
   Tooltip,
   Legend,
   CategoryScale,
+  BarElement,
   LinearScale,
   PointElement,
   LineElement,
 } from "chart.js";
-import { Doughnut, Line, Pie } from "react-chartjs-2";
+import { Doughnut, Line, Pie, Bar } from "react-chartjs-2";
 import "../css/metrics.css";
 
 const Metrics = () => {
@@ -19,6 +20,7 @@ const Metrics = () => {
     ArcElement,
     Tooltip,
     Legend,
+    BarElement,
     CategoryScale,
     LinearScale,
     PointElement,
@@ -164,17 +166,17 @@ const Metrics = () => {
                     label: "# of Votes",
                     data: orbitData.map((e) => e.count), //orbitData.map(e => e.count)
                     backgroundColor: [
-                      "rgba(255, 99, 132, 0.2)",
-                      "rgba(54, 162, 235, 0.2)",
-                      "rgba(255, 206, 86, 0.2)",
+                      "rgba(245, 80, 39, 0.2)",
+                      "rgba(240, 96, 172, 0.2)",
+                      "rgba(126, 189, 178, 0.2)",
                       "rgba(75, 192, 192, 0.2)",
                       "rgba(153, 102, 255, 0.2)",
                       "rgba(255, 159, 64, 0.2)",
                     ],
                     borderColor: [
-                      "rgba(255, 99, 132, 1)",
-                      "rgba(54, 162, 235, 1)",
-                      "rgba(255, 206, 86, 1)",
+                      "rgba(245, 80, 39, 1)",
+                      "rgba(179, 43, 115, 1)",
+                      "rgba(126, 189, 178, 1)",
                       "rgba(75, 192, 192, 1)",
                       "rgba(153, 102, 255, 1)",
                       "rgba(255, 159, 64, 1)",
@@ -183,14 +185,36 @@ const Metrics = () => {
                   },
                 ],
               };
-
-							//Launch Vehicle Data
-							let lvData = [];
-							
+              console.log(requests);
+              //Launch Vehicle Data
+              let lvData = [];
+              requests.forEach((req) => {
+                if (lvData.map((e) => e.rocket).includes(req.launch_vehicle)) {
+                  lvData[
+                    lvData.map((e) => e.rocket).indexOf(req.launch_vehicle)
+                  ].count++;
+                } else {
+                  lvData.push({
+                    rocket: req.launch_vehicle,
+                    count: 1,
+                  });
+                }
+              });
+              let data2 = {
+                labels: lvData.map((e) => e.rocket),
+                datasets: [
+                  {
+                    label: "Launch Vehicle",
+                    data: lvData.map((e) => e.count),
+                    backgroundColor: "rgba(199, 153, 151, 0.5)",
+                  },
+                ],
+              };
 
               let copy = dataSet;
+							copy[0] = data0;
               copy[1] = data1;
-              copy[0] = data0;
+							copy[2] = data2
               copy[3] = data3;
               setDataSet(copy);
             });
@@ -203,7 +227,7 @@ const Metrics = () => {
       <h1 className="text-center">Metrics for: {userLogin.organization}</h1>
       <div className="row my-3 mx-2">
         <div className="col chart">
-          {dataSet[0] ? (
+          {dataSet[3] ? (
             <>
               <h2 className="text-center">Weight Launched / Launching</h2>
               <Line data={dataSet[3]} />
@@ -231,7 +255,7 @@ const Metrics = () => {
       </div>
       <div className="row my-5 mx-2">
         <div className="col chart ">
-          {dataSet[0] ? (
+          {dataSet[1] ? (
             <>
               <h2 className="text-center">Popularity of Orbits</h2>
               <Pie
@@ -246,7 +270,22 @@ const Metrics = () => {
             <></>
           )}
         </div>
-        <div className="col">d</div>
+        <div className="col chart">
+          {dataSet[2] ? (
+            <>
+              <h2 className="text-center">Launch Vehicle Popularity</h2>
+              <Bar
+                data={dataSet[2]}
+                className="mx-5"
+                options={{
+                  maintainAspectRatio: false, // Don't maintain w/h ratio
+                }}
+              />
+            </>
+          ) : (
+            <></>
+          )}
+        </div>
       </div>
     </>
   );
