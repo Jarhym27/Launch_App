@@ -14,7 +14,7 @@ import RequestList from "./05_lsp_requests_list";
 import { RocketInfo } from "../../App";
 import { RocketTakeoffFill} from "react-bootstrap-icons";
 import {BsCalendar4Week} from 'react-icons/bs';
-import { GiMoonOrbit,GiEarthAmerica, GiWeight} from 'react-icons/gi'
+import { GiWeight} from 'react-icons/gi'
 import{ FcMoneyTransfer} from 'react-icons/fc'
 import { SiLaunchpad } from 'react-icons/si'
 

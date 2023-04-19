@@ -56,6 +56,7 @@ Once the Request has been approved and scheduled, the Payload will be marked on 
 ## 😎Team Members😎
 - Mack Nickle🚀
 - Isaac Pringle🚀
+- Jarhym Christopher🚀
 - Ty Hancock⚓
 - Kyle Mersinger🚀
 - Joey Oscasio🚀
