@@ -79,6 +79,9 @@ const Header = () => {
           <Navbar.Text>
             <Link className="headerLink" to={'/aboutus'}>About Us</Link>
           </Navbar.Text>
+          <Navbar.Text>
+            <Link className="headerLink" to={'/vehicles'}>Launch Vehicles</Link>
+          </Navbar.Text>
         </Navbar.Collapse>
         <Navbar.Collapse className="justify-content-end">
           {userLogin &&
