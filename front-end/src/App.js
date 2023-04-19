@@ -17,6 +17,7 @@ import LspProfile from "./component/lsp_profile/01_lsp_profile_page";
 import RequestDetails from "./component/RequestDetails";
 import AllMessages from "./component/AllMessages";
 import NotificationsBadge from "./component/NotificationsBadge";
+import Metrics from "./component/lspmetrics";
 export const RocketInfo = createContext();
 
 function App() {
@@ -58,6 +59,7 @@ function App() {
           <Route path='/home' element={< Home />}></Route>
           {/* <Route path='/Login' element={< Login />}></Route> */}
           <Route path='/signup' element={<Signup />}></Route>
+          <Route path='/metrics' element={<Metrics/>}></Route>
           <Route path='/request' element={<LaunchRequest />}></Route>
           <Route path='/header' element={<Header />}></Route> {/*only needed for testing */}
           <Route path='/rocket' element={< AnimeRocket />}></Route>
