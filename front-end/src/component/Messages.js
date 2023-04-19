@@ -4,13 +4,12 @@ import {Container, Row, Col} from 'react-bootstrap'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import './Messages.css'
+const moment = require('moment')
 
 
 const Messages = ({selectedRequest}) => {
 
   const messageRef = useRef();
-
-  console.log(selectedRequest)
 
   const [messages,setMessages] = useState(null)
   const { userLogin } = useContext(RocketInfo);
@@ -18,6 +17,7 @@ const Messages = ({selectedRequest}) => {
   let recipientID = userLogin.role==='lsp_user' ? selectedRequest.payload_user_id : selectedRequest.lsp_user_id
 
   const handleSendMessage = () => {
+    
     fetch('http://localhost:8080/table/messages',
         {
           method: "POST",
@@ -41,22 +41,36 @@ const Messages = ({selectedRequest}) => {
         .then(res=>res.json())
         .then(data=> {
           messageRef.current.value = ''
-          setMessages(data)})
+          setMessages(data)
+          })
   }
+
+  const handleKeyDown = (e) => {
+    if(e.key==='Enter' && messageRef.current.value){
+      handleSendMessage();
+    }
+  }
+
+  useEffect(()=> {
+    if(!messages) return
+    var messageBody = document.querySelector('#messages-container');
+    messageBody.scrollTop = messageBody.scrollHeight
+  },[messages])
 
 
   useEffect(()=> {
     fetch(`http://localhost:8080/join/messages-users?launch_request_id=${selectedRequest.id}`)
       .then(res=>res.json())
       .then(data=> setMessages(data))
-  },[])
+  },[selectedRequest.id])
 
 
   if(messages){
 
-    return ( 
-    <Container>
+    return (
+      <> 
       <h2>Messages</h2>
+    <Container id='messages-container'>
       {messages.map(msg=> {
 
       return msg.sender_id===userLogin.id ? 
@@ -68,7 +82,7 @@ const Messages = ({selectedRequest}) => {
                 <h5>Me</h5>
               </Col>
               <Col>
-                {msg.timestamp}
+              {moment(msg.timestamp).fromNow()}
               </Col>
             </Row>
             <Row className='message-container-me'>
@@ -98,7 +112,7 @@ const Messages = ({selectedRequest}) => {
                 <h5>{msg.organization}</h5>
               </Col>
               <Col>
-                {msg.timestamp}
+                {moment(msg.timestamp).fromNow()}
               </Col>
             </Row>
             <Row className='message-container-them'>
@@ -121,7 +135,8 @@ const Messages = ({selectedRequest}) => {
       </div>
       }
       )}
-      <Form>
+    </Container>
+      <Form onKeyDown={(e)=>handleKeyDown(e)}>
       <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
         <Form.Label>New Message</Form.Label>
         <Form.Control ref={messageRef} as="textarea" rows={4} />
@@ -130,8 +145,7 @@ const Messages = ({selectedRequest}) => {
         Send
       </Button>
     </Form>
-    </Container>
-    
+    </>
     );
   }
 

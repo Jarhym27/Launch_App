@@ -3,7 +3,6 @@ const app = express()
 const port = 8080;
 const cors = require('cors')
 const cookieParser = require("cookie-parser")
-const cookieSession = require('express-session')
 const bcrypt = require('bcryptjs')
 const knex = require("knex")(
     require("./knexfile.js")[process.env.NODE_ENV || "development"]
