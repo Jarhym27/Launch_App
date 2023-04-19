@@ -9,7 +9,6 @@ exports.seed = async function (knex) {
     [
       {lsp_user_id: 8, city: "Cocoa Beach", state: "Florida", launch_site: "Patrick SFB", launch_pad: "39A", pad_status: true },
       {lsp_user_id: 4, city: "Cocoa Beach", state: "Florida", launch_site: "Patrick SFB", launch_pad: "39B", pad_status: true },
-      {lsp_user_id: 8, city: "Cocoa Beach", state: "Florida", launch_site: "Patrick SFB", launch_pad: "LC-13", pad_status: true },
       {lsp_user_id: 9, city: "Cocoa Beach", state: "Florida", launch_site: "Patrick SFB", launch_pad: "LC-16", pad_status: true },
       {lsp_user_id: 4, city: "Cocoa Beach", state: "Florida", launch_site: "Patrick SFB", launch_pad: "37B", pad_status: true },
       {lsp_user_id: 8, city: "Cocoa Beach", state: "Florida", launch_site: "Patrick SFB", launch_pad: "LC-40", pad_status: true },
