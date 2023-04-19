@@ -8,6 +8,7 @@ import Form from "react-bootstrap/Form";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { RocketInfo } from "../App";
 import Notifications from "./Notifications";
+import PayloadCalendar from './PayloadCalendar.js'
 
 function PayloadProfile({setSelectedRequest}) {
   const [submittedPayloads, setSubmittedPayloads] = useState();
@@ -198,6 +199,7 @@ function PayloadProfile({setSelectedRequest}) {
                 );
               }
             )}
+            <PayloadCalendar/>
           </Col>
           <Col xs lg="2"></Col>
         </Row>
