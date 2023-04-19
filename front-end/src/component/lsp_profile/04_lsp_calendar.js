@@ -2,7 +2,7 @@ import format from "date-fns/format";
 import getDay from "date-fns/getDay";
 import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffec, useContext } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import DatePicker from "react-datepicker";
@@ -13,10 +13,13 @@ import RequestList from "./05_lsp_requests_list";
 import "./000_calendar.css"
 import { Modal, ListGroup, Form } from "react-bootstrap"
 import moment from 'moment'
+import LaunchRequest from "../LaunchRequest";
+import { RocketInfo } from "../../App";
 
 const localizer = momentLocalizer(moment)
 
 function LspCalendar() {
+    const { userLogin, myRequests } = useContext(RocketInfo)
     const [newEvent, setNewEvent] = useState({ title: "", vehicle: "", pad: "", start: "", end: "" });
     const [allEvents, setAllEvents] = useState([]);
     const [modalShow, setModalShow] = useState(false);
@@ -26,11 +29,11 @@ function LspCalendar() {
         fetch('http://localhost:8080/join/launch_requests')
             .then(res => res.json())
             .then(data => {
-                let events = data.filter(event => event.request_status === 'Scheduled')
+                let events = data.filter(event => (event.request_status === 'Scheduled' || event.request_status === 'Launched') && event.organization === userLogin.organization)
                 events.forEach(event => event['title'] = event.name)
                 setAllEvents(events)
             })
-    }, [])
+    }, [myRequests])
 
     // console.log('allEvents:\n', allEvents)
 
@@ -84,6 +87,8 @@ function LspCalendar() {
         return (
             <div >
                 <React.Fragment >
+                <LspLaunchVehicles />
+                    <LspLaunchPads />
                 </React.Fragment>
                 <h3 className='center' style={{ display: 'flex', justifyContent: "center" }}>Launch Schedule</h3>
                 <Calendar selectable={true} localizer={localizer} events={allEvents} eventContent={allEvents} startAccessor="launch_date" endAccessor="launch_date" style={{ height: 500, margin: "50px" }}
@@ -91,9 +96,6 @@ function LspCalendar() {
                         setModalShow(true)
                         setSelectedEvent(e)
                     }} />
-                <Form>
-                    <Form.Check className='mx-3' type='checkbox' label='test' onClick={() => console.log('clicked')}/>
-                </Form>
                 <CalendarModal show={modalShow} onHide={() => setModalShow(false)} />
             </div>
         );

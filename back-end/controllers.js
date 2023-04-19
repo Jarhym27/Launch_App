@@ -7,11 +7,19 @@ const getAll = (table) => {
 }
 
 const insertRow = (data,table) => {
-  let updatedData = {
-    ...data,
-    timestamp: new Date().toISOString()
+  if(table==='messages'){
+    let updatedData = {
+      ...data,
+      timestamp: new Date().toISOString()
+    }
+    return knex.returning('*').insert(updatedData).into(`${table}`)
+  } else {
+    let updatedData = {
+      ...data,
+      updated_at: new Date().toISOString()
+    }
+    return knex.returning('*').insert(updatedData).into(`${table}`)
   }
-  return knex.insert(updatedData).into(`${table}`)
 }
 
 const deleteRow = (id,table) => {
@@ -20,17 +28,13 @@ const deleteRow = (id,table) => {
 
 const updateRow = (id,body,table) => {
   if(table==='messages'){
-    let updatedBody = {
-      ...body,
-      timestamp: new Date().toISOString()
-    }
-    return knex(`${table}`).where('id', id).update(updatedBody)
+    return knex(`${table}`).returning('*').where('id', id).update(body)
   } else {
     let updatedBody = {
       ...body,
       updated_at: new Date().toISOString()
     }
-    return knex(`${table}`).where('id', id).update(updatedBody)
+    return knex(`${table}`).returning('*').where('id', id).update(updatedBody)
   }
 }
 

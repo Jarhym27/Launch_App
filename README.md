@@ -1,15 +1,15 @@
-## Launch Über
+## 🚀Launch Über🚀
 
-&emsp; Launch Über seeks to bring government payload customers to Launch Service Providers that have the available infrastructure and schedules for launching these payloads. 
+&emsp; Launch Über seeks to bring Government payload customers to Launch Service Providers that have the available infrastructure and schedules for launching these payloads. 
 
-## Table of Contents
+## 📑Table of Contents📑
 - Installation
 - Description
 - Usage
 - Database ERD
 - Team Members
 
-## Installation
+## 💿Installation💿
 - Ensure docker is running on your machine. 
 - Once in VS Code, access the `front-end` and `back-end` in seperate terminals from `Launch_App` 
  - Run `npm install` in the `front-end` terminal and `npm install nodemon` in the `back-end` terminal. 
@@ -20,7 +20,7 @@
 - Congratulations! You have installed the Launch Über app on your machine.
 
 
-## Description
+## 📖Description📖
 
 Launch Service Providers and Government Customers, or Payload Users, will be the user profile types. within our App. 
 
@@ -30,7 +30,7 @@ Launch Service Providers and Government Customers, or Payload Users, will be the
 
 Once the Request has been approved and scheduled, the Payload will be marked on a calendar for the LSP to view.
 
-## Usage
+## 💻Usage💻
 &emsp; Once you access Launch Über, you will be prompted to login or sign-up
 **Login**
 - Once you type your Username and Password, you will be sent to your profile page.
@@ -45,19 +45,19 @@ Once the Request has been approved and scheduled, the Payload will be marked on 
 
 **Payload User Profile**
 - The Payload User will be able to create Payloads and Launch Requests. 
-- They are also able to get updated statuses on their requests once they have been scheduled or denied by the LSP. 
+- They are also able to get updated messages on their requests once they have been scheduled or denied by the LSP. 
 
-## Database ERD
+## 📅Database ERD📅
 
 <p align="center">
   <img width='600' src="launch_app_ERD.png">
 </p>
 
-## Team Members
-- Mack Nickle
-- Isaac Pringle
-- Ty Hancock
-- Kyle Mersinger
-- Joey Oscasio
-- Khoa Nguyen
+## 😎Team Members😎
+- Mack Nickle🚀
+- Isaac Pringle🚀
+- Ty Hancock⚓
+- Kyle Mersinger🚀
+- Joey Oscasio🚀
+- Khoa Nguyen🚀
 

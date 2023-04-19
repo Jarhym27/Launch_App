@@ -25,6 +25,7 @@ const Home = () => {
   const launchProviderRef = useRef();
   const orbitRef = useRef();
   const dateRef = useRef();
+  const messageRef = useRef();
 
   const [launchPads, setLaunchPads] = useState(null);
   const [launchSites, setLaunchSites] = useState(null)
@@ -311,6 +312,25 @@ const Home = () => {
       })
       .then(res => res.json())
       .then(data => {
+        let newRequestID = data[0].id
+        return(fetch('http://localhost:8080/table/messages',
+        {
+          method: "POST",
+          credentials: 'include',
+          body: JSON.stringify({
+            sender_id: userLogin.id,
+            recipient_id: selectedLV.lsp_user_id,
+            launch_request_id: newRequestID,
+            message: messageRef.current.value,
+            notification_type: "New request",
+            notification_ack: 'false'
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8"
+          }
+        }))})
+      .then(res=>res.json())
+      .then(data=>{
         setModalShow(false)
         let newSearch = { ...search}
         setSearch(newSearch)
@@ -363,6 +383,11 @@ const Home = () => {
                   <Form.Group controlId="duedate">
                     <Form.Control ref={dateRef} type="date" name="duedate" placeholder="Launch date" />
                   </Form.Group>
+                  <div className='fw-bold'>Include a message (optional)</div>
+                  <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                    <Form.Label></Form.Label>
+                    <Form.Control ref={messageRef} as="textarea" rows={3} />
+                  </Form.Group>
                 </Form>
               </div>
             </ListGroup.Item>
@@ -409,8 +434,8 @@ const Home = () => {
                           </Col>
                           <Col className='dropdown-field'>
                             <DropdownButton id="dropdown-basic-button" drop={'start'} title="">
-                              {launchSites && launchSites.map(site =>
-                                <Dropdown.Item onClick={(e) => handleSelect(e, site, "siteRef")}>{site}</Dropdown.Item>
+                              {launchSites && launchSites.map((site,index) =>
+                                <Dropdown.Item key={index} onClick={(e) => handleSelect(e, site, "siteRef")}>{site}</Dropdown.Item>
                               )}
                             </DropdownButton>
                           </Col>
@@ -442,8 +467,8 @@ const Home = () => {
                           </Col>
                           <Col className='dropdown-field'>
                             <DropdownButton id="dropdown-basic-button" drop={'start'} title="">
-                              {launchPads && launchPads.map(pad =>
-                                <Dropdown.Item onClick={(e) => handleSelect(e, pad.launch_pad, "padRef", pad.id)}>{pad.launch_pad}</Dropdown.Item>
+                              {launchPads && launchPads.map((pad,index) =>
+                                <Dropdown.Item key={index} onClick={(e) => handleSelect(e, pad.launch_pad, "padRef", pad.id)}>{pad.launch_pad}</Dropdown.Item>
                               )}
                             </DropdownButton>
                           </Col>
@@ -475,8 +500,8 @@ const Home = () => {
                         </Col>
                         <Col className='dropdown-field'>
                             <DropdownButton id="dropdown-basic-button" drop={'start'} title="">
-                              {launchProviders && launchProviders.map(item =>
-                                <Dropdown.Item onClick={(e) => handleSelect(e, item.organization, "launchProviderRef", item.id)}>{item.organization}</Dropdown.Item>
+                              {launchProviders && launchProviders.map((item,index) =>
+                                <Dropdown.Item key={index} onClick={(e) => handleSelect(e, item.organization, "launchProviderRef", item.id)}>{item.organization}</Dropdown.Item>
                               )}
                             </DropdownButton>
                           </Col>
@@ -508,8 +533,8 @@ const Home = () => {
                         </Col>
                         <Col className='dropdown-field'>
                             <DropdownButton id="dropdown-basic-button" drop={'start'} title="">
-                              {orbits && orbits.map(item =>
-                                <Dropdown.Item onClick={(e) => handleSelect(e, item, "orbitRef")}>{item}</Dropdown.Item>
+                              {orbits && orbits.map((item,index) =>
+                                <Dropdown.Item key={index} onClick={(e) => handleSelect(e, item, "orbitRef")}>{item}</Dropdown.Item>
                               )}
                             </DropdownButton>
                           </Col>

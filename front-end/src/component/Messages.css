@@ -1,0 +1,30 @@
+.message-container-them{
+  background-color: gainsboro;
+  margin-bottom: 5px;
+  padding: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.message-container-me{
+  background-color: rgb(48, 72, 230);
+  margin-bottom: 5px;
+  padding: 5px;
+  border-bottom-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+
+.message-me{
+  color: aliceblue;
+}
+
+#messages-container{
+  min-height: 500px;
+  max-height: 500px;
+  margin-bottom: 10px;
+  overflow:auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}

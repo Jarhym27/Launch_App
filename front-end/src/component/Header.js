@@ -6,6 +6,7 @@ import { RocketTakeoffFill } from "react-bootstrap-icons";
 import React, { useContext } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import { RocketInfo } from "../App";
+import NotificationsBadge from "./NotificationsBadge";
 
 
 
@@ -70,17 +71,24 @@ const Header = () => {
             {userLogin.role === 'payload_user' && <Link className="headerLink" to={'/home'}>Home</Link>}
           </Navbar.Text>
           <Navbar.Text>
-            <Link className="headerLink" to={'/aboutus'}>About Us</Link>
+            <Link className="headerLink" to={profilePath}>Profile</Link>
           </Navbar.Text>
           <Navbar.Text>
-            <Link className="headerLink" to={profilePath}>Profile</Link>
+            <Link className="headerLink" to={'/messages'}>Messages</Link>
+          </Navbar.Text>
+          <Navbar.Text>
+            <Link className="headerLink" to={'/aboutus'}>About Us</Link>
           </Navbar.Text>
         </Navbar.Collapse>
         <Navbar.Collapse className="justify-content-end">
           {userLogin &&
-            <Navbar.Text>
-              Signed in as:  <span id='user-name'>{userLogin.username}</span>
-            </Navbar.Text>}
+          <>
+            <NotificationsBadge />
+              <Navbar.Text>
+                Signed in as:  <span id='user-name'>{userLogin.username}</span>
+            </Navbar.Text>
+          </>
+          }
 
 
           <Button className='mx-4' onClick={() => logout()}

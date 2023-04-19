@@ -3,7 +3,6 @@ const app = express()
 const port = 8080;
 const cors = require('cors')
 const cookieParser = require("cookie-parser")
-const cookieSession = require('express-session')
 const bcrypt = require('bcryptjs')
 const knex = require("knex")(
     require("./knexfile.js")[process.env.NODE_ENV || "development"]
@@ -53,7 +52,26 @@ app.get('/join/launch_requests', (req, res) => {
   .join('payloads', 'payloads.id', 'launch_requests.payload_id')
   .join('launch_vehicles', 'launch_vehicles.id', 'launch_requests.launch_vehicle_id')
   .join('launch_pads', 'launch_pads.id', 'launch_requests.launch_pad_id')
-  .select('launch_requests.id','launch_requests.payload_id','launch_requests.launch_pad_id','launch_requests.launch_vehicle_id','request_status','launch_requests.created_at','launch_requests.updated_at','launch_date','request_cost','payloads.payload_user_id','weight','orbital_requirement','name','launch_vehicle','cost','leo_weight','meo_weight','geo_weight','heo_weight','booked_status','launch_vehicles.lsp_user_id','city','state','launch_site','launch_pad','pad_status')
+  .join('users','users.id','launch_vehicles.lsp_user_id')
+  .select('launch_requests.id','launch_requests.payload_id','launch_requests.launch_pad_id','launch_requests.launch_vehicle_id','request_status','launch_requests.created_at','launch_requests.updated_at','launch_date','request_cost','payloads.payload_user_id','weight','orbital_requirement','name','launch_vehicle','cost','leo_weight','meo_weight','geo_weight','heo_weight','booked_status','launch_vehicles.lsp_user_id','city','state','launch_site','launch_pad','pad_status','payloads.description','users.organization')
+  .then(data => res.status(200).json(data))
+  .catch(err =>
+      res.status(404).json({
+          message:
+              'The data you are looking for could not be found. Please try again'
+      })
+  );
+})
+
+//join launch requests to messages
+app.get('/join/launch_requests-messages', (req, res) => {
+  knex('launch_requests')
+  .join('payloads', 'payloads.id', 'launch_requests.payload_id')
+  .join('launch_vehicles', 'launch_vehicles.id', 'launch_requests.launch_vehicle_id')
+  .join('launch_pads', 'launch_pads.id', 'launch_requests.launch_pad_id')
+  .join('users','users.id','launch_vehicles.lsp_user_id')
+  .join('messages','messages.launch_request_id','launch_requests.id')
+  .select('launch_requests.id','launch_requests.payload_id','launch_requests.launch_pad_id','launch_requests.launch_vehicle_id','request_status','launch_requests.created_at','launch_requests.updated_at','launch_date','request_cost','payloads.payload_user_id','weight','orbital_requirement','name','launch_vehicle','cost','leo_weight','meo_weight','geo_weight','heo_weight','booked_status','launch_vehicles.lsp_user_id','city','state','launch_site','launch_pad','pad_status','payloads.description','users.organization','messages.sender_id','messages.recipient_id')
   .then(data => res.status(200).json(data))
   .catch(err =>
       res.status(404).json({
@@ -106,15 +124,52 @@ app.get('/join/users-payloads',(req,res)=> {
     );
 })
 
-//messages joined launch_requests, users, payloads
+//launch_requests joined payloads, launch_vehicles, users, messages for use by notifications
 app.get('/join/payload_user_messages', (req, res) => {
   knex('launch_requests')
   .join('payloads', 'payloads.id', 'launch_requests.payload_id')
   .join('launch_vehicles', 'launch_vehicles.id', 'launch_requests.launch_vehicle_id')
+  .join('launch_pads', 'launch_vehicles.launch_pad_id', 'launch_pads.id' )
   .join('users', 'users.id', 'launch_vehicles.lsp_user_id')
-  // .join('users', 'users.id', 'payloads.payload_user_id')
   .join('messages', 'messages.launch_request_id', 'launch_requests.id')
-  .select('launch_requests.id','messages.id as msg_id','launch_requests.payload_id','launch_requests.launch_pad_id','launch_requests.launch_vehicle_id','request_status','launch_requests.created_at','launch_requests.updated_at','launch_date','request_cost','payloads.payload_user_id','weight','orbital_requirement','name','launch_vehicle','cost','booked_status','launch_vehicles.lsp_user_id','messages.notification_type','messages.notification_ack','messages.message','users.organization','messages.recipient_id','messages.timestamp')
+  .select('launch_requests.id','launch_requests.created_at', 'launch_pads.launch_pad', 'launch_pads.launch_site','payloads.description', 'payloads.orbital_requirement','messages.id as msg_id','launch_requests.payload_id','launch_requests.launch_pad_id','launch_requests.launch_vehicle_id','request_status','launch_date','request_cost','payloads.payload_user_id','name','launch_vehicle','cost','booked_status','launch_vehicles.lsp_user_id','messages.notification_type','messages.notification_ack','messages.message','users.organization','messages.recipient_id','messages.timestamp')
+  .then(data => res.status(200).json(data))
+  .catch(err =>{
+    console.log(err)
+      res.status(404).json({
+          message:
+              'The data you are looking for could not be found. Please try again'
+      })}
+  );
+})
+
+//launch_requests joined payloads, launch_vehicles, users, messages for use by notifications
+app.get('/join/lsp_user_messages', (req, res) => {
+  knex('launch_requests')
+  .join('payloads', 'payloads.id', 'launch_requests.payload_id')
+  .join('launch_vehicles', 'launch_vehicles.id', 'launch_requests.launch_vehicle_id')
+  .join('launch_pads', 'launch_vehicles.launch_pad_id', 'launch_pads.id' )
+  .join('users', 'users.id', 'payloads.payload_user_id')
+  .join('messages', 'messages.launch_request_id', 'launch_requests.id')
+  .select('launch_requests.id','launch_requests.created_at', 'launch_pads.launch_pad', 'launch_pads.launch_site','payloads.description', 'payloads.orbital_requirement','messages.id as msg_id','launch_requests.payload_id','launch_requests.launch_pad_id','launch_requests.launch_vehicle_id','request_status','launch_date','request_cost','payloads.payload_user_id','name','launch_vehicle','cost','booked_status','launch_vehicles.lsp_user_id','messages.notification_type','messages.notification_ack','messages.message','users.organization','messages.recipient_id','messages.timestamp')
+  .then(data => res.status(200).json(data))
+  .catch(err =>{
+    console.log(err)
+      res.status(404).json({
+          message:
+              'The data you are looking for could not be found. Please try again'
+      })}
+  );
+})
+
+//messages joined users for use in payload profile view
+app.get('/join/messages-users', (req, res) => {
+  const launch_request_id = req.query.launch_request_id
+  knex('messages')
+  .join('users', 'messages.sender_id', 'users.id')
+  .select('messages.id','messages.sender_id','messages.recipient_id','messages.launch_request_id','messages.message','messages.notification_type','messages.notification_ack','messages.timestamp','users.organization')
+  .where('launch_request_id',launch_request_id)
+  .orderBy('timestamp')
   .then(data => res.status(200).json(data))
   .catch(err =>
       res.status(404).json({
@@ -144,13 +199,15 @@ app.post('/table/:table',(req,res) => {
   const data = req.body
   insertRow(data,table)
     .then((response)=> {
-      res.status(200).send(data)
+      res.status(200).send(response)
     })
     .catch((err) => {
       console.error(err)
       res.status(401).send(err)
     })
 })
+
+
 
 //delete row of data from table by id
 app.delete('/table/:table',(req,res) => {
@@ -289,9 +346,10 @@ app.patch('/table/:table', (req,res) => {
   if(!id || !body || body.id){
     res.status(401).send({error: 'Bad request. Potential problems: missing body, missing query string with id, included id in the body (id should not be in body)'})
   } else{
+    console.log('body:',body)
     updateRow(id,body,table)
       .then(response => {
-        res.status(200).send(body)
+        res.status(200).send(response)
       })
       .catch(err => {
         console.error(err)

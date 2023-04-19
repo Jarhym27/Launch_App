@@ -9,7 +9,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { RocketInfo } from "../App";
 import Notifications from "./Notifications";
 
-function PayloadProfile() {
+function PayloadProfile({setSelectedRequest}) {
   const [submittedPayloads, setSubmittedPayloads] = useState();
   const [userPayloads, setUserPayloads] = useState();
   const [selectedPayload, setSelectedPayload] = useState();
@@ -22,7 +22,6 @@ function PayloadProfile() {
   const [weight, setWeight] = useState();
   const [orbit, setOrbit] = useState();
   const [name, setName] = useState();
-  const [userID, setUserID] = useState();
   // PAYLOADS USESTATES
 
   //ADD BUTTON PAYLOAD USESTATES
@@ -105,20 +104,15 @@ function PayloadProfile() {
     .then(res => {
       setSelectedPayload()
       if(res.status === 200){
-        console.log('Deleted.')
         setFetchTime(true)
       }
-      else{
-        console.log(res.status)
-      }
     })
+    .catch(err=>console.log(err))
 }
-
-
 
   return (
     <>
-    <Notifications />
+    <Notifications/>
       <Container fluid className="App py-2 overflow-hidden">
         <Row className="justify-content-center profileRow">
           <Col className="profileCol">
@@ -140,15 +134,17 @@ function PayloadProfile() {
             </Row>
             {payloads?.map((payload, i) => {
               return (
-                <Card>
-                  <Card.Body className="payloadsCol">
-                    <Card.Title>{payload.name}</Card.Title>
-                    <Card.Text>Status: {payload.request_status}</Card.Text>
-                    <footer>
-                      <small>Payload Created: {payload.updated_at}</small>
-                    </footer>
-                  </Card.Body>
-                </Card>
+                <Link state={payload} to='/requestdetails' className='request-link-to-details'> 
+                  <Card>
+                    <Card.Body className="payloadsCol">
+                      <Card.Title>{payload.name}</Card.Title>
+                      <Card.Text>Status: {payload.request_status}</Card.Text>
+                      <footer>
+                        <small>Payload Created: {payload.updated_at}</small>
+                      </footer>
+                    </Card.Body>
+                  </Card>
+                </Link>
               );
             })}
           </Col>
@@ -248,7 +244,7 @@ function PayloadProfile() {
               </Form.Select>
             </Form.Group>
             <Button
-              onClick={handleCloseUpdate}
+              onClick={handleClose}
               className="addPayload"
               variant="primary"
               type="submit"
