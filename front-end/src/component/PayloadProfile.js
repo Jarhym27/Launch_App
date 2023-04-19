@@ -118,7 +118,8 @@ function PayloadProfile({setSelectedRequest}) {
 
 let launched = submittedPayloads?.filter((e, i) =>  e.request_status === 'Launched')
 let pending = submittedPayloads?.filter((e, i) =>  e.request_status === 'Pending')
-let appDen = submittedPayloads?.filter((e, i) =>  (e.request_status === 'Approved') || (e.request_status === 'Denied'))
+let approved = submittedPayloads?.filter((e, i) =>  (e.request_status === 'Approved'))
+let denied = submittedPayloads?.filter((e, i) =>  (e.request_status === 'Denied'))
 
 
 
@@ -184,8 +185,8 @@ let appDen = submittedPayloads?.filter((e, i) =>  (e.request_status === 'Approve
                   )
                 })}
               </Tab>
-              <Tab eventKey="longer-tab" title="Denied/Approved" >
-              {appDen?.map((e, i) => {
+              <Tab eventKey="longer-tab" title="Approved" >
+              {approved?.map((e, i) => {
                   return (
                     <Link state={e} to='/requestdetails' className='request-link-to-details'> 
                     <Card key={i}>
@@ -200,6 +201,58 @@ let appDen = submittedPayloads?.filter((e, i) =>  (e.request_status === 'Approve
                   </Link>
                   )
                 })}
+              </Tab>
+              <Tab eventKey="denied" title="Denied" >
+              {denied?.map((e, i) => {
+                  return (
+                    <Link state={e} to='/requestdetails' className='request-link-to-details'> 
+                    <Card key={i}>
+                      <Card.Body className="payloadsCol">
+                        <Card.Title>{e.name}</Card.Title>
+                        <Card.Text>Status: {e.request_status}</Card.Text>
+                        Status: Click{" "}
+                              <Link state={e} to='/request'>
+                                Here
+                              </Link>{" "}
+                              to book with a Launch Provider
+                        <footer>
+                          <small>Payload Created: {e.updated_at}</small>
+                        </footer>
+                      </Card.Body>
+                    </Card>
+                  </Link>
+                  )
+                })}
+              </Tab>
+              <Tab eventKey="test" title="Non submitted" >
+              {filteredPayloads?.map((pay,i)=> {
+                    return (
+                      <>
+                        <Card>
+                          <Card.Body className="createdPayloadsCol">
+                            <Card.Title>{pay.name}</Card.Title>
+                            <Card.Text>
+                              Status: Click{" "}
+                              <Link state={pay} to='/request'>
+                                Here
+                              </Link>{" "}
+                              to book with a Launch Provider
+                            </Card.Text>
+                            <footer>
+                              <small>Payload Created: {pay.updated_at}</small>
+                            </footer>
+                            <Button onClick={() => [setSelectedPayload(pay), handleShowUpdate(),]}>
+                              Update
+                            </Button>
+                            <Button onClick={() => [setSelectedPayload(pay), handleShowDelete(),]}>
+                              Delete
+                            </Button>
+                          </Card.Body>
+                        </Card>
+                      </>
+                    );
+                    }
+                    )}
               </Tab>
             </Tabs>
           </Col>
@@ -218,44 +271,7 @@ let appDen = submittedPayloads?.filter((e, i) =>  (e.request_status === 'Approve
               </Card.Body>
             </Card>
           </Col>
-        </Row>
-        <Row className="createdPayloads">
-          <Col></Col>
-          <Col xs={6}>
-            <h3>Non Submitted Payloads:</h3>
-          
-         {filteredPayloads?.map((pay,i)=> {
-
-                return (
-                  <>
-                    <Card>
-                      <Card.Body className="createdPayloadsCol">
-                        <Card.Title>{pay.name}</Card.Title>
-                        <Card.Text>
-                          Status: Click{" "}
-                          <Link state={pay} to='/request'>
-                            Here
-                          </Link>{" "}
-                          to book with a Launch Provider
-                        </Card.Text>
-                        <footer>
-                          <small>Payload Created: {pay.updated_at}</small>
-                        </footer>
-                        <Button onClick={() => [setSelectedPayload(pay), handleShowUpdate(),]}>
-                          Update
-                        </Button>
-                        <Button onClick={() => [setSelectedPayload(pay), handleShowDelete(),]}>
-                          Delete
-                        </Button>
-                      </Card.Body>
-                    </Card>
-                  </>
-                );
-              }
-            )}
-          </Col>
-          <Col xs lg="2"></Col>
-        </Row>
+        </Row>          
       </Container>
 
       <Modal show={show} onHide={handleClose} className="modalBg">

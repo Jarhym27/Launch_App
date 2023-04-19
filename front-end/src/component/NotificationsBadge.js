@@ -86,7 +86,7 @@ const toggleShowA = (index,message_id) => {
   )
     } else {
         return (
-            <OverlayTrigger trigger={clickTrigger} placement="bottom" overlay={ 
+            <OverlayTrigger trigger={'click'} rootClose placement="bottom" overlay={ 
                 <Popover id="popover-position-bottom">
                        <Popover.Header as="h3" className='test'>Notifications</Popover.Header>
                        <Popover.Body className={'bg-dark text-white'}>
