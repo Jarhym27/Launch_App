@@ -1,6 +1,24 @@
 .payloadProfileCard{
     background-color:#DA0037 !important;
-    width: 80%;
+    width: 100%;
+    overflow: auto;
+    height: 45%;
+    color: #EDEDED;
+}
+
+.payloadProfileCardv{
+    background-color:#DA0037 !important;
+    width: 100%;
+    overflow: auto;
+    height: 600px;
+    color: #EDEDED;
+}
+
+.payloadProfileCardpd{
+    background-color:#DA0037 !important;
+    width: 100%;
+    overflow: auto;
+    height: 45%;
     color: #EDEDED;
 }
 .horizontalCard{
@@ -39,8 +57,23 @@
 .addPayload:hover{
     background-color: #DA0037;
     border: 1px #EDEDED solid;
-
 }
+
+.addPayloadRound{
+    width: 100%;
+    padding-bottom: 1rem;
+    background-color: #444444;
+    color: #EDEDED;
+    border: 1px #EDEDED solid;
+    border-radius: 8px;
+}
+
+.addPayloadRound:hover{
+    background-color: #DA0037;
+    border: 1px #EDEDED solid;
+   
+}
+
 .buttonCard{
     display: flex;
     flex-direction: column;
@@ -54,6 +87,8 @@
 
 }
 .modalForm{
+    display: flex;
+    align-items: center;
     background-color: #171717 !important;
     color:#EDEDED;
 }

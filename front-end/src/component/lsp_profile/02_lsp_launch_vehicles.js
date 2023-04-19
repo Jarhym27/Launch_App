@@ -22,7 +22,7 @@ import { SiLaunchpad } from 'react-icons/si'
 export default LspLaunchVehicles;
 
 function LspLaunchVehicles() {
-  const { userLogin, availablePads, refresh, setRefresh } = useContext(RocketInfo);
+  const { userLogin, setUserLogin, availablePads, setAvailablePads, refresh, setRefresh } = useContext(RocketInfo);
   const [name, setName] = useState();
   const [cost, setCost] = useState();
   const [pad, setPad] = useState();
@@ -129,11 +129,13 @@ function LspLaunchVehicles() {
  
   const handleDelete = () => {
     let newVehicleList = launchVehicle.filter(item => item.id !== selectedVehicle.id);
-    console.log('selectedVehicle:\n', selectedVehicle)
     setLaunchVehicle(newVehicleList);
+    setSelectedVehicle([]);
     fetch('http://localhost:8080/table/launch_vehicles', {
       method: "DELETE",
-      body: JSON.stringify({id: selectedVehicle.id}),
+      body: JSON.stringify({
+        id: selectedVehicle.id
+      }),
       headers: {
         "Content-type": "application/json; charset=UTF-8"
       }
@@ -148,7 +150,6 @@ function LspLaunchVehicles() {
           console.log(res.status)
         }
       })
-      .catch(err => console.log('Error:\n', err))
   }
 
   const theVehicle = submitVehicle?.filter(element => element.lsp_user_id === userLogin.id)
@@ -157,13 +158,15 @@ function LspLaunchVehicles() {
   return (<>
     <Row>
       <Col className="col-3">
-        <Card>
+        <h1>Launch Vehicle</h1>
+            <Button  className="addPayload" onClick={handleShow}> 
+            Add Launch Vehicle</Button>
+        <Card className="payloadProfileCardv">
           <Card.Title>
-            Launch Vehicle
-            <Button onClick={handleShow}> Add Launch Vehicle</Button>
           </Card.Title>
           {filteredVehicle?.map((vehicle, j) => {
-            return (<Card.Body key={j}>
+            return (
+            <Card.Body key={j}>
               <Card.Text>
                 Serial ID: {vehicle.id}
                 <br></br>
@@ -176,10 +179,12 @@ function LspLaunchVehicles() {
                 <button onClick={() => {setSelectedVehicle(vehicle);   handleShowUpdate();
                 setName(vehicle.launch_vehicle);
                   console.log('selectedVehicle:\n',selectedVehicle)}}>
-                    Edit</button>
-                    <button onClick={() => {setSelectedVehicle(vehicle); handleShowDelete();}}>Delete</button>
+                    Edit</Button>
+                    <Button  className="addPayload" onClick={() => {setSelectedVehicle(vehicle); handleShowDelete();}}>
+                      Delete</Button>
               </Card.Text>
-            </Card.Body>)
+            </Card.Body>
+            )
           })}
         </Card>
       </Col>
@@ -210,6 +215,7 @@ function LspLaunchVehicles() {
             onChange={(e) => setCost(e.target.value)}
             className="mb-3"
             controlId="formBasicEmail">
+
               <InputGroup.Text><FcMoneyTransfer/></InputGroup.Text>
             <Form.Control type="text" placeholder="Cost" />
           </InputGroup>
@@ -247,7 +253,8 @@ function LspLaunchVehicles() {
           </InputGroup>
           <Button 
            onClick={handleClose}
-          className="addPayload"
+           className="addPayload" 
+          variant="primary"
             type="submit"
           >Submit</Button>
         </Form>
@@ -257,7 +264,7 @@ function LspLaunchVehicles() {
 
     <Modal show={showUpdate} onHide={handleCloseUpdate} className="modalBg">
         <Modal.Header closeButton className="modalForm">
-          <Modal.Title>Update Pad</Modal.Title>
+          <Modal.Title>Update Vehicle</Modal.Title>
         </Modal.Header>
         <Modal.Body className="modalForm">
           <Form
@@ -300,6 +307,7 @@ function LspLaunchVehicles() {
             <Form.Select size='lg'>
             <option value={"available"}>Available</option>
                 <option value={"booked"}>Booked</option>
+
             </Form.Select>
           </InputGroup>
           
@@ -352,7 +360,6 @@ function LspLaunchVehicles() {
         </Modal.Footer>
       </Modal>
 
-    
     <Modal show={showDelete} onHide={handleCloseDelete} className="modalBg">
       <Modal.Header closeButton className="modalForm">
         <Modal.Title>DELETE Vehicle?</Modal.Title>
