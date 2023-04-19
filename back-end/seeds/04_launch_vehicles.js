@@ -17,7 +17,7 @@ exports.seed = async function(knex) {
       booked_status: 'launched',
       launch_pad_id: 1,
       picture: '/falcon_9.jpg',
-      description: `Falcon 9 is a partially reusable heavy-lift launch vehicle[a] that can carry cargo and crew into Earth orbit, produced by American aerospace company SpaceX.
+      description: `Falcon 9 is a partially reusable heavy-lift launch vehicle that can carry cargo and crew into Earth orbit, produced by American aerospace company SpaceX.
 
       The rocket has two stages. The first (booster) stage carries the second stage and payload to a certain altitude, after which the second stage lifts the payload to its ultimate destination. The rocket evolved through several versions. V1.0 flew from 2010–2013, V1.1 flew from 2013–2016, while V1.2 Full Thrust first launched in 2015, encompassing the Block 5 variant, flying since May 2018.`,
       link: 'https://www.spacex.com/vehicles/falcon-9/'
@@ -33,7 +33,7 @@ exports.seed = async function(knex) {
       booked_status: 'available',
       launch_pad_id: 5,
       picture: '/falcon_9.jpg',
-      description: `Falcon 9 is a partially reusable heavy-lift launch vehicle[a] that can carry cargo and crew into Earth orbit, produced by American aerospace company SpaceX.
+      description: `Falcon 9 is a partially reusable heavy-lift launch vehicle that can carry cargo and crew into Earth orbit, produced by American aerospace company SpaceX.
 
       The rocket has two stages. The first (booster) stage carries the second stage and payload to a certain altitude, after which the second stage lifts the payload to its ultimate destination. The rocket evolved through several versions. V1.0 flew from 2010–2013, V1.1 flew from 2013–2016, while V1.2 Full Thrust first launched in 2015, encompassing the Block 5 variant, flying since May 2018.`,
       link: 'https://www.spacex.com/vehicles/falcon-9/'
@@ -49,7 +49,7 @@ exports.seed = async function(knex) {
       booked_status: 'available',
       launch_pad_id: 12,
       picture: '/falcon_9.jpg',
-      description: `Falcon 9 is a partially reusable heavy-lift launch vehicle[a] that can carry cargo and crew into Earth orbit, produced by American aerospace company SpaceX.
+      description: `Falcon 9 is a partially reusable heavy-lift launch vehicle that can carry cargo and crew into Earth orbit, produced by American aerospace company SpaceX.
 
       The rocket has two stages. The first (booster) stage carries the second stage and payload to a certain altitude, after which the second stage lifts the payload to its ultimate destination. The rocket evolved through several versions. V1.0 flew from 2010–2013, V1.1 flew from 2013–2016, while V1.2 Full Thrust first launched in 2015, encompassing the Block 5 variant, flying since May 2018.`,
       link: 'https://www.spacex.com/vehicles/falcon-9/'
@@ -65,7 +65,7 @@ exports.seed = async function(knex) {
       booked_status: 'available',
       launch_pad_id: 12,
       picture: '/falcon_9.jpg',
-      description: `Falcon 9 is a partially reusable heavy-lift launch vehicle[a] that can carry cargo and crew into Earth orbit, produced by American aerospace company SpaceX.
+      description: `Falcon 9 is a partially reusable heavy-lift launch vehicle that can carry cargo and crew into Earth orbit, produced by American aerospace company SpaceX.
 
       The rocket has two stages. The first (booster) stage carries the second stage and payload to a certain altitude, after which the second stage lifts the payload to its ultimate destination. The rocket evolved through several versions. V1.0 flew from 2010–2013, V1.1 flew from 2013–2016, while V1.2 Full Thrust first launched in 2015, encompassing the Block 5 variant, flying since May 2018.`,
       link: 'https://www.spacex.com/vehicles/falcon-9/'
@@ -81,7 +81,7 @@ exports.seed = async function(knex) {
       booked_status: 'booked',
       launch_pad_id: 1,
       picture: '/falcon_9.jpg',
-      description: `Falcon 9 is a partially reusable heavy-lift launch vehicle[a] that can carry cargo and crew into Earth orbit, produced by American aerospace company SpaceX.
+      description: `Falcon 9 is a partially reusable heavy-lift launch vehicle that can carry cargo and crew into Earth orbit, produced by American aerospace company SpaceX.
 
       The rocket has two stages. The first (booster) stage carries the second stage and payload to a certain altitude, after which the second stage lifts the payload to its ultimate destination. The rocket evolved through several versions. V1.0 flew from 2010–2013, V1.1 flew from 2013–2016, while V1.2 Full Thrust first launched in 2015, encompassing the Block 5 variant, flying since May 2018.`,
       link: 'https://www.spacex.com/vehicles/falcon-9/'
@@ -97,7 +97,7 @@ exports.seed = async function(knex) {
       booked_status: 'available',
       launch_pad_id: 5,
       picture: '/falcon_9.jpg',
-      description: `Falcon 9 is a partially reusable heavy-lift launch vehicle[a] that can carry cargo and crew into Earth orbit, produced by American aerospace company SpaceX.
+      description: `Falcon 9 is a partially reusable heavy-lift launch vehicle that can carry cargo and crew into Earth orbit, produced by American aerospace company SpaceX.
 
       The rocket has two stages. The first (booster) stage carries the second stage and payload to a certain altitude, after which the second stage lifts the payload to its ultimate destination. The rocket evolved through several versions. V1.0 flew from 2010–2013, V1.1 flew from 2013–2016, while V1.2 Full Thrust first launched in 2015, encompassing the Block 5 variant, flying since May 2018.`,
       link: 'https://www.spacex.com/vehicles/falcon-9/'
@@ -113,7 +113,7 @@ exports.seed = async function(knex) {
       booked_status: 'available',
       launch_pad_id: 12,
       picture: '/falcon_9.jpg',
-      description: `Falcon 9 is a partially reusable heavy-lift launch vehicle[a] that can carry cargo and crew into Earth orbit, produced by American aerospace company SpaceX.
+      description: `Falcon 9 is a partially reusable heavy-lift launch vehicle that can carry cargo and crew into Earth orbit, produced by American aerospace company SpaceX.
 
       The rocket has two stages. The first (booster) stage carries the second stage and payload to a certain altitude, after which the second stage lifts the payload to its ultimate destination. The rocket evolved through several versions. V1.0 flew from 2010–2013, V1.1 flew from 2013–2016, while V1.2 Full Thrust first launched in 2015, encompassing the Block 5 variant, flying since May 2018.`,
       link: 'https://www.spacex.com/vehicles/falcon-9/'
@@ -157,7 +157,7 @@ exports.seed = async function(knex) {
       booked_status: 'available',
       launch_pad_id: 1,
       picture: '/falcon_heavy.jpg',
-      description: `Falcon Heavy is a partially reusable super heavy-lift launch vehicle[a] produced by SpaceX, an American aerospace manufacturer. The rocket consists of a center core on which two Falcon 9 boosters are attached, and a second stage on top of the center core.[8] Falcon Heavy has the second highest payload capacity of any currently operational launch vehicle behind NASA's Space Launch System, and the fourth-highest capacity of any rocket to reach orbit, trailing behind SLS, Energia and the Saturn V.`,
+      description: `Falcon Heavy is a partially reusable super heavy-lift launch vehicle produced by SpaceX, an American aerospace manufacturer. The rocket consists of a center core on which two Falcon 9 boosters are attached, and a second stage on top of the center core.[8] Falcon Heavy has the second highest payload capacity of any currently operational launch vehicle behind NASA's Space Launch System, and the fourth-highest capacity of any rocket to reach orbit, trailing behind SLS, Energia and the Saturn V.`,
       link: 'https://www.spacex.com/vehicles/falcon-heavy/'
     },
     {
@@ -171,7 +171,7 @@ exports.seed = async function(knex) {
       booked_status: 'available',
       launch_pad_id: 1,
       picture: '/falcon_9.jpg',
-      description: `Falcon 9 is a partially reusable heavy-lift launch vehicle[a] that can carry cargo and crew into Earth orbit, produced by American aerospace company SpaceX.
+      description: `Falcon 9 is a partially reusable heavy-lift launch vehicle that can carry cargo and crew into Earth orbit, produced by American aerospace company SpaceX.
 
       The rocket has two stages. The first (booster) stage carries the second stage and payload to a certain altitude, after which the second stage lifts the payload to its ultimate destination. The rocket evolved through several versions. V1.0 flew from 2010–2013, V1.1 flew from 2013–2016, while V1.2 Full Thrust first launched in 2015, encompassing the Block 5 variant, flying since May 2018.`,
       link: 'https://www.spacex.com/vehicles/falcon-9/'
@@ -187,7 +187,7 @@ exports.seed = async function(knex) {
       booked_status: 'booked',
       launch_pad_id: 1,
       picture: '/falcon_heavy.jpg',
-      description: `Falcon Heavy is a partially reusable super heavy-lift launch vehicle[a] produced by SpaceX, an American aerospace manufacturer. The rocket consists of a center core on which two Falcon 9 boosters are attached, and a second stage on top of the center core.[8] Falcon Heavy has the second highest payload capacity of any currently operational launch vehicle behind NASA's Space Launch System, and the fourth-highest capacity of any rocket to reach orbit, trailing behind SLS, Energia and the Saturn V.`,
+      description: `Falcon Heavy is a partially reusable super heavy-lift launch vehicle produced by SpaceX, an American aerospace manufacturer. The rocket consists of a center core on which two Falcon 9 boosters are attached, and a second stage on top of the center core.[8] Falcon Heavy has the second highest payload capacity of any currently operational launch vehicle behind NASA's Space Launch System, and the fourth-highest capacity of any rocket to reach orbit, trailing behind SLS, Energia and the Saturn V.`,
       link: 'https://www.spacex.com/vehicles/falcon-heavy/'
     },
     {
@@ -201,7 +201,7 @@ exports.seed = async function(knex) {
       booked_status: 'available',
       launch_pad_id: 1,
       picture: '/falcon_heavy.jpg',
-      description: `Falcon Heavy is a partially reusable super heavy-lift launch vehicle[a] produced by SpaceX, an American aerospace manufacturer. The rocket consists of a center core on which two Falcon 9 boosters are attached, and a second stage on top of the center core.[8] Falcon Heavy has the second highest payload capacity of any currently operational launch vehicle behind NASA's Space Launch System, and the fourth-highest capacity of any rocket to reach orbit, trailing behind SLS, Energia and the Saturn V.`,
+      description: `Falcon Heavy is a partially reusable super heavy-lift launch vehicle produced by SpaceX, an American aerospace manufacturer. The rocket consists of a center core on which two Falcon 9 boosters are attached, and a second stage on top of the center core.[8] Falcon Heavy has the second highest payload capacity of any currently operational launch vehicle behind NASA's Space Launch System, and the fourth-highest capacity of any rocket to reach orbit, trailing behind SLS, Energia and the Saturn V.`,
       link: 'https://www.spacex.com/vehicles/falcon-heavy/'
     },
     {
@@ -215,7 +215,7 @@ exports.seed = async function(knex) {
       booked_status: 'available',
       launch_pad_id: 1,
       picture: '/falcon_heavy.jpg',
-      description: `Falcon Heavy is a partially reusable super heavy-lift launch vehicle[a] produced by SpaceX, an American aerospace manufacturer. The rocket consists of a center core on which two Falcon 9 boosters are attached, and a second stage on top of the center core.[8] Falcon Heavy has the second highest payload capacity of any currently operational launch vehicle behind NASA's Space Launch System, and the fourth-highest capacity of any rocket to reach orbit, trailing behind SLS, Energia and the Saturn V.`,
+      description: `Falcon Heavy is a partially reusable super heavy-lift launch vehicle produced by SpaceX, an American aerospace manufacturer. The rocket consists of a center core on which two Falcon 9 boosters are attached, and a second stage on top of the center core.[8] Falcon Heavy has the second highest payload capacity of any currently operational launch vehicle behind NASA's Space Launch System, and the fourth-highest capacity of any rocket to reach orbit, trailing behind SLS, Energia and the Saturn V.`,
       link: 'https://www.spacex.com/vehicles/falcon-heavy/'
     },
     {
@@ -538,7 +538,7 @@ exports.seed = async function(knex) {
       booked_status: 'launched',
       launch_pad_id: 1,
       picture: '/falcon_9.jpg',
-      description: `Falcon 9 is a partially reusable heavy-lift launch vehicle[a] that can carry cargo and crew into Earth orbit, produced by American aerospace company SpaceX.
+      description: `Falcon 9 is a partially reusable heavy-lift launch vehicle that can carry cargo and crew into Earth orbit, produced by American aerospace company SpaceX.
 
       The rocket has two stages. The first (booster) stage carries the second stage and payload to a certain altitude, after which the second stage lifts the payload to its ultimate destination. The rocket evolved through several versions. V1.0 flew from 2010–2013, V1.1 flew from 2013–2016, while V1.2 Full Thrust first launched in 2015, encompassing the Block 5 variant, flying since May 2018.`,
       link: 'https://www.spacex.com/vehicles/falcon-9/'
@@ -554,7 +554,7 @@ exports.seed = async function(knex) {
       booked_status: 'launched',
       launch_pad_id: 12,
       picture: '/falcon_9.jpg',
-      description: `Falcon 9 is a partially reusable heavy-lift launch vehicle[a] that can carry cargo and crew into Earth orbit, produced by American aerospace company SpaceX.
+      description: `Falcon 9 is a partially reusable heavy-lift launch vehicle that can carry cargo and crew into Earth orbit, produced by American aerospace company SpaceX.
 
       The rocket has two stages. The first (booster) stage carries the second stage and payload to a certain altitude, after which the second stage lifts the payload to its ultimate destination. The rocket evolved through several versions. V1.0 flew from 2010–2013, V1.1 flew from 2013–2016, while V1.2 Full Thrust first launched in 2015, encompassing the Block 5 variant, flying since May 2018.`,
       link: 'https://www.spacex.com/vehicles/falcon-9/'
@@ -654,7 +654,7 @@ exports.seed = async function(knex) {
       booked_status: 'launched',
       launch_pad_id: 1,
       picture: '/falcon_heavy.jpg',
-      description: `Falcon Heavy is a partially reusable super heavy-lift launch vehicle[a] produced by SpaceX, an American aerospace manufacturer. The rocket consists of a center core on which two Falcon 9 boosters are attached, and a second stage on top of the center core.[8] Falcon Heavy has the second highest payload capacity of any currently operational launch vehicle behind NASA's Space Launch System, and the fourth-highest capacity of any rocket to reach orbit, trailing behind SLS, Energia and the Saturn V.`,
+      description: `Falcon Heavy is a partially reusable super heavy-lift launch vehicle produced by SpaceX, an American aerospace manufacturer. The rocket consists of a center core on which two Falcon 9 boosters are attached, and a second stage on top of the center core.[8] Falcon Heavy has the second highest payload capacity of any currently operational launch vehicle behind NASA's Space Launch System, and the fourth-highest capacity of any rocket to reach orbit, trailing behind SLS, Energia and the Saturn V.`,
       link: 'https://www.spacex.com/vehicles/falcon-heavy/'
     },
     {
@@ -668,7 +668,7 @@ exports.seed = async function(knex) {
       booked_status: 'launched',
       launch_pad_id: 1,
       picture: '/falcon_heavy.jpg',
-      description: `Falcon Heavy is a partially reusable super heavy-lift launch vehicle[a] produced by SpaceX, an American aerospace manufacturer. The rocket consists of a center core on which two Falcon 9 boosters are attached, and a second stage on top of the center core.[8] Falcon Heavy has the second highest payload capacity of any currently operational launch vehicle behind NASA's Space Launch System, and the fourth-highest capacity of any rocket to reach orbit, trailing behind SLS, Energia and the Saturn V.`,
+      description: `Falcon Heavy is a partially reusable super heavy-lift launch vehicle produced by SpaceX, an American aerospace manufacturer. The rocket consists of a center core on which two Falcon 9 boosters are attached, and a second stage on top of the center core.[8] Falcon Heavy has the second highest payload capacity of any currently operational launch vehicle behind NASA's Space Launch System, and the fourth-highest capacity of any rocket to reach orbit, trailing behind SLS, Energia and the Saturn V.`,
       link: 'https://www.spacex.com/vehicles/falcon-heavy/'
     },
     {
@@ -682,7 +682,7 @@ exports.seed = async function(knex) {
       booked_status: 'launched',
       launch_pad_id: 1,
       picture: '/falcon_heavy.jpg',
-      description: `Falcon Heavy is a partially reusable super heavy-lift launch vehicle[a] produced by SpaceX, an American aerospace manufacturer. The rocket consists of a center core on which two Falcon 9 boosters are attached, and a second stage on top of the center core.[8] Falcon Heavy has the second highest payload capacity of any currently operational launch vehicle behind NASA's Space Launch System, and the fourth-highest capacity of any rocket to reach orbit, trailing behind SLS, Energia and the Saturn V.`,
+      description: `Falcon Heavy is a partially reusable super heavy-lift launch vehicle produced by SpaceX, an American aerospace manufacturer. The rocket consists of a center core on which two Falcon 9 boosters are attached, and a second stage on top of the center core.[8] Falcon Heavy has the second highest payload capacity of any currently operational launch vehicle behind NASA's Space Launch System, and the fourth-highest capacity of any rocket to reach orbit, trailing behind SLS, Energia and the Saturn V.`,
       link: 'https://www.spacex.com/vehicles/falcon-heavy/'
     },
     {
@@ -696,7 +696,7 @@ exports.seed = async function(knex) {
       booked_status: 'launched',
       launch_pad_id: 1,
       picture: '/falcon_heavy.jpg',
-      description: `Falcon Heavy is a partially reusable super heavy-lift launch vehicle[a] produced by SpaceX, an American aerospace manufacturer. The rocket consists of a center core on which two Falcon 9 boosters are attached, and a second stage on top of the center core.[8] Falcon Heavy has the second highest payload capacity of any currently operational launch vehicle behind NASA's Space Launch System, and the fourth-highest capacity of any rocket to reach orbit, trailing behind SLS, Energia and the Saturn V.`,
+      description: `Falcon Heavy is a partially reusable super heavy-lift launch vehicle produced by SpaceX, an American aerospace manufacturer. The rocket consists of a center core on which two Falcon 9 boosters are attached, and a second stage on top of the center core.[8] Falcon Heavy has the second highest payload capacity of any currently operational launch vehicle behind NASA's Space Launch System, and the fourth-highest capacity of any rocket to reach orbit, trailing behind SLS, Energia and the Saturn V.`,
       link: 'https://www.spacex.com/vehicles/falcon-heavy/'
     },
     {
@@ -710,7 +710,7 @@ exports.seed = async function(knex) {
       booked_status: 'booked',
       launch_pad_id: 1,
       picture: '/falcon_heavy.jpg',
-      description: `Falcon Heavy is a partially reusable super heavy-lift launch vehicle[a] produced by SpaceX, an American aerospace manufacturer. The rocket consists of a center core on which two Falcon 9 boosters are attached, and a second stage on top of the center core.[8] Falcon Heavy has the second highest payload capacity of any currently operational launch vehicle behind NASA's Space Launch System, and the fourth-highest capacity of any rocket to reach orbit, trailing behind SLS, Energia and the Saturn V.`,
+      description: `Falcon Heavy is a partially reusable super heavy-lift launch vehicle produced by SpaceX, an American aerospace manufacturer. The rocket consists of a center core on which two Falcon 9 boosters are attached, and a second stage on top of the center core.[8] Falcon Heavy has the second highest payload capacity of any currently operational launch vehicle behind NASA's Space Launch System, and the fourth-highest capacity of any rocket to reach orbit, trailing behind SLS, Energia and the Saturn V.`,
       link: 'https://www.spacex.com/vehicles/falcon-heavy/'
     },
     {
@@ -752,7 +752,7 @@ exports.seed = async function(knex) {
       booked_status: 'launched',
       launch_pad_id: 12,
       picture: '/falcon_9.jpg',
-      description: `Falcon 9 is a partially reusable heavy-lift launch vehicle[a] that can carry cargo and crew into Earth orbit, produced by American aerospace company SpaceX.
+      description: `Falcon 9 is a partially reusable heavy-lift launch vehicle that can carry cargo and crew into Earth orbit, produced by American aerospace company SpaceX.
 
       The rocket has two stages. The first (booster) stage carries the second stage and payload to a certain altitude, after which the second stage lifts the payload to its ultimate destination. The rocket evolved through several versions. V1.0 flew from 2010–2013, V1.1 flew from 2013–2016, while V1.2 Full Thrust first launched in 2015, encompassing the Block 5 variant, flying since May 2018.`,
       link: 'https://www.spacex.com/vehicles/falcon-9/'
