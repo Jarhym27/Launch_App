@@ -59,7 +59,9 @@ const Messages = ({selectedRequest}) => {
   useEffect(()=> {
     fetch(`http://localhost:8080/join/messages-users?launch_request_id=${selectedRequest.id}`)
       .then(res=>res.json())
-      .then(data=> setMessages(data))
+      .then(data=> {
+        console.log(data)
+        setMessages(data)})
   },[selectedRequest.id])
 
 
