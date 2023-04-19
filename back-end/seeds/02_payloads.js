@@ -193,8 +193,8 @@ exports.seed = async function (knex) {
         { payload_user_id: 11, weight: 4750, orbital_requirement: "MEO", name: "Comm Sat 29", description: "High tech comm satellite in MEO." },
         { payload_user_id: 2, weight: 6750, orbital_requirement: "MEO", name: "Test Sat 79", description: "High tech sat to test manufacturing in space." },
         { payload_user_id: 2, weight: 4750, orbital_requirement: "MEO", name: "Test Sat 80", description: "High tech sat to test manufacturing in space." },
-        { payload_user_id: 3, weight: 3750, orbital_requirement: "GEO", name: "Refuel Sat 14", description: "High tech sat to test refueling." },
-        { payload_user_id: 11, weight: 500, orbital_requirement: "LEO", name: "CubeSat 1", description: "High tech sat to test refueling." },
+        { payload_user_id: 3, weight: 3750, orbital_requirement: "GEO", name: "Refuel Sat 14", description: "Experimental satellite to test orbital refueling." },
+        { payload_user_id: 11, weight: 500, orbital_requirement: "LEO", name: "CubeSat 1", description: "Experimental satellite to test orbital refueling." },
         { payload_user_id: 11, weight: 1500, orbital_requirement: "LEO", name: "Print-Sat 1", description: "High tech sat to test 3d printing in space." },
     ]
   );
