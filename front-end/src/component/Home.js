@@ -559,7 +559,7 @@ const Home = () => {
             {!loading && Array.isArray(searchResults) && searchResults.length > 0 &&
               <Row>
                 <Col className='pick-up-container'>
-                  <Card className='card-container'>
+                  <Card className='search-results-container'>
                     <ListGroup className='search-listgroup' variant="flush">
                       {
                         searchResults.map(item => {
@@ -567,13 +567,6 @@ const Home = () => {
 { return (
   <ListGroupItem className='search-list-item-selected' key={item.id}>
                             <Row>
-                              <Col >
-                                <img
-                                  className=""
-                                  src="http://via.placeholder.com/100x80"
-                                  alt="Card placeholder"
-                                />
-                              </Col>
                               <Col md={3} lg={3}>
                                 <Row>
                                   <h5>
@@ -591,7 +584,7 @@ const Home = () => {
                                   </h6>
                                 </Row>
                               </Col>
-                              <Col md={4} lg={4}>
+                              <Col md={6} lg={6}>
                                 <Row>
                                     <h6 className='list-detail'>
                                     Capacity
@@ -611,13 +604,6 @@ const Home = () => {
 } else { return (
   <ListGroupItem className='search-list-item' key={item.id}>
   <Row>
-    <Col >
-      <img
-        className=""
-        src="http://via.placeholder.com/100x80"
-        alt="Card placeholder"
-      />
-    </Col>
     <Col md={3} lg={3}>
       <Row>
         <h5>
@@ -635,7 +621,7 @@ const Home = () => {
         </h6>
       </Row>
     </Col>
-    <Col md={4} lg={4}>
+    <Col md={6} lg={6}>
       <Row>
           <h6 className='list-detail'>
           Capacity
