@@ -22,7 +22,7 @@ import { SiLaunchpad } from 'react-icons/si'
 export default LspLaunchVehicles;
 
 function LspLaunchVehicles() {
-  const { userLogin, setUserLogin, availablePads, setAvailablePads } = useContext(RocketInfo);
+  const { userLogin, setUserLogin, availablePads, setAvailablePads, refresh, setRefresh } = useContext(RocketInfo);
   const [name, setName] = useState();
   const [cost, setCost] = useState();
   const [pad, setPad] = useState();
