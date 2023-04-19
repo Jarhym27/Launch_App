@@ -8,9 +8,14 @@ import {
   Col,
   Card,
   Button,
+  InputGroup
 } from "react-bootstrap";
 import RequestList from "./05_lsp_requests_list";
 import { RocketInfo } from "../../App";
+import { RocketTakeoffFill} from "react-bootstrap-icons";
+import { GiMoonOrbit,GiEarthAmerica, GiWeight} from 'react-icons/gi'
+import{ FcMoneyTransfer} from 'react-icons/fc'
+import { SiLaunchpad } from 'react-icons/si'
 
 export default LspLaunchVehicles;
 
@@ -192,52 +197,52 @@ function LspLaunchVehicles() {
           addNewVehicle()
           setSubmitVehicle()
         }}>
-          <Form.Group
+          <InputGroup
             onChange={(e) => setName(e.target.value)}
             className="mb-3"
             controlId="formBasicEmail">
-            <Form.Label>Launch Vehicle</Form.Label>
-            <Form.Control type="text" placeholder="name" />
-          </Form.Group>
-          <Form.Group
+              <InputGroup.Text><RocketTakeoffFill/></InputGroup.Text>
+            <Form.Control type="text" placeholder="Launch Vehicle" />
+          </InputGroup>
+          <InputGroup
             onChange={(e) => setCost(e.target.value)}
             className="mb-3"
             controlId="formBasicEmail">
-            <Form.Label>Cost</Form.Label>
-            <Form.Control type="text" placeholder="cost" />
-          </Form.Group>
-          <Form.Group onChange={(e) => setPad(e.target.value)}
+              <InputGroup.Text><FcMoneyTransfer/></InputGroup.Text>
+            <Form.Control type="text" placeholder="Cost" />
+          </InputGroup>
+          <InputGroup onChange={(e) => setPad(e.target.value)}
             className="mb-3"
             controlId="formDropDown">
-            <Form.Label>Launch_Pad</Form.Label>
-            <Form.Select>
+              <InputGroup.Text><SiLaunchpad/></InputGroup.Text>
+            <Form.Select size='lg'>
               {availablePads?.map((element, i) => <option key={`option: ${i}`}> {element.launch_pad} </option>)}
             </Form.Select>
-          </Form.Group>
-          <Form.Group onChange={(e) => setMeoWeight(e.target.value)}
+          </InputGroup>
+          <InputGroup onChange={(e) => setMeoWeight(e.target.value)}
             className="mb-3"
             controlId="formBasicEmail">
-            <Form.Label>Meo Weight in tons</Form.Label>
-            <Form.Control type="text" placeholder="Meo Weight" />
-          </Form.Group>
-          <Form.Group onChange={(e) => setLeoWeight(e.target.value)}
+              <InputGroup.Text><GiWeight/></InputGroup.Text>
+            <Form.Control type="text" placeholder="Mass Capacity to MEO" />
+          </InputGroup>
+          <InputGroup onChange={(e) => setLeoWeight(e.target.value)}
             className="mb-3"
             controlId="formBasicEmail">
-            <Form.Label>Leo Weight in tons</Form.Label>
-            <Form.Control type="text" placeholder="Leo Weight" />
-          </Form.Group>
-          <Form.Group onChange={(e) => setGeoWeight(e.target.value)}
+              <InputGroup.Text><GiWeight/></InputGroup.Text>
+            <Form.Control type="text" placeholder="Mass Capacity to LEO" />
+          </InputGroup>
+          <InputGroup onChange={(e) => setGeoWeight(e.target.value)}
             className="mb-3"
             controlId="formBasicEmail">
-            <Form.Label>Geo Weight in tons</Form.Label>
-            <Form.Control type="text" placeholder="Geo Weight" />
-          </Form.Group>
-          <Form.Group onChange={(e) => setHeoWeight(e.target.value)}
+              <InputGroup.Text><GiWeight/></InputGroup.Text>
+            <Form.Control type="text" placeholder="Mass Capacity to GEO" />
+          </InputGroup>
+          <InputGroup onChange={(e) => setHeoWeight(e.target.value)}
             className="mb-3"
             controlId="formBasicEmail">
-            <Form.Label>Heo Weight in tons</Form.Label>
-            <Form.Control type="text" placeholder="Heo Weight" />
-          </Form.Group>
+              <InputGroup.Text><GiWeight/></InputGroup.Text>
+            <Form.Control type="text" placeholder="Mass Capacity to HEO" />
+          </InputGroup>
           <Button 
            onClick={handleClose}
           className="addPayload"

@@ -78,6 +78,11 @@ function LspCalendar() {
                                 $ {selectedEvent.cost}M
                             </div>
                         </ListGroup.Item>
+                        <ListGroup.Item as='li' className='d-flex justify-content-between align-items-start'>
+                            <div className="ms-2 me-auto">
+                                <div className='fw-bold'>Status</div>
+                                {selectedEvent.request_status}</div>
+                        </ListGroup.Item>
                     </ListGroup>
                 </Modal.Body>
             </Modal>
@@ -93,7 +98,7 @@ function LspCalendar() {
                 </React.Fragment>
                 <Container>
                     <Card>
-                        <h3 className='center' style={{ display: 'flex', justifyContent: "center" }}>Launch Schedule</h3>
+                        <Card.Title className='center' style={{ display: 'flex', justifyContent: "center" }}>Launch Schedule</Card.Title>
                         <Row>
                             <Card.Subtitle style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <div className='mx-3' style={{ display:'flex', alignItems:'center'}}>
