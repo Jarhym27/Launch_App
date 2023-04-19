@@ -56,9 +56,8 @@ const toggleShowA = (index,message_id) => {
         }
       }, [userLogin.id, trigger])
 
-         console.log('alerts ', notifs);
-         console.log('total Mess ', totalMess);
-
+        //  console.log('alerts ', notifs);
+        //  console.log('total Mess ', totalMess);
     if(totalMess) {
   return (
     <div >

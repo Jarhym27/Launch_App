@@ -16,6 +16,9 @@ exports.up = function(knex) {
         table.integer('launch_pad_id')
         table.foreign('lsp_user_id').references('users.id')
         table.integer('lsp_user_id')
+        table.string('picture')
+        table.string('description',1000)
+        table.string('link')
         table.timestamps(true,true)
     })
 };
