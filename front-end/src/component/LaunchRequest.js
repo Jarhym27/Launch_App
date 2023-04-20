@@ -208,13 +208,20 @@ const LaunchRequest = () => {
   }, [])
 
   const bookHandler = () => {
+    let payloadID
+    if(location.state.payload_id){
+      payloadID = location.state.payload_id
+    } else {
+      payloadID = location.state.id
+    }
+    
     if(!dateRef.current.value) return;
     fetch('http://localhost:8080/table/launch_requests',
       {
         method: "POST",
         credentials: 'include',
         body: JSON.stringify({
-          payload_id: location.state.id,
+          payload_id: payloadID,
           launch_pad_id: selectedLV.launch_pad_id,
           launch_vehicle_id: selectedLV.id,
           request_status: 'Pending',
