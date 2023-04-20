@@ -92,7 +92,7 @@ function LspCalendar() {
     if (allEvents) {
         return (
             <div >
-            <div><LspLaunchVehicles /><LspLaunchPads /></div>
+            
                    
                     
                 
