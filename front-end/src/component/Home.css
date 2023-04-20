@@ -222,6 +222,17 @@
   background-color: aliceblue;
 }
 
+.request-modal-btn{
+  background-color: #444444;
+  color: #EDEDED;
+  border: 1px #EDEDED solid;
+  margin:0;
+}
+
+.request-modal-btn:hover{
+  background-color: #DA0037;
+  border: 1px #EDEDED solid;
+}
 
 
 
