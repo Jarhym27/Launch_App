@@ -182,13 +182,12 @@ function LspLaunchVehicles() {
                   Delete</Button>
               </Card.Text>
             </Card.Body>
-
             )
           })}
         </Card>
-      </Col>
-      <Col>
-      <LspLaunchPads/>
+        <Col>
+          <LspLaunchPads/>
+        </Col>
       </Col>
     </Row>
 

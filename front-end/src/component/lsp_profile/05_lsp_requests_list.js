@@ -1,8 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Col, Card, Tab, Tabs, ListGroup, ListGroupItem } from 'react-bootstrap'
+import { Row, Col, Card, Tab, Tabs, ListGroup, ListGroupItem, Modal, InputGroup, Button } from 'react-bootstrap'
 import { RocketInfo } from "../../App"
-import { Modal } from "react-bootstrap";
 import '../../css/lsp_requests_list.css'
+import { RxCross2, RxCheck } from 'react-icons/rx'
 
 const RequestList = () => {
   const { userLogin, setRefresh, myRequests, setMyRequests } = useContext(RocketInfo);
@@ -99,6 +99,7 @@ const RequestList = () => {
   return (
     <>
       <Card>
+        <Card.Title>Incoming Launch Requests</Card.Title>
         <Tabs
           defaultActiveKey="0"
           id="uncontrolled-tab-example"
@@ -111,17 +112,31 @@ const RequestList = () => {
                 if (e.payload_user_id == user.id) {
                   return (
                     <ListGroupItem key={`request: ${i}`} action>
-                      <p>
-                        Launch Date: {formatDate(e.launch_date)}<br />
-                        Launch Site: {e.launch_site}<br />
-                        Launch Vehicle: {e.launch_vehicle}<br />
-                        Payload: {e.name}<br />
-                        Orbit: {e.orbital_requirement}<br />
-                        Weight: {e.weight} Tons<br />
-                        Request Status: {e.request_status}<br />
-                      </p>
-                      <button className="btn" onClick={() => { setDecision('approve'); setSelectedRequest(e) }}>Approve</button>
-                      <button className="btn" onClick={() => { setDecision('deny'); setSelectedRequest(e) }}>Deny</button>
+                      <Row>
+                        <p>
+                          Launch Date: {formatDate(e.launch_date)}<br />
+                          Launch Site: {e.launch_site}<br />
+                          Launch Vehicle: {e.launch_vehicle}<br />
+                          Payload: {e.name}<br />
+                          Orbit: {e.orbital_requirement}<br />
+                          Weight: {e.weight} kg<br />
+                          Request Status: {e.request_status}<br />
+                        </p>
+                      </Row>
+                      <Row>
+                        <Col md="auto" className="input-group-margin">
+                        <InputGroup >
+                          <InputGroup.Text onClick={() => { setDecision('approve'); setSelectedRequest(e) }}><RxCheck/></InputGroup.Text>
+                          <Button style={{width:'90px'}} className="btn" onClick={() => { setDecision('approve'); setSelectedRequest(e) }}> Approve</Button>
+                        </InputGroup>
+                        </Col>
+                        <Col md='auto'>
+                        <InputGroup>
+                          <InputGroup.Text onClick={() => { setDecision('deny'); setSelectedRequest(e) }}><RxCross2/></InputGroup.Text>
+                          <Button style={{width:'90px'}} className="btn" onClick={() => { setDecision('deny'); setSelectedRequest(e) }}> Reject</Button>
+                        </InputGroup>
+                        </Col>
+                      </Row>
                     </ListGroupItem>
                 )}
               })}
@@ -130,6 +145,7 @@ const RequestList = () => {
           ))}
         </Tabs>
       </Card>
+
       <Modal show={decision} onHide={() => { setDecision(''); setResponseMessage('') }}>
         <Modal.Header closeButton>
           <Modal.Title>Payload Request Response: {decision.toUpperCase()}</Modal.Title>
