@@ -43,21 +43,19 @@ function Vehicles() {
   return (
     <>
       <Notifications />
-   
-        <Row className="payloadsTitle">
-          <h3>All Available Launch Vehicles</h3>
-        </Row>
-        {console.log(allVehicles)}
-        {/* <div id="flex wrapper"> */}
-        <Row id="cardsizer">
+      <Row className="payloadsTitle">
+        <h3>All Available Launch Vehicles</h3>
+      </Row>
+      {console.log(allVehicles)}
+      <Row id="cardsizer">
         {uniqueLVs?.map((vehicle, i) => {
           return (
             <Card id="vehiclescard" key={i} >
               <Card.Body className="payloadsCol">
                 <Card.Title>{vehicle.launch_vehicle}</Card.Title>
                 <div id="vehiclepics">
-                <img src={`${vehicle.picture}`} id="bigricon" />
-                <img src={`${vehicle.icon}`} id="bigricon"/>
+                  <img src={`${vehicle.picture}`} id="bigricon" />
+                  <img src={`${vehicle.icon}`} id="bigricon" />
                 </div>
                 <Card.Text id="vehicletext"> <RocketTakeoffFill className='search-icon' />&nbsp; Launch Service Provider: { }</Card.Text>
                 <Card.Text id="vehicletext">Average Cost to Book: ${vehicle.cost}M {vehicle.cost > averageCost ? <a style={{ color: 'red' }}>(Higher than Average)</a> : <a style={{ color: 'green' }}>(Lower than Average)</a>}</Card.Text>
@@ -72,8 +70,7 @@ function Vehicles() {
             </Card>
           );
         })}
-        </Row>
-        {/* </div> */}
+      </Row>
     </>
 
 
