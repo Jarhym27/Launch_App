@@ -37,3 +37,7 @@
   }
 }
 
+#fott {
+  position: fixed;
+  bottom: 0;
+}
