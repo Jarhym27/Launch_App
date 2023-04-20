@@ -16,6 +16,7 @@ import { RocketInfo } from "../App";
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import {BsCalendarPlus} from 'react-icons/bs'
+import {TbSatellite} from 'react-icons/tb'
 
 const Home = () => {
   const { userLogin } = useContext(RocketInfo);
@@ -570,8 +571,11 @@ const Home = () => {
                 <Col className='pick-up-container'>
                   <Card className='search-results-container'>
                     <Row className='my-2'>
+                      <Col>
+                        <Card.Title className='card-title'>Launch Vehicles</Card.Title>
+                      </Col>
                       <Col className='text-end'>
-                        <Button onClick={()=>sortRocketsbyCheapest()}>Sort by cheapest</Button>
+                        <Button className='addPayload' onClick={()=>sortRocketsbyCheapest()}>Sort by cheapest</Button>
                       </Col>
                     </Row>
                     <ListGroup className='search-listgroup' variant="flush">
@@ -600,9 +604,9 @@ const Home = () => {
                               </Col>
                               <Col md={6} lg={6}>
                                 <Row>
-                                    <h6 className='list-detail'>
+                                    <h5 className='list-detail'>
                                     Capacity
-                                    </h6>
+                                    </h5>
                                     <ul className='list-detail'>
                                       <li>{item.leo_weight && `LEO: ${item.leo_weight}kg `}  </li>
                                       <li>{item.meo_weight && `MEO: ${item.meo_weight}kg `} </li>
@@ -674,7 +678,7 @@ const Home = () => {
           {payloadsLoading && <Spinner variant="light" />}
           {!payloadsLoading && userPayloads !== null && userPayloads.length > 0 &&
             <Col className='available-payloads-container'>
-              <h2 className='payloads-title'>Compatible Payloads</h2>
+              <Card.Title className='card-title'>Compatible Payloads</Card.Title>
               <Card className='payloads-card-container'>
                 <ListGroup className='payload-listgroup' variant="flush">
                   {
@@ -682,11 +686,7 @@ const Home = () => {
                       <ListGroupItem className='payload-list-item' key={item.id}>
                         <Row>
                           <Col >
-                            <img
-                              className=""
-                              src="http://via.placeholder.com/100x80"
-                              alt="Card placeholder"
-                            />
+                            <TbSatellite className='icon-satellite'/>
                           </Col>
                           <Col md={6} lg={6}>
                             <Row>
@@ -701,7 +701,7 @@ const Home = () => {
                             </Row>
                             <Row>
                               <h6 className='list-detail'>
-                                Weight: {item.weight}
+                                Weight: {item.weight}kg
                               </h6>
                             </Row>
                             <Row>
@@ -710,7 +710,7 @@ const Home = () => {
                               </h6>
                             </Row>
                           </Col>
-                          <Col>
+                          <Col className='text-center py-4'>
                             { launchRequests && launchRequests.map(request => request.payload_id).includes(item.id) &&
                               <h5>
                                 {launchRequests.filter(request=>request.payload_id === item.id
@@ -718,17 +718,16 @@ const Home = () => {
                               </h5>
                             }
                             { launchRequests && !launchRequests.map(request => request.payload_id).includes(item.id) &&
-                              <BsCalendarPlus onClick={() => {
+                              <Button className='addPayload' onClick={() => {
                                 if (!selectedPayload && !selectedLV) return
                                 else {
                                   setSelectedPayload(item)
                                   setModalShow(true)
                                 }
                               }}
-                                className='search-rocket' />
+                            >Book</Button>
                             }
                           </Col>
-
                         </Row>
                       </ListGroupItem>
                     )
@@ -739,10 +738,9 @@ const Home = () => {
           }
           {!payloadsLoading && userPayloads !== null && userPayloads.length === 0 &&
             <Col className='available-payloads-container'>
-              <h2 className='payloads-title'>No compatible payloads for the available launch vehicles.</h2>
-              <Card className='payloads-card-container'>
-                <Link to="http://localhost:3000/payloadprofile"> Go to profile to add payloads</Link>
-              </Card>
+              <Card.Title className='card-title'>No compatible payloads found.</Card.Title>
+              <Card.Title className='card-note'>Please adjust your selected rocket or... <Link to="http://localhost:3000/payloadprofile"> Go to profile to add new payloads</Link></Card.Title>
+                
             </Col>
           }
         </Row>

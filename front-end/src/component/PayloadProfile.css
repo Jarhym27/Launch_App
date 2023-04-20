@@ -47,11 +47,13 @@
 }
 .addPayload{
     width: 100%;
-    padding-bottom: 1rem;
     background-color: #444444;
     color: #EDEDED;
     border: 1px #EDEDED solid;
+    margin:0;
+    text-align: center;
 }
+
 .addPayload:hover{
     background-color: #DA0037;
     border: 1px #EDEDED solid;
