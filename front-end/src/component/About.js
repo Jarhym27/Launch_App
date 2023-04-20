@@ -6,10 +6,12 @@ import * as icons from "react-bootstrap-icons";
 function About() {
 
     let devs = ["Jaheem Christopher", "Tyler Hancock", "Kyle Mersinger", "Khoa Nguyen", "Mackenzie Nickle", "Jose Ocasio", "Izyk Pringle"]
+
     return (
         <>
             <div className="bg-dark">
                 <div className="container py-5">
+                <h3 id="motto">"A smooth way to launch your payload."</h3>
                     <div className="row h-100 align-items-center py-5">
                         <div className="col-lg-6">
                             <h1 className="display-4">Our Vision</h1>
@@ -33,7 +35,7 @@ function About() {
                     <div className="row text-center">
                         {devs.map((dev) => {
                             return (
-                                <div key={dev} className="col-xl-3 col-sm-6 mb-5">
+                                <div key={dev} id="aboutuscards" className="col-xl-3 col-sm-6 mb-5">
                                     <div className="bg-white rounded shadow-sm py-5 px-4"><img src={`/${dev}.png`} alt="" width="100" className="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm" />
                                         <h5 className="mb-0">{dev}</h5><span className="small text-uppercase text-muted">Junior Dev</span>
                                         <ul className="social mb-0 list-inline mt-3">
