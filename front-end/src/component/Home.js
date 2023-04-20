@@ -748,8 +748,8 @@ const Home = () => {
           {!payloadsLoading && userPayloads !== null && userPayloads.length === 0 &&
             <Col className='available-payloads-container'>
               <Card classNAme='card-container'>
-                <Card.Title className='card-title'>No compatible payloads found.</Card.Title>
-                <Card.Title className='card-note'>Please adjust your selected rocket or... <Link to="http://localhost:3000/payloadprofile"> Go to profile to add new payloads</Link></Card.Title>
+                <Card.Title className='card-title px-2'>No compatible payloads found.</Card.Title>
+                <Card.Title className='card-note px-2'>Please adjust your selected rocket or... <Link to="http://localhost:3000/payloadprofile"> Go to profile to add new payloads</Link></Card.Title>
                   <AnimeRocket/>
               </Card>
 
