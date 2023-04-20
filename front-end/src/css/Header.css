@@ -1,5 +1,8 @@
+#headerLink {
+    margin-left:15px
+}
 .headerLink {
-    margin: 15px;
+    margin:15px
 }
 .headerLink:hover {
     text-shadow: 1px 1px 5px red;
@@ -20,9 +23,18 @@
     color: #EDEDED;
     border: 1px #EDEDED solid;
     margin:0;
+    margin-right: 15px
 }
 
 .logout-btn:hover{
     background-color: #DA0037;
     border: 1px #EDEDED solid;
+}
+
+.signed-in-text{
+    margin-right: 10px;
+}
+
+.notif-badge{
+    margin-right: 20px
 }

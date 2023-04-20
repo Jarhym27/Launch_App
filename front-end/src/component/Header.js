@@ -87,8 +87,10 @@ const Header = () => {
         <Navbar.Collapse className="justify-content-end">
           {userLogin &&
           <>
-            <NotificationsBadge />
-              <Navbar.Text>
+          <div className='notif-badge'>
+            <NotificationsBadge  />
+          </div>
+              <Navbar.Text className='signed-in-text'>
                 Signed in as:  <span id='user-name'>{userLogin.username}</span>
             </Navbar.Text>
           </>
