@@ -8,6 +8,7 @@ import Form from "react-bootstrap/Form";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { RocketInfo } from "../App";
 import Notifications from "./Notifications";
+import ReactPaginate from 'react-paginate'; 
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import PayloadCalendar from './PayloadCalendar.js'
@@ -17,6 +18,16 @@ function PayloadProfile() {
   const [userPayloads, setUserPayloads] = useState();
   const [selectedPayload, setSelectedPayload] = useState();
   const [fetchTime, setFetchTime] = useState(false)
+  const [shownPage, setShownPage] = useState(0)
+
+
+  //Pagination Stuff here
+  function handlePageClick({selected: selectedPage}){
+    // console.log("selectedpage", selectedPage);
+    setShownPage(selectedPage);
+}
+const perPage = 4;
+const offset = shownPage * perPage;
 
   //For tabs to be active
   const [key, setKey] = useState('home');
@@ -122,8 +133,41 @@ let pending = payloads?.filter((e, i) =>  e.request_status === 'Pending')
 let scheduled = payloads?.filter((e, i) =>  e.request_status === 'Scheduled')
 let denied = payloads?.filter((e, i) =>  e.request_status === 'Denied')
 
+
+//Filter for pagination
+const currentPageData = filteredPayloads?.slice(offset, offset + perPage).map((pay, i) => {
   return (
     <>
+    <Card>
+      <Card.Body className="createdPayloadsCol">
+        <Card.Title>{pay.name}</Card.Title>
+        <Card.Text>
+          Status: Click{" "}
+          <Link state={pay} to='/request'>
+            Here
+          </Link>{" "}
+          to book with a Launch Provider
+        </Card.Text>
+        <footer>
+          <small>Payload Created: {pay.updated_at}</small>
+        </footer>
+        <Button onClick={() => [setSelectedPayload(pay), handleShowUpdate(),]}>
+          Update
+        </Button>
+        <Button onClick={() => [setSelectedPayload(pay), handleShowDelete(),]}>
+          Delete
+        </Button>
+      </Card.Body>
+    </Card>
+  </>
+  )
+})
+
+const pageCount = Math.ceil(filteredPayloads?.length / perPage)
+
+  return (
+    <>
+    <div className="topHalf">
     <Notifications/>
       <Container fluid className="App py-2 overflow-hidden">
         <Row className="justify-content-center profileRow">
@@ -150,7 +194,7 @@ let denied = payloads?.filter((e, i) =>  e.request_status === 'Denied')
               onSelect={(k) => setKey(k)}
               className="mb-3 tabsPayloads"
             >
-              <Tab eventKey="home" title="Launched">
+              <Tab className="tabsTest" eventKey="home" title="Launched">
                 {launched?.map((e, i) => {
                   return (
                     <Link state={e} to='/requestdetails' className='request-link-to-details'> 
@@ -243,38 +287,30 @@ let denied = payloads?.filter((e, i) =>  e.request_status === 'Denied')
                 })}
               </Tab>
               <Tab eventKey="test" title="Non submitted" >
-              {filteredPayloads?.map((pay,i)=> {
-                    return (
-                      <>
-                        <Card>
-                          <Card.Body className="createdPayloadsCol">
-                            <Card.Title>{pay.name}</Card.Title>
-                            <Card.Text>
-                              Status: Click{" "}
-                              <Link state={pay} to='/request'>
-                                Here
-                              </Link>{" "}
-                              to book with a Launch Provider
-                            </Card.Text>
-                            <footer>
-                              <small>Payload Created: {pay.updated_at}</small>
-                            </footer>
-                            <Button onClick={() => [setSelectedPayload(pay), handleShowUpdate(),]}>
-                              Update
-                            </Button>
-                            <Button onClick={() => [setSelectedPayload(pay), handleShowDelete(),]}>
-                              Delete
-                            </Button>
-                          </Card.Body>
-                        </Card>
-                      </>
-                    );
-                    }
-                    )}
+                {currentPageData}
+                <ReactPaginate
+                  previousLabel= {"<<  "}
+                  nextLabel={"   >>"}
+                  pageCount= {pageCount}
+                  onPageChange= {handlePageClick}
+                  pageClassName="page-item"
+                  pageLinkClassName="page-link"
+                  previousClassName="page-item"
+                  previousLinkClassName="page-link"
+                  nextClassName="page-item"
+                  nextLinkClassName="page-link"
+                  breakLabel="..."
+                  breakClassName="page-item"
+                  breakLinkClassName="page-link"
+                  containerClassName="pagination"
+                  activeClassName="active"
+                  renderOnZeroPageCount={null}
+                />
               </Tab>
             </Tabs>
           </Col>
 
+              <Row>
           <Col xs lg="2" className="addCol">
             <Card className="buttonCard">
               <Card.Body>
@@ -289,11 +325,17 @@ let denied = payloads?.filter((e, i) =>  e.request_status === 'Denied')
               </Card.Body>
             </Card>
           </Col>
+          </Row>
         </Row>          
       </Container>
+    </div>
 
-
+{/* Calendar HERE */}
+    <div className="calendarPayload">
       <PayloadCalendar/>
+    </div>
+
+
       <Modal show={show} onHide={handleClose} className="modalBg">
         <Modal.Header closeButton className="modalForm">
           <Modal.Title>Add Payload</Modal.Title>
