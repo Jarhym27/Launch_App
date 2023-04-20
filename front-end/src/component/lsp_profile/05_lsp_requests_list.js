@@ -1,11 +1,11 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Col, Card,Button} from 'react-bootstrap'
+import { Col, Card, Tab, Tabs } from 'react-bootstrap'
 import { RocketInfo } from "../../App"
 import { Modal } from "react-bootstrap";
 import '../../css/lsp_requests_list.css'
 
 const RequestList = () => {
-  const { userLogin, setRefresh, myRequests, setMyRequests} = useContext(RocketInfo);
+  const { userLogin, setRefresh, myRequests, setMyRequests } = useContext(RocketInfo);
 
   const [myUsers, setMyUsers] = useState([])
   const [selectedRequest, setSelectedRequest] = useState()
@@ -23,7 +23,7 @@ const RequestList = () => {
     }
   }, [userLogin, fetchTime])
 
-    
+
   useEffect(() => {
     if (myRequests) {
       fetch('http://localhost:8080/table/users')
@@ -90,24 +90,28 @@ const RequestList = () => {
     }
   }
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
+  };
 
   return (
-    <Col>
-        <Card className="lspListingsRL">
-          <Card.Title>
-          </Card.Title>
-      {myUsers?.map((user, i) => {
-        return (<>
-         <h1>Launch Requests from {user.organization}</h1>
-             
-              <Card.Body key={i}>
-             
+    <>
+      <Card>
+        <Tabs
+          defaultActiveKey="0"
+          id="uncontrolled-tab-example"
+          className="mb-3"
+        >
+          {myUsers?.map((user, index) => (
+            <Tab key={index} eventKey={index} title={user.organization}>
               {myRequests?.map((e, i) => {
                 if (e.payload_user_id == user.id) {
                   return (
                     <div className="border" key={`request: ${i}`}>
                       <p>
-                        Launch Date: {e.launch_date}<br />
+                        Launch Date: {formatDate(e.launch_date)}<br />
                         Launch Site: {e.launch_site}<br />
                         Launch Vehicle: {e.launch_vehicle}<br />
                         Payload: {e.name}<br />
@@ -115,19 +119,15 @@ const RequestList = () => {
                         Weight: {e.weight} Tons<br />
                         Request Status: {e.request_status}<br />
                       </p>
-                      <Button className="addPayload" onClick={() => { setDecision('approve'); setSelectedRequest(e)}}>Approve</Button>
-                      <Button className="addPayload" onClick={() => { setDecision('deny'); setSelectedRequest(e) }}>Deny</Button>
+                      <button className="btn" onClick={() => { setDecision('approve'); setSelectedRequest(e) }}>Approve</button>
+                      <button className="btn" onClick={() => { setDecision('deny'); setSelectedRequest(e) }}>Deny</button>
                     </div>
-                  )
-                }
-              } 
-              )}
-            </Card.Body>
-         
-        </>)
-      }
-      )}</Card>
-
+                )}
+              })}
+            </Tab>
+          ))}
+        </Tabs>
+      </Card>
       <Modal show={decision} onHide={() => { setDecision(''); setResponseMessage('') }}>
         <Modal.Header closeButton>
           <Modal.Title>Payload Request Response: {decision.toUpperCase()}</Modal.Title>
@@ -145,8 +145,7 @@ const RequestList = () => {
           <button disabled={!responseMessage} onClick={() => respondRequest()}>Submit Decision</button>
         </Modal.Footer>
       </Modal>
-
-    </Col>
+    </>
   )
 }
 

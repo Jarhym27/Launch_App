@@ -71,11 +71,11 @@ function LspLaunchVehicles() {
         booked_status: status,
         launch_pad_id: availablePads.id
     }
-   
+
     fetch("http://localhost:8080/table/launch_vehicles", {
       method: "POST",
       body: JSON.stringify(newVehicle
-        
+
       ),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -86,10 +86,10 @@ function LspLaunchVehicles() {
         setFetchTime(true);
       })
       .catch(err => console.log('Error:\n', err))
-   
+
   };
 
-    
+
   const handleUpdate = () => {
     console.log('name from update:\n', name)
     console.log('status from update:\n', status)
@@ -106,7 +106,7 @@ function LspLaunchVehicles() {
         heo_weight: heoWeight,
         booked_status: status,
         launch_pad_id: availablePads.id
-        
+
       }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -117,9 +117,9 @@ function LspLaunchVehicles() {
         setFetchTime(true)
       })
       .catch((err) => console.log('Error:\n', err))
-  
+
   };
- 
+
   const handleDelete = () => {
     let newVehicleList = launchVehicle.filter(item => item.id !== selectedVehicle.id);
     setLaunchVehicle(newVehicleList);
@@ -145,14 +145,14 @@ function LspLaunchVehicles() {
       })
   }
 
- 
+
   const filteredVehicle = launchVehicle?.filter(element => element.lsp_user_id === userLogin.id)
 
   return (<>
     <Row style={{height:"100vh", columnGap:"normal"}}>
       <Col className="col-3">
         <h1>Launch Vehicle</h1>
-            <Button  className="addPayload" onClick={handleShow}> 
+            <Button  className="addPayload" onClick={handleShow}>
             Add Launch Vehicle</Button>
         <Card className="lspListings">
           <Card.Title>
@@ -181,13 +181,7 @@ function LspLaunchVehicles() {
           })}
         </Card>
       </Col>
-      <Col>
-      </Col>
-      <Col>
-        <RequestList />
-      </Col>
     </Row>
-   
 
     <Modal show={show} onHide={() => handleClose} className="modalBg">
       <Modal.Header closeButton className="modalForm" onClick={handleClose} > Add Vehicle</Modal.Header>
@@ -244,9 +238,9 @@ function LspLaunchVehicles() {
               <InputGroup.Text><GiWeight/></InputGroup.Text>
             <Form.Control type="text" placeholder="Mass Capacity to HEO" />
           </InputGroup>
-          <Button 
+          <Button
            onClick={handleClose}
-           className="addPayload" 
+           className="addPayload"
           variant="primary"
             type="submit"
           >Submit</Button>
@@ -312,7 +306,7 @@ function LspLaunchVehicles() {
 
             </Form.Select>
           </InputGroup>
-          
+
           <Form.Label>LEO Mass Capacity</Form.Label>
           <InputGroup onChange={(e) => setLeoWeight(e.target.value)}
             className="mb-3"

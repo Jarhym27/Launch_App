@@ -77,13 +77,13 @@ function LspLaunchPads() {
   };
 
   const handleUpdate = () => {
-   
+
     fetch(`http://localhost:8080/table/launch_pads?id=${selectedPad.id}`, {
       method: "PATCH",
       body: JSON.stringify({
         launch_pad: padName,
         pad_status: padStatus
-       
+
       }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -93,7 +93,7 @@ function LspLaunchPads() {
         if(res.status === 200) console.log('Successfully updated')
         setFetchTime(true)
       }) ;
-     
+
   };
 
   const handleDelete = () => {
@@ -132,7 +132,7 @@ function LspLaunchPads() {
       <Row style={{rowGap:"10px"}}>
         <Col className="col-2">
           <h1>Launch Pads</h1>
-          <Button className='addPayload' onClick={handleShow}> 
+          <Button className='addPayload' onClick={handleShow}>
           Add New Pad</Button>
         <Card className="lspListingsPad">
           <Card.Title>
@@ -147,11 +147,11 @@ function LspLaunchPads() {
                     <Button className="addPayload"  onClick={() => [setSelectedPad(pads), handleShowUpdate(), setPadName(pads.launch_pads)]}>Edit</Button>
                     <Button  className="addPayload" onClick={() => [setSelectedPad(pads), handleShowDelete()]}>Delete</Button>
                   </Card.Text>
-                 
+
                 </Card.Body>
                  )})}
               </Card>
-           
+
          </Col>
       </Row>
 
@@ -173,7 +173,7 @@ function LspLaunchPads() {
               className="mb-3"
               controlId="formBasicEmail">
             <InputGroup.Text><SiLaunchpad/></InputGroup.Text>
-              <Form.Control type="text" placeholder="" />
+              <Form.Control type="text" placeholder='' />
             </InputGroup>
             <Form.Label>Pad Status</Form.Label>
             <InputGroup className="mb-3" controlId="formBasicPassword">
@@ -251,7 +251,7 @@ function LspLaunchPads() {
           <Form
             onSubmit={(e) => {
               e.preventDefault();
-              handleUpdate();
+              handleUpdate(e);
             }}
           >
             <Form.Label>Pad Name</Form.Label>
@@ -260,7 +260,7 @@ function LspLaunchPads() {
               className="mb-3"
               controlId="formBasicEmail">
             <InputGroup.Text><SiLaunchpad/></InputGroup.Text>
-              <Form.Control type="text" placeholder={selectedPad?.launch_pad} />
+              <Form.Control type="text" defaultValue={padName} placeholder={selectedPad?.launch_pad} />
             </InputGroup>
             <Form.Label>Pad Status</Form.Label>
             <InputGroup className="mb-3" controlId="formBasicPassword" onChange={(e) =>

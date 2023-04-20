@@ -485,7 +485,7 @@ const LaunchRequest = () => {
                   <Card className='card-container'>
                     <ListGroup className='search-listgroup' variant="flush">
                       {
-                        searchResults.map(item => 
+                        searchResults.map(item =>
                           <ListGroupItem className='search-list-item' key={item.id}>
                             <Row>
                               <Col >
