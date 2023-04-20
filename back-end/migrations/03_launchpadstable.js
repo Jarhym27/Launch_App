@@ -11,7 +11,7 @@ exports.up = function(knex) {
         table.string('state')
         table.enu('launch_site',['Vandenberg SFB','Patrick SFB','Wallops Flight Facility'])
         table.string('launch_pad')
-        table.boolean('pad_status')
+        table.enu('pad_status',['Available', 'Unavailable'])
         table.timestamps(true,true)
         })
 };
