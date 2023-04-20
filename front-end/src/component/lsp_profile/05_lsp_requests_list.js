@@ -100,52 +100,57 @@ const RequestList = () => {
     <>
       <Card>
         <Card.Title>Incoming Launch Requests</Card.Title>
-        <Tabs
-          defaultActiveKey="0"
-          id="uncontrolled-tab-example"
-          className="mb-3"
-        >
-          {myUsers?.map((user, index) => (
-            <Tab key={index} eventKey={index} title={user.organization}>
-              <ListGroup variant='flush'>
-              {myRequests?.map((e, i) => {
-                if (e.payload_user_id == user.id) {
-                  return (
-                    <ListGroupItem key={`request: ${i}`} action>
-                      <Row>
-                        <p>
-                          Launch Date: {formatDate(e.launch_date)}<br />
-                          Launch Site: {e.launch_site}<br />
-                          Launch Vehicle: {e.launch_vehicle}<br />
-                          Payload: {e.name}<br />
-                          Orbit: {e.orbital_requirement}<br />
-                          Weight: {e.weight} kg<br />
-                          Request Status: {e.request_status}<br />
-                        </p>
-                      </Row>
-                      <Row>
-                        <Col md="auto" className="input-group-margin">
-                        <InputGroup >
-                          <InputGroup.Text onClick={() => { setDecision('approve'); setSelectedRequest(e) }}><RxCheck/></InputGroup.Text>
-                          <Button style={{width:'90px'}} className="btn" onClick={() => { setDecision('approve'); setSelectedRequest(e) }}> Approve</Button>
-                        </InputGroup>
-                        </Col>
-                        <Col md='auto'>
-                        <InputGroup>
-                          <InputGroup.Text onClick={() => { setDecision('deny'); setSelectedRequest(e) }}><RxCross2/></InputGroup.Text>
-                          <Button style={{width:'90px'}} className="btn" onClick={() => { setDecision('deny'); setSelectedRequest(e) }}> Reject</Button>
-                        </InputGroup>
-                        </Col>
-                      </Row>
-                    </ListGroupItem>
-                )}
-              })}
-              </ListGroup>
-            </Tab>
-          ))}
-        </Tabs>
+        {myRequests &&
+          <Tabs
+            defaultActiveKey="0"
+            id="uncontrolled-tab-example"
+            className="mb-3"
+          >
+            {myUsers?.map((user, index) => (
+              <Tab key={index} eventKey={index} title={user.organization}>
+                <ListGroup variant='flush'>
+                  {myRequests?.map((e, i) => {
+                    if (e.payload_user_id == user.id) {
+                      return (
+                        <ListGroupItem key={`request: ${i}`} action>
+                          <Row>
+                            <p>
+                              Launch Date: {formatDate(e.launch_date)}<br />
+                              Launch Site: {e.launch_site}<br />
+                              Launch Vehicle: {e.launch_vehicle}<br />
+                              Payload: {e.name}<br />
+                              Orbit: {e.orbital_requirement}<br />
+                              Weight: {e.weight} kg<br />
+                              Request Status: {e.request_status}<br />
+                            </p>
+                          </Row>
+                          <Row>
+                            <Col md="auto" className="input-group-margin">
+                              <InputGroup >
+                                <InputGroup.Text onClick={() => { setDecision('approve'); setSelectedRequest(e) }}><RxCheck /></InputGroup.Text>
+                                <Button style={{ width: '90px' }} className="btn" onClick={() => { setDecision('approve'); setSelectedRequest(e) }}> Approve</Button>
+                              </InputGroup>
+                            </Col>
+                            <Col md='auto'>
+                              <InputGroup>
+                                <InputGroup.Text onClick={() => { setDecision('deny'); setSelectedRequest(e) }}><RxCross2 /></InputGroup.Text>
+                                <Button style={{ width: '90px' }} className="btn" onClick={() => { setDecision('deny'); setSelectedRequest(e) }}> Reject</Button>
+                              </InputGroup>
+                            </Col>
+                          </Row>
+                        </ListGroupItem>
+                      )
+                    }
+                  })}
+                </ListGroup>
+              </Tab>
+            ))}
+          </Tabs>
+        }
+        {myRequests.length === 0 &&
+          <Card.Subtitle>You have no current requests</Card.Subtitle>
+        }
       </Card>
-
       <Modal show={decision} onHide={() => { setDecision(''); setResponseMessage('') }}>
         <Modal.Header closeButton>
           <Modal.Title>Payload Request Response: {decision.toUpperCase()}</Modal.Title>
