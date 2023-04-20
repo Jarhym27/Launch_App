@@ -28,7 +28,7 @@ function LspProfile() {
     <>
         <Notifications/>
         <LspLaunchVehicles/>
-        <LspCalendar/>
+        
         </>
         
       

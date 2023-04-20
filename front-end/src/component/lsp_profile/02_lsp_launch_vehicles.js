@@ -153,7 +153,7 @@ function LspLaunchVehicles() {
     <>
       <Row >
         <Col className="watchTheRoad">
-          <h1>Launch Vehicle</h1>
+          <h1 className="noiceText">Launch Vehicles</h1>
           <Button className="addPayload" onClick={handleShow}>
             Add Launch Vehicle</Button>
           <Card className="lspListings">
