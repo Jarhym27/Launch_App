@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Col, Card} from 'react-bootstrap'
+import { Col, Card,Button} from 'react-bootstrap'
 import { RocketInfo } from "../../App"
 import { Modal } from "react-bootstrap";
 import '../../css/lsp_requests_list.css'
@@ -92,10 +92,10 @@ const RequestList = () => {
 
 
   return (
-    <Col className="col-start-9 col-end-12">
-        <Card >
-          <Card.Title border="danger">
-              </Card.Title>
+    <Col>
+        <Card className="lspListingsRL">
+          <Card.Title>
+          </Card.Title>
       {myUsers?.map((user, i) => {
         return (<>
          <h1>Launch Requests from {user.organization}</h1>
@@ -115,8 +115,8 @@ const RequestList = () => {
                         Weight: {e.weight} Tons<br />
                         Request Status: {e.request_status}<br />
                       </p>
-                      <button className="btn" onClick={() => { setDecision('approve'); setSelectedRequest(e)}}>Approve</button>
-                      <button className="btn" onClick={() => { setDecision('deny'); setSelectedRequest(e) }}>Deny</button>
+                      <Button className="addPayload" onClick={() => { setDecision('approve'); setSelectedRequest(e)}}>Approve</Button>
+                      <Button className="addPayload" onClick={() => { setDecision('deny'); setSelectedRequest(e) }}>Deny</Button>
                     </div>
                   )
                 }

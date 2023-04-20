@@ -129,12 +129,12 @@ function LspLaunchPads() {
 
   return (
     <>
-      <Row>
-        <Col className="col-3">
+      <Row style={{rowGap:"10px"}}>
+        <Col className="col-2">
           <h1>Launch Pads</h1>
           <Button className='addPayload' onClick={handleShow}> 
           Add New Pad</Button>
-        <Card className="payloadProfileCard">
+        <Card className="lspListingsPad">
           <Card.Title>
           </Card.Title>
           {availablePads?.map((pads, i) => {
