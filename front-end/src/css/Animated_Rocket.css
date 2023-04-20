@@ -1,13 +1,3 @@
-.scene{
-    background-color: black;
-    height:100vh;
-    weight:100vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-}
-
 .image_launch{
    height: 150px;
     width: 55px;
@@ -15,6 +5,7 @@
     position: relative;
     left: -11px;
     top: 115px;
+    color: #DA0037;
 }
 .image_launch:before{
    position: absolute;
@@ -45,12 +36,6 @@
   }
 }
 
-.image_launch:hover{
-    background-color: green;
-    position: absolute;
-    animation: mymove 5s infinite linear;
-}
-
 @keyframes mymove{
   from {top: 0px;}
   to {top: 200px;}
@@ -65,7 +50,7 @@
     margin: auto;
     left: 0;
     right: 0;
-    top: 0;
+    top: 350px;
     bottom: 0;
     overflow: hidden;
 }
@@ -78,7 +63,7 @@
     margin: auto;
     left: 0;
     right: 0;
-    top: 0;
+    top: 350px;
     bottom: 0;
     animation: spin 5s infinite linear;
 }
@@ -89,7 +74,7 @@
 }
 
 .ogImageLaunch{
-   border_radius: 50%;
+   border-radius: 50%;
     left:0;
     right:0;
     position: relative;
