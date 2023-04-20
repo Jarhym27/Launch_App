@@ -1,5 +1,12 @@
 .chart {
     height: 30vh;
-    width: 30vw;
     
+    
+}
+
+.canvas {
+    height: 35vh;
+    border-radius: 10px;
+    border: 2px solid #88325a;
+    background: aliceblue;
 }
