@@ -2,6 +2,7 @@ import React from "react";
 import '../css/About.css'
 import * as icons from "react-bootstrap-icons";
 
+
 function About() {
 
     let devs = ["Jaheem Christopher", "Tyler Hancock", "Kyle Mersinger", "Khoa Nguyen", "Mackenzie Nickle", "Jose Ocasio", "Izyk Pringle"]
