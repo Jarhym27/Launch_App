@@ -76,6 +76,7 @@ function PayloadProfile() {
       });
   }, [fetchTime]);
 
+  console.log('here', userPayloads)
   let payloads = submittedPayloads?.filter(
     (e, i) => e.payload_user_id === userLogin.id
   );
@@ -182,7 +183,6 @@ function PayloadProfile() {
       );
     });
 
-  const pageCount = Math.ceil(filteredPayloads?.length / perPage);
 
   return (
     <>
@@ -220,6 +220,7 @@ function PayloadProfile() {
                   tabClassName="color-black"
                   eventKey="home"
                   title="Launched"
+                  className="search-listgroup1"
                 >
                   {launched?.map((e, i) => {
                     return (
@@ -249,6 +250,7 @@ function PayloadProfile() {
                   tabClassName="color-black"
                   eventKey="profile"
                   title="Pending"
+                  className="search-listgroup1"
                 >
                   {pending?.map((e, i) => {
                     return (
@@ -278,6 +280,7 @@ function PayloadProfile() {
                   tabClassName="color-black"
                   eventKey="longer-tab"
                   title="Scheduled"
+                  className="search-listgroup1"
                 >
                   {scheduled?.map((e, i) => {
                     return (
@@ -307,6 +310,7 @@ function PayloadProfile() {
                   tabClassName="color-black"
                   eventKey="denied"
                   title="Denied"
+                  className="search-listgroup1"
                 >
                   {denied?.map((e, i) => {
                     let pendingIDs = pending.map((item) => item.payload_id);
@@ -365,27 +369,43 @@ function PayloadProfile() {
                   tabClassName="color-black"
                   eventKey="test"
                   title="Non submitted"
+                  className="search-listgroup1"
                 >
-                  {currentPageData}
-                  <ReactPaginate
-                    className="pagination"
-                    previousLabel={"<<  "}
-                    nextLabel={"   >>"}
-                    pageCount={pageCount}
-                    onPageChange={handlePageClick}
-                    pageClassName="page-item"
-                    pageLinkClassName="page-link"
-                    previousClassName="page-item"
-                    previousLinkClassName="page-link"
-                    nextClassName="page-item"
-                    nextLinkClassName="page-link"
-                    breakLabel="..."
-                    breakClassName="page-item"
-                    breakLinkClassName="page-link"
-                    containerClassName="pagination"
-                    activeClassName="item active"
-                    renderOnZeroPageCount={null}
-                  />
+                  {filteredPayloads?.map((e, i) => {
+                    return (
+                   
+                        <Card key={i}>
+                          <Card.Body className="payloadsCol">
+                            <Card.Title>{e.name}</Card.Title>
+                            <Card.Text>
+                              Status: Click{" "}
+                              <Link state={e} to="/request">
+                                Here
+                              </Link>{" "}
+                              to book with a Launch Provider
+                              <br></br>
+                              Payload Info: {e.description}
+                            </Card.Text>
+                            <footer>
+                              <small>Payload Created: {e.updated_at}</small>
+                            </footer>
+                            <Button
+                              className="updateDeleteButtons"
+                              onClick={() => [setSelectedPayload(e), handleShowUpdate()]}
+                            >
+                              Update
+                            </Button>
+                            <Button
+                              className="updateDeleteButtons"
+                              onClick={() => [setSelectedPayload(e), handleShowDelete()]}
+                            >
+                              Delete
+                            </Button>
+                          </Card.Body>
+                        </Card>
+                    );
+                  })}
+                  
                 </Tab>
               </Tabs>
             </Col>
@@ -393,61 +413,83 @@ function PayloadProfile() {
         </Container>
       </div>
 
-      <Modal show={show} onHide={handleClose} className="modalBg">
+    {/* CREATE */}
+      <Modal show={show} onHide={handleClose} className="modal-lg">
         <Modal.Header closeButton className="modalForm">
           <Modal.Title>Add Payload</Modal.Title>
         </Modal.Header>
         <Modal.Body className="modalForm">
           <Form
+            className="row w-100"
             onSubmit={(e) => {
               e.preventDefault();
               handlePost();
               setSubmittedPayloads();
             }}
           >
-            <Form.Group
-              onChange={(e) => setName(e.target.value)}
-              className="mb-3"
-              controlId="formBasicEmail"
-            >
-              <Form.Label>Payload Name</Form.Label>
-              <Form.Control type="text" placeholder="" />
-            </Form.Group>
-            <Form.Group
-              onChange={(e) => setDescription(e.target.value)}
-              className="mb-3"
-              controlId="formBasicEmail"
-            >
-              <Form.Label>Description</Form.Label>
-              <Form.Control type="text" placeholder="" />
-            </Form.Group>
+            <Col className="ml-5">
+              <Form.Group
+                onChange={(e) => setName(e.target.value)}
+                className="mb-3"
+                controlId="formBasicEmail"
+              >
+                <Form.Label>Payload Name</Form.Label>
+                <Form.Control
+                  defaultValue={selectedPayload?.name}
+                  type="text"
+                  placeholder=""
+                />
+              </Form.Group>
 
-            <Form.Group
-              onChange={(e) => setWeight(e.target.value)}
-              className="mb-3"
-              controlId="formBasicPassword"
-            >
-              <Form.Label>Weight</Form.Label>
-              <Form.Control type="text" placeholder="" />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Orbit</Form.Label>
-              <Form.Select onChange={(e) => setOrbit(e.target.value)}>
-                <option></option>
-                <option>GEO</option>
-                <option>HEO</option>
-                <option>LEO</option>
-                <option>MEO</option>
-              </Form.Select>
-            </Form.Group>
-            <Button
-              onClick={handleClose}
-              className="addPayload"
-              variant="primary"
-              type="submit"
-            >
-              Add
-            </Button>
+              <Form.Group
+                onChange={(e) => setWeight(e.target.value)}
+                className="mb-3"
+                controlId="formBasicPassword"
+              >
+                <Form.Label>Weight</Form.Label>
+                <Form.Control
+                  defaultValue={selectedPayload?.weight}
+                  type="number"
+                  placeholder=""
+                />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Label>Orbit</Form.Label>
+                <Form.Select
+                  defaultValue={selectedPayload?.orbital_requirement}
+                  onChange={(e) => setOrbit(e.target.value)}
+                >
+                  <option>GEO</option>
+                  <option>HEO</option>
+                  <option>LEO</option>
+                  <option>MEO</option>
+                </Form.Select>
+              </Form.Group>
+            </Col>
+
+            <Col>
+              <Form.Group
+                onChange={(e) => setDescription(e.target.value)}
+                className="mb-3"
+                
+              >
+                <Form.Label>Description</Form.Label>
+                <textarea
+                  rows={8}
+                  className="form-control"
+                  defaultValue={selectedPayload?.description}
+                />
+              </Form.Group>
+
+              <Button
+                onClick={() => handleClose()}
+                className="addPayload"
+                variant="primary"
+                type="submit"
+              >
+                Submit
+              </Button>
+            </Col>
           </Form>
         </Modal.Body>
         <Modal.Footer className="modalForm">
@@ -461,6 +503,7 @@ function PayloadProfile() {
         </Modal.Footer>
       </Modal>
 
+      {/* UPDATE */}
       <Modal show={showUpdate} onHide={handleCloseUpdate} className="modal-lg">
         <Modal.Header closeButton className="modalForm">
           <Modal.Title>Update Payload</Modal.Title>
@@ -497,7 +540,7 @@ function PayloadProfile() {
                 <Form.Label>Weight</Form.Label>
                 <Form.Control
                   defaultValue={selectedPayload?.weight}
-                  type="text"
+                  type="number"
                   placeholder=""
                 />
               </Form.Group>
