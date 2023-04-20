@@ -190,6 +190,7 @@ function LspLaunchVehicles() {
         </Col>
       </Col>
     </Row>
+
     <Modal show={show} onHide={() => handleClose} className="modalBg">
       <Modal.Header closeButton className="modalForm" onClick={handleClose} > Add Vehicle</Modal.Header>
       <Modal.Body className="modalForm">
