@@ -11,7 +11,7 @@ const Login = () => {
   const [failed, setFailed] = useState(false);
   const {userCreate, setUserCreate, userLogin, setUserLogin} = useContext(RocketInfo)
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     if(userLogin){
       // navigate('/AboutUs')
@@ -41,7 +41,7 @@ const Login = () => {
       if(data.role==='payload_user'){
         navigate('/home')
       } else {
-        navigate('/lspprofile')
+        navigate('/LSPHome')
       }
     })
     .catch(err=>console.error(err))
@@ -84,7 +84,7 @@ const Login = () => {
               <input
                 type="submit"
                 className="btn btn-secondary w-25"
-                
+
                 value="Login!"
               >
               </input>

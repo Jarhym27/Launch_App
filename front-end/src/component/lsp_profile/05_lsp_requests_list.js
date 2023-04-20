@@ -1,11 +1,11 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Col, Card} from 'react-bootstrap'
+import { Col, Card, Tab, Tabs } from 'react-bootstrap'
 import { RocketInfo } from "../../App"
 import { Modal } from "react-bootstrap";
 import '../../css/lsp_requests_list.css'
 
 const RequestList = () => {
-  const { userLogin, setRefresh, myRequests, setMyRequests} = useContext(RocketInfo);
+  const { userLogin, setRefresh, myRequests, setMyRequests } = useContext(RocketInfo);
 
   const [myUsers, setMyUsers] = useState([])
   const [selectedRequest, setSelectedRequest] = useState()
@@ -23,7 +23,7 @@ const RequestList = () => {
     }
   }, [userLogin, fetchTime])
 
-    
+
   useEffect(() => {
     if (myRequests) {
       fetch('http://localhost:8080/table/users')
@@ -92,16 +92,15 @@ const RequestList = () => {
 
 
   return (
-    <Col className="col-start-9 col-end-12">
-        <Card >
-          <Card.Title border="danger">
-              </Card.Title>
-      {myUsers?.map((user, i) => {
-        return (<>
-         <h1>Launch Requests from {user.organization}</h1>
-             
-              <Card.Body key={i}>
-             
+    <>
+      <Card>
+        <Tabs
+          defaultActiveKey="0"
+          id="uncontrolled-tab-example"
+          className="mb-3"
+        >
+          {myUsers?.map((user, index) => (
+            <Tab key={index} eventKey={index} title={user.organization}>
               {myRequests?.map((e, i) => {
                 if (e.payload_user_id == user.id) {
                   return (
@@ -115,19 +114,15 @@ const RequestList = () => {
                         Weight: {e.weight} Tons<br />
                         Request Status: {e.request_status}<br />
                       </p>
-                      <button className="btn" onClick={() => { setDecision('approve'); setSelectedRequest(e)}}>Approve</button>
+                      <button className="btn" onClick={() => { setDecision('approve'); setSelectedRequest(e) }}>Approve</button>
                       <button className="btn" onClick={() => { setDecision('deny'); setSelectedRequest(e) }}>Deny</button>
                     </div>
-                  )
-                }
-              } 
-              )}
-            </Card.Body>
-         
-        </>)
-      }
-      )}</Card>
-
+                )}
+              })}
+            </Tab>
+          ))}
+        </Tabs>
+      </Card>
       <Modal show={decision} onHide={() => { setDecision(''); setResponseMessage('') }}>
         <Modal.Header closeButton>
           <Modal.Title>Payload Request Response: {decision.toUpperCase()}</Modal.Title>
@@ -145,8 +140,7 @@ const RequestList = () => {
           <button disabled={!responseMessage} onClick={() => respondRequest()}>Submit Decision</button>
         </Modal.Footer>
       </Modal>
-
-    </Col>
+    </>
   )
 }
 
