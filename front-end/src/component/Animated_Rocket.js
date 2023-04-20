@@ -2,9 +2,7 @@ import React from "react"
 import {RocketFill} from "react-bootstrap-icons";
 import "../css/Animated_Rocket.css"
 import {GiEvilMoon} from "react-icons/gi"
-import {RocketFill} from "react-bootstrap-icons"
 
-import {GoFlame} from "react-icons/go"
 
 const AnimeRocket = () =>{
   
