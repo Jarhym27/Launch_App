@@ -5,6 +5,51 @@
     height: 15vh;
     margin-bottom: 3%;
     color: #171717;
+    height: 45%;
+   
+}
+
+.lspListings{
+    background-color:aliceblue;
+    overflow: auto;
+    height: 750px;
+    width: 450px;
+    margin-bottom: 30px;
+
+
+} 
+
+.noiceText{
+    color: rgb(69, 69, 69);
+}
+
+.lspListingsPad{
+    background-color:aliceblue;
+    overflow: auto;
+    height: 320px;
+    width: 450px;
+}
+
+.watchTheRoad{
+    margin-left: 40px;
+}
+
+
+.mindThePad{
+    
+    margin-top: 200px;
+
+}
+.lspListingsRL{
+    background-color:aliceblue;
+    overflow: auto;
+    height: 5.5%;
+    width: 450px;
+}
+
+.horizontalCard{
+
+    background-color:#66347F;
 }
 .profileRow{
     width: 100%;
@@ -28,7 +73,6 @@
     width: 18%;
     height: 2rem;
     padding-bottom: 1rem;
-
     background-color: #444444;
     color: #EDEDED;
     border: 1px #EDEDED solid;

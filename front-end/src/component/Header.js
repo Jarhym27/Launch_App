@@ -8,9 +8,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { RocketInfo } from "../App";
 import NotificationsBadge from "./NotificationsBadge";
 
-
-
-
 const Header = () => {
 
   const { userLogin, setUserLogin } = useContext(RocketInfo);
@@ -44,7 +41,7 @@ const Header = () => {
       <Navbar id="headerc" bg="dark" variant="dark" sticky="top">
       {userLogin.role === 'payload_user' &&
       <>
-        <Link to={'/home'}>
+        <Link id="headerLink" to={'/home'}>
         <Navbar.Brand>
           <RocketTakeoffFill className="navbar-logo" color='white' size={50} />
         </Navbar.Brand>
@@ -56,7 +53,7 @@ const Header = () => {
       }
       {userLogin.role ==='lsp_user' &&
           <>
-            <Link to={'/lspprofile'}>
+            <Link id="headerLink" to={'/lspprofile'}>
               <Navbar.Brand>
                 <RocketTakeoffFill className="navbar-logo" color='white' size={50} />
               </Navbar.Brand>
@@ -69,6 +66,7 @@ const Header = () => {
         <Navbar.Collapse className="justify-content-center">
           <Navbar.Text>
             {userLogin.role === 'payload_user' && <Link className="headerLink" to={'/home'}>Home</Link>}
+            {userLogin.role === 'lsp_user' && <Link className="headerLink" to={'/LSPHome'}>Home</Link>}
           </Navbar.Text>
           <Navbar.Text>
             <Link className="headerLink" to={profilePath}>Profile</Link>
@@ -96,8 +94,8 @@ const Header = () => {
           </>
           }
 
-          <Button className='mx-4' onClick={() => logout()}
-            variant="outline-light">Logout</Button>
+          <Button className='addPayload' onClick={() => logout()}
+            >Logout</Button>
         </Navbar.Collapse>
       </Navbar>
     </>
