@@ -41,3 +41,18 @@ button[type="button"]
 .sided{
     flex:30%
 }
+
+#addvehicles {
+    height: 100px;
+}
+
+#gridv {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+#grid2 {
+    grid-column-start: 2;
+    display: flex;
+    justify-content: center;
+}
