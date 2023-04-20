@@ -1,9 +1,12 @@
 .payloadProfileCard{
-    background-color:#DA0037 !important;
+    background-color:aliceblue !important;
     width: 100%;
     overflow: auto;
+    height: 15vh;
+    margin-bottom: 3%;
+    color: #171717;
     height: 45%;
-    color: #EDEDED;
+   
 }
 
 .lspListings{
@@ -51,59 +54,74 @@
 .profileRow{
     width: 100%;
 }
-.payloadsRow{
-    display: flex;
-    flex-direction: column;
-
-}
 .payloadsCol{
     width: 100%;
-    background-color:#444444 ;
-    color: #EDEDED;
+    background-color:aliceblue ;
+    color: #171717;
 }
 .payloadsTitle{
-    width: 50%;
+    text-align: center;
+    width: 100%;
 }
+
 .profileCol{
     width: 100%;
     padding-top: 2.75rem;
+    height: 70vh;
 }
 .addPayload{
     width: 50%;
     background-color: #444444;
     color: #EDEDED;
     border: 1px #EDEDED solid;
-    margin:0;
+    font-size: 15px;
     text-align: center;
+
+}
+
+.addPayloadRight{
+    width: 18%;
+    height: 2rem;
+    padding-bottom: 1rem;
+    background-color: #444444;
+    color: #EDEDED;
+    border: 1px #EDEDED solid;
+    font-size: 15px;
+    text-align: center;
+
+}
+
+.addPayloadRight:hover{
+    background-color: #EDEDED;
+    border: 1px #171717 solid;
+    color: #171717;
+
 }
 
 .addPayload:hover{
     background-color: #DA0037;
     border: 1px #EDEDED solid;
-}
 
-.addPayloadRound{
+}
+.titleRowButton{
     width: 100%;
-    padding-bottom: 1rem;
-    background-color: #444444;
-    color: #EDEDED;
-    border: 1px #EDEDED solid;
-    border-radius: 8px;
-}
-
-.addPayloadRound:hover{
-    background-color: #DA0037;
-    border: 1px #EDEDED solid;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: center;
    
 }
-
+.colTitle{
+    padding-left: 12rem;
+    text-align: center;
+}
 .buttonCard{
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    background-color:#444444 !important;
-    color: #EDEDED;
+    background-color:aliceblue !important;
+    color: #171717;
 }
 .addCol{
     padding-top: 2.75rem;
@@ -124,17 +142,50 @@
 }
 .createdPayloadsCol{
     width: 100%;
-    background-color:#444444 ; 
-    color: #EDEDED;
+    background-color:aliceblue ; 
+    color: #171717;
 }
 .request-link-to-details{
     text-decoration: none;
 }
 .tabsPayloads{
-    background-color: #171717;
-color:#EDEDED !important;
+    /* background-color: #171717; */
+    color:#EDEDED !important;
+}
+.color-black{
+    color: #171717;
+    border: 1px #171717 solid;
+}
+.color-black:hover{
+    border: 1px #171717 solid;
+    color: #EDEDED;
+
 }
 @font-face {
     font-family: 'Silkscreen'; /*a name to be used later*/
     src: url('../media/Silkscreen/slkscr.ttf'); /*URL to font*/
+}
+.topHalf{
+    height: 60rem;
+}
+.calendarPayload{
+    width: 100%;
+    height: 100%;
+}
+
+.updateDeleteButtons{
+    width: 15%;
+    height: 2.5rem;
+    padding-bottom: 1rem;
+    background-color: #444444;
+    color: #EDEDED;
+    border: 1px #EDEDED solid;
+    text-align: center;
+}
+.updateDeleteButtons:hover{
+    background-color: #DA0037;
+    border: 1px #171717 solid;
+}
+.item{
+    background-color: #DA0037;
 }
