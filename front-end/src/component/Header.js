@@ -8,9 +8,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { RocketInfo } from "../App";
 import NotificationsBadge from "./NotificationsBadge";
 
-
-
-
 const Header = () => {
 
   const { userLogin, setUserLogin } = useContext(RocketInfo);
@@ -69,6 +66,7 @@ const Header = () => {
         <Navbar.Collapse className="justify-content-center">
           <Navbar.Text>
             {userLogin.role === 'payload_user' && <Link className="headerLink" to={'/home'}>Home</Link>}
+            {userLogin.role === 'lsp_user' && <Link className="headerLink" to={'/LSPHome'}>Home</Link>}
           </Navbar.Text>
           <Navbar.Text>
             <Link className="headerLink" to={profilePath}>Profile</Link>
