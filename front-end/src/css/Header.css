@@ -1,6 +1,9 @@
 .headerLink {
     margin: 15px;
 }
+.headerLink:hover {
+    text-shadow: 1px 1px 5px red;
+}
 
 .title {
     color: #DA0037;

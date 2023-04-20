@@ -44,7 +44,7 @@ const Header = () => {
       <Navbar id="headerc" bg="dark" variant="dark" sticky="top">
       {userLogin.role === 'payload_user' &&
       <>
-        <Link to={'/home'}>
+        <Link id="headerLink" to={'/home'}>
         <Navbar.Brand>
           <RocketTakeoffFill className="navbar-logo" color='white' size={50} />
         </Navbar.Brand>
@@ -56,7 +56,7 @@ const Header = () => {
       }
       {userLogin.role ==='lsp_user' &&
           <>
-            <Link to={'/lspprofile'}>
+            <Link id="headerLink" to={'/lspprofile'}>
               <Navbar.Brand>
                 <RocketTakeoffFill className="navbar-logo" color='white' size={50} />
               </Navbar.Brand>
@@ -96,8 +96,8 @@ const Header = () => {
           </>
           }
 
-          <Button className='mx-4' onClick={() => logout()}
-            variant="outline-light">Logout</Button>
+          <Button className='addPayload' onClick={() => logout()}
+            >Logout</Button>
         </Navbar.Collapse>
       </Navbar>
     </>
