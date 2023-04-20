@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Col, Card, Tab, Tabs } from 'react-bootstrap'
+import { Col, Card, Tab, Tabs, ListGroup, ListGroupItem } from 'react-bootstrap'
 import { RocketInfo } from "../../App"
 import { Modal } from "react-bootstrap";
 import '../../css/lsp_requests_list.css'
@@ -106,10 +106,11 @@ const RequestList = () => {
         >
           {myUsers?.map((user, index) => (
             <Tab key={index} eventKey={index} title={user.organization}>
+              <ListGroup variant='flush'>
               {myRequests?.map((e, i) => {
                 if (e.payload_user_id == user.id) {
                   return (
-                    <div className="border" key={`request: ${i}`}>
+                    <ListGroupItem key={`request: ${i}`} action>
                       <p>
                         Launch Date: {formatDate(e.launch_date)}<br />
                         Launch Site: {e.launch_site}<br />
@@ -121,9 +122,10 @@ const RequestList = () => {
                       </p>
                       <button className="btn" onClick={() => { setDecision('approve'); setSelectedRequest(e) }}>Approve</button>
                       <button className="btn" onClick={() => { setDecision('deny'); setSelectedRequest(e) }}>Deny</button>
-                    </div>
+                    </ListGroupItem>
                 )}
               })}
+              </ListGroup>
             </Tab>
           ))}
         </Tabs>
