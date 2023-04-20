@@ -16,7 +16,6 @@ function Vehicles() {
   //USECONTEXT
   const { userLogin } = useContext(RocketInfo)
   const [allVehicles, setAllVehicles] = useState();
-  const [detailVehicle, setDetailVehicle] = useState();
 
   useEffect(() => {
     fetch("http://localhost:8080/table/launch_vehicles")
@@ -24,6 +23,8 @@ function Vehicles() {
       .then((data) => setAllVehicles(data));
   }, []);
 
+
+  let uniqueLVs = [...new Map(allVehicles?.map(vehicle => [vehicle['launch_vehicle'], vehicle])).values()]
   let totalcost = allVehicles?.map(vehicle => vehicle.cost)
   let totalleo = allVehicles?.map(vehicle => vehicle.leo_weight)
 
@@ -44,16 +45,15 @@ function Vehicles() {
           <h3>All Available Launch Vehicles</h3>
         </Row>
         {console.log(allVehicles)}
-        {allVehicles?.map((vehicle, i) => {
+        {uniqueLVs?.map((vehicle, i) => {
           return (
-            <Card>
+            <Card key={i}>
               <Card.Body className="payloadsCol">
                 <Card.Title>{vehicle.launch_vehicle}</Card.Title>
                 <img src={`${vehicle.picture}`} width={200} height={300} />
                 <Card.Text>Launch Service Provider: { }</Card.Text>
-                <Card.Text>Cost to Book: ${vehicle.cost}M {vehicle.cost > averageCost ? <a style={{ color: 'red' }}>(Higher than Average)</a> : <a style={{ color: 'green' }}>(Lower than Average)</a>}</Card.Text>
-                <Card.Text>Cost per kg: ${Math.round(vehicle.cost / vehicle.leo_weight * 1000000)} {vehicle.cost / vehicle.leo_weight > costPerLeo ? <a style={{ color: 'red' }}>(Higher than Average)</a> : <a style={{ color: 'green' }}>(Lower than Average)</a>}</Card.Text>
-                <Card.Text>Status: {vehicle.booked_status}</Card.Text>
+                <Card.Text>Average Cost to Book: ${vehicle.cost}M {vehicle.cost > averageCost ? <a style={{ color: 'red' }}>(Higher than Average)</a> : <a style={{ color: 'green' }}>(Lower than Average)</a>}</Card.Text>
+                <Card.Text> Average Cost per kg: ${Math.round(vehicle.cost / vehicle.leo_weight * 1000000)} {vehicle.cost / vehicle.leo_weight > costPerLeo ? <a style={{ color: 'red' }}>(Higher than Average)</a> : <a style={{ color: 'green' }}>(Lower than Average)</a>}</Card.Text>
                 <Card.Text>Low Earth Orbit Maximum Capacity:{vehicle.leo_weight > 0 ? `${vehicle.leo_weight}kg` : `N/A`}</Card.Text>
                 <Card.Text>Medium Earth Orbit Maximum Capacity: {vehicle.meo_weight > 0 ? `${vehicle.meo_weight}kg` : `N/A`}</Card.Text>
                 <Card.Text>Highly Elliptical Orbit Maximum Capacity: {vehicle.heo_weight > 0 ? `${vehicle.heo_weight}kg` : `N/A`}</Card.Text>
