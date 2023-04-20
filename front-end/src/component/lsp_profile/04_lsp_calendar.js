@@ -92,10 +92,10 @@ function LspCalendar() {
     if (allEvents) {
         return (
             <div >
-                <React.Fragment >
-                    <LspLaunchVehicles />
-                    <LspLaunchPads />
-                </React.Fragment>
+            <div><LspLaunchVehicles /><LspLaunchPads /></div>
+                   
+                    
+                
                 <Container>
                     <Card>
                         <Card.Title className='center' style={{ display: 'flex', justifyContent: "center" }}>Launch Schedule</Card.Title>
