@@ -186,9 +186,9 @@ function PayloadProfile() {
 
   return (
     <>
-      <div style={{height: "86vh"}}>
+      <div style={{ height: "100vh" }}>
         <Notifications />
-        <Container fluid className="App py-2 overflow-hidden">
+        <Container fluid>
           <Row className="profileRow">
             <Col>
               <Row className="mt-5">
@@ -200,7 +200,14 @@ function PayloadProfile() {
               <Row className="payloadsTitle d-flex justify-content-between">
                 <div className="titleRowButton">
                   <h3 className="colTitle"> Payloads</h3>
-                  <Button onClick={handleShow} size="sm" className="btn ml-5 addPayloadRight"> + Add Payload</Button>
+                  <Button
+                    onClick={handleShow}
+                    size="sm"
+                    className="btn ml-5 addPayloadRight"
+                  >
+                    {" "}
+                    + Add Payload
+                  </Button>
                 </div>
               </Row>
               <Tabs
@@ -227,7 +234,7 @@ function PayloadProfile() {
                             <Card.Text>
                               Status: {e.request_status}
                               <br></br>
-                              Payload Info:{" "} {e.description}
+                              Payload Info: {e.description}
                             </Card.Text>
                             <footer>
                               <small>Payload Created: {e.updated_at}</small>
@@ -256,7 +263,7 @@ function PayloadProfile() {
                             <Card.Text>
                               Status: {e.request_status}
                               <br></br>
-                              Payload Info:{" "} {e.description}
+                              Payload Info: {e.description}
                             </Card.Text>
                             <footer>
                               <small>Payload Created: {e.updated_at}</small>
@@ -285,7 +292,7 @@ function PayloadProfile() {
                             <Card.Text>
                               Status: {e.request_status}
                               <br></br>
-                              Payload Info:{" "} {e.description}
+                              Payload Info: {e.description}
                             </Card.Text>
                             <footer>
                               <small>Payload Created: {e.updated_at}</small>
@@ -324,7 +331,7 @@ function PayloadProfile() {
                               </Link>{" "}
                               to rebook with a Launch Provider
                               <br></br>
-                              Payload Info:{" "} {e.description}
+                              Payload Info: {e.description}
                               <footer>
                                 <small>Payload Created: {e.updated_at}</small>
                               </footer>
@@ -376,7 +383,7 @@ function PayloadProfile() {
                     breakClassName="page-item"
                     breakLinkClassName="page-link"
                     containerClassName="pagination"
-                    activeClassName="active"
+                    activeClassName="item active"
                     renderOnZeroPageCount={null}
                   />
                 </Tab>
@@ -385,8 +392,6 @@ function PayloadProfile() {
           </Row>
         </Container>
       </div>
-
-
 
       <Modal show={show} onHide={handleClose} className="modalBg">
         <Modal.Header closeButton className="modalForm">
@@ -437,7 +442,7 @@ function PayloadProfile() {
             </Form.Group>
             <Button
               onClick={handleClose}
-              className="modalButtons"
+              className="addPayload"
               variant="primary"
               type="submit"
             >
@@ -447,7 +452,7 @@ function PayloadProfile() {
         </Modal.Body>
         <Modal.Footer className="modalForm">
           <Button
-            className="modalButtons"
+            className="addPayload"
             variant="secondary"
             onClick={handleClose}
           >
@@ -456,72 +461,83 @@ function PayloadProfile() {
         </Modal.Footer>
       </Modal>
 
-      <Modal show={showUpdate} onHide={handleCloseUpdate} className="modalBg">
+      <Modal show={showUpdate} onHide={handleCloseUpdate} className="modal-lg">
         <Modal.Header closeButton className="modalForm">
           <Modal.Title>Update Payload</Modal.Title>
         </Modal.Header>
         <Modal.Body className="modalForm">
           <Form
+            className="row w-100"
             onSubmit={(e) => {
               e.preventDefault();
               handleUpdate();
               setSubmittedPayloads();
             }}
+            
           >
-            <Form.Group
-              onChange={(e) => setName(e.target.value)}
-              className="mb-3"
-              controlId="formBasicEmail"
-            >
-              <Form.Label>Payload Name</Form.Label>
-              <Form.Control
-                defaultValue={selectedPayload?.name}
-                type="text"
-                placeholder=""
-              />
-            </Form.Group>
-
-            <Form.Group
-              onChange={(e) => setDescription(e.target.value)}
-              className="mb-3"
-              controlId="formBasicEmail"
-            >
-              <Form.Label>Description</Form.Label>
-              <Form.Control type="text" placeholder="" />
-            </Form.Group>
-
-            <Form.Group
-              onChange={(e) => setWeight(e.target.value)}
-              className="mb-3"
-              controlId="formBasicPassword"
-            >
-              <Form.Label>Weight</Form.Label>
-              <Form.Control
-                defaultValue={selectedPayload?.weight}
-                type="text"
-                placeholder=""
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Orbit</Form.Label>
-              <Form.Select
-                defaultValue={selectedPayload?.orbital_requirement}
-                onChange={(e) => setOrbit(e.target.value)}
+            <Col className="ml-5">
+              <Form.Group
+                onChange={(e) => setName(e.target.value)}
+                className="mb-3"
+                controlId="formBasicEmail"
               >
-                <option>GEO</option>
-                <option>HEO</option>
-                <option>LEO</option>
-                <option>MEO</option>
-              </Form.Select>
-            </Form.Group>
-            <Button
-              onClick={() => handleCloseUpdate()}
-              className="addPayload"
-              variant="primary"
-              type="submit"
-            >
-              Update
-            </Button>
+                <Form.Label>Payload Name</Form.Label>
+                <Form.Control
+                  defaultValue={selectedPayload?.name}
+                  type="text"
+                  placeholder=""
+                />
+              </Form.Group>
+
+              <Form.Group
+                onChange={(e) => setWeight(e.target.value)}
+                className="mb-3"
+                controlId="formBasicPassword"
+              >
+                <Form.Label>Weight</Form.Label>
+                <Form.Control
+                  defaultValue={selectedPayload?.weight}
+                  type="text"
+                  placeholder=""
+                />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Label>Orbit</Form.Label>
+                <Form.Select
+                  defaultValue={selectedPayload?.orbital_requirement}
+                  onChange={(e) => setOrbit(e.target.value)}
+                >
+                  <option>GEO</option>
+                  <option>HEO</option>
+                  <option>LEO</option>
+                  <option>MEO</option>
+                </Form.Select>
+              </Form.Group>
+            </Col>
+
+            <Col>
+              <Form.Group
+                onChange={(e) => setDescription(e.target.value)}
+                className="mb-3"
+                
+              >
+                <Form.Label>Description</Form.Label>
+                <textarea
+                  rows={8}
+                  className="form-control"
+                  defaultValue={selectedPayload?.description}
+                />
+              </Form.Group>
+
+              <Button
+                onClick={() => handleCloseUpdate()}
+                className="addPayload"
+                variant="primary"
+                type="submit"
+              >
+                Update
+              </Button>
+            </Col>
           </Form>
         </Modal.Body>
         <Modal.Footer className="modalForm">
