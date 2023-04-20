@@ -2,7 +2,6 @@ import React from "react";
 import '../css/About.css'
 import * as icons from "react-bootstrap-icons";
 
-
 function About() {
 
     let devs = ["Jaheem Christopher", "Tyler Hancock", "Kyle Mersinger", "Khoa Nguyen", "Mackenzie Nickle", "Jose Ocasio", "Izyk Pringle"]
@@ -11,7 +10,7 @@ function About() {
         <>
             <div className="bg-dark">
                 <div className="container py-5">
-                <h3 id="motto">"A smooth way to launch your payload."</h3>
+                    <h3 id="motto">"A smooth way to launch your payload."</h3>
                     <div className="row h-100 align-items-center py-5">
                         <div className="col-lg-6">
                             <h1 className="display-4">Our Vision</h1>

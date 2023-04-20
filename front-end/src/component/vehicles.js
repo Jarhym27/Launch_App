@@ -1,23 +1,14 @@
-import React, { useContext } from "react";
+import React from "react";
 import "./PayloadProfile.css";
 import { useState, useEffect } from "react";
-import { Container, Row, Col, Card, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import Modal from "react-bootstrap/Modal";
-import Form from "react-bootstrap/Form";
+import { Row, Card } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { RocketInfo } from "../App";
 import Notifications from "./Notifications";
-import { red } from "@mui/material/colors";
-import { GiMoonOrbit, GiEarthAmerica } from 'react-icons/gi'
-import { RocketTakeoffFill } from "react-bootstrap-icons";
+import { GiMoonOrbit } from 'react-icons/gi'
 import "../css/vehicles.css";
 
 function Vehicles() {
 
-
-  //USECONTEXT
-  const { userLogin } = useContext(RocketInfo)
   const [allVehicles, setAllVehicles] = useState();
 
   useEffect(() => {
@@ -57,7 +48,6 @@ function Vehicles() {
                   <img src={`${vehicle.picture}`} id="bigricon" />
                   <img src={`${vehicle.icon}`} id="bigricon" />
                 </div>
-                <Card.Text id="vehicletext"> <RocketTakeoffFill className='search-icon' />&nbsp; Launch Service Provider: { }</Card.Text>
                 <Card.Text id="vehicletext">Average Cost to Book: ${vehicle.cost}M {vehicle.cost > averageCost ? <a style={{ color: 'red' }}>(Higher than Average)</a> : <a style={{ color: 'green' }}>(Lower than Average)</a>}</Card.Text>
                 <Card.Text id="vehicletext"> Average Cost per kg: ${Math.round(vehicle.cost / vehicle.leo_weight * 1000000)} {vehicle.cost / vehicle.leo_weight > costPerLeo ? <a style={{ color: 'red' }}>(Higher than Average)</a> : <a style={{ color: 'green' }}>(Lower than Average)</a>}</Card.Text>
                 <Card.Text id="vehicletext"> <GiMoonOrbit className='search-icon' />&nbsp; Low Earth Orbit Maximum Capacity:{vehicle.leo_weight > 0 ? `${vehicle.leo_weight}kg` : `N/A`}</Card.Text>
@@ -72,9 +62,6 @@ function Vehicles() {
         })}
       </Row>
     </>
-
-
-
   );
 }
 
