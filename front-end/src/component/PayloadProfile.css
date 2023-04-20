@@ -185,3 +185,10 @@
 .item{
     background-color: #DA0037;
 }
+.search-listgroup1{
+    max-height: 557px;
+    margin-bottom: 10px;
+    overflow:auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
