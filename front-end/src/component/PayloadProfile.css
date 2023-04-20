@@ -82,6 +82,7 @@
 .addPayloadRight{
     width: 18%;
     height: 2rem;
+    margin-top: 15px;
     padding-bottom: 1rem;
     background-color: #444444;
     color: #EDEDED;
@@ -133,6 +134,10 @@
     background-color: #171717 !important;
     color:#EDEDED;
 }
+.payloads-card{
+    background-color: aliceblue;
+    padding: 10px;
+}
 .createdPayloads{
     display: flex;
     flex-direction: column;
@@ -148,9 +153,19 @@
 .request-link-to-details{
     text-decoration: none;
 }
+
+.payload-item{
+    transition: all .1s ease-in-out;
+}
+
+.payload-item:hover{
+    scale: 0.99;
+    cursor: pointer;
+}
+
+
 .tabsPayloads{
-    /* background-color: #171717; */
-    color:#EDEDED !important;
+    font-weight: bold;
 }
 .color-black{
     color: #171717;
@@ -177,6 +192,8 @@
     width: 15%;
     height: 2.5rem;
     padding-bottom: 1rem;
+    margin-left: 5px;
+    margin-right: 5px;
     background-color: #444444;
     color: #EDEDED;
     border: 1px #EDEDED solid;
@@ -191,8 +208,36 @@
 }
 .search-listgroup1{
     max-height: 557px;
+    min-height: 557px;
     margin-bottom: 10px;
     overflow:auto;
     -webkit-overflow-scrolling: touch;
     scroll-behavior: smooth;
+  }
+
+  .payload-profile-container{
+    padding-left: 50px;
+    padding-right: 50px;
+    margin-top: 20px;
+  }
+
+  .created-footer{
+    background-color: transparent;
+  }
+
+  
+  #controlled-tab-example-tab-test:hover{
+    color: #DA0037 !important;
+  }
+  #controlled-tab-example-tab-denied:hover{
+    color: #DA0037 !important;
+  }
+  #controlled-tab-example-tab-longer-tab:hover{
+    color: #DA0037 !important;
+  }
+  #controlled-tab-example-tab-profile:hover{
+    color: #DA0037 !important;
+  }
+  #controlled-tab-example-tab-home:hover{
+    color: #DA0037 !important;
   }

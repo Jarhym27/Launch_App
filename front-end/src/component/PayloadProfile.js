@@ -186,7 +186,7 @@ function PayloadProfile() {
 
   return (
     <>
-      <div style={{ height: "100vh" }}>
+      <div className='payload-profile-container' style={{ height: "100vh" }}>
         <Notifications />
         <Container fluid>
           <Row className="profileRow">
@@ -196,8 +196,10 @@ function PayloadProfile() {
               </Row>
             </Col>
 
-            <Col xs={6} className="secondCol">
-              <Row className="payloadsTitle d-flex justify-content-between">
+            <Col xs={6} className="secondCol mt-5">
+              <Card classNAme='payloads-card'>
+
+              <Row className="payloadsTitle d-flex py-1 justify-content-between">
                 <div className="titleRowButton">
                   <h3 className="colTitle"> Payloads</h3>
                   <Button
@@ -229,7 +231,7 @@ function PayloadProfile() {
                         to="/requestdetails"
                         className="request-link-to-details"
                       >
-                        <Card key={i}>
+                        <Card className='payload-item' key={i}>
                           <Card.Body className="payloadsCol">
                             <Card.Title>{e.name}</Card.Title>
                             <Card.Text>
@@ -237,7 +239,7 @@ function PayloadProfile() {
                               <br></br>
                               Payload Info: {e.description}
                             </Card.Text>
-                            <footer>
+                            <footer className='created-footer'>
                               <small>Payload Created: {e.updated_at}</small>
                             </footer>
                           </Card.Body>
@@ -259,7 +261,7 @@ function PayloadProfile() {
                         to="/requestdetails"
                         className="request-link-to-details"
                       >
-                        <Card key={i}>
+                        <Card className='payload-item' key={i}>
                           <Card.Body className="payloadsCol">
                             <Card.Title>{e.name}</Card.Title>
                             <Card.Text>
@@ -267,7 +269,7 @@ function PayloadProfile() {
                               <br></br>
                               Payload Info: {e.description}
                             </Card.Text>
-                            <footer>
+                            <footer className='created-footer'>
                               <small>Payload Created: {e.updated_at}</small>
                             </footer>
                           </Card.Body>
@@ -289,7 +291,7 @@ function PayloadProfile() {
                         to="/requestdetails"
                         className="request-link-to-details"
                       >
-                        <Card key={i}>
+                        <Card className='payload-item' key={i}>
                           <Card.Body className="payloadsCol">
                             <Card.Title>{e.name}</Card.Title>
                             <Card.Text>
@@ -297,7 +299,7 @@ function PayloadProfile() {
                               <br></br>
                               Payload Info: {e.description}
                             </Card.Text>
-                            <footer>
+                            <footer className='created-footer'>
                               <small>Payload Created: {e.updated_at}</small>
                             </footer>
                           </Card.Body>
@@ -325,7 +327,7 @@ function PayloadProfile() {
                           to="/requestdetails"
                           className="request-link-to-details"
                         >
-                          <Card key={i}>
+                          <Card className='payload-item' key={i}>
                             <Card.Body className="payloadsCol">
                               <Card.Title>{e.name}</Card.Title>
                               <Card.Text>Status: {e.request_status}</Card.Text>
@@ -336,7 +338,7 @@ function PayloadProfile() {
                               to rebook with a Launch Provider
                               <br></br>
                               Payload Info: {e.description}
-                              <footer>
+                              <footer className='created-footer'>
                                 <small>Payload Created: {e.updated_at}</small>
                               </footer>
                             </Card.Body>
@@ -350,12 +352,12 @@ function PayloadProfile() {
                           to="/requestdetails"
                           className="request-link-to-details"
                         >
-                          <Card key={i}>
+                          <Card className='payload-item' key={i}>
                             <Card.Body className="payloadsCol">
                               <Card.Title>{e.name}</Card.Title>
                               <Card.Text>Status: {e.request_status}</Card.Text>
                               Payload has been rebooked or rescheduled
-                              <footer>
+                              <footer className='created-footer'>
                                 <small>Payload Created: {e.updated_at}</small>
                               </footer>
                             </Card.Body>
@@ -373,47 +375,48 @@ function PayloadProfile() {
                 >
                   {filteredPayloads?.map((e, i) => {
                     return (
-                   
-                        <Card key={i}>
-                          <Card.Body className="payloadsCol">
-                            <Card.Title>{e.name}</Card.Title>
-                            <Card.Text>
-                              Status: Click{" "}
-                              <Link state={e} to="/request">
-                                Here
-                              </Link>{" "}
-                              to book with a Launch Provider
-                              <br></br>
-                              Payload Info: {e.description}
-                            </Card.Text>
-                            <footer>
-                              <small>Payload Created: {e.updated_at}</small>
-                            </footer>
-                            <Button
-                              className="updateDeleteButtons"
-                              onClick={() => [setSelectedPayload(e), handleShowUpdate()]}
-                            >
-                              Update
-                            </Button>
-                            <Button
-                              className="updateDeleteButtons"
-                              onClick={() => [setSelectedPayload(e), handleShowDelete()]}
-                            >
-                              Delete
-                            </Button>
-                          </Card.Body>
-                        </Card>
+
+                      <Card className='payload-item' key={i}>
+                        <Card.Body className="payloadsCol">
+                          <Card.Title>{e.name}</Card.Title>
+                          <Card.Text>
+                            Status: Click{" "}
+                            <Link state={e} to="/request">
+                              Here
+                            </Link>{" "}
+                            to book with a Launch Provider
+                            <br></br>
+                            Payload Info: {e.description}
+                          </Card.Text>
+                          <footer className='created-footer'>
+                            <small>Payload Created: {e.updated_at}</small>
+                          </footer>
+                          <Button
+                            className="updateDeleteButtons"
+                            onClick={() => [setSelectedPayload(e), handleShowUpdate()]}
+                          >
+                            Update
+                          </Button>
+                          <Button
+                            className="updateDeleteButtons"
+                            onClick={() => [setSelectedPayload(e), handleShowDelete()]}
+                          >
+                            Delete
+                          </Button>
+                        </Card.Body>
+                      </Card>
                     );
                   })}
-                  
+
                 </Tab>
               </Tabs>
+              </Card>
             </Col>
           </Row>
         </Container>
       </div>
 
-    {/* CREATE */}
+      {/* CREATE */}
       <Modal show={show} onHide={handleClose} className="modal-lg">
         <Modal.Header closeButton className="modalForm">
           <Modal.Title>Add Payload</Modal.Title>
@@ -471,7 +474,7 @@ function PayloadProfile() {
               <Form.Group
                 onChange={(e) => setDescription(e.target.value)}
                 className="mb-3"
-                
+
               >
                 <Form.Label>Description</Form.Label>
                 <textarea
@@ -516,7 +519,7 @@ function PayloadProfile() {
               handleUpdate();
               setSubmittedPayloads();
             }}
-            
+
           >
             <Col className="ml-5">
               <Form.Group
@@ -562,7 +565,7 @@ function PayloadProfile() {
               <Form.Group
                 onChange={(e) => setDescription(e.target.value)}
                 className="mb-3"
-                
+
               >
                 <Form.Label>Description</Form.Label>
                 <textarea
