@@ -200,7 +200,7 @@ exports.seed = async function (knex) {
     },
     {
       sender_id: 3,
-      recipient_id: 8,
+      recipient_id: 4,
       launch_request_id: 27,
       message: "",
       notification_type: "New request",
@@ -208,10 +208,10 @@ exports.seed = async function (knex) {
       timestamp: '2023-03-15 16:52:12',
     },
     {
-      sender_id: 8,
+      sender_id: 4,
       recipient_id: 3,
       launch_request_id: 27,
-      message: "Booked! Thanks for choosing SpaceX",
+      message: "Booked! Thanks for choosing ULA",
       notification_type: "Request accepted",
       notification_ack: 'true',
       timestamp: '2023-03-17 16:52:12',

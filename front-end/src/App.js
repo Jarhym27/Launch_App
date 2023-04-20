@@ -19,6 +19,7 @@ import AllMessages from "./component/AllMessages";
 import NotificationsBadge from "./component/NotificationsBadge";
 import Vehicles from "./component/vehicles";
 import Metrics from "./component/lspmetrics";
+import LSPHome from './component/lsp_profile/07_lsp_home.js'
 export const RocketInfo = createContext();
 
 function App() {
@@ -58,7 +59,7 @@ function App() {
         <Routes>
           <Route path='/' element={< Login />}></Route>
           <Route path='/home' element={< Home />}></Route>
-          {/* <Route path='/Login' element={< Login />}></Route> */}
+          <Route path='/Login' element={< Login />}></Route>
           <Route path='/signup' element={<Signup />}></Route>
           <Route path='/metrics' element={<Metrics/>}></Route>
           <Route path='/request' element={<LaunchRequest />}></Route>
@@ -67,6 +68,7 @@ function App() {
           <Route path='/aboutus' element={<About/>}></Route>
           <Route path='/payloadprofile' element={<PayloadProfile/>}></Route>
           <Route path='/lspprofile' element={<LspProfile/>}></Route>
+          <Route path='/LSPHome' element={<LSPHome />}></Route>
           <Route path='/requestdetails' element={<RequestDetails/>}></Route>
           <Route path='/messages' element={<AllMessages/>}></Route>
           <Route path='/vehicles' element={<Vehicles/>}></Route>

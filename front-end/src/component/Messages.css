@@ -1,5 +1,5 @@
 .message-container-them{
-  background-color: gainsboro;
+  background-color: rgb(172, 201, 226);
   margin-bottom: 5px;
   padding: 5px;
   border-top-right-radius: 5px;
@@ -8,7 +8,7 @@
 }
 
 .message-container-me{
-  background-color: rgb(48, 72, 230);
+  background-color: black;
   margin-bottom: 5px;
   padding: 5px;
   border-bottom-left-radius: 5px;
@@ -21,8 +21,8 @@
 }
 
 #messages-container{
-  min-height: 500px;
-  max-height: 500px;
+  min-height: 400px;
+  max-height: 400px;
   margin-bottom: 10px;
   overflow:auto;
   -webkit-overflow-scrolling: touch;

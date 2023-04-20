@@ -17,6 +17,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import { TbSatellite } from 'react-icons/tb'
 import Image from 'react-bootstrap/Image';
+import AnimeRocket from "./Animated_Rocket";
 
 const Home = () => {
   const { userLogin } = useContext(RocketInfo);
@@ -587,7 +588,7 @@ const Home = () => {
                               <ListGroupItem className='search-list-item-selected' key={item.id}>
                                 <Row>
                                   <Col md={2} lg={2}>
-                                    <Image thumbnail className='rocket-icon' src={item.picture} alt='rocket-icon' />
+                                    <Image thumbnail className='rocket-icon' src={item.icon} alt='rocket-icon' />
                                   </Col>
                                   <Col md={3} lg={3}>
                                     <Row>
@@ -628,7 +629,7 @@ const Home = () => {
                               <ListGroupItem className='search-list-item' key={item.id}>
                                 <Row>
                                   <Col md={2} lg={2}>
-                                    <Image thumbnail className='rocket-icon' src={item.picture} alt='rocket-icon' />
+                                    <Image thumbnail className='rocket-icon' src={item.icon} alt='rocket-icon' />
                                   </Col>
                                   <Col md={3} lg={3} >
                                     <Row>
@@ -683,7 +684,7 @@ const Home = () => {
               </Row>
             }
           </Col>
-          {payloadsLoading && <Spinner variant="light" />}
+          {payloadsLoading && <Col className='text-start'><Spinner variant="light"/></Col>}
           {!payloadsLoading && userPayloads !== null && userPayloads.length > 0 &&
             <Col className='available-payloads-container'>
               <Card.Title className='card-title'>Compatible Payloads</Card.Title>
@@ -746,8 +747,11 @@ const Home = () => {
           }
           {!payloadsLoading && userPayloads !== null && userPayloads.length === 0 &&
             <Col className='available-payloads-container'>
-              <Card.Title className='card-title'>No compatible payloads found.</Card.Title>
-              <Card.Title className='card-note'>Please adjust your selected rocket or... <Link to="http://localhost:3000/payloadprofile"> Go to profile to add new payloads</Link></Card.Title>
+              <Card classNAme='card-container'>
+                <Card.Title className='card-title'>No compatible payloads found.</Card.Title>
+                <Card.Title className='card-note'>Please adjust your selected rocket or... <Link to="http://localhost:3000/payloadprofile"> Go to profile to add new payloads</Link></Card.Title>
+                  <AnimeRocket/>
+              </Card>
 
             </Col>
           }
