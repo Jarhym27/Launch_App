@@ -152,36 +152,37 @@ function LspLaunchVehicles() {
 
   return (
     <>
-      <Row >
-        <Col className="watchTheRoad">
-          <h1 className="noiceText">Launch Vehicles</h1>
-          <Button className="addPayload" onClick={handleShow}>
-            Add Launch Vehicle</Button>
-          <Card className="lspListings">
-            <Card.Title>
-            </Card.Title>
-            {filteredVehicle?.map((vehicle, j) => {
-              return (
-                <Card.Body key={j}>
-                  <Card.Text>
-                    Serial ID: {vehicle.id}
-                    <br></br>
-                    Rocket: {vehicle.launch_vehicle}
-                    <br></br>
-                    Status: {vehicle.booked_status}
-                    <br></br>
-                    <img src={`${vehicle.picture}`} />
-                    <br></br>
-                    <Button className="addPayload" onClick={() => {
-                      setSelectedVehicle(vehicle); handleShowUpdate();
-                      setName(vehicle.launch_vehicle);
-                      console.log('selectedVehicle:\n', selectedVehicle)
-                    }}>
-                      Edit</Button>
-                    <Button className="addPayload" onClick={() => { setSelectedVehicle(vehicle); handleShowDelete(); }}>
-                      Delete</Button>
+    <Row >
+    <Col className="watchTheRoad">
+      <h1 className="noiceText">Launch Vehicles</h1>
+      <Button className="addPayload" onClick={handleShow}>
+        Add Launch Vehicle</Button>
+      <Card className="lspListings">
+        <Card.Title>
+        </Card.Title>
+        {filteredVehicle?.map((vehicle, j) => {
+          return (
+            <Card.Body key={j}>
+              <Card.Text>
+                Serial ID: {vehicle.id}
+                <br></br>
+                Rocket: {vehicle.launch_vehicle}
+                <br></br>
+                Status: {vehicle.booked_status}
+                <br></br>
+                <img src={`${vehicle.picture}`} />
+                <br></br>
+                <Button className="addPayload" onClick={() => {
+                  setSelectedVehicle(vehicle); handleShowUpdate();
+                  setName(vehicle.launch_vehicle);
+                  console.log('selectedVehicle:\n', selectedVehicle)
+                }}>
+                  Edit</Button>
+                <Button className="addPayload" onClick={() => { setSelectedVehicle(vehicle); handleShowDelete(); }}>
+                  Delete</Button>
               </Card.Text>
             </Card.Body>
+
             )
           })}
         </Card>
@@ -190,6 +191,7 @@ function LspLaunchVehicles() {
       <LspLaunchPads/>
       </Col>
     </Row>
+
     <Modal show={show} onHide={() => handleClose} className="modalBg">
       <Modal.Header closeButton className="modalForm" onClick={handleClose} > Add Vehicle</Modal.Header>
       <Modal.Body className="modalForm">
