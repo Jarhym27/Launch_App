@@ -29,7 +29,6 @@ const Header = () => {
       body: JSON.stringify({ username: userLogin.username }),
     })
       .then((res) => {
-        console.log(res)
         setUserLogin('')
         navigate('/')
 
