@@ -34,6 +34,7 @@ function App() {
   const [availablePads, setAvailablePads] = useState();
   const [refresh, setRefresh] = useState(false);
   const [myRequests, setMyRequests] = useState([])
+  const {isLoading, setIsLoading} = useState(false)
 
   useEffect(() => {
     let cookies = cookie.parse(document.cookie);
@@ -76,7 +77,7 @@ function App() {
         </Routes>
       </Router >
       {userLogin.username &&
-        <footer className="bg-dark">
+        <footer id="fott" className="bg-dark">
           <div className="container text-center">
             <p className="font-italic text-muted pt-2 mb-0">© 2023 L-Uber.com</p>
           </div>
