@@ -14,7 +14,7 @@ import RequestList from "./05_lsp_requests_list";
 import { RocketInfo } from "../../App";
 import { RocketTakeoffFill} from "react-bootstrap-icons";
 import {BsCalendar4Week} from 'react-icons/bs';
-import { GiMoonOrbit,GiEarthAmerica, GiWeight} from 'react-icons/gi'
+import { GiWeight} from 'react-icons/gi'
 import{ FcMoneyTransfer} from 'react-icons/fc'
 import { SiLaunchpad } from 'react-icons/si'
 
@@ -58,7 +58,7 @@ function LspLaunchVehicles() {
       .then(data => { setLaunchVehicle(data); setFetchTime(false); setRefresh(false); })
   }, [fetchTime, refresh])
 
- //Add a new vehicle
+
   const addNewVehicle = (event) => {
     let newVehicle = {
       lsp_user_id: userLogin.id,
@@ -71,7 +71,7 @@ function LspLaunchVehicles() {
         booked_status: status,
         launch_pad_id: availablePads.id
     }
-    // console.log('newVehicle:\n',newVehicle)
+   
     fetch("http://localhost:8080/table/launch_vehicles", {
       method: "POST",
       body: JSON.stringify(newVehicle
@@ -88,14 +88,7 @@ function LspLaunchVehicles() {
       .catch(err => console.log('Error:\n', err))
    
   };
-// let newVehicleList = launchVehicle.filter(item => item.id !== selectedVehicle.id);
-//     console.log('\n', selectedVehicle.launch_vehicle)
-//     let updateVehicle = selectedVehicle;
-//     updateVehicle.launch_vehicle = name;
-//     updateVehicle.booked_status = status;
-//     setLaunchVehicle(newVehicleList);
-//     console.log(newVehicleList)
-//     setLaunchVehicle((items) => [...items, updateVehicle]);
+
     
   const handleUpdate = () => {
     console.log('name from update:\n', name)
@@ -152,7 +145,7 @@ function LspLaunchVehicles() {
       })
   }
 
-  const theVehicle = submitVehicle?.filter(element => element.lsp_user_id === userLogin.id)
+ 
   const filteredVehicle = launchVehicle?.filter(element => element.lsp_user_id === userLogin.id)
 
   return (<>
@@ -259,6 +252,15 @@ function LspLaunchVehicles() {
           >Submit</Button>
         </Form>
       </Modal.Body>
+      <Modal.Footer className="modalForm">
+          <Button
+            className="addPayload"
+            variant="secondary"
+            onClick={handleClose}
+          >
+            Cancel
+          </Button>
+        </Modal.Footer>
     </Modal>
 
 
