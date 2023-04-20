@@ -60,7 +60,6 @@ const Messages = ({selectedRequest}) => {
     fetch(`http://localhost:8080/join/messages-users?launch_request_id=${selectedRequest.id}`)
       .then(res=>res.json())
       .then(data=> {
-        console.log(data)
         setMessages(data)})
   },[selectedRequest.id])
 
@@ -68,11 +67,10 @@ const Messages = ({selectedRequest}) => {
   if(messages){
 
     return (
-      <> 
-      <h2>Messages</h2>
+      <>
+      <hr></hr>
     <Container id='messages-container'>
       {messages.map(msg=> {
-
       return msg.sender_id===userLogin.id ? 
       <div key={msg.id}>
         <Row className='justify-content-end'>
@@ -138,10 +136,10 @@ const Messages = ({selectedRequest}) => {
     </Container>
       <Form onKeyDown={(e)=>handleKeyDown(e)}>
       <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-        <Form.Label>New Message</Form.Label>
+        <Form.Label><h6>New Message</h6></Form.Label>
         <Form.Control ref={messageRef} as="textarea" rows={4} />
       </Form.Group>
-      <Button onClick={()=>handleSendMessage()} variant="primary" type="button">
+      <Button className='addPayload' onClick={()=>handleSendMessage()} type="button">
         Send
       </Button>
     </Form>

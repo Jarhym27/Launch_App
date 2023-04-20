@@ -6,7 +6,7 @@ import Form from 'react-bootstrap/Form';
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import { RocketTakeoffFill } from "react-bootstrap-icons";
-import { GiMoonOrbit,GiEarthAmerica } from 'react-icons/gi'
+import { GiMoonOrbit, GiEarthAmerica } from 'react-icons/gi'
 import { CgBorderStyleDashed } from 'react-icons/cg'
 import { useEffect, useRef, useState, useContext } from "react";
 import ListGroup from 'react-bootstrap/ListGroup';
@@ -15,7 +15,9 @@ import { SiLaunchpad } from 'react-icons/si'
 import { RocketInfo } from "../App";
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
-import {BsCalendarPlus} from 'react-icons/bs'
+import { TbSatellite } from 'react-icons/tb'
+import Image from 'react-bootstrap/Image';
+import AnimeRocket from "./Animated_Rocket";
 
 const Home = () => {
   const { userLogin } = useContext(RocketInfo);
@@ -48,9 +50,9 @@ const Home = () => {
     fetch('http://localhost:8080/join/users-payloads')
       .then(res => res.json())
       .then(data => {
-        if(search.orbit){
-          usersPayloads = data.filter(payload =>payload.orbital_requirement===search.orbit && payload.payload_user_id === userLogin.id && payload.weight <= item[payload.orbital_requirement.toLowerCase().concat('_weight').toString()])
-          
+        if (search.orbit) {
+          usersPayloads = data.filter(payload => payload.orbital_requirement === search.orbit && payload.payload_user_id === userLogin.id && payload.weight <= item[payload.orbital_requirement.toLowerCase().concat('_weight').toString()])
+
         } else {
           usersPayloads = data.filter(payload => payload.payload_user_id === userLogin.id && payload.weight <= item[payload.orbital_requirement.toLowerCase().concat('_weight').toString()])
         }
@@ -59,19 +61,19 @@ const Home = () => {
       .then(res => res.json())
       .then(data => {
         let filteredPayloads = [...usersPayloads];
-        for(let i=0;i<usersPayloads.length;i++){
-          for(let j=0;j<data.length;j++){
-            if(usersPayloads[i].id===data[j].payload_id && (data[j].request_status==="Launched" || data[j].request_status==="Scheduled" )){
+        for (let i = 0; i < usersPayloads.length; i++) {
+          for (let j = 0; j < data.length; j++) {
+            if (usersPayloads[i].id === data[j].payload_id && (data[j].request_status === "Launched" || data[j].request_status === "Scheduled")) {
               delete filteredPayloads[i]
             }
           }
         }
-        filteredPayloads = filteredPayloads.filter(val=>val)
+        filteredPayloads = filteredPayloads.filter(val => val)
         usersPayloads = filteredPayloads
         setPayloadsLoading(true)
         setUserPayloads(usersPayloads)
         setLaunchRequests(data)
-        return 
+        return
       })
       .then(data => {
         setSelectedLV(item)
@@ -80,7 +82,7 @@ const Home = () => {
 
   const sortRocketsbyCheapest = () => {
     let current = JSON.parse(JSON.stringify(searchResults))
-    let sorted = current.sort((a,b) => (a.cost > b.cost) ? 1 : ((b.cost > a.cost) ? -1 : 0))
+    let sorted = current.sort((a, b) => (a.cost > b.cost) ? 1 : ((b.cost > a.cost) ? -1 : 0))
     setSearchResults(sorted)
     setLoading(true)
   }
@@ -238,7 +240,7 @@ const Home = () => {
       .then(res => res.json())
       .then(data => {
         suggestedRides = data;
-        
+
         if (search.site) {
           suggestedRides = suggestedRides.filter(lvs => lvs.launch_site === search.site && lvs.booked_status === 'available')
         }
@@ -253,18 +255,18 @@ const Home = () => {
         }
         return (fetch('http://localhost:8080/join/launch_requests'))
       })
-      .then(res =>res.json())
+      .then(res => res.json())
       .then(requestData => {
         let copy = JSON.parse(JSON.stringify(suggestedRides))
-        for(let i=0;i<copy.length;i++){
-          for(let j=0;j<requestData.length;j++){
-            if(copy[i] && copy[i].id === requestData[j].launch_vehicle_id && requestData[j].payload_user_id === userLogin.id){
+        for (let i = 0; i < copy.length; i++) {
+          for (let j = 0; j < requestData.length; j++) {
+            if (copy[i] && copy[i].id === requestData[j].launch_vehicle_id && requestData[j].payload_user_id === userLogin.id) {
               delete copy[i]
             }
           }
         }
 
-        suggestedRides = copy.filter(val=>val)
+        suggestedRides = copy.filter(val => val)
 
         if (suggestedRides.length > 0) {
           setLoading(true)
@@ -273,7 +275,7 @@ const Home = () => {
           setLoading(true)
           setSearchResults([])
         }
-          return requestData
+        return requestData
       })
 
 
@@ -302,7 +304,7 @@ const Home = () => {
   }, [])
 
   const bookHandler = () => {
-    if(!dateRef.current.value) return;
+    if (!dateRef.current.value) return;
     fetch('http://localhost:8080/table/launch_requests',
       {
         method: "POST",
@@ -322,26 +324,27 @@ const Home = () => {
       .then(res => res.json())
       .then(data => {
         let newRequestID = data[0].id
-        return(fetch('http://localhost:8080/table/messages',
-        {
-          method: "POST",
-          credentials: 'include',
-          body: JSON.stringify({
-            sender_id: userLogin.id,
-            recipient_id: selectedLV.lsp_user_id,
-            launch_request_id: newRequestID,
-            message: messageRef.current.value,
-            notification_type: "New request",
-            notification_ack: 'false'
-          }),
-          headers: {
-            "Content-type": "application/json; charset=UTF-8"
-          }
-        }))})
-      .then(res=>res.json())
-      .then(data=>{
+        return (fetch('http://localhost:8080/table/messages',
+          {
+            method: "POST",
+            credentials: 'include',
+            body: JSON.stringify({
+              sender_id: userLogin.id,
+              recipient_id: selectedLV.lsp_user_id,
+              launch_request_id: newRequestID,
+              message: messageRef.current.value,
+              notification_type: "New request",
+              notification_ack: 'false'
+            }),
+            headers: {
+              "Content-type": "application/json; charset=UTF-8"
+            }
+          }))
+      })
+      .then(res => res.json())
+      .then(data => {
         setModalShow(false)
-        let newSearch = { ...search}
+        let newSearch = { ...search }
         setSearch(newSearch)
         setUserPayloads(null)
       })
@@ -443,7 +446,7 @@ const Home = () => {
                           </Col>
                           <Col className='dropdown-field'>
                             <DropdownButton id="dropdown-basic-button" drop={'start'} title="">
-                              {launchSites && launchSites.map((site,index) =>
+                              {launchSites && launchSites.map((site, index) =>
                                 <Dropdown.Item key={index} onClick={(e) => handleSelect(e, site, "siteRef")}>{site}</Dropdown.Item>
                               )}
                             </DropdownButton>
@@ -464,7 +467,7 @@ const Home = () => {
                       <CgBorderStyleDashed className='line-dash' />
                       <Row>
                         <InputGroup onChange={(e) => handlePadChange(e)} className="mb-1">
-                            <InputGroup.Text id="basic-addon1"><SiLaunchpad className='search-icon'/></InputGroup.Text>
+                          <InputGroup.Text id="basic-addon1"><SiLaunchpad className='search-icon' /></InputGroup.Text>
                           <Col md={9} lg={9} className='search-field-container'>
                             <Form.Control
                               className='search-field'
@@ -476,7 +479,7 @@ const Home = () => {
                           </Col>
                           <Col className='dropdown-field'>
                             <DropdownButton id="dropdown-basic-button" drop={'start'} title="">
-                              {launchPads && launchPads.map((pad,index) =>
+                              {launchPads && launchPads.map((pad, index) =>
                                 <Dropdown.Item key={index} onClick={(e) => handleSelect(e, pad.launch_pad, "padRef", pad.id)}>{pad.launch_pad}</Dropdown.Item>
                               )}
                             </DropdownButton>
@@ -496,25 +499,25 @@ const Home = () => {
 
                       <CgBorderStyleDashed className='line-dash' />
                       <Row>
-                      <InputGroup onChange={(e) => handleProviderChange(e)} className="mb-1">
-                        <InputGroup.Text id="basic-addon1"><RocketTakeoffFill className='search-icon' /></InputGroup.Text>
-                        <Col md={9} lg={9} className='search-field-container'>
-                          <Form.Control
-                            className='search-field'
-                            ref={launchProviderRef}
-                            placeholder="Launch Provider"
-                            aria-label="Username"
-                            aria-describedby="basic-addon1"
-                          />
-                        </Col>
-                        <Col className='dropdown-field'>
+                        <InputGroup onChange={(e) => handleProviderChange(e)} className="mb-1">
+                          <InputGroup.Text id="basic-addon1"><RocketTakeoffFill className='search-icon' /></InputGroup.Text>
+                          <Col md={9} lg={9} className='search-field-container'>
+                            <Form.Control
+                              className='search-field'
+                              ref={launchProviderRef}
+                              placeholder="Launch Provider"
+                              aria-label="Username"
+                              aria-describedby="basic-addon1"
+                            />
+                          </Col>
+                          <Col className='dropdown-field'>
                             <DropdownButton id="dropdown-basic-button" drop={'start'} title="">
-                              {launchProviders && launchProviders.map((item,index) =>
+                              {launchProviders && launchProviders.map((item, index) =>
                                 <Dropdown.Item key={index} onClick={(e) => handleSelect(e, item.organization, "launchProviderRef", item.id)}>{item.organization}</Dropdown.Item>
                               )}
                             </DropdownButton>
                           </Col>
-                      </InputGroup>
+                        </InputGroup>
                       </Row>
                       {filter.provider && launchProviderRef.current.value &&
                         <ListGroup className='suggestions-list' variant="flush">
@@ -529,25 +532,25 @@ const Home = () => {
 
                       <CgBorderStyleDashed className='line-dash' />
                       <Row>
-                      <InputGroup onChange={(e) => handleOrbitChange(e)} className="mb-1">
-                        <InputGroup.Text id="basic-addon1"><GiMoonOrbit className='search-icon' /></InputGroup.Text>
-                        <Col md={9} lg={9} className='search-field-container'>
-                          <Form.Control
-                          className='search-field'
-                            ref={orbitRef}
-                            placeholder="Desired Orbit"
-                            aria-label="Username"
-                            aria-describedby="basic-addon1"
-                          />
-                        </Col>
-                        <Col className='dropdown-field'>
+                        <InputGroup onChange={(e) => handleOrbitChange(e)} className="mb-1">
+                          <InputGroup.Text id="basic-addon1"><GiMoonOrbit className='search-icon' /></InputGroup.Text>
+                          <Col md={9} lg={9} className='search-field-container'>
+                            <Form.Control
+                              className='search-field'
+                              ref={orbitRef}
+                              placeholder="Desired Orbit"
+                              aria-label="Username"
+                              aria-describedby="basic-addon1"
+                            />
+                          </Col>
+                          <Col className='dropdown-field'>
                             <DropdownButton id="dropdown-basic-button" drop={'start'} title="">
-                              {orbits && orbits.map((item,index) =>
+                              {orbits && orbits.map((item, index) =>
                                 <Dropdown.Item key={index} onClick={(e) => handleSelect(e, item, "orbitRef")}>{item}</Dropdown.Item>
                               )}
                             </DropdownButton>
                           </Col>
-                      </InputGroup>
+                        </InputGroup>
                       </Row>
                       {filter.orbit && orbitRef.current.value &&
                         <ListGroup className='suggestions-list' variant="flush">
@@ -570,89 +573,99 @@ const Home = () => {
                 <Col className='pick-up-container'>
                   <Card className='search-results-container'>
                     <Row className='my-2'>
+                      <Col>
+                        <Card.Title className='card-title'>Launch Vehicles</Card.Title>
+                      </Col>
                       <Col className='text-end'>
-                        <Button onClick={()=>sortRocketsbyCheapest()}>Sort by cheapest</Button>
+                        <Button className='addPayload' onClick={() => sortRocketsbyCheapest()}>Sort by cheapest</Button>
                       </Col>
                     </Row>
                     <ListGroup className='search-listgroup' variant="flush">
                       {
                         searchResults.map(item => {
-                          if(item===selectedLV)
-{ return (
-  <ListGroupItem className='search-list-item-selected' key={item.id}>
-                            <Row>
-                              <Col md={3} lg={3}>
+                          if (item === selectedLV) {
+                            return (
+                              <ListGroupItem className='search-list-item-selected' key={item.id}>
                                 <Row>
-                                  <h5>
-                                    {item.launch_vehicle}
-                                  </h5>
+                                  <Col md={2} lg={2}>
+                                    <Image thumbnail className='rocket-icon' src={item.icon} alt='rocket-icon' />
+                                  </Col>
+                                  <Col md={3} lg={3}>
+                                    <Row>
+                                      <h5>
+                                        {item.launch_vehicle}
+                                      </h5>
+                                    </Row>
+                                    <Row>
+                                      <h6 className='list-detail'>
+                                        {item.launch_site}
+                                      </h6>
+                                    </Row>
+                                    <Row>
+                                      <h6 className='list-detail'>
+                                        ${item.cost} million
+                                      </h6>
+                                    </Row>
+                                  </Col>
+                                  <Col md={5} lg={5}>
+                                    <Row>
+                                      <h5 className='list-detail'>
+                                        Capacity
+                                      </h5>
+                                      <ul className='list-detail'>
+                                        <li>{item.leo_weight && `LEO: ${item.leo_weight}kg `}  </li>
+                                        <li>{item.meo_weight && `MEO: ${item.meo_weight}kg `} </li>
+                                        <li>{item.geo_weight && `GEO: ${item.geo_weight}kg `}</li>
+                                        <li>{item.heo_weight && `HEO: ${item.heo_weight}kg `}</li>
+                                      </ul>
+                                    </Row>
+                                  </Col>
+                                  <Col>
+                                    <RocketTakeoffFill onClick={() => grabPayloads(item)} className='search-rocket' /></Col>
                                 </Row>
+                              </ListGroupItem>)
+                          } else {
+                            return (
+                              <ListGroupItem className='search-list-item' key={item.id}>
                                 <Row>
-                                  <h6 className='list-detail'>
-                                    {item.launch_site}
-                                  </h6>
+                                  <Col md={2} lg={2}>
+                                    <Image thumbnail className='rocket-icon' src={item.icon} alt='rocket-icon' />
+                                  </Col>
+                                  <Col md={3} lg={3} >
+                                    <Row>
+                                      <h5>
+                                        {item.launch_vehicle}
+                                      </h5>
+                                    </Row>
+                                    <Row>
+                                      <h6 className='list-detail'>
+                                        {item.launch_site}
+                                      </h6>
+                                    </Row>
+                                    <Row>
+                                      <h6 className='list-detail'>
+                                        ${item.cost} million
+                                      </h6>
+                                    </Row>
+                                  </Col>
+                                  <Col md={5} lg={5}>
+                                    <Row>
+                                      <h6 className='list-detail'>
+                                        Capacity
+                                      </h6>
+                                      <ul className='list-detail'>
+                                        <li>{item.leo_weight && `LEO: ${item.leo_weight}kg `}  </li>
+                                        <li>{item.meo_weight && `MEO: ${item.meo_weight}kg `} </li>
+                                        <li>{item.geo_weight && `GEO: ${item.geo_weight}kg `}</li>
+                                        <li>{item.heo_weight && `HEO: ${item.heo_weight}kg `}</li>
+                                      </ul>
+                                    </Row>
+                                  </Col>
+                                  <Col>
+                                    <RocketTakeoffFill onClick={() => grabPayloads(item)} className='search-rocket' />  </Col>
                                 </Row>
-                                <Row>
-                                  <h6 className='list-detail'>
-                                    ${item.cost} million
-                                  </h6>
-                                </Row>
-                              </Col>
-                              <Col md={6} lg={6}>
-                                <Row>
-                                    <h6 className='list-detail'>
-                                    Capacity
-                                    </h6>
-                                    <ul className='list-detail'>
-                                      <li>{item.leo_weight && `LEO: ${item.leo_weight}kg `}  </li>
-                                      <li>{item.meo_weight && `MEO: ${item.meo_weight}kg `} </li>
-                                      <li>{item.geo_weight && `GEO: ${item.geo_weight}kg `}</li>
-                                      <li>{item.heo_weight && `HEO: ${item.heo_weight}kg `}</li>
-                                    </ul>
-                                  </Row>
-                              </Col>
-                              <Col>
-                                <RocketTakeoffFill onClick={() => grabPayloads(item)} className='search-rocket' /></Col>
-                            </Row>
-                          </ListGroupItem> )
-} else { return (
-  <ListGroupItem className='search-list-item' key={item.id}>
-  <Row>
-    <Col md={3} lg={3}>
-      <Row>
-        <h5>
-          {item.launch_vehicle}
-        </h5>
-      </Row>
-      <Row>
-        <h6 className='list-detail'>
-          {item.launch_site}
-        </h6>
-      </Row>
-      <Row>
-        <h6 className='list-detail'>
-          ${item.cost} million
-        </h6>
-      </Row>
-    </Col>
-    <Col md={6} lg={6}>
-      <Row>
-          <h6 className='list-detail'>
-          Capacity
-          </h6>
-          <ul className='list-detail'>
-            <li>{item.leo_weight && `LEO: ${item.leo_weight}kg `}  </li>
-            <li>{item.meo_weight && `MEO: ${item.meo_weight}kg `} </li>
-            <li>{item.geo_weight && `GEO: ${item.geo_weight}kg `}</li>
-            <li>{item.heo_weight && `HEO: ${item.heo_weight}kg `}</li>
-          </ul>
-        </Row>
-    </Col>
-    <Col>
-      <RocketTakeoffFill onClick={() => grabPayloads(item)} className='search-rocket' /></Col>
-  </Row>
-</ListGroupItem> )
-}                          
+                              </ListGroupItem>)
+                          }
                         }
                         )
                       }
@@ -671,22 +684,18 @@ const Home = () => {
               </Row>
             }
           </Col>
-          {payloadsLoading && <Spinner variant="light" />}
+          {payloadsLoading && <Col className='text-start'><Spinner variant="light"/></Col>}
           {!payloadsLoading && userPayloads !== null && userPayloads.length > 0 &&
             <Col className='available-payloads-container'>
-              <h2 className='payloads-title'>Compatible Payloads</h2>
+              <Card.Title className='card-title'>Compatible Payloads</Card.Title>
               <Card className='payloads-card-container'>
                 <ListGroup className='payload-listgroup' variant="flush">
                   {
-                    userPayloads.map(item => 
+                    userPayloads.map(item =>
                       <ListGroupItem className='payload-list-item' key={item.id}>
                         <Row>
                           <Col >
-                            <img
-                              className=""
-                              src="http://via.placeholder.com/100x80"
-                              alt="Card placeholder"
-                            />
+                            <TbSatellite className='icon-satellite' />
                           </Col>
                           <Col md={6} lg={6}>
                             <Row>
@@ -701,7 +710,7 @@ const Home = () => {
                             </Row>
                             <Row>
                               <h6 className='list-detail'>
-                                Weight: {item.weight}
+                                Weight: {item.weight}kg
                               </h6>
                             </Row>
                             <Row>
@@ -710,25 +719,24 @@ const Home = () => {
                               </h6>
                             </Row>
                           </Col>
-                          <Col>
-                            { launchRequests && launchRequests.map(request => request.payload_id).includes(item.id) &&
+                          <Col className='text-center py-4'>
+                            {launchRequests && launchRequests.map(request => request.payload_id).includes(item.id) &&
                               <h5>
-                                {launchRequests.filter(request=>request.payload_id === item.id
-)[0].request_status}
+                                {launchRequests.filter(request => request.payload_id === item.id
+                                )[0].request_status}
                               </h5>
                             }
-                            { launchRequests && !launchRequests.map(request => request.payload_id).includes(item.id) &&
-                              <BsCalendarPlus onClick={() => {
+                            {launchRequests && !launchRequests.map(request => request.payload_id).includes(item.id) &&
+                              <Button className='addPayload' onClick={() => {
                                 if (!selectedPayload && !selectedLV) return
                                 else {
                                   setSelectedPayload(item)
                                   setModalShow(true)
                                 }
                               }}
-                                className='search-rocket' />
+                              >Book</Button>
                             }
                           </Col>
-
                         </Row>
                       </ListGroupItem>
                     )
@@ -739,15 +747,17 @@ const Home = () => {
           }
           {!payloadsLoading && userPayloads !== null && userPayloads.length === 0 &&
             <Col className='available-payloads-container'>
-              <h2 className='payloads-title'>No compatible payloads for the available launch vehicles.</h2>
-              <Card className='payloads-card-container'>
-                <Link to="http://localhost:3000/payloadprofile"> Go to profile to add payloads</Link>
+              <Card classNAme='card-container'>
+                <Card.Title className='card-title'>No compatible payloads found.</Card.Title>
+                <Card.Title className='card-note'>Please adjust your selected rocket or... <Link to="http://localhost:3000/payloadprofile"> Go to profile to add new payloads</Link></Card.Title>
+                  <AnimeRocket/>
               </Card>
+
             </Col>
           }
         </Row>
         <LaunchRequestModal payload={selectedPayload} vehicle={selectedLV} show={modalShow} onHide={() => setModalShow(false)} />
-        
+
       </Container>
     </div>
   );

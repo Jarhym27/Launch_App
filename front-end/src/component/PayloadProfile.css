@@ -6,21 +6,27 @@
     color: #EDEDED;
 }
 
-.payloadProfileCardv{
-    background-color:#DA0037 !important;
-    width: 100%;
+.lspListings{
+    background-color:aliceblue;
     overflow: auto;
-    height: 600px;
-    color: #EDEDED;
+    height: 5.5%;
+    width: 450px;
 }
 
-.payloadProfileCardpd{
-    background-color:#DA0037 !important;
-    width: 100%;
+.lspListingsPad{
+    background-color:aliceblue;
     overflow: auto;
-    height: 45%;
-    color: #EDEDED;
+    height: 54%;
+    width: 450px;
 }
+
+.lspListingsRL{
+    background-color:aliceblue;
+    overflow: auto;
+    height: 5.5%;
+    width: 450px;
+}
+
 .horizontalCard{
 
     background-color:#66347F;
@@ -46,12 +52,16 @@
     padding-top: 2.75rem;
 }
 .addPayload{
-    width: 100%;
+    width: 50%;
     padding-bottom: 1rem;
+
     background-color: #444444;
     color: #EDEDED;
     border: 1px #EDEDED solid;
+    margin:0;
+    text-align: center;
 }
+
 .addPayload:hover{
     background-color: #DA0037;
     border: 1px #EDEDED solid;

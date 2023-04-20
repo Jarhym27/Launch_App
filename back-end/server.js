@@ -53,7 +53,7 @@ app.get('/join/launch_requests', (req, res) => {
   .join('launch_vehicles', 'launch_vehicles.id', 'launch_requests.launch_vehicle_id')
   .join('launch_pads', 'launch_pads.id', 'launch_requests.launch_pad_id')
   .join('users','users.id','launch_vehicles.lsp_user_id')
-  .select('launch_requests.id','launch_requests.payload_id','launch_requests.launch_pad_id','launch_requests.launch_vehicle_id','request_status','launch_requests.created_at','launch_requests.updated_at','launch_date','request_cost','payloads.payload_user_id','weight','orbital_requirement','name','launch_vehicle','cost','leo_weight','meo_weight','geo_weight','heo_weight','booked_status','launch_vehicles.lsp_user_id','city','state','launch_site','launch_pad','pad_status','payloads.description','users.organization')
+  .select('launch_requests.id','launch_requests.payload_id','launch_requests.launch_pad_id','launch_requests.launch_vehicle_id','request_status','launch_requests.created_at','launch_requests.updated_at','launch_date','request_cost','payloads.payload_user_id','weight','orbital_requirement','name','launch_vehicle','cost','leo_weight','meo_weight','geo_weight','heo_weight','booked_status','launch_vehicles.lsp_user_id','city','state','launch_site','launch_pad','pad_status','payloads.description','users.organization','launch_vehicles.icon','launch_vehicles.picture')
   .then(data => res.status(200).json(data))
   .catch(err =>
       res.status(404).json({
@@ -86,7 +86,7 @@ app.get('/join/launch_vehicles-launch_pads', (req, res) => {
   knex('launch_vehicles')
   .join('launch_pads', 'launch_pads.id', 'launch_vehicles.launch_pad_id')
   .join('users','users.id','launch_vehicles.lsp_user_id')
-.select('launch_vehicles.id','launch_vehicles.created_at','launch_vehicles.updated_at','launch_vehicle','launch_pad_id','cost','leo_weight','meo_weight','geo_weight','heo_weight','booked_status','launch_vehicles.lsp_user_id','city','state','launch_site','launch_pad','pad_status','users.organization')
+.select('launch_vehicles.id','launch_vehicles.created_at','launch_vehicles.updated_at','launch_vehicle','launch_pad_id','cost','leo_weight','meo_weight','geo_weight','heo_weight','booked_status','launch_vehicles.lsp_user_id','city','state','launch_site','launch_pad','pad_status','users.organization','launch_vehicles.icon','launch_vehicles.picture')
   .then(data => res.status(200).json(data))
   .catch(err =>
       res.status(404).json({

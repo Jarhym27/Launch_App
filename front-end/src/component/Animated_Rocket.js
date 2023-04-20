@@ -1,5 +1,5 @@
 import React from "react"
-import {RocketTakeoffFill} from "react-bootstrap-icons";
+import {RocketFill} from "react-bootstrap-icons";
 import "../css/Animated_Rocket.css"
 import {GiEvilMoon} from "react-icons/gi"
 import {RocketFill} from "react-bootstrap-icons"

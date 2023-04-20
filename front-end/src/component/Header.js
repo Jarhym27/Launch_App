@@ -42,9 +42,9 @@ const Header = () => {
   return (
     <>
       <Navbar id="headerc" bg="dark" variant="dark" sticky="top">
-      {userLogin.role === 'payload_user' && 
+      {userLogin.role === 'payload_user' &&
       <>
-        <Link to={'/home'}> 
+        <Link to={'/home'}>
         <Navbar.Brand>
           <RocketTakeoffFill className="navbar-logo" color='white' size={50} />
         </Navbar.Brand>
