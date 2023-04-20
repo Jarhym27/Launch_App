@@ -223,7 +223,7 @@ function LspLaunchPads() {
               />
             </InputGroup>
             <Button
-              onClick={handleCloseUpdate}
+              onClick={handleClose}
               className="addPayload"
               variant="primary"
               type="submit"
