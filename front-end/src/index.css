@@ -3,7 +3,7 @@
 @tailwind utilities; */
 
 body{
-    background: linear-gradient(to right, #444444, #DA0037);
+    background: linear-gradient(45deg, hsla(0, 0%, 9%, 1) 20%, hsla(345, 74%, 32%, 1) 79%, hsla(345, 100%, 43%, 1) 100%);
 }
 
 footer{
