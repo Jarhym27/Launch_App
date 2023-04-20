@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Col, Card, Tab, Tabs, ListGroup, ListGroupItem } from 'react-bootstrap'
+import { Col, Card, Tab, Tabs, ListGroup, ListGroupItem ,Button} from 'react-bootstrap'
 import { RocketInfo } from "../../App"
 import { Modal } from "react-bootstrap";
 import '../../css/lsp_requests_list.css'
@@ -120,8 +120,8 @@ const RequestList = () => {
                         Weight: {e.weight} Tons<br />
                         Request Status: {e.request_status}<br />
                       </p>
-                      <button className="btn" onClick={() => { setDecision('approve'); setSelectedRequest(e) }}>Approve</button>
-                      <button className="btn" onClick={() => { setDecision('deny'); setSelectedRequest(e) }}>Deny</button>
+                      <Button className="addPayload" onClick={() => { setDecision('approve'); setSelectedRequest(e) }}>Approve</Button>
+                      <Button className="addPayload" onClick={() => { setDecision('deny'); setSelectedRequest(e) }}>Deny</Button>
                     </ListGroupItem>
                 )}
               })}
