@@ -28,3 +28,12 @@
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
 }
+
+.moment-text{
+  font-size: small;
+  margin-bottom: 0px;
+}
+
+.text-bold{
+  font-weight: bold;
+}

@@ -577,7 +577,7 @@ const Home = () => {
                         <Card.Title className='card-title'>Launch Vehicles</Card.Title>
                       </Col>
                       <Col className='text-end'>
-                        <Button className='addPayload' onClick={() => sortRocketsbyCheapest()}>Sort by cheapest</Button>
+                        <Button className='sort-cheapest-btn' onClick={() => sortRocketsbyCheapest()}>Sort by cheapest</Button>
                       </Col>
                     </Row>
                     <ListGroup className='search-listgroup' variant="flush">
@@ -748,8 +748,8 @@ const Home = () => {
           {!payloadsLoading && userPayloads !== null && userPayloads.length === 0 &&
             <Col className='available-payloads-container'>
               <Card classNAme='card-container'>
-                <Card.Title className='card-title'>No compatible payloads found.</Card.Title>
-                <Card.Title className='card-note'>Please adjust your selected rocket or... <Link to="http://localhost:3000/payloadprofile"> Go to profile to add new payloads</Link></Card.Title>
+                <Card.Title className='card-title px-2'>No compatible payloads found.</Card.Title>
+                <Card.Title className='card-note px-2'>Please adjust your selected rocket or... <Link to="http://localhost:3000/payloadprofile"> Go to profile to add new payloads</Link></Card.Title>
                   <AnimeRocket/>
               </Card>
 

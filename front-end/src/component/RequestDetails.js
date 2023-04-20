@@ -14,16 +14,17 @@ const RequestDetails = () => {
           <Col md={5} lg={5} className='mx-5'>
           <Card className='request-details-card'>
             <Row><h2>Request Details</h2></Row>
-            <Row><p>Request Status: {location.state.request_status}</p></Row>
-            <Row><p>Request Cost: ${location.state.cost} million</p></Row>
-            <Row><p>Request Initiated: {location.state.created_at}</p></Row>
-            <Row><p>Launch Provider: {location.state.organization}</p></Row>
-            <Row><p>Launch Vehicle: {location.state.launch_vehicle}</p></Row>
-            <Row><p>Location: {location.state.launch_pad} - {location.state.launch_site}</p></Row>
-            <Row><p>Payload: {location.state.name}</p></Row>
-            <Row><p>Description: {location.state.description}</p></Row>
-            <Row><p>Target Orbit: {location.state.orbital_requirement}</p></Row>
-            <Row><p>Launch Date: {location.state.launch_date}</p></Row>
+            <hr></hr>
+            <Row><p><span className='text-bold'>Request Status: </span>{location.state.request_status}</p></Row>
+            <Row><p><span className='text-bold'>Request Cost: </span>${location.state.cost} million</p></Row>
+            <Row><p><span className='text-bold'>Request Initiated: </span>{location.state.created_at}</p></Row>
+            <Row><p><span className='text-bold'>Launch Provider: </span>{location.state.organization}</p></Row>
+            <Row><p><span className='text-bold'>Launch Vehicle: </span>{location.state.launch_vehicle}</p></Row>
+            <Row><p><span className='text-bold'>Location: </span>{location.state.launch_pad} - {location.state.launch_site}</p></Row>
+            <Row><p><span className='text-bold'>Payload: </span>{location.state.name}</p></Row>
+            <Row><p><span className='text-bold'>Description: </span>{location.state.description}</p></Row>
+            <Row><p><span className='text-bold'>Target Orbit: </span>{location.state.orbital_requirement}</p></Row>
+            <Row><p><span className='text-bold'>Launch Date: </span> {location.state.launch_date}</p></Row>
           </Card>
           </Col>
           <Col md={5} lg={5}>
