@@ -11,7 +11,7 @@ import {
   PointElement,
   LineElement,
 } from "chart.js";
-import { Doughnut, Line, Pie, Bar } from "react-chartjs-2";
+import { Doughnut, Line, Pie, Bar, Canvas } from "react-chartjs-2";
 import "../css/metrics.css";
 
 const Metrics = () => {
@@ -88,17 +88,17 @@ const Metrics = () => {
                       return spent;
                     }),
                     backgroundColor: [
-                      "rgba(255, 99, 132, 0.2)",
-                      "rgba(54, 162, 235, 0.2)",
-                      "rgba(255, 206, 86, 0.2)",
-                      "rgba(75, 192, 192, 0.2)",
-                      "rgba(153, 102, 255, 0.2)",
-                      "rgba(255, 159, 64, 0.2)",
+                      "rgba(96, 80, 220, 0.4)",
+                      "rgba(255, 107, 69, 0.4)",
+                      "rgba(255, 46, 126, 0.4)",
+                      "rgba(75, 192, 192, 0.8)",
+                      "rgba(153, 102, 255, 0.8)",
+                      "rgba(255, 159, 64, 0.8)",
                     ],
                     borderColor: [
-                      "rgba(255, 99, 132, 1)",
-                      "rgba(54, 162, 235, 1)",
-                      "rgba(255, 206, 86, 1)",
+                      "rgba(96, 80, 220, 1)",
+                      "rgba(255, 107, 69, 1)",
+                      "rgba(255, 46, 126, 1)",
                       "rgba(75, 192, 192, 1)",
                       "rgba(153, 102, 255, 1)",
                       "rgba(255, 159, 64, 1)",
@@ -163,21 +163,21 @@ const Metrics = () => {
                 labels: orbitData.map((e) => e.type), //orbitData.map((e) => e.type)
                 datasets: [
                   {
-                    label: "# of Votes",
+                    label: "# Payloads Launched",
                     data: orbitData.map((e) => e.count), //orbitData.map(e => e.count)
                     backgroundColor: [
-                      "rgba(245, 80, 39, 0.2)",
-                      "rgba(240, 96, 172, 0.2)",
-                      "rgba(126, 189, 178, 0.2)",
-                      "rgba(75, 192, 192, 0.2)",
-                      "rgba(153, 102, 255, 0.2)",
-                      "rgba(255, 159, 64, 0.2)",
+                      "rgba(8, 15, 94, 0.8)",
+                      "rgba(23, 31, 120, 0.8)",
+                      "rgba(61, 70, 179, 0.8)",
+                      "rgba(131, 137, 214, 0.8)",
+                      "rgba(153, 102, 255, 0.8)",
+                      "rgba(255, 159, 64, 0.8)",
                     ],
                     borderColor: [
-                      "rgba(245, 80, 39, 1)",
-                      "rgba(179, 43, 115, 1)",
-                      "rgba(126, 189, 178, 1)",
-                      "rgba(75, 192, 192, 1)",
+                      "rgba(8, 15, 94, 1)",
+                      "rgba(23, 31, 120, 1)",
+                      "rgba(61, 70, 179, 1)",
+                      "rgba(131, 137, 214, 1)",
                       "rgba(153, 102, 255, 1)",
                       "rgba(255, 159, 64, 1)",
                     ],
@@ -204,17 +204,25 @@ const Metrics = () => {
                 labels: lvData.map((e) => e.rocket),
                 datasets: [
                   {
-                    label: "Launch Vehicle",
+                    label: "Launches",
                     data: lvData.map((e) => e.count),
-                    backgroundColor: "rgba(199, 153, 151, 0.5)",
+                    backgroundColor: [
+                      "rgba(219, 70, 100, 0.7)",
+                      "rgba(78, 56, 150, 0.7)",
+                      "rgba(54, 122, 173, 0.7)",
+                      "rgba(55, 52, 89, 0.7)",
+                      "rgba(153, 102, 255, 0.2)",
+                      "rgba(255, 159, 64, 0.2)",
+                    ], //rgba(61, 18, 39, 0.7)
+                    borderColor: "rgba(0,0,0 , 1)"
                   },
                 ],
               };
 
               let copy = dataSet;
-							copy[0] = data0;
+              copy[0] = data0;
               copy[1] = data1;
-							copy[2] = data2
+              copy[2] = data2;
               copy[3] = data3;
               setDataSet(copy);
             });
@@ -224,67 +232,85 @@ const Metrics = () => {
 
   return (
     <>
-      <h1 className="text-center">Metrics for: {userLogin.organization}</h1>
-      <div className="row my-3 mx-2">
-        <div className="col chart">
-          {dataSet[3] ? (
-            <>
-              <h2 className="text-center">Weight Launched / Launching</h2>
-              <Line data={dataSet[3]} />
-            </>
-          ) : (
-            <></>
-          )}
+      <h1 className="text-center">Your Metrics</h1>
+      <div className="row my-2 mx-2">
+        <div className="col canvas mx-2">
+          <div className="chart">
+            {dataSet[3] ? (
+              <>
+                <h2 className="text-center">Weight Launched / Launching</h2>
+                <Line data={dataSet[3]} />
+              </>
+            ) : (
+              <></>
+            )}
+          </div>
         </div>
-        <div className="col chart">
-          {dataSet[0] ? (
-            <>
-              <h2 className="text-center">Customer Sales Data</h2>
-              <Doughnut
-                data={dataSet[0]}
-                className="mx-5"
-                options={{
-                  maintainAspectRatio: false, // Don't maintain w/h ratio
-                }}
-              />
-            </>
-          ) : (
-            <></>
-          )}
+        <div className="col canvas">
+          <div className="chart">
+            {dataSet[0] ? (
+              <>
+                <h2 className="text-center">Customer Sales Data</h2>
+                <Doughnut
+                  data={dataSet[0]}
+                  className="mx-5"
+                  options={{
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    spacing: 15
+                    
+                  }}
+                />
+              </>
+            ) : (
+              <></>
+            )}
+          </div>
         </div>
       </div>
-      <div className="row my-5 mx-2">
-        <div className="col chart ">
-          {dataSet[1] ? (
-            <>
-              <h2 className="text-center">Popularity of Orbits</h2>
-              <Pie
-                data={dataSet[1]}
-                className="mx-5"
-                options={{
-                  maintainAspectRatio: false, // Don't maintain w/h ratio
-                }}
-              />
-            </>
-          ) : (
-            <></>
-          )}
+      <div className="row my-3 mx-2">
+        <div className="col canvas mx-2">
+          <div className="chart">
+            {dataSet[1] ? (
+              <>
+                <h2 className="text-center">Popularity of Orbits</h2>
+                <Pie
+                  data={dataSet[1]}
+                  className="mx-5"
+                  options={{
+                    maintainAspectRatio: false, // Don't maintain w/h ratio
+                    circumference: 180,
+                    rotation: 90,
+                  }}
+                />
+              </>
+            ) : (
+              <></>
+            )}
+          </div>
         </div>
-        <div className="col chart">
-          {dataSet[2] ? (
-            <>
-              <h2 className="text-center">Launch Vehicle Popularity</h2>
-              <Bar
-                data={dataSet[2]}
-                className="mx-5"
-                options={{
-                  maintainAspectRatio: false, // Don't maintain w/h ratio
-                }}
-              />
-            </>
-          ) : (
-            <></>
-          )}
+        <div className="col canvas">
+          <div className="chart">
+            {dataSet[2] ? (
+              <>
+                <h2 className="text-center">Launch Vehicle Popularity</h2>
+                <Bar
+                  data={dataSet[2]}
+                  className="mx-5"
+                  options={{
+                    plugins: {
+                      legend: {
+                          display: false
+                      },
+                    },
+                    maintainAspectRatio: false, // Don't maintain w/h ratio
+                  }}
+                />
+              </>
+            ) : (
+              <></>
+            )}
+          </div>
         </div>
       </div>
     </>
