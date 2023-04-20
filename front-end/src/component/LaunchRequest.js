@@ -324,8 +324,8 @@ const LaunchRequest = () => {
           </ListGroup>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={() => setModalShow(false)}>Close</Button>
-          <Button onClick={() => bookHandler(prop)}>Book</Button>
+          <Button className='request-modal-btn' onClick={() => setModalShow(false)}>Close</Button>
+          <Button className='request-modal-btn' onClick={() => bookHandler(prop)}>Book</Button>
         </Modal.Footer>
       </Modal>
     )
@@ -446,7 +446,7 @@ const LaunchRequest = () => {
               <Col>
                 <Card className='payloads-card-container'>
                   <ListGroup variant="flush">
-                    <ListGroupItem>
+                    <ListGroupItem className='payloads-card-container'>
                       <Row>
                       <Col >
                             <TbSatellite className='icon-satellite' />
