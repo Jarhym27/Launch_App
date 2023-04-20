@@ -76,11 +76,12 @@ function LspLaunchPads() {
     setLaunchPad((items) => [...items, newPad])
   };
 
-  const handleUpdate = () => {
+  const handleUpdate = (event) => {
+    console.log('event:\n', event.target[1].value)
     let newPadList = launchPad.filter(item => item.id !== selectedPad.id);
     let updatedPad = selectedPad;
     updatedPad.launch_pad = padName;
-    updatedPad.pad_status = padStatus;
+    updatedPad.pad_status = event.target[1].value;
     if (updatedPad.launch_pad === undefined) {
       updatedPad.launch_pad = selectedPad?.launchPad
     }
@@ -93,7 +94,7 @@ function LspLaunchPads() {
       method: "PATCH",
       body: JSON.stringify({
         launch_pad: updatedPad.launch_pad,
-        pad_status: updatedPad.pad_status
+        pad_status: event.target[1].value
       }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -139,7 +140,7 @@ function LspLaunchPads() {
       <Row>
         <Col className="col-3">
           <h1>Launch Pads</h1>
-          <Button className='addPayload' onClick={handleShow}> 
+          <Button className='addPayload' onClick={handleShow}>
           Add New Pad</Button>
         <Card className="payloadProfileCard">
           <Card.Title>
@@ -151,14 +152,14 @@ function LspLaunchPads() {
                     Pad: {pads.launch_pad} <br></br>
                     Site: {pads.launch_site} <br></br>
                     Status: {pads.pad_status ? 'Available' : 'Unavailable'} <br></br>
-                    <Button className="addPayload"  onClick={() => [setSelectedPad(pads), handleShowUpdate(),]}>Edit</Button>
+                    <Button className="addPayload"  onClick={() => [setSelectedPad(pads), handleShowUpdate(), setPadName(selectedPad?.launch_pad)]}>Edit</Button>
                     <Button  className="addPayload" onClick={() => [setSelectedPad(pads), handleShowDelete()]}>Delete</Button>
                   </Card.Text>
                   {/* <div>add New Pad</div> */}
                 </Card.Body>
                  )})}
               </Card>
-           
+
          </Col>
       </Row>
 
@@ -180,7 +181,7 @@ function LspLaunchPads() {
               className="mb-3"
               controlId="formBasicEmail">
             <InputGroup.Text><SiLaunchpad/></InputGroup.Text>
-              <Form.Control type="text" placeholder="" />
+              <Form.Control type="text" placeholder='' />
             </InputGroup>
             <Form.Label>Pad Status</Form.Label>
             <InputGroup className="mb-3" controlId="formBasicPassword">
@@ -258,7 +259,7 @@ function LspLaunchPads() {
           <Form
             onSubmit={(e) => {
               e.preventDefault();
-              handleUpdate();
+              handleUpdate(e);
             }}
           >
             <Form.Label>Pad Name</Form.Label>
@@ -267,15 +268,14 @@ function LspLaunchPads() {
               className="mb-3"
               controlId="formBasicEmail">
             <InputGroup.Text><SiLaunchpad/></InputGroup.Text>
-              <Form.Control type="text" placeholder={selectedPad?.launch_pad} />
+              <Form.Control type="text" defaultValue={padName} placeholder={selectedPad?.launch_pad} />
             </InputGroup>
             <Form.Label>Pad Status</Form.Label>
             <InputGroup className="mb-3" controlId="formBasicPassword">
               <InputGroup.Text><BsCalendar4Week/></InputGroup.Text>
-              <Form.Select size='lg' onChange={(e) =>
-                setPadStatus(e.target.value)}>
+              <Form.Select size='lg'>
                 <option></option>
-                <option value={true}>Available</option>
+                <option value={true} selected>Available</option>
                 <option value={false}>Unavailable</option>
               </Form.Select>
             </InputGroup>
