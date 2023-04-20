@@ -24,10 +24,8 @@ function LspProfile() {
   return (
     <>
         <Notifications/>
-        <LspLaunchVehicles/>
-        <LspLaunchPads/>
-    </>
-
+        <LspLaunchVehicles/>       
+        </>
   )
 }
 

@@ -129,8 +129,8 @@ function LspLaunchPads() {
 
   return (
     <>
-      <Row style={{rowGap:"10px"}}>
-        <Col className="col-2">
+      <Row>
+        <Col className="mindThePad">
           <h1>Launch Pads</h1>
           <Button className='addPayload' onClick={handleShow}>
           Add New Pad</Button>
