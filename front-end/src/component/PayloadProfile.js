@@ -8,37 +8,37 @@ import Form from "react-bootstrap/Form";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { RocketInfo } from "../App";
 import Notifications from "./Notifications";
-import ReactPaginate from 'react-paginate'; 
-import Tab from 'react-bootstrap/Tab';
-import Tabs from 'react-bootstrap/Tabs';
-import PayloadCalendar from './PayloadCalendar.js'
+import ReactPaginate from "react-paginate";
+import Tab from "react-bootstrap/Tab";
+import Tabs from "react-bootstrap/Tabs";
+import PayloadCalendar from "./PayloadCalendar.js";
 
 function PayloadProfile() {
   const [submittedPayloads, setSubmittedPayloads] = useState();
   const [userPayloads, setUserPayloads] = useState();
   const [selectedPayload, setSelectedPayload] = useState();
-  const [fetchTime, setFetchTime] = useState(false)
-  const [shownPage, setShownPage] = useState(0)
-
+  const [fetchTime, setFetchTime] = useState(false);
+  const [shownPage, setShownPage] = useState(0);
 
   //Pagination Stuff here
-  function handlePageClick({selected: selectedPage}){
+  function handlePageClick({ selected: selectedPage }) {
     // console.log("selectedpage", selectedPage);
     setShownPage(selectedPage);
-}
-const perPage = 4;
-const offset = shownPage * perPage;
+  }
+  const perPage = 2;
+  const offset = shownPage * perPage;
 
   //For tabs to be active
-  const [key, setKey] = useState('home');
+  const [key, setKey] = useState("home");
 
   //USECONTEXT
-  const {userLogin} = useContext(RocketInfo)
+  const { userLogin } = useContext(RocketInfo);
 
   //PAYLOADS USESTATES
   const [weight, setWeight] = useState();
   const [orbit, setOrbit] = useState();
   const [name, setName] = useState();
+  const [description, setDescription] = useState();
   // PAYLOADS USESTATES
 
   //ADD BUTTON PAYLOAD USESTATES
@@ -70,14 +70,23 @@ const offset = shownPage * perPage;
   useEffect(() => {
     fetch("http://localhost:8080/table/payloads")
       .then((res) => res.json())
-      .then((data) => {setUserPayloads(data); setFetchTime(false)});
+      .then((data) => {
+        setUserPayloads(data);
+        setFetchTime(false);
+      });
   }, [fetchTime]);
 
+  let payloads = submittedPayloads?.filter(
+    (e, i) => e.payload_user_id === userLogin.id
+  );
+  let newPayloads = userPayloads?.filter(
+    (e, i) => e.payload_user_id === userLogin.id
+  );
 
-  let payloads = submittedPayloads?.filter((e, i) => e.payload_user_id === userLogin.id);
-  let newPayloads = userPayloads?.filter((e, i) => e.payload_user_id === userLogin.id);
-
-  let filteredPayloads =   newPayloads?.filter((pay, i) =>  payloads?.map((item,i)=>item.payload_id).includes(pay.id) === false )
+  let filteredPayloads = newPayloads?.filter(
+    (pay, i) =>
+      payloads?.map((item, i) => item.payload_id).includes(pay.id) === false
+  );
 
   // ADD PAYLOAD POST
   const handlePost = (e) => {
@@ -86,6 +95,7 @@ const offset = shownPage * perPage;
       body: JSON.stringify({
         payload_user_id: userLogin.id,
         weight: weight,
+        description: description,
         orbital_requirement: orbit,
         name: name,
       }),
@@ -100,240 +110,282 @@ const offset = shownPage * perPage;
       method: "PATCH",
       body: JSON.stringify({
         weight: weight,
+        description: description,
         orbital_requirement: orbit,
-        name: name
+        name: name,
       }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },
-    }).then(() =>  setFetchTime(true));
+    }).then(() => setFetchTime(true));
   };
   const handleDelete = () => {
-    fetch('http://localhost:8080/table/payloads', {
+    fetch("http://localhost:8080/table/payloads", {
       method: "DELETE",
       body: JSON.stringify({
-        id: selectedPayload.id
+        id: selectedPayload.id,
       }),
       headers: {
-        "Content-type": "application/json; charset=UTF-8"
-      }
+        "Content-type": "application/json; charset=UTF-8",
+      },
     })
-    .then(res => {
-      setSelectedPayload()
-      if(res.status === 200){
-        setFetchTime(true)
-      }
-    })
-    .catch(err=>console.log(err))
-}
+      .then((res) => {
+        setSelectedPayload();
+        if (res.status === 200) {
+          setFetchTime(true);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
 
+  let launched = payloads?.filter((e, i) => e.request_status === "Launched");
+  let pending = payloads?.filter((e, i) => e.request_status === "Pending");
+  let scheduled = payloads?.filter((e, i) => e.request_status === "Scheduled");
+  let denied = payloads?.filter((e, i) => e.request_status === "Denied");
 
-let launched = payloads?.filter((e, i) =>  e.request_status === 'Launched')
-let pending = payloads?.filter((e, i) =>  e.request_status === 'Pending')
-let scheduled = payloads?.filter((e, i) =>  e.request_status === 'Scheduled')
-let denied = payloads?.filter((e, i) =>  e.request_status === 'Denied')
+  //Filter for pagination
+  const currentPageData = filteredPayloads
+    ?.slice(offset, offset + perPage)
+    .map((pay, i) => {
+      return (
+        <>
+          <Card>
+            <Card.Body className="createdPayloadsCol">
+              <Card.Title>{pay.name}</Card.Title>
+              <Card.Text>
+                Status: Click{" "}
+                <Link state={pay} to="/request">
+                  Here
+                </Link>{" "}
+                to book with a Launch Provider
+                <br></br>
+                Payload Info: {pay.description}
+              </Card.Text>
+              <footer>
+                <small>Payload Created: {pay.updated_at}</small>
+              </footer>
+              <Button
+                className="updateDeleteButtons"
+                onClick={() => [setSelectedPayload(pay), handleShowUpdate()]}
+              >
+                Update
+              </Button>
+              <Button
+                className="updateDeleteButtons"
+                onClick={() => [setSelectedPayload(pay), handleShowDelete()]}
+              >
+                Delete
+              </Button>
+            </Card.Body>
+          </Card>
+        </>
+      );
+    });
 
+  const pageCount = Math.ceil(filteredPayloads?.length / perPage);
 
-//Filter for pagination
-const currentPageData = filteredPayloads?.slice(offset, offset + perPage).map((pay, i) => {
   return (
     <>
-    <Card>
-      <Card.Body className="createdPayloadsCol">
-        <Card.Title>{pay.name}</Card.Title>
-        <Card.Text>
-          Status: Click{" "}
-          <Link state={pay} to='/request'>
-            Here
-          </Link>{" "}
-          to book with a Launch Provider
-        </Card.Text>
-        <footer>
-          <small>Payload Created: {pay.updated_at}</small>
-        </footer>
-        <Button onClick={() => [setSelectedPayload(pay), handleShowUpdate(),]}>
-          Update
-        </Button>
-        <Button onClick={() => [setSelectedPayload(pay), handleShowDelete(),]}>
-          Delete
-        </Button>
-      </Card.Body>
-    </Card>
-  </>
-  )
-})
+      <div style={{height: "86vh"}}>
+        <Notifications />
+        <Container fluid className="App py-2 overflow-hidden">
+          <Row className="profileRow">
+            <Col>
+              <Row className="mt-5">
+                <PayloadCalendar />
+              </Row>
+            </Col>
 
-const pageCount = Math.ceil(filteredPayloads?.length / perPage)
-
-  return (
-    <>
-    <div className="topHalf">
-    <Notifications/>
-      <Container fluid className="App py-2 overflow-hidden">
-        <Row className="justify-content-center profileRow">
-          <Col className="profileCol">
-                <Card className="payloadProfileCard">
-                  <Card.Body>
-                    <Card.Title>{userLogin.organization}</Card.Title>
-                    <Card.Text>Username: {userLogin.username}</Card.Text>
-                    <footer>
-                      <small>User Created: {userLogin.updated_at}</small>
-                    </footer>
-                  </Card.Body>
-                </Card>
-          </Col>
-
-
-          <Col xs={6} className='secondCol'>
-          <Row className="payloadsTitle">
-              <h3> Payloads</h3>
-          </Row>
-            <Tabs
-              id="controlled-tab-example"
-              activeKey={key}
-              onSelect={(k) => setKey(k)}
-              className="mb-3 tabsPayloads"
-            >
-              <Tab className="tabsTest" eventKey="home" title="Launched">
-                {launched?.map((e, i) => {
-                  return (
-                    <Link state={e} to='/requestdetails' className='request-link-to-details'> 
-                    <Card key={i}>
-                      <Card.Body className="payloadsCol">
-                        <Card.Title>{e.name}</Card.Title>
-                        <Card.Text>Status: {e.request_status}</Card.Text>
-                        <footer>
-                          <small>Payload Created: {e.updated_at}</small>
-                        </footer>
-                      </Card.Body>
-                    </Card>
-                  </Link>
-                  )
-                })}
-              </Tab>
-              <Tab eventKey="profile" title="Pending">
-              {pending?.map((e, i) => {
-                  return (
-                    <Link state={e} to='/requestdetails' className='request-link-to-details'> 
-                    <Card key={i}>
-                      <Card.Body className="payloadsCol">
-                        <Card.Title>{e.name}</Card.Title>
-                        <Card.Text>Status: {e.request_status}</Card.Text>
-                        <footer>
-                          <small>Payload Created: {e.updated_at}</small>
-                        </footer>
-                      </Card.Body>
-                    </Card>
-                  </Link>
-                  )
-                })}
-              </Tab>
-              <Tab eventKey="longer-tab" title="Scheduled" >
-              {scheduled?.map((e, i) => {
-                  return (
-                    <Link state={e} to='/requestdetails' className='request-link-to-details'> 
-                    <Card key={i}>
-                      <Card.Body className="payloadsCol">
-                        <Card.Title>{e.name}</Card.Title>
-                        <Card.Text>Status: {e.request_status}</Card.Text>
-                        <footer>
-                          <small>Payload Created: {e.updated_at}</small>
-                        </footer>
-                      </Card.Body>
-                    </Card>
-                  </Link>
-                  )
-                })}
-              </Tab>
-              <Tab eventKey="denied" title="Denied" >
-              {denied?.map((e, i) => {
-                let pendingIDs = pending.map(item=>item.payload_id)
-                let scheduledIDs = scheduled.map(item=>item.payload_id)
-                if(!pendingIDs.includes(e.payload_id) && !scheduledIDs.includes(e.payload_id)){
-                  return (
-                    <Link state={e} to='/requestdetails' className='request-link-to-details'> 
-                    <Card key={i}>
-                      <Card.Body className="payloadsCol">
-                        <Card.Title>{e.name}</Card.Title>
-                        <Card.Text>Status: {e.request_status}</Card.Text>
-                        Status: Click{" "}
-                              <Link state={e} to='/request'>
+            <Col xs={6} className="secondCol">
+              <Row className="payloadsTitle d-flex justify-content-between">
+                <div className="titleRowButton">
+                  <h3 className="colTitle"> Payloads</h3>
+                  <Button onClick={handleShow} size="sm" className="btn ml-5 addPayloadRight"> + Add Payload</Button>
+                </div>
+              </Row>
+              <Tabs
+                id="controlled-tab-example"
+                activeKey={key}
+                onSelect={(k) => setKey(k)}
+                className="mb-3 tabsPayloads"
+              >
+                <Tab
+                  tabClassName="color-black"
+                  eventKey="home"
+                  title="Launched"
+                >
+                  {launched?.map((e, i) => {
+                    return (
+                      <Link
+                        state={e}
+                        to="/requestdetails"
+                        className="request-link-to-details"
+                      >
+                        <Card key={i}>
+                          <Card.Body className="payloadsCol">
+                            <Card.Title>{e.name}</Card.Title>
+                            <Card.Text>
+                              Status: {e.request_status}
+                              <br></br>
+                              Payload Info:{" "} {e.description}
+                            </Card.Text>
+                            <footer>
+                              <small>Payload Created: {e.updated_at}</small>
+                            </footer>
+                          </Card.Body>
+                        </Card>
+                      </Link>
+                    );
+                  })}
+                </Tab>
+                <Tab
+                  tabClassName="color-black"
+                  eventKey="profile"
+                  title="Pending"
+                >
+                  {pending?.map((e, i) => {
+                    return (
+                      <Link
+                        state={e}
+                        to="/requestdetails"
+                        className="request-link-to-details"
+                      >
+                        <Card key={i}>
+                          <Card.Body className="payloadsCol">
+                            <Card.Title>{e.name}</Card.Title>
+                            <Card.Text>
+                              Status: {e.request_status}
+                              <br></br>
+                              Payload Info:{" "} {e.description}
+                            </Card.Text>
+                            <footer>
+                              <small>Payload Created: {e.updated_at}</small>
+                            </footer>
+                          </Card.Body>
+                        </Card>
+                      </Link>
+                    );
+                  })}
+                </Tab>
+                <Tab
+                  tabClassName="color-black"
+                  eventKey="longer-tab"
+                  title="Scheduled"
+                >
+                  {scheduled?.map((e, i) => {
+                    return (
+                      <Link
+                        state={e}
+                        to="/requestdetails"
+                        className="request-link-to-details"
+                      >
+                        <Card key={i}>
+                          <Card.Body className="payloadsCol">
+                            <Card.Title>{e.name}</Card.Title>
+                            <Card.Text>
+                              Status: {e.request_status}
+                              <br></br>
+                              Payload Info:{" "} {e.description}
+                            </Card.Text>
+                            <footer>
+                              <small>Payload Created: {e.updated_at}</small>
+                            </footer>
+                          </Card.Body>
+                        </Card>
+                      </Link>
+                    );
+                  })}
+                </Tab>
+                <Tab
+                  tabClassName="color-black"
+                  eventKey="denied"
+                  title="Denied"
+                >
+                  {denied?.map((e, i) => {
+                    let pendingIDs = pending.map((item) => item.payload_id);
+                    let scheduledIDs = scheduled.map((item) => item.payload_id);
+                    if (
+                      !pendingIDs.includes(e.payload_id) &&
+                      !scheduledIDs.includes(e.payload_id)
+                    ) {
+                      return (
+                        <Link
+                          state={e}
+                          to="/requestdetails"
+                          className="request-link-to-details"
+                        >
+                          <Card key={i}>
+                            <Card.Body className="payloadsCol">
+                              <Card.Title>{e.name}</Card.Title>
+                              <Card.Text>Status: {e.request_status}</Card.Text>
+                              Status: Click{" "}
+                              <Link state={e} to="/request">
                                 Here
                               </Link>{" "}
                               to rebook with a Launch Provider
-                        <footer>
-                          <small>Payload Created: {e.updated_at}</small>
-                        </footer>
-                      </Card.Body>
-                    </Card>
-                  </Link>
-                  )
-                } else {
-                  return (
-                    <Link state={e} to='/requestdetails' className='request-link-to-details'> 
-                    <Card key={i}>
-                      <Card.Body className="payloadsCol">
-                        <Card.Title>{e.name}</Card.Title>
-                        <Card.Text>Status: {e.request_status}</Card.Text>
-                          Payload has been rebooked or rescheduled
-                        <footer>
-                          <small>Payload Created: {e.updated_at}</small>
-                        </footer>
-                      </Card.Body>
-                    </Card>
-                  </Link>
-                  )
-                }
-                })}
-              </Tab>
-              <Tab eventKey="test" title="Non submitted" >
-                {currentPageData}
-                <ReactPaginate
-                  previousLabel= {"<<  "}
-                  nextLabel={"   >>"}
-                  pageCount= {pageCount}
-                  onPageChange= {handlePageClick}
-                  pageClassName="page-item"
-                  pageLinkClassName="page-link"
-                  previousClassName="page-item"
-                  previousLinkClassName="page-link"
-                  nextClassName="page-item"
-                  nextLinkClassName="page-link"
-                  breakLabel="..."
-                  breakClassName="page-item"
-                  breakLinkClassName="page-link"
-                  containerClassName="pagination"
-                  activeClassName="active"
-                  renderOnZeroPageCount={null}
-                />
-              </Tab>
-            </Tabs>
-          </Col>
-
-              <Row>
-          <Col xs lg="2" className="addCol">
-            <Card className="buttonCard">
-              <Card.Body>
-                <Button
-                  className="addPayload"
-                  variant="outline-primary"
-                  onClick={handleShow}
+                              <br></br>
+                              Payload Info:{" "} {e.description}
+                              <footer>
+                                <small>Payload Created: {e.updated_at}</small>
+                              </footer>
+                            </Card.Body>
+                          </Card>
+                        </Link>
+                      );
+                    } else {
+                      return (
+                        <Link
+                          state={e}
+                          to="/requestdetails"
+                          className="request-link-to-details"
+                        >
+                          <Card key={i}>
+                            <Card.Body className="payloadsCol">
+                              <Card.Title>{e.name}</Card.Title>
+                              <Card.Text>Status: {e.request_status}</Card.Text>
+                              Payload has been rebooked or rescheduled
+                              <footer>
+                                <small>Payload Created: {e.updated_at}</small>
+                              </footer>
+                            </Card.Body>
+                          </Card>
+                        </Link>
+                      );
+                    }
+                  })}
+                </Tab>
+                <Tab
+                  tabClassName="color-black"
+                  eventKey="test"
+                  title="Non submitted"
                 >
-                  +
-                </Button>
-                <Card.Title>Add Payload</Card.Title>
-              </Card.Body>
-            </Card>
-          </Col>
+                  {currentPageData}
+                  <ReactPaginate
+                    className="pagination"
+                    previousLabel={"<<  "}
+                    nextLabel={"   >>"}
+                    pageCount={pageCount}
+                    onPageChange={handlePageClick}
+                    pageClassName="page-item"
+                    pageLinkClassName="page-link"
+                    previousClassName="page-item"
+                    previousLinkClassName="page-link"
+                    nextClassName="page-item"
+                    nextLinkClassName="page-link"
+                    breakLabel="..."
+                    breakClassName="page-item"
+                    breakLinkClassName="page-link"
+                    containerClassName="pagination"
+                    activeClassName="active"
+                    renderOnZeroPageCount={null}
+                  />
+                </Tab>
+              </Tabs>
+            </Col>
           </Row>
-        </Row>          
-      </Container>
-    </div>
+        </Container>
+      </div>
 
-{/* Calendar HERE */}
-    <div className="calendarPayload">
-      <PayloadCalendar/>
-    </div>
 
 
       <Modal show={show} onHide={handleClose} className="modalBg">
@@ -356,6 +408,14 @@ const pageCount = Math.ceil(filteredPayloads?.length / perPage)
               <Form.Label>Payload Name</Form.Label>
               <Form.Control type="text" placeholder="" />
             </Form.Group>
+            <Form.Group
+              onChange={(e) => setDescription(e.target.value)}
+              className="mb-3"
+              controlId="formBasicEmail"
+            >
+              <Form.Label>Description</Form.Label>
+              <Form.Control type="text" placeholder="" />
+            </Form.Group>
 
             <Form.Group
               onChange={(e) => setWeight(e.target.value)}
@@ -367,8 +427,7 @@ const pageCount = Math.ceil(filteredPayloads?.length / perPage)
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Orbit</Form.Label>
-              <Form.Select onChange={(e) =>
-                setOrbit(e.target.value)}>
+              <Form.Select onChange={(e) => setOrbit(e.target.value)}>
                 <option></option>
                 <option>GEO</option>
                 <option>HEO</option>
@@ -378,7 +437,7 @@ const pageCount = Math.ceil(filteredPayloads?.length / perPage)
             </Form.Group>
             <Button
               onClick={handleClose}
-              className="addPayload"
+              className="modalButtons"
               variant="primary"
               type="submit"
             >
@@ -388,7 +447,7 @@ const pageCount = Math.ceil(filteredPayloads?.length / perPage)
         </Modal.Body>
         <Modal.Footer className="modalForm">
           <Button
-            className="addPayload"
+            className="modalButtons"
             variant="secondary"
             onClick={handleClose}
           >
@@ -423,6 +482,15 @@ const pageCount = Math.ceil(filteredPayloads?.length / perPage)
             </Form.Group>
 
             <Form.Group
+              onChange={(e) => setDescription(e.target.value)}
+              className="mb-3"
+              controlId="formBasicEmail"
+            >
+              <Form.Label>Description</Form.Label>
+              <Form.Control type="text" placeholder="" />
+            </Form.Group>
+
+            <Form.Group
               onChange={(e) => setWeight(e.target.value)}
               className="mb-3"
               controlId="formBasicPassword"
@@ -447,7 +515,7 @@ const pageCount = Math.ceil(filteredPayloads?.length / perPage)
               </Form.Select>
             </Form.Group>
             <Button
-              onClick={() =>handleCloseUpdate()}
+              onClick={() => handleCloseUpdate()}
               className="addPayload"
               variant="primary"
               type="submit"
@@ -467,9 +535,7 @@ const pageCount = Math.ceil(filteredPayloads?.length / perPage)
         </Modal.Footer>
       </Modal>
 
-      
-{/* DELETE MODAL */}
-
+      {/* DELETE MODAL */}
 
       <Modal show={showDelete} onHide={handleCloseDelete} className="modalBg">
         <Modal.Header closeButton className="modalForm">
@@ -477,21 +543,23 @@ const pageCount = Math.ceil(filteredPayloads?.length / perPage)
         </Modal.Header>
 
         <Modal.Body>
-        <Form.Label>Are you sure you want to delete: {selectedPayload?.name} </Form.Label>
-      
-        <Button
-              onClick={() => {
-                handleDelete();
-                handleCloseDelete();
-              }}
-              className="addPayload"
-              variant="outline-primary"
-              type="submit"
-            >
-              Delete
-            </Button>
+          <Form.Label>
+            Are you sure you want to delete: {selectedPayload?.name}{" "}
+          </Form.Label>
+
+          <Button
+            onClick={() => {
+              handleDelete();
+              handleCloseDelete();
+            }}
+            className="addPayload"
+            variant="outline-primary"
+            type="submit"
+          >
+            Delete
+          </Button>
         </Modal.Body>
-        
+
         <Modal.Footer className="modalForm">
           <Button
             className="addPayload"
@@ -503,9 +571,6 @@ const pageCount = Math.ceil(filteredPayloads?.length / perPage)
         </Modal.Footer>
       </Modal>
     </>
-
-
-
   );
 }
 

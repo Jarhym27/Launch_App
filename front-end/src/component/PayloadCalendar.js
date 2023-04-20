@@ -38,7 +38,7 @@ function PayloadCalendar() {
         keyboard={true}
         centered>
         <Modal.Header closeButton>
-          <Modal.Title>{selectedEvent.title}</Modal.Title>
+          <Modal.Title>{userLogin.organization}'s {selectedEvent.title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <ListGroup>
@@ -84,7 +84,7 @@ function PayloadCalendar() {
   if (allEvents) {
     return (
       <div >
-        <Card>
+        <Card style={{backgroundColor: "aliceblue"}}>
           <Card.Title className='center' style={{ display: 'flex', justifyContent: "center" }}>Launch Schedule</Card.Title>
           <Row>
             <Card.Subtitle style={{ flexDirection: 'row', justifyContent: 'space-between' }}>

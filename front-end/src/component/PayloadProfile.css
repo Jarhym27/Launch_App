@@ -2,7 +2,8 @@
     background-color:aliceblue !important;
     width: 100%;
     overflow: auto;
-    height: 45%;
+    height: 15vh;
+    margin-bottom: 3%;
     color: #171717;
 }
 .profileRow{
@@ -15,26 +16,56 @@
 }
 .payloadsTitle{
     text-align: center;
-    width: 50%;
+    width: 100%;
 }
 
 .profileCol{
     width: 100%;
     padding-top: 2.75rem;
-    height: 27rem;
+    height: 70vh;
 }
-.addPayload{
+.addPayloadRight{
+    width: 18%;
+    height: 2rem;
+    padding-bottom: 1rem;
+    background-color: #444444;
+    color: #EDEDED;
+    border: 1px #EDEDED solid;
+    font-size: 15px;
+    text-align: center;
+
+}
+.addPayloadRight:hover{
+    background-color: #EDEDED;
+    border: 1px #171717 solid;
+    color: #171717;
+
+}
+.modalButtons{
     width: 100%;
     padding-bottom: 1rem;
     background-color: #444444;
     color: #EDEDED;
     border: 1px #EDEDED solid;
+
 }
-.addPayload:hover{
+.modalButtons:hover{
     background-color: #DA0037;
     border: 1px #EDEDED solid;
-}
 
+}
+.titleRowButton{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: center;
+   
+}
+.colTitle{
+    padding-left: 12rem;
+    text-align: center;
+}
 .buttonCard{
     display: flex;
     flex-direction: column;
@@ -72,8 +103,14 @@
     /* background-color: #171717; */
     color:#EDEDED !important;
 }
-.tabsTest{
-    background-color: aliceblue;
+.color-black{
+    color: #171717;
+    border: 1px #171717 solid;
+}
+.color-black:hover{
+    border: 1px #171717 solid;
+    color: #EDEDED;
+
 }
 @font-face {
     font-family: 'Silkscreen'; /*a name to be used later*/
@@ -83,6 +120,23 @@
     height: 60rem;
 }
 .calendarPayload{
-    width: 75%;
-    height: 80%;
+    width: 100%;
+    height: 100%;
+}
+
+.updateDeleteButtons{
+    width: 15%;
+    height: 2.5rem;
+    padding-bottom: 1rem;
+    background-color: #444444;
+    color: #EDEDED;
+    border: 1px #EDEDED solid;
+    text-align: center;
+}
+.updateDeleteButtons:hover{
+    background-color: #DA0037;
+    border: 1px #171717 solid;
+}
+.pagination{
+    background-color: #DA0037;
 }
