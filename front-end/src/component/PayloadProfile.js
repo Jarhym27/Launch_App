@@ -12,7 +12,7 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import PayloadCalendar from './PayloadCalendar.js'
 
-function PayloadProfile({setSelectedRequest}) {
+function PayloadProfile() {
   const [submittedPayloads, setSubmittedPayloads] = useState();
   const [userPayloads, setUserPayloads] = useState();
   const [selectedPayload, setSelectedPayload] = useState();
@@ -119,10 +119,8 @@ function PayloadProfile({setSelectedRequest}) {
 
 let launched = payloads?.filter((e, i) =>  e.request_status === 'Launched')
 let pending = payloads?.filter((e, i) =>  e.request_status === 'Pending')
-let approved = payloads?.filter((e, i) =>  (e.request_status === 'Approved'))
-let denied = payloads?.filter((e, i) =>  (e.request_status === 'Denied'))
-
-
+let scheduled = payloads?.filter((e, i) =>  e.request_status === 'Scheduled')
+let denied = payloads?.filter((e, i) =>  e.request_status === 'Denied')
 
   return (
     <>
@@ -186,8 +184,8 @@ let denied = payloads?.filter((e, i) =>  (e.request_status === 'Denied'))
                   )
                 })}
               </Tab>
-              <Tab eventKey="longer-tab" title="Approved" >
-              {approved?.map((e, i) => {
+              <Tab eventKey="longer-tab" title="Scheduled" >
+              {scheduled?.map((e, i) => {
                   return (
                     <Link state={e} to='/requestdetails' className='request-link-to-details'> 
                     <Card key={i}>
@@ -205,6 +203,9 @@ let denied = payloads?.filter((e, i) =>  (e.request_status === 'Denied'))
               </Tab>
               <Tab eventKey="denied" title="Denied" >
               {denied?.map((e, i) => {
+                let pendingIDs = pending.map(item=>item.payload_id)
+                let scheduledIDs = scheduled.map(item=>item.payload_id)
+                if(!pendingIDs.includes(e.payload_id) && !scheduledIDs.includes(e.payload_id)){
                   return (
                     <Link state={e} to='/requestdetails' className='request-link-to-details'> 
                     <Card key={i}>
@@ -215,7 +216,7 @@ let denied = payloads?.filter((e, i) =>  (e.request_status === 'Denied'))
                               <Link state={e} to='/request'>
                                 Here
                               </Link>{" "}
-                              to book with a Launch Provider
+                              to rebook with a Launch Provider
                         <footer>
                           <small>Payload Created: {e.updated_at}</small>
                         </footer>
@@ -223,6 +224,22 @@ let denied = payloads?.filter((e, i) =>  (e.request_status === 'Denied'))
                     </Card>
                   </Link>
                   )
+                } else {
+                  return (
+                    <Link state={e} to='/requestdetails' className='request-link-to-details'> 
+                    <Card key={i}>
+                      <Card.Body className="payloadsCol">
+                        <Card.Title>{e.name}</Card.Title>
+                        <Card.Text>Status: {e.request_status}</Card.Text>
+                          Payload has been rebooked or rescheduled
+                        <footer>
+                          <small>Payload Created: {e.updated_at}</small>
+                        </footer>
+                      </Card.Body>
+                    </Card>
+                  </Link>
+                  )
+                }
                 })}
               </Tab>
               <Tab eventKey="test" title="Non submitted" >
