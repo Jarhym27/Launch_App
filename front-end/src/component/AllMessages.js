@@ -17,7 +17,6 @@ const AllMessages = () => {
     fetch(`http://localhost:8080/join/launch_requests-messages`)
       .then(res => res.json())
       .then(data => {
-        console.log(data)
         let myFeeds = data.filter(request => request.sender_id === userLogin.id || request.recipient_id === userLogin.id)
         let filteredFeeds = []
         for (let i = 0; i < myFeeds.length; i++) {
