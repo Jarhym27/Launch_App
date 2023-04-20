@@ -25,7 +25,7 @@ function About() {
                     <div className="row h-100 align-items-center py-5">
                         <div className="col-lg-6">
                             <h1 className="display-4">Our Team</h1>
-                            <p className="lead text-muted mb-0">Our developers are a join team of civilian and active duty service members from across the DoD.  From Vandenburg SFB, California to the AEGIS Techrep Naval Station in Moorestown, NJ, and everywhere in-between, we have come together to learn web development via the Supra Coders program.</p>
+                            <p className="lead text-muted mb-0">Our developers are a join team of civilian and active duty service members from across the DoD.  From Vandenburg SFB, California to Kapaun AFB, Germany and everywhere in-between, we have come together to learn web development via the Supra Coders program.</p>
                             <p className="lead text-muted mb-0">Learn more at <a href="https://supracoders.us/" className="text-muted">
                                 <u>Supra Coders</u></a>
                             </p>
