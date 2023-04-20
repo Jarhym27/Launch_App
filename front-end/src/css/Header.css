@@ -14,3 +14,15 @@
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
 }
+
+.logout-btn{
+    background-color: #444444;
+    color: #EDEDED;
+    border: 1px #EDEDED solid;
+    margin:0;
+}
+
+.logout-btn:hover{
+    background-color: #DA0037;
+    border: 1px #EDEDED solid;
+}

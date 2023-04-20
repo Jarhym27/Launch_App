@@ -206,6 +206,18 @@
   border: none;
 }
 
+.sort-cheapest-btn{
+  background-color: #444444;
+  color: #EDEDED;
+  border: 1px #EDEDED solid;
+  margin:0;
+}
+
+.sort-cheapest-btn:hover{
+  background-color: #DA0037;
+  border: 1px #EDEDED solid;
+}
+
 
 
 

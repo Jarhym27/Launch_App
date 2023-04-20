@@ -94,7 +94,7 @@ const Header = () => {
           </>
           }
 
-          <Button className='addPayload' onClick={() => logout()}
+          <Button className='logout-btn' onClick={() => logout()}
             >Logout</Button>
         </Navbar.Collapse>
       </Navbar>
