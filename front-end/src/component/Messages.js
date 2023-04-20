@@ -40,7 +40,6 @@ const Messages = ({selectedRequest}) => {
         .then(data=> {
           messageRef.current.value = ''
           setMessages(data)
-          console.log(data)
           })
   }
 
@@ -69,7 +68,6 @@ const Messages = ({selectedRequest}) => {
 
     return (
       <>
-      <h6>Conversation with {messages.filter(msg=>msg.sender_id !== userLogin.id)[0].organization}</h6>
       <hr></hr>
     <Container id='messages-container'>
       {messages.map(msg=> {
