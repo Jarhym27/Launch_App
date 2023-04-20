@@ -188,7 +188,7 @@
 
 .form-control:focus {
   border-color:#DA0037;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 4px#DA0037;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 1px#DA0037;
 }
 
 .search-icon{
@@ -206,7 +206,33 @@
   border: none;
 }
 
+.sort-cheapest-btn{
+  background-color: #444444;
+  color: #EDEDED;
+  border: 1px #EDEDED solid;
+  margin:0;
+}
 
+.sort-cheapest-btn:hover{
+  background-color: #DA0037;
+  border: 1px #EDEDED solid;
+}
+
+.payloads-card-container{
+  background-color: aliceblue;
+}
+
+.request-modal-btn{
+  background-color: #444444;
+  color: #EDEDED;
+  border: 1px #EDEDED solid;
+  margin:0;
+}
+
+.request-modal-btn:hover{
+  background-color: #DA0037;
+  border: 1px #EDEDED solid;
+}
 
 
 

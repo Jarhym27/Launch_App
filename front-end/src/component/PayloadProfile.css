@@ -69,6 +69,16 @@
     padding-top: 2.75rem;
     height: 70vh;
 }
+.addPayload{
+    width: 50%;
+    background-color: #444444;
+    color: #EDEDED;
+    border: 1px #EDEDED solid;
+    font-size: 15px;
+    text-align: center;
+
+}
+
 .addPayloadRight{
     width: 18%;
     height: 2rem;
@@ -80,20 +90,14 @@
     text-align: center;
 
 }
+
 .addPayloadRight:hover{
     background-color: #EDEDED;
     border: 1px #171717 solid;
     color: #171717;
 
 }
-.addPayload{
-    width: 100%;
-    padding-bottom: 1rem;
-    background-color: #444444;
-    color: #EDEDED;
-    border: 1px #EDEDED solid;
 
-}
 .addPayload:hover{
     background-color: #DA0037;
     border: 1px #EDEDED solid;

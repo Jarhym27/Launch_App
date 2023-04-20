@@ -16,6 +16,8 @@ import { RocketInfo } from "../App";
 import { useNavigate } from "react-router-dom";
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
+import Image from 'react-bootstrap/Image'
+import { TbSatellite } from 'react-icons/tb'
 
 const LaunchRequest = () => {
   const { userLogin } = useContext(RocketInfo);
@@ -332,42 +334,6 @@ const LaunchRequest = () => {
   return (
     <div className='home-container'>
       <Container>
-        <Row>
-          <Col md={6} lg={6}>
-            <Card className='payloads-card-container'>
-              <ListGroup variant="flush">
-                <ListGroupItem className='payload-list-item'>
-                  <Row>
-                    <Col >
-                      <img
-                        className=""
-                        src="http://via.placeholder.com/100x80"
-                        alt="Card placeholder"
-                      />
-                    </Col>
-                    <Col md={6} lg={6}>
-                      <Row>
-                        <h5>
-                          {location.state.name}
-                        </h5>
-                      </Row>
-                      <Row>
-                        <h6 className='list-detail'>
-                          Weight: {location.state.weight}
-                        </h6>
-                      </Row>
-                      <Row>
-                        <h6 className='list-detail'>
-                          Target Orbit: {location.state.orbital_requirement}
-                        </h6>
-                      </Row>
-                    </Col>
-                  </Row>
-                </ListGroupItem>
-              </ListGroup>
-            </Card>
-          </Col>
-        </Row>
         <Row className='py-3'>
           <Col>
             <Row className='mb-3'>
@@ -477,6 +443,36 @@ const LaunchRequest = () => {
                   </Card.Body>
                 </Card>
               </Col>
+              <Col>
+                <Card className='payloads-card-container'>
+                  <ListGroup variant="flush">
+                    <ListGroupItem>
+                      <Row>
+                      <Col >
+                            <TbSatellite className='icon-satellite' />
+                          </Col>
+                        <Col md={9} lg={9}>
+                          <Row>
+                            <h5>
+                              {location.state.name}
+                            </h5>
+                          </Row>
+                          <Row>
+                            <h6 className='list-detail'>
+                              Weight: {location.state.weight}
+                            </h6>
+                          </Row>
+                          <Row>
+                            <h6 className='list-detail'>
+                              Target Orbit: {location.state.orbital_requirement}
+                            </h6>
+                          </Row>
+                        </Col>
+                      </Row>
+                    </ListGroupItem>
+                  </ListGroup>
+                </Card>
+              </Col>
             </Row>
             {loading && <Spinner variant="light" />}
             {!loading && Array.isArray(searchResults) && searchResults.length > 0 &&
@@ -487,44 +483,40 @@ const LaunchRequest = () => {
                       {
                         searchResults.map(item =>
                           <ListGroupItem className='search-list-item' key={item.id}>
-                            <Row>
-                              <Col >
-                                <img
-                                  className=""
-                                  src="http://via.placeholder.com/100x80"
-                                  alt="Card placeholder"
-                                />
-                              </Col>
-                              <Col md={3} lg={3}>
                                 <Row>
-                                  <h5>
-                                    {item.launch_vehicle}
-                                  </h5>
-                                </Row>
-                                <Row>
-                                  <h6 className='list-detail'>
-                                    {item.launch_site}
-                                  </h6>
-                                </Row>
-                                <Row>
-                                  <h6 className='list-detail'>
-                                    ${item.cost} million
-                                  </h6>
-                                </Row>
-                              </Col>
-                              <Col md={4} lg={4}>
-                                <Row>
-                                    <h6 className='list-detail'>
-                                    Capacity
-                                    </h6>
-                                    <ul className='list-detail'>
-                                      <li>{item.leo_weight && `LEO: ${item.leo_weight}kg `}  </li>
-                                      <li>{item.meo_weight && `MEO: ${item.meo_weight}kg `} </li>
-                                      <li>{item.geo_weight && `GEO: ${item.geo_weight}kg `}</li>
-                                      <li>{item.heo_weight && `HEO: ${item.heo_weight}kg `}</li>
-                                    </ul>
-                                  </Row>
-                              </Col>
+                                  <Col md={2} lg={2}>
+                                    <Image thumbnail className='rocket-icon' src={item.icon} alt='rocket-icon' />
+                                  </Col>
+                                  <Col md={3} lg={3}>
+                                    <Row>
+                                      <h5>
+                                        {item.launch_vehicle}
+                                      </h5>
+                                    </Row>
+                                    <Row>
+                                      <h6 className='list-detail'>
+                                        {item.launch_site}
+                                      </h6>
+                                    </Row>
+                                    <Row>
+                                      <h6 className='list-detail'>
+                                        ${item.cost} million
+                                      </h6>
+                                    </Row>
+                                  </Col>
+                                  <Col md={5} lg={5}>
+                                    <Row>
+                                      <h5 className='list-detail'>
+                                        Capacity
+                                      </h5>
+                                      <ul className='list-detail'>
+                                        <li>{item.leo_weight && `LEO: ${item.leo_weight}kg `}  </li>
+                                        <li>{item.meo_weight && `MEO: ${item.meo_weight}kg `} </li>
+                                        <li>{item.geo_weight && `GEO: ${item.geo_weight}kg `}</li>
+                                        <li>{item.heo_weight && `HEO: ${item.heo_weight}kg `}</li>
+                                      </ul>
+                                    </Row>
+                                  </Col>
                               <Col>
                                 <RocketTakeoffFill onClick={() => {
                                   setSelectedLV(item)
