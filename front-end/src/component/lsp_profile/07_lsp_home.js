@@ -5,6 +5,7 @@ import {Row, Col, Container} from 'react-bootstrap'
 import Notifications from '../Notifications';
 
 const LSP_Home = () => {
+  // Put each request into its own card
 
   return (
     <>
