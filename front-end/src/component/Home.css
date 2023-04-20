@@ -85,12 +85,11 @@
 .search-rocket{
   scale: 2;
   padding: 0;
-  margin-top: 40%;
-  margin-bottom: 40%;
-  margin-left: 40%;
-  margin-bottom: 40%;
+  margin-top: 50%;
   color:#DA0037
 }
+
+
 
 .search-rocket:hover{
   cursor: pointer;
@@ -121,7 +120,7 @@
 }
 
 .payload-listgroup{
-  max-height: 700px;
+  max-height: 835px;
   margin-bottom: 10px;
   overflow:auto;
   -webkit-overflow-scrolling: touch;
@@ -196,6 +195,11 @@
 
 .icon-satellite{
   scale: 1.5;
+}
+
+.rocket-icon{
+  width: max-content;
+  height:6rem;
 }
 
 
