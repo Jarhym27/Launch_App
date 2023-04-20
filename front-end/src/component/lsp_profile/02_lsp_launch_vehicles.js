@@ -176,7 +176,7 @@ function LspLaunchVehicles() {
                 <br></br>
                 <img src={`${vehicle.picture}`} />
                 <br></br>
-                <Button onClick={() => {setSelectedVehicle(vehicle);   handleShowUpdate();
+                <Button className="addPayload" onClick={() => {setSelectedVehicle(vehicle);   handleShowUpdate();
                 setName(vehicle.launch_vehicle);
                   console.log('selectedVehicle:\n',selectedVehicle)}}>
                     Edit</Button>
