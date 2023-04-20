@@ -2,6 +2,7 @@ import React from "react";
 import '../css/About.css'
 import * as icons from "react-bootstrap-icons";
 
+
 function About() {
 
     let devs = ["Jaheem Christopher", "Tyler Hancock", "Kyle Mersinger", "Khoa Nguyen", "Mackenzie Nickle", "Jose Ocasio", "Izyk Pringle"]
@@ -33,7 +34,7 @@ function About() {
                         {devs.map((dev) => {
                             return (
                                 <div key={dev} className="col-xl-3 col-sm-6 mb-5">
-                                    <div className="bg-white rounded shadow-sm py-5 px-4"><img src="https://bootstrapious.com/i/snippets/sn-about/avatar-4.png" alt="" width="100" className="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm" />
+                                    <div className="bg-white rounded shadow-sm py-5 px-4"><img src={`/${dev}.png`} alt="" width="100" className="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm" />
                                         <h5 className="mb-0">{dev}</h5><span className="small text-uppercase text-muted">Junior Dev</span>
                                         <ul className="social mb-0 list-inline mt-3">
                                             <li className="list-inline-item"><a href="#" className="social-link"><icons.Facebook size={29} /></a></li>

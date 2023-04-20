@@ -11,7 +11,7 @@ import './00_lsp_profile.css'
 export default LspLaunchPads
 
 function LspLaunchPads() {
-  const { userLogin, availablePads, setAvailablePads } = useContext(RocketInfo);
+  const { userLogin, availablePads, setAvailablePads, setRefresh, refresh } = useContext(RocketInfo);
   const [launchPad, setLaunchPad] = useState();
   const [fetchTime, setFetchTime] = useState(false)
   const [selectedPad, setSelectedPad] = useState();
@@ -19,7 +19,7 @@ function LspLaunchPads() {
   const [lpState, setlpState] = useState();
   const [launchSite, setLaunchSite] = useState();
   const [padName, setPadName] = useState();
-  const [padStatus, setPadStatus] = useState(true);
+  const [padStatus, setPadStatus] = useState('');
   //ADD BUTTON PAYLOAD USESTATES
   const [show, setShow] = useState(false);
 
@@ -44,8 +44,8 @@ function LspLaunchPads() {
   useEffect(() => {
     fetch('http://localhost:8080/table/launch_pads')
       .then(res => res.json())
-      .then(data => setLaunchPad(data))
-  }, [])
+      .then(data => setLaunchPad(data), setFetchTime(false), setRefresh(false))
+  }, [fetchTime, refresh])
 
 
   // ADD lanchpad POST
@@ -77,30 +77,23 @@ function LspLaunchPads() {
   };
 
   const handleUpdate = () => {
-    let newPadList = launchPad.filter(item => item.id !== selectedPad.id);
-    let updatedPad = selectedPad;
-    updatedPad.launch_pad = padName;
-    updatedPad.pad_status = padStatus;
-    if (updatedPad.launch_pad === undefined) {
-      updatedPad.launch_pad = selectedPad?.launchPad
-    }
-    if (updatedPad.pad_status === undefined) {
-      updatedPad.pad_status = selectedPad?.pad_status
-    }
-    setLaunchPad(newPadList);
-    setLaunchPad((items) => [...items, updatedPad]);
+
     fetch(`http://localhost:8080/table/launch_pads?id=${selectedPad.id}`, {
       method: "PATCH",
       body: JSON.stringify({
-        launch_pad: updatedPad.launch_pad,
-        pad_status: updatedPad.pad_status
+        launch_pad: padName,
+        pad_status: padStatus
+
       }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },
     })
-      .then(() => setFetchTime(true));
-    setSelectedPad();
+      .then((res) =>{
+        if(res.status === 200) console.log('Successfully updated')
+        setFetchTime(true)
+      }) ;
+
   };
 
   const handleDelete = () => {
@@ -136,12 +129,12 @@ function LspLaunchPads() {
 
   return (
     <>
-      <Row>
-        <Col className="col-3">
+      <Row style={{rowGap:"10px"}}>
+        <Col className="col-2">
           <h1>Launch Pads</h1>
-          <Button className='addPayload' onClick={handleShow}> 
+          <Button className='addPayload' onClick={handleShow}>
           Add New Pad</Button>
-        <Card className="payloadProfileCard">
+        <Card className="lspListingsPad">
           <Card.Title>
           </Card.Title>
           {availablePads?.map((pads, i) => {
@@ -150,15 +143,15 @@ function LspLaunchPads() {
                   <Card.Text>
                     Pad: {pads.launch_pad} <br></br>
                     Site: {pads.launch_site} <br></br>
-                    Status: {pads.pad_status ? 'Available' : 'Unavailable'} <br></br>
-                    <Button className="addPayload"  onClick={() => [setSelectedPad(pads), handleShowUpdate(),]}>Edit</Button>
+                    Status: {pads.pad_status} <br></br>
+                    <Button className="addPayload"  onClick={() => [setSelectedPad(pads), handleShowUpdate(), setPadName(pads.launch_pads)]}>Edit</Button>
                     <Button  className="addPayload" onClick={() => [setSelectedPad(pads), handleShowDelete()]}>Delete</Button>
                   </Card.Text>
-                  {/* <div>add New Pad</div> */}
+
                 </Card.Body>
                  )})}
               </Card>
-           
+
          </Col>
       </Row>
 
@@ -180,7 +173,7 @@ function LspLaunchPads() {
               className="mb-3"
               controlId="formBasicEmail">
             <InputGroup.Text><SiLaunchpad/></InputGroup.Text>
-              <Form.Control type="text" placeholder="" />
+              <Form.Control type="text" placeholder='' />
             </InputGroup>
             <Form.Label>Pad Status</Form.Label>
             <InputGroup className="mb-3" controlId="formBasicPassword">
@@ -188,8 +181,8 @@ function LspLaunchPads() {
               <Form.Select size='lg' onChange={(e) =>
                 setPadStatus(e.target.value)}>
                 <option></option>
-                <option value={true}>Available</option>
-                <option value={false}>Unavailable</option>
+                <option value={"Available"}>Available</option>
+                <option value={"Unavailable"}>Unavailable</option>
               </Form.Select>
             </InputGroup>
             <Form.Label>Launch Site</Form.Label>
@@ -258,7 +251,7 @@ function LspLaunchPads() {
           <Form
             onSubmit={(e) => {
               e.preventDefault();
-              handleUpdate();
+              handleUpdate(e);
             }}
           >
             <Form.Label>Pad Name</Form.Label>
@@ -267,16 +260,16 @@ function LspLaunchPads() {
               className="mb-3"
               controlId="formBasicEmail">
             <InputGroup.Text><SiLaunchpad/></InputGroup.Text>
-              <Form.Control type="text" placeholder={selectedPad?.launch_pad} />
+              <Form.Control type="text" defaultValue={padName} placeholder={selectedPad?.launch_pad} />
             </InputGroup>
             <Form.Label>Pad Status</Form.Label>
-            <InputGroup className="mb-3" controlId="formBasicPassword">
-              <InputGroup.Text><BsCalendar4Week/></InputGroup.Text>
-              <Form.Select size='lg' onChange={(e) =>
+            <InputGroup className="mb-3" controlId="formBasicPassword" onChange={(e) =>
                 setPadStatus(e.target.value)}>
+              <InputGroup.Text><BsCalendar4Week/></InputGroup.Text>
+              <Form.Select size='lg' >
                 <option></option>
-                <option value={true}>Available</option>
-                <option value={false}>Unavailable</option>
+                <option value={"Available"}>Available</option>
+                <option value={"Unavailable"}>Unavailable</option>
               </Form.Select>
             </InputGroup>
             <Button
