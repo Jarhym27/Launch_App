@@ -51,6 +51,7 @@ function Vehicles() {
               <Card.Body className="payloadsCol">
                 <Card.Title>{vehicle.launch_vehicle}</Card.Title>
                 <img src={`${vehicle.picture}`} width={200} height={300} />
+                <img src={`${vehicle.icon}`} height={300}/>
                 <Card.Text>Launch Service Provider: { }</Card.Text>
                 <Card.Text>Average Cost to Book: ${vehicle.cost}M {vehicle.cost > averageCost ? <a style={{ color: 'red' }}>(Higher than Average)</a> : <a style={{ color: 'green' }}>(Lower than Average)</a>}</Card.Text>
                 <Card.Text> Average Cost per kg: ${Math.round(vehicle.cost / vehicle.leo_weight * 1000000)} {vehicle.cost / vehicle.leo_weight > costPerLeo ? <a style={{ color: 'red' }}>(Higher than Average)</a> : <a style={{ color: 'green' }}>(Lower than Average)</a>}</Card.Text>
