@@ -119,7 +119,7 @@ function PayloadProfile({setSelectedRequest}) {
 
 let launched = payloads?.filter((e, i) =>  e.request_status === 'Launched')
 let pending = payloads?.filter((e, i) =>  e.request_status === 'Pending')
-let approved = payloads?.filter((e, i) =>  (e.request_status === 'Approved'))
+let approved = payloads?.filter((e, i) =>  (e.request_status === 'Scheduled'))
 let denied = payloads?.filter((e, i) =>  (e.request_status === 'Denied'))
 
 
