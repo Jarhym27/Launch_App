@@ -1,3 +1,45 @@
 .all-messages-container{
   height: 100vh;
 }
+
+.all-messages-title{
+  color: aliceblue;
+}
+
+.message-feed-container{
+  width: 36rem;
+  background-color: aliceblue;
+  padding: 10px;
+}
+
+.message-listgroup{
+  max-height: 600px;
+  overflow:auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+.message-list-item{
+  height: 4rem;
+  background-color: rgb(207, 207, 207);
+  margin-bottom: 5px ;
+  transition: all .1s ease-in-out;
+}
+
+.message-list-item:hover{
+  scale: 0.98;
+}
+
+.message-link{
+  text-decoration: none;
+}
+
+.message-detail-row{
+  padding: 0px;
+  margin: 0px;
+}
+
+.message-detail{
+  padding: 0px;
+  margin: 0px;
+}

@@ -1,0 +1,21 @@
+#bigricon {
+    height: 200px;
+}
+
+#vehicletext {
+    display: flex;
+}
+
+#vehiclepics {
+    display: flex;
+    justify-content: space-around;
+}
+
+#vehiclescard {
+    display: flex;
+    flex-direction: row;
+    height: auto;
+    width: 49vw;
+    margin: 3px;
+    box-shadow: 5px 5px 5px black;
+}

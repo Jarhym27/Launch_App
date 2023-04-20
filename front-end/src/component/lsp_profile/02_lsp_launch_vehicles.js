@@ -149,6 +149,7 @@ function LspLaunchVehicles() {
 
   const filteredVehicle = launchVehicle?.filter(element => element.lsp_user_id === userLogin.id)
 
+
   return (
     <>
       <Row >
@@ -179,82 +180,77 @@ function LspLaunchVehicles() {
                       Edit</Button>
                     <Button className="addPayload" onClick={() => { setSelectedVehicle(vehicle); handleShowDelete(); }}>
                       Delete</Button>
-                  </Card.Text>
-                </Card.Body>
-              )
-            })}
-          </Card>
-        </Col>
-        <Col>
-        <LspLaunchPads/>
-        </Col>
-      </Row>
+              </Card.Text>
+            </Card.Body>
+            )
+          })}
+        </Card>
+      </Col>
+    </Row>
+    <Modal show={show} onHide={() => handleClose} className="modalBg">
+      <Modal.Header closeButton className="modalForm" onClick={handleClose} > Add Vehicle</Modal.Header>
+      <Modal.Body className="modalForm">
+        <Form onSubmit={(event) => {
+          event.preventDefault();
+          addNewVehicle()
+          setSubmitVehicle()
+        }}>
+          <InputGroup
+            onChange={(e) => setName(e.target.value)}
+            className="mb-3"
+            controlId="formBasicEmail">
+              <InputGroup.Text><RocketTakeoffFill/></InputGroup.Text>
+            <Form.Control type="text" placeholder="Launch Vehicle" />
+          </InputGroup>
+          <InputGroup
+            onChange={(e) => setCost(e.target.value)}
+            className="mb-3"
+            controlId="formBasicEmail">
 
-
-      <Modal show={show} onHide={() => handleClose} className="modalBg">
-        <Modal.Header closeButton className="modalForm" onClick={handleClose} > Add Vehicle</Modal.Header>
-        <Modal.Body className="modalForm">
-          <Form onSubmit={(event) => {
-            event.preventDefault();
-            addNewVehicle()
-            setSubmitVehicle()
-          }}>
-            <InputGroup
-              onChange={(e) => setName(e.target.value)}
-              className="mb-3"
-              controlId="formBasicEmail">
-              <InputGroup.Text><RocketTakeoffFill /></InputGroup.Text>
-              <Form.Control type="text" placeholder="Launch Vehicle" />
-            </InputGroup>
-            <InputGroup
-              onChange={(e) => setCost(e.target.value)}
-              className="mb-3"
-              controlId="formBasicEmail">
-
-              <InputGroup.Text><FcMoneyTransfer /></InputGroup.Text>
-              <Form.Control type="text" placeholder="Cost" />
-            </InputGroup>
-            <InputGroup onChange={(e) => setPad(e.target.value)}
-              className="mb-3"
-              controlId="formDropDown">
-              <InputGroup.Text><SiLaunchpad /></InputGroup.Text>
-              <Form.Select size='lg'>
-                {availablePads?.map((element, i) => <option key={`option: ${i}`}> {element.launch_pad} </option>)}
-              </Form.Select>
-            </InputGroup>
-            <InputGroup onChange={(e) => setLeoWeight(e.target.value)}
-              className="mb-3"
-              controlId="formBasicEmail">
-              <InputGroup.Text><GiWeight /></InputGroup.Text>
-              <Form.Control type="text" placeholder="Mass Capacity to LEO" />
-            </InputGroup>
-            <InputGroup onChange={(e) => setMeoWeight(e.target.value)}
-              className="mb-3"
-              controlId="formBasicEmail">
-              <InputGroup.Text><GiWeight /></InputGroup.Text>
-              <Form.Control type="text" placeholder="Mass Capacity to MEO" />
-            </InputGroup>
-            <InputGroup onChange={(e) => setGeoWeight(e.target.value)}
-              className="mb-3"
-              controlId="formBasicEmail">
-              <InputGroup.Text><GiWeight /></InputGroup.Text>
-              <Form.Control type="text" placeholder="Mass Capacity to GEO" />
-            </InputGroup>
-            <InputGroup onChange={(e) => setHeoWeight(e.target.value)}
-              className="mb-3"
-              controlId="formBasicEmail">
-              <InputGroup.Text><GiWeight /></InputGroup.Text>
-              <Form.Control type="text" placeholder="Mass Capacity to HEO" />
-            </InputGroup>
-            <Button
-              onClick={handleClose}
-              className="addPayload"
-              variant="primary"
-              type="submit"
-            >Submit</Button>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer className="modalForm">
+              <InputGroup.Text><FcMoneyTransfer/></InputGroup.Text>
+            <Form.Control type="text" placeholder="Cost" />
+          </InputGroup>
+          <InputGroup onChange={(e) => setPad(e.target.value)}
+            className="mb-3"
+            controlId="formDropDown">
+              <InputGroup.Text><SiLaunchpad/></InputGroup.Text>
+            <Form.Select size='lg'>
+              {availablePads?.map((element, i) => <option key={`option: ${i}`}> {element.launch_pad} </option>)}
+            </Form.Select>
+          </InputGroup>
+          <InputGroup onChange={(e) => setLeoWeight(e.target.value)}
+            className="mb-3"
+            controlId="formBasicEmail">
+              <InputGroup.Text><GiWeight/></InputGroup.Text>
+            <Form.Control type="text" placeholder="Mass Capacity to LEO" />
+          </InputGroup>
+          <InputGroup onChange={(e) => setMeoWeight(e.target.value)}
+            className="mb-3"
+            controlId="formBasicEmail">
+              <InputGroup.Text><GiWeight/></InputGroup.Text>
+            <Form.Control type="text" placeholder="Mass Capacity to MEO" />
+          </InputGroup>
+          <InputGroup onChange={(e) => setGeoWeight(e.target.value)}
+            className="mb-3"
+            controlId="formBasicEmail">
+              <InputGroup.Text><GiWeight/></InputGroup.Text>
+            <Form.Control type="text" placeholder="Mass Capacity to GEO" />
+          </InputGroup>
+          <InputGroup onChange={(e) => setHeoWeight(e.target.value)}
+            className="mb-3"
+            controlId="formBasicEmail">
+              <InputGroup.Text><GiWeight/></InputGroup.Text>
+            <Form.Control type="text" placeholder="Mass Capacity to HEO" />
+          </InputGroup>
+          <Button
+           onClick={handleClose}
+           className="addPayload"
+          variant="primary"
+            type="submit"
+          >Submit</Button>
+        </Form>
+      </Modal.Body>
+      <Modal.Footer className="modalForm">
           <Button
             className="addPayload"
             variant="secondary"
@@ -311,38 +307,37 @@ function LspLaunchVehicles() {
               <Form.Select size='lg'>
                 <option value={"available"}>Available</option>
                 <option value={"booked"}>Booked</option>
+            </Form.Select>
+          </InputGroup>
 
-              </Form.Select>
-            </InputGroup>
-
-            <Form.Label>LEO Mass Capacity</Form.Label>
-            <InputGroup onChange={(e) => setLeoWeight(e.target.value)}
-              className="mb-3"
-              controlId="formBasicEmail">
-              <InputGroup.Text><GiWeight /></InputGroup.Text>
-              <Form.Control type="text" placeholder={`${selectedVehicle?.leo_weight}kg`} />
-            </InputGroup>
-            <Form.Label>MEO Mass Capacity</Form.Label>
-            <InputGroup onChange={(e) => setMeoWeight(e.target.value)}
-              className="mb-3"
-              controlId="formBasicEmail">
-              <InputGroup.Text><GiWeight /></InputGroup.Text>
-              <Form.Control type="text" placeholder={`${selectedVehicle?.meo_weight}kg`} />
-            </InputGroup>
-            <Form.Label>GEO Mass Capacity</Form.Label>
-            <InputGroup onChange={(e) => setGeoWeight(e.target.value)}
-              className="mb-3"
-              controlId="formBasicEmail">
-              <InputGroup.Text><GiWeight /></InputGroup.Text>
-              <Form.Control type="text" placeholder={`${selectedVehicle?.geo_weight}kg`} />
-            </InputGroup>
-            <Form.Label>HEO Mass Capacity</Form.Label>
-            <InputGroup onChange={(e) => setHeoWeight(e.target.value)}
-              className="mb-3"
-              controlId="formBasicEmail">
-              <InputGroup.Text><GiWeight /></InputGroup.Text>
-              <Form.Control type="text" placeholder={`${selectedVehicle?.heo_weight}kg`} />
-            </InputGroup>
+          <Form.Label>LEO Mass Capacity</Form.Label>
+          <InputGroup onChange={(e) => setLeoWeight(e.target.value)}
+            className="mb-3"
+            controlId="formBasicEmail">
+              <InputGroup.Text><GiWeight/></InputGroup.Text>
+            <Form.Control type="text" placeholder= {`${selectedVehicle?.leo_weight}kg`} />
+          </InputGroup>
+          <Form.Label>MEO Mass Capacity</Form.Label>
+          <InputGroup onChange={(e) => setMeoWeight(e.target.value)}
+            className="mb-3"
+            controlId="formBasicEmail">
+              <InputGroup.Text><GiWeight/></InputGroup.Text>
+            <Form.Control type="text" placeholder={`${selectedVehicle?.meo_weight}kg`} />
+          </InputGroup>
+          <Form.Label>GEO Mass Capacity</Form.Label>
+          <InputGroup onChange={(e) => setGeoWeight(e.target.value)}
+            className="mb-3"
+            controlId="formBasicEmail">
+              <InputGroup.Text><GiWeight/></InputGroup.Text>
+            <Form.Control type="text" placeholder={`${selectedVehicle?.geo_weight}kg` }/>
+          </InputGroup>
+          <Form.Label>HEO Mass Capacity</Form.Label>
+          <InputGroup onChange={(e) => setHeoWeight(e.target.value)}
+            className="mb-3"
+            controlId="formBasicEmail">
+              <InputGroup.Text><GiWeight/></InputGroup.Text>
+            <Form.Control type="text" placeholder={`${selectedVehicle?.heo_weight}kg`} />
+          </InputGroup>
             <Button
               onClick={() => handleCloseUpdate()}
               className="addPayload"
@@ -395,12 +390,6 @@ function LspLaunchVehicles() {
           </Button>
         </Modal.Footer>
       </Modal>
-
     </>
-
-
-
   )
-
-
 }
