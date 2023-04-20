@@ -7,13 +7,9 @@ import { Calendar, momentLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import LspLaunchPads from "./03_lsp_launch_pads";
-import LspLaunchVehicles from "./02_lsp_launch_vehicles"
-import RequestList from "./05_lsp_requests_list";
 import "./000_calendar.css"
 import { Modal, ListGroup, Form, Card, Row, Container } from "react-bootstrap"
 import moment from 'moment'
-import LaunchRequest from "../LaunchRequest";
 import { RocketInfo } from "../../App";
 import { RocketTakeoffFill, RocketFill } from "react-bootstrap-icons";
 
@@ -92,10 +88,6 @@ function LspCalendar() {
     if (allEvents) {
         return (
             <div >
-                <React.Fragment >
-                    <LspLaunchVehicles />
-                    <LspLaunchPads />
-                </React.Fragment>
                 <Container>
                     <Card>
                         <Card.Title className='center' style={{ display: 'flex', justifyContent: "center" }}>Launch Schedule</Card.Title>

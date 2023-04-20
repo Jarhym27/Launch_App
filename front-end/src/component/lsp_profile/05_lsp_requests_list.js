@@ -90,6 +90,11 @@ const RequestList = () => {
     }
   }
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
+  };
 
   return (
     <>
@@ -106,7 +111,7 @@ const RequestList = () => {
                   return (
                     <div className="border" key={`request: ${i}`}>
                       <p>
-                        Launch Date: {e.launch_date}<br />
+                        Launch Date: {formatDate(e.launch_date)}<br />
                         Launch Site: {e.launch_site}<br />
                         Launch Vehicle: {e.launch_vehicle}<br />
                         Payload: {e.name}<br />
