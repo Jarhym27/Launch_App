@@ -414,8 +414,14 @@ const Home = () => {
           </ListGroup>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={() => setModalShow(false)}>Close</Button>
-          <Button onClick={() => bookHandler(prop)}>Book</Button>
+          <Row className='d-flex justify-content-center '>
+            <Col>
+              <Button className='request-modal-btn' onClick={() => setModalShow(false)}>Close</Button>
+            </Col>
+            <Col>
+              <Button className='request-modal-btn' onClick={() => bookHandler(prop)}>Book</Button>
+            </Col>
+          </Row>
         </Modal.Footer>
       </Modal>
     )
