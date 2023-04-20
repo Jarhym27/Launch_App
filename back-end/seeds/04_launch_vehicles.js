@@ -423,7 +423,7 @@ exports.seed = async function(knex) {
       booked_status: 'available',
       launch_pad_id: 7,
       picture: '/rocket3.0.jpg',
-      icon: '/rocket_3.3_icon.jpg',
+      icon: '/rocket_3.3_icon.png',
       description: `Rocket 2 was launched at 30 November 2018 at 03:00 UTC (20:00 PST on 29 November 2018) from Pacific Spaceport Complex – Alaska, Launch Pad 2, the same used for Rocket 1. After approximately 30 seconds of powered flight, the vehicle aborted, resulting in the vehicle falling to the ground and crashing. Sources observing the launch reported the vehicle landed slightly outside the perimeter fence, south of the launch pad, but on spaceport property.`,
       link: 'https://astra.com/news/launch-system-2-update/'
     },
@@ -438,7 +438,7 @@ exports.seed = async function(knex) {
       booked_status: 'available',
       launch_pad_id: 7,
       picture: '/rocket3.0.jpg',
-      icon: '/rocket_3.3_icon.jpg',
+      icon: '/rocket_3.3_icon.png',
       description: `Rocket 2 was launched at 30 November 2018 at 03:00 UTC (20:00 PST on 29 November 2018) from Pacific Spaceport Complex – Alaska, Launch Pad 2, the same used for Rocket 1. After approximately 30 seconds of powered flight, the vehicle aborted, resulting in the vehicle falling to the ground and crashing. Sources observing the launch reported the vehicle landed slightly outside the perimeter fence, south of the launch pad, but on spaceport property.`,
       link: 'https://astra.com/news/launch-system-2-update/'
     },
@@ -453,7 +453,7 @@ exports.seed = async function(knex) {
       booked_status: 'available',
       launch_pad_id: 7,
       picture: '/rocket3.0.jpg',
-      icon: '/rocket_3.3_icon.jpg',
+      icon: '/rocket_3.3_icon.png',
       description: `Rocket 2 was launched at 30 November 2018 at 03:00 UTC (20:00 PST on 29 November 2018) from Pacific Spaceport Complex – Alaska, Launch Pad 2, the same used for Rocket 1. After approximately 30 seconds of powered flight, the vehicle aborted, resulting in the vehicle falling to the ground and crashing. Sources observing the launch reported the vehicle landed slightly outside the perimeter fence, south of the launch pad, but on spaceport property.`,
       link: 'https://astra.com/news/launch-system-2-update/'
     },
@@ -468,7 +468,7 @@ exports.seed = async function(knex) {
       booked_status: 'available',
       launch_pad_id: 7,
       picture: '/rocket3.0.jpg',
-      icon: '/rocket_3.3_icon.jpg',
+      icon: '/rocket_3.3_icon.png',
       description: `Rocket 2 was launched at 30 November 2018 at 03:00 UTC (20:00 PST on 29 November 2018) from Pacific Spaceport Complex – Alaska, Launch Pad 2, the same used for Rocket 1. After approximately 30 seconds of powered flight, the vehicle aborted, resulting in the vehicle falling to the ground and crashing. Sources observing the launch reported the vehicle landed slightly outside the perimeter fence, south of the launch pad, but on spaceport property.`,
       link: 'https://astra.com/news/launch-system-2-update/'
     },
@@ -788,7 +788,7 @@ exports.seed = async function(knex) {
       booked_status: 'available',
       launch_pad_id: 7,
       picture: '/rocket3.0.jpg',
-      icon: '/rocket_3.3_icon.jpg',
+      icon: '/rocket_3.3_icon.png',
       description: `Rocket 2 was launched at 30 November 2018 at 03:00 UTC (20:00 PST on 29 November 2018) from Pacific Spaceport Complex – Alaska, Launch Pad 2, the same used for Rocket 1. After approximately 30 seconds of powered flight, the vehicle aborted, resulting in the vehicle falling to the ground and crashing. Sources observing the launch reported the vehicle landed slightly outside the perimeter fence, south of the launch pad, but on spaceport property.`,
       link: 'https://astra.com/news/launch-system-2-update/'
     },

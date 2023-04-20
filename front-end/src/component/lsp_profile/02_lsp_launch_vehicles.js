@@ -149,12 +149,12 @@ function LspLaunchVehicles() {
   const filteredVehicle = launchVehicle?.filter(element => element.lsp_user_id === userLogin.id)
 
   return (<>
-    <Row>
+    <Row style={{height:"100vh", columnGap:"normal"}}>
       <Col className="col-3">
         <h1>Launch Vehicle</h1>
             <Button  className="addPayload" onClick={handleShow}>
             Add Launch Vehicle</Button>
-        <Card className="payloadProfileCardv">
+        <Card className="lspListings">
           <Card.Title>
           </Card.Title>
           {filteredVehicle?.map((vehicle, j) => {

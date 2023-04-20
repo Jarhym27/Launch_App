@@ -59,7 +59,7 @@ function App() {
         <Routes>
           <Route path='/' element={< Login />}></Route>
           <Route path='/home' element={< Home />}></Route>
-          {/* <Route path='/Login' element={< Login />}></Route> */}
+          <Route path='/Login' element={< Login />}></Route>
           <Route path='/signup' element={<Signup />}></Route>
           <Route path='/metrics' element={<Metrics/>}></Route>
           <Route path='/request' element={<LaunchRequest />}></Route>
