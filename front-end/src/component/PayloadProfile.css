@@ -9,17 +9,34 @@
 .lspListings{
     background-color:aliceblue;
     overflow: auto;
-    height: 5.5%;
+    height: 750px;
     width: 450px;
+    margin-bottom: 30px;
+
+
+} 
+
+.noiceText{
+    color: rgb(69, 69, 69);
 }
 
 .lspListingsPad{
     background-color:aliceblue;
     overflow: auto;
-    height: 54%;
+    height: 320px;
     width: 450px;
 }
 
+.watchTheRoad{
+    margin-left: 40px;
+}
+
+
+.mindThePad{
+    
+    margin-top: 200px;
+
+}
 .lspListingsRL{
     background-color:aliceblue;
     overflow: auto;
@@ -52,7 +69,7 @@
     padding-top: 2.75rem;
 }
 .addPayload{
-    width: 50%;
+    width: 145px;
     padding-bottom: 1rem;
 
     background-color: #444444;
