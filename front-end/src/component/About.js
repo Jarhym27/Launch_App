@@ -17,7 +17,7 @@ function About() {
                             <h1 className="display-4">Our Vision</h1>
                             <p className="lead text-muted mb-0">Government customers need a more efficient and effective way to know what launch vehicle is available that can accommodate their payload and mission requirements. L-Uber will allow Launch Service Providers to set the availability of their launch pads and specify their launch vehicle capabilities. The Gov't customer can then use the app to view which pad, launch vehicle, and date fits their mission requirement and book with a Launch Service Provider.</p>
                         </div>
-                        <div className="col-lg-6 d-none d-lg-block"><icons.RocketTakeoffFill color="red" size={345} /></div>
+                        <div className="col-lg-6 d-none d-lg-block"><icons.RocketTakeoffFill color="#DA0037" size={345} /></div>
                     </div>
                 </div>
             </div>
