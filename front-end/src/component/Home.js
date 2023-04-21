@@ -18,6 +18,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import { TbSatellite } from 'react-icons/tb'
 import Image from 'react-bootstrap/Image';
 import AnimeRocket from "./Animated_Rocket";
+import "../css/Animated_Rocket.css"
 
 const Home = () => {
   const { userLogin } = useContext(RocketInfo);
