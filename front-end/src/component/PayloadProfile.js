@@ -244,6 +244,9 @@ function PayloadProfile() {
                             <Card.Text>
                               Payload Info: {e.description}
                             </Card.Text>
+                            <Card.Text>
+                              Orbit: {e.orbital_requirement}
+                            </Card.Text>
                             <footer className='created-footer'>
                               <small>Payload Created: {e.updated_at}</small>
                             </footer>
@@ -279,6 +282,9 @@ function PayloadProfile() {
                             <Card.Text>
                               Payload Info: {e.description}
                             </Card.Text>
+                            <Card.Text>
+                              Orbit: {e.orbital_requirement}
+                            </Card.Text>
                             <footer className='created-footer'>
                               <small>Payload Created: {e.updated_at}</small>
                             </footer>
@@ -313,6 +319,9 @@ function PayloadProfile() {
                             </Row>
                             <Card.Text>
                               Payload Info: {e.description}
+                            </Card.Text>
+                            <Card.Text>
+                              Orbit: {e.orbital_requirement}
                             </Card.Text>
                             <footer className='created-footer'>
                               <small>Payload Created: {e.updated_at}</small>
@@ -355,6 +364,9 @@ function PayloadProfile() {
                             <Card.Text>
                               Payload Info: {e.description}
                             </Card.Text>
+                            <Card.Text>
+                              Orbit: {e.orbital_requirement}
+                            </Card.Text>
                               Click{" "}
                               <Link state={e} to="/request">
                                 Here
@@ -382,6 +394,9 @@ function PayloadProfile() {
                               <Col>
                                 <Card.Title>{e.name}</Card.Title>
                               </Col>
+                              <Card.Text>
+                              Orbit: {e.orbital_requirement}
+                            </Card.Text>
                               <Col className='text-end'>
                                 <Badge bg='danger'>{e.request_status}</Badge>
                               </Col>
@@ -418,6 +433,9 @@ function PayloadProfile() {
                                 <Badge bg='info'>Not Submitted</Badge>
                               </Col>
                             </Row>
+                            <Card.Text>
+                              Orbit: {e.orbital_requirement}
+                            </Card.Text>
                           <Card.Text>
                             Click{" "}
                             <Link state={e} to="/request">
