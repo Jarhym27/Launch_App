@@ -37,3 +37,23 @@
 .text-bold{
   font-weight: bold;
 }
+
+.send-icon{
+  scale: 1.5
+}
+
+.send-btn{
+  background-color: #444444;
+  color: #EDEDED;
+  border: 1px #EDEDED solid;
+  font-size: 15px;
+  text-align: center;
+
+}
+
+
+.send-btn:hover{
+  background-color: #DA0037;
+  border: 1px #EDEDED solid;
+
+}

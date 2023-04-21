@@ -1,7 +1,6 @@
 .chart {
     height: 30vh;
     
-    
 }
 
 .canvas {
@@ -9,4 +8,8 @@
     border-radius: 10px;
     border: 2px solid #88325a;
     background: aliceblue;
+}
+
+.metrics-container{
+    height: 100vh;
 }
