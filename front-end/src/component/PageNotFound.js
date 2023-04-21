@@ -19,7 +19,7 @@ const PageNotFound = () => {
         
            <AnimeRocket size={300}/>
           </Row>
-        <Button className='home-btn'><Link className='link-home' to='/home'>Home</Link></Button>
+        <Button className><Link className='link-home' to='/home'>Home</Link></Button>
       </Container>
     </div>
   );
