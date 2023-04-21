@@ -42,35 +42,35 @@ function PayloadCalendar() {
         </Modal.Header>
         <Modal.Body>
           <ListGroup>
-            <ListGroup.Item as='li' className='d-flex justify-content-between align-items-start'>
+            <ListGroup.Item as='li' className='d-flex text-start'>
               <div className="ms-2 me-auto">
                 <div className='fw-bold'>Launch Vehicle</div>
                 {selectedEvent.launch_vehicle}</div>
             </ListGroup.Item>
-            <ListGroup.Item as='li' className='d-flex justify-content-between align-items-start'>
+            <ListGroup.Item as='li' className='d-flex text-start'>
               <div className="ms-2 me-auto">
                 <div className='fw-bold'>Launch Location</div>
                 {selectedEvent.city}, {selectedEvent.state} </div>
             </ListGroup.Item>
-            <ListGroup.Item as='li' className='d-flex justify-content-between align-items-start'>
+            <ListGroup.Item as='li' className='d-flex text-start'>
               <div className="ms-2 me-auto">
                 <div className='fw-bold'>Launch Site</div>
                 {selectedEvent.launch_site}
               </div>
             </ListGroup.Item>
-            <ListGroup.Item as='li' className='d-flex justify-content-between align-items-start'>
+            <ListGroup.Item as='li' className='d-flex text-start'>
               <div className="ms-2 me-auto">
                 <div className='fw-bold'>Launch Pad</div>
                 {selectedEvent.launch_pad}
               </div>
             </ListGroup.Item>
-            <ListGroup.Item as='li' className='d-flex justify-content-between align-items-start'>
+            <ListGroup.Item as='li' className='d-flex text-start'>
               <div className="ms-2 me-auto">
                 <div className='fw-bold'>Contract Price</div>
                 $ {selectedEvent.cost}M
               </div>
             </ListGroup.Item>
-            <ListGroup.Item as='li' className='d-flex justify-content-between align-items-start'>
+            <ListGroup.Item as='li' className='d-flex text-start'>
               <div className="ms-2 me-auto">
                 <div className='fw-bold'>Status</div>
                 {selectedEvent.request_status}</div>

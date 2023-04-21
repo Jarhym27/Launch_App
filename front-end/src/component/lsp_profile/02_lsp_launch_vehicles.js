@@ -191,10 +191,10 @@ function LspLaunchVehicles() {
               )
             })}
           </Card>
+        </Col>
           <Col>
             <LspLaunchPads />
           </Col>
-        </Col>
       </Row>
 
       <Modal show={show} onHide={() => handleClose} className="modalBg">

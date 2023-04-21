@@ -55,7 +55,7 @@ function Vehicles() {
                 <Card.Text id="vehicletext"> <GiMoonOrbit className='search-icon' />&nbsp; Highly Elliptical Orbit Maximum Capacity: {vehicle.heo_weight > 0 ? `${vehicle.heo_weight}kg` : `N/A`}</Card.Text>
                 <Card.Text id="vehicletext"> <GiMoonOrbit className='search-icon' />&nbsp; Geosynchronos Orbit Maximum Capacity: {vehicle.geo_weight > 0 ? `${vehicle.geo_weight}kg` : `N/A`}</Card.Text>
                 <Card.Text id="vehicletext">{vehicle.description}</Card.Text>
-                <Card.Text id="vehicletext">Learn more at <a href={vehicle.link}>{vehicle.link}</a></Card.Text>
+                <Card.Text id="vehicletext">Learn more at &nbsp; <a href={vehicle.link}>{vehicle.link}</a></Card.Text>
               </Card.Body>
             </Card>
           );
