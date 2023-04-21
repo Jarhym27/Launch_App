@@ -600,13 +600,13 @@ function PayloadProfile() {
       {/* DELETE MODAL */}
 
       <Modal show={showDelete} onHide={handleCloseDelete} className="modalBg">
-        <Modal.Header closeButton className="modalForm">
+        <Modal.Header closeButton>
           <Modal.Title>DELETE Payload?</Modal.Title>
         </Modal.Header>
 
-        <Modal.Body>
+        <Modal.Body className='modal-body'>
           <Form.Label>
-            Are you sure you want to delete: {selectedPayload?.name}{" "}
+            Are you sure you want to delete: {selectedPayload?.name}?
           </Form.Label>
 
           <Button
@@ -622,7 +622,7 @@ function PayloadProfile() {
           </Button>
         </Modal.Body>
 
-        <Modal.Footer className="modalForm">
+        <Modal.Footer className='modal-foot'>
           <Button
             className="addPayload"
             variant="secondary"

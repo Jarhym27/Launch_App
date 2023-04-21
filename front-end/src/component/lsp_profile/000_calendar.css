@@ -17,6 +17,30 @@
     margin-top: 8px;
 }
 
+.calendar-title{
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+}
+
+.rbc-agenda-date-cell{
+    background-color: aliceblue;
+    
+}
+.rbc-agenda-time-cell{
+    background-color: aliceblue;
+
+}
+.rbc-agenda-event-cell{
+    background-color: aliceblue;
+
+}
+
+.calendar-card{
+    background-color: aliceblue;
+    padding: 10px;
+}
+
 .react-calendar__navigation button:enabled:hover,
 .react-calendar__navigation button:enabled:focus {
     background-color: #f8f8fa;

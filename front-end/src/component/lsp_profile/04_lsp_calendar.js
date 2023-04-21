@@ -46,35 +46,35 @@ function LspCalendar() {
                 </Modal.Header>
                 <Modal.Body>
                     <ListGroup>
-                        <ListGroup.Item as='li' className='d-flex justify-content-between align-items-start'>
+                        <ListGroup.Item as='li' className='d-flex text-start'>
                             <div className="ms-2 me-auto">
                                 <div className='fw-bold'>Launch Vehicle</div>
                                 {selectedEvent.launch_vehicle}</div>
                         </ListGroup.Item>
-                        <ListGroup.Item as='li' className='d-flex justify-content-between align-items-start'>
+                        <ListGroup.Item as='li' className='d-flex text-start'>
                             <div className="ms-2 me-auto">
                                 <div className='fw-bold'>Launch Location</div>
                                 {selectedEvent.city}, {selectedEvent.state} </div>
                         </ListGroup.Item>
-                        <ListGroup.Item as='li' className='d-flex justify-content-between align-items-start'>
+                        <ListGroup.Item as='li' className='d-flex text-start'>
                             <div className="ms-2 me-auto">
                                 <div className='fw-bold'>Launch Site</div>
                                 {selectedEvent.launch_site}
                             </div>
                         </ListGroup.Item>
-                        <ListGroup.Item as='li' className='d-flex justify-content-between align-items-start'>
+                        <ListGroup.Item as='li' className='d-flex text-start'>
                             <div className="ms-2 me-auto">
                                 <div className='fw-bold'>Launch Pad</div>
                                 {selectedEvent.launch_pad}
                             </div>
                         </ListGroup.Item>
-                        <ListGroup.Item as='li' className='d-flex justify-content-between align-items-start'>
+                        <ListGroup.Item as='li' className='d-flex text-start'>
                             <div className="ms-2 me-auto">
                                 <div className='fw-bold'>Contract Price</div>
                                 $ {selectedEvent.cost}M
                             </div>
                         </ListGroup.Item>
-                        <ListGroup.Item as='li' className='d-flex justify-content-between align-items-start'>
+                        <ListGroup.Item as='li' className='d-flex text-start'>
                             <div className="ms-2 me-auto">
                                 <div className='fw-bold'>Status</div>
                                 {selectedEvent.request_status}</div>
@@ -89,8 +89,8 @@ function LspCalendar() {
         return (
             <div >
                 <Container>
-                    <Card>
-                        <Card.Title className='center' style={{ display: 'flex', justifyContent: "center" }}>Launch Schedule</Card.Title>
+                    <Card className='calendar-card'>
+                        <Card.Title className='calendar-title'>Launch Schedule</Card.Title>
                         <Row>
                             <Card.Subtitle style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <div className='mx-3' style={{ display:'flex', alignItems:'center'}}>

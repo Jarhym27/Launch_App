@@ -128,12 +128,7 @@
     padding-top: 2.75rem;
 
 }
-.modalForm{
-    display: flex;
-    align-items: center;
-    background-color: #171717 !important;
-    color:#EDEDED;
-}
+
 .payloads-card{
     background-color: aliceblue;
     padding: 10px;
@@ -215,6 +210,16 @@
     scroll-behavior: smooth;
   }
 
+  .modalBg{
+    margin-top: 200px;
+  }
+
+  .modal-foot{
+    display: block;
+    align-content: center;
+    text-align: center;
+  }
+
   .payload-profile-container{
     padding-left: 50px;
     padding-right: 50px;
@@ -223,6 +228,10 @@
 
   .created-footer{
     background-color: transparent;
+  }
+
+  .modal-body{
+    text-align: center;
   }
 
   
@@ -240,4 +249,8 @@
   }
   #controlled-tab-example-tab-home:hover{
     color: #DA0037 !important;
+  }
+
+  .color-black.nav-link.active{
+    color:#DA0037
   }
