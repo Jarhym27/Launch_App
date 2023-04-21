@@ -8,10 +8,10 @@ import Form from "react-bootstrap/Form";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { RocketInfo } from "../App";
 import Notifications from "./Notifications";
-import ReactPaginate from "react-paginate";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import PayloadCalendar from "./PayloadCalendar.js";
+import Badge from 'react-bootstrap/Badge'
 
 function PayloadProfile() {
   const [submittedPayloads, setSubmittedPayloads] = useState();
@@ -233,10 +233,15 @@ function PayloadProfile() {
                       >
                         <Card className='payload-item' key={i}>
                           <Card.Body className="payloadsCol">
-                            <Card.Title>{e.name}</Card.Title>
+                            <Row>
+                              <Col>
+                                <Card.Title>{e.name}</Card.Title>
+                              </Col>
+                              <Col className='text-end'>
+                                <Badge bg='success'>{e.request_status}</Badge>
+                              </Col>
+                            </Row>
                             <Card.Text>
-                              Status: {e.request_status}
-                              <br></br>
                               Payload Info: {e.description}
                             </Card.Text>
                             <footer className='created-footer'>
@@ -263,10 +268,15 @@ function PayloadProfile() {
                       >
                         <Card className='payload-item' key={i}>
                           <Card.Body className="payloadsCol">
-                            <Card.Title>{e.name}</Card.Title>
+                          <Row>
+                              <Col>
+                                <Card.Title>{e.name}</Card.Title>
+                              </Col>
+                              <Col className='text-end'>
+                                <Badge>{e.request_status}</Badge>
+                              </Col>
+                            </Row>
                             <Card.Text>
-                              Status: {e.request_status}
-                              <br></br>
                               Payload Info: {e.description}
                             </Card.Text>
                             <footer className='created-footer'>
@@ -293,10 +303,15 @@ function PayloadProfile() {
                       >
                         <Card className='payload-item' key={i}>
                           <Card.Body className="payloadsCol">
-                            <Card.Title>{e.name}</Card.Title>
+                          <Row>
+                              <Col>
+                                <Card.Title>{e.name}</Card.Title>
+                              </Col>
+                              <Col className='text-end'>
+                                <Badge bg='dark'>{e.request_status}</Badge>
+                              </Col>
+                            </Row>
                             <Card.Text>
-                              Status: {e.request_status}
-                              <br></br>
                               Payload Info: {e.description}
                             </Card.Text>
                             <footer className='created-footer'>
@@ -329,15 +344,24 @@ function PayloadProfile() {
                         >
                           <Card className='payload-item' key={i}>
                             <Card.Body className="payloadsCol">
-                              <Card.Title>{e.name}</Card.Title>
-                              <Card.Text>Status: {e.request_status}</Card.Text>
-                              Status: Click{" "}
+                            <Row>
+                              <Col>
+                                <Card.Title>{e.name}</Card.Title>
+                              </Col>
+                              <Col className='text-end'>
+                                <Badge bg='danger'>{e.request_status}</Badge>
+                              </Col>
+                            </Row>
+                            <Card.Text>
+                              Payload Info: {e.description}
+                            </Card.Text>
+                              Click{" "}
                               <Link state={e} to="/request">
                                 Here
                               </Link>{" "}
                               to rebook with a Launch Provider
                               <br></br>
-                              Payload Info: {e.description}
+                              <br></br>
                               <footer className='created-footer'>
                                 <small>Payload Created: {e.updated_at}</small>
                               </footer>
@@ -354,9 +378,17 @@ function PayloadProfile() {
                         >
                           <Card className='payload-item' key={i}>
                             <Card.Body className="payloadsCol">
-                              <Card.Title>{e.name}</Card.Title>
-                              <Card.Text>Status: {e.request_status}</Card.Text>
+                            <Row>
+                              <Col>
+                                <Card.Title>{e.name}</Card.Title>
+                              </Col>
+                              <Col className='text-end'>
+                                <Badge bg='danger'>{e.request_status}</Badge>
+                              </Col>
+                            </Row>
                               Payload has been rebooked or rescheduled
+                              <br></br>
+                              <br></br>
                               <footer className='created-footer'>
                                 <small>Payload Created: {e.updated_at}</small>
                               </footer>
@@ -378,9 +410,16 @@ function PayloadProfile() {
 
                       <Card className='payload-item' key={i}>
                         <Card.Body className="payloadsCol">
-                          <Card.Title>{e.name}</Card.Title>
+                        <Row>
+                              <Col>
+                                <Card.Title>{e.name}</Card.Title>
+                              </Col>
+                              <Col className='text-end'>
+                                <Badge bg='info'>Not Submitted</Badge>
+                              </Col>
+                            </Row>
                           <Card.Text>
-                            Status: Click{" "}
+                            Click{" "}
                             <Link state={e} to="/request">
                               Here
                             </Link>{" "}
@@ -449,7 +488,7 @@ function PayloadProfile() {
                 className="mb-3"
                 controlId="formBasicPassword"
               >
-                <Form.Label>Weight</Form.Label>
+                <Form.Label>Weight (kg)</Form.Label>
                 <Form.Control
                   defaultValue={selectedPayload?.weight}
                   type="number"

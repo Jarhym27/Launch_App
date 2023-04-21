@@ -33,12 +33,14 @@ const AllMessages = () => {
     return (
       <div className='all-messages-container'>
         <Container>
-          <Row className='text-center mt-2'>
-            <h1 className='all-messages-title'>All Message Feeds</h1>
-          </Row>
+
           <Row className='mt-2'>
             <Col className='d-flex justify-content-center'>
               <Card className='message-feed-container'>
+                <Card.Title className='all-messages-title'>
+                  All Message Feeds
+                </Card.Title>
+                <hr></hr>
                 <ListGroup className='message-listgroup' variant="flush">
                   {feeds.map(request =>
                     <Link className='message-link' key={request.id} state={request} to={'/requestdetails'}>

@@ -85,7 +85,7 @@ function PayloadCalendar() {
     return (
       <div >
         <Card style={{backgroundColor: "aliceblue"}}>
-          <Card.Title className='center' style={{ display: 'flex', justifyContent: "center" }}>{userLogin.organization}'s Launch Schedule</Card.Title>
+          <Card.Title className='center' style={{ display: 'flex', justifyContent: "center", marginTop: "5px" }}>{userLogin.organization}'s Launch Schedule</Card.Title>
           <Row>
             <Card.Subtitle style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
               <div className='mx-3' style={{ display: 'flex', alignItems: 'center' }}>

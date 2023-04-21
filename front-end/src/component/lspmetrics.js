@@ -231,8 +231,7 @@ const Metrics = () => {
   }, [userLogin]);
 
   return (
-    <>
-      <h1 className="text-center">Your Metrics</h1>
+    <div className='metrics-container'>
       <div className="row my-2 mx-2">
         <div className="col canvas mx-2">
           <div className="chart">
@@ -313,7 +312,7 @@ const Metrics = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -218,7 +218,7 @@ function LspLaunchVehicles() {
               controlId="formBasicEmail">
 
               <InputGroup.Text><FcMoneyTransfer /></InputGroup.Text>
-              <Form.Control type="text" placeholder="Cost" />
+              <Form.Control type="text" placeholder="Cost (millions)" />
             </InputGroup>
             <InputGroup onChange={(e) => setPad(e.target.value)}
               className="mb-3"
@@ -232,25 +232,25 @@ function LspLaunchVehicles() {
               className="mb-3"
               controlId="formBasicEmail">
               <InputGroup.Text><GiWeight /></InputGroup.Text>
-              <Form.Control type="text" placeholder="Mass Capacity to LEO" />
+              <Form.Control type="text" placeholder="Mass to LEO (kg)" />
             </InputGroup>
             <InputGroup onChange={(e) => setMeoWeight(e.target.value)}
               className="mb-3"
               controlId="formBasicEmail">
               <InputGroup.Text><GiWeight /></InputGroup.Text>
-              <Form.Control type="text" placeholder="Mass Capacity to MEO" />
+              <Form.Control type="text" placeholder="Mass to MEO (kg)" />
             </InputGroup>
             <InputGroup onChange={(e) => setGeoWeight(e.target.value)}
               className="mb-3"
               controlId="formBasicEmail">
               <InputGroup.Text><GiWeight /></InputGroup.Text>
-              <Form.Control type="text" placeholder="Mass Capacity to GEO" />
+              <Form.Control type="text" placeholder="Mass to GEO (kg)" />
             </InputGroup>
             <InputGroup onChange={(e) => setHeoWeight(e.target.value)}
               className="mb-3"
               controlId="formBasicEmail">
               <InputGroup.Text><GiWeight /></InputGroup.Text>
-              <Form.Control type="text" placeholder="Mass Capacity to HEO" />
+              <Form.Control type="text" placeholder="Mass to HEO (kg)" />
             </InputGroup>
             <Button
               onClick={handleClose}
@@ -260,7 +260,7 @@ function LspLaunchVehicles() {
             >Submit</Button>
           </Form>
         </Modal.Body>
-        <Modal.Footer className="modalForm">
+        <Modal.Footer className="d-flex justify-content-center modalForm">
           <Button
             className="addPayload"
             variant="secondary"
