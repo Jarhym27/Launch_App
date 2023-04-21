@@ -19,9 +19,14 @@
     
 }
 
+.request-list-col{
+    margin-left: 10px;
+}
+
 .incoming-requests-card{
     background-color: aliceblue;
     padding: 5px;
+    margin-left: 35px;
 }
 
 .lsp-home-container{

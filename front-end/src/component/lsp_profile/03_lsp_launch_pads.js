@@ -233,7 +233,7 @@ function LspLaunchPads() {
             </Button>
           </Form>
         </Modal.Body>
-        <Modal.Footer className="modalForm">
+        <Modal.Footer className="modalForm d-flex justify-content-center">
           <Button
             className="addPayload"
             variant="secondary"
@@ -281,7 +281,7 @@ function LspLaunchPads() {
             </Button>
           </Form>
         </Modal.Body>
-        <Modal.Footer className="modalForm">
+        <Modal.Footer className="modalForm d-flex justify-content-center">
           <Button
             className="addPayload"
             onClick={() => handleCloseUpdate()}
@@ -312,7 +312,7 @@ function LspLaunchPads() {
           </Button>
         </Modal.Body>
 
-        <Modal.Footer className="modalForm">
+        <Modal.Footer className="modalForm d-flex justify-content-center">
           <Button
             className="addPayload"
             variant="secondary"

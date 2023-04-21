@@ -29,20 +29,21 @@
 .lspListingsPad{
     background-color:aliceblue;
     overflow: auto;
-    height: 450px;
+    height: 600px;
     padding: 10px;
     width: 450px;
 }
 
 .watchTheRoad{
     margin-left: 40px;
+    height: 100vh;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 
 .mindThePad{
-    
-    margin-top: 200px;
-
+    margin-top: 30px;
 }
 .lspListingsRL{
     background-color:aliceblue;

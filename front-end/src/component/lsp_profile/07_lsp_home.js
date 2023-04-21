@@ -11,7 +11,7 @@ const LSP_Home = () => {
     <div className='lsp-home-container'>
       <Notifications/>
       <Row className='gx-0 my-3'>
-        <Col className='mx-3' md={4} lg={4}>
+        <Col className='mx-3 request-list-col' md={4} lg={4}>
           <RequestList/>
         </Col>
         <Col>
