@@ -437,7 +437,7 @@ function LspLaunchVehicles() {
               setSubmitVehicle();
             }}
           >
-            <Form.Label>Launch Vehicle</Form.Label>
+            <Form.Label className='d-flex justify-content-start'>Launch Vehicle</Form.Label>
             <InputGroup
               onChange={(e) => setName(e.target.value)}
               className="mb-3"
@@ -451,7 +451,7 @@ function LspLaunchVehicles() {
                 placeholder={selectedVehicle?.launch_vehicle}
               />
             </InputGroup>
-            <Form.Label>Launch Cost</Form.Label>
+            <Form.Label className='d-flex justify-content-start'>Launch Cost</Form.Label>
             <InputGroup
               onChange={(e) => setCost(e.target.value)}
               className="mb-3"
@@ -462,7 +462,7 @@ function LspLaunchVehicles() {
               </InputGroup.Text>
               <Form.Control type="text" placeholder="Cost" />
             </InputGroup>
-            <Form.Label>Launchpad</Form.Label>
+            <Form.Label className='d-flex justify-content-start'>Launchpad</Form.Label>
             <InputGroup
               onChange={(e) => setPad(e.target.value)}
               className="mb-3"
@@ -477,7 +477,7 @@ function LspLaunchVehicles() {
                 ))}
               </Form.Select>
             </InputGroup>
-            <Form.Label>Vehicle Status</Form.Label>
+            <Form.Label className='d-flex justify-content-start'>Vehicle Status</Form.Label>
             <InputGroup
               onChange={(e) => setStatus(e.target.value)}
               className="mb-3"
@@ -492,7 +492,7 @@ function LspLaunchVehicles() {
               </Form.Select>
             </InputGroup>
 
-            <Form.Label>LEO Mass Capacity</Form.Label>
+            <Form.Label className='d-flex justify-content-start'>LEO Mass Capacity</Form.Label>
             <InputGroup
               onChange={(e) => setLeoWeight(e.target.value)}
               className="mb-3"
@@ -506,7 +506,7 @@ function LspLaunchVehicles() {
                 placeholder={`${selectedVehicle?.leo_weight}kg`}
               />
             </InputGroup>
-            <Form.Label>MEO Mass Capacity</Form.Label>
+            <Form.Label className='d-flex justify-content-start'>MEO Mass Capacity</Form.Label>
             <InputGroup
               onChange={(e) => setMeoWeight(e.target.value)}
               className="mb-3"
@@ -520,7 +520,7 @@ function LspLaunchVehicles() {
                 placeholder={`${selectedVehicle?.meo_weight}kg`}
               />
             </InputGroup>
-            <Form.Label>GEO Mass Capacity</Form.Label>
+            <Form.Label className='d-flex justify-content-start'>GEO Mass Capacity</Form.Label>
             <InputGroup
               onChange={(e) => setGeoWeight(e.target.value)}
               className="mb-3"
@@ -534,7 +534,7 @@ function LspLaunchVehicles() {
                 placeholder={`${selectedVehicle?.geo_weight}kg`}
               />
             </InputGroup>
-            <Form.Label>HEO Mass Capacity</Form.Label>
+            <Form.Label className='d-flex justify-content-start'>HEO Mass Capacity</Form.Label>
             <InputGroup
               onChange={(e) => setHeoWeight(e.target.value)}
               className="mb-3"
