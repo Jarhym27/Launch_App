@@ -395,9 +395,8 @@ const Home = () => {
                   <Form.Group controlId="duedate">
                     <Form.Control ref={dateRef} type="date" name="duedate" placeholder="Launch date" />
                   </Form.Group>
-                  <div className='fw-bold'>Include a message (optional)</div>
-                  <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                    <Form.Label></Form.Label>
+                  <div className='fw-bold mt-2'>Include a message (optional)</div>
+                  <Form.Group controlId="exampleForm.ControlTextarea1">
                     <Form.Control ref={messageRef} as="textarea" rows={3} />
                   </Form.Group>
                 </Form>

@@ -274,31 +274,31 @@ const LaunchRequest = () => {
         </Modal.Header>
         <Modal.Body>
           <ListGroup>
-            <ListGroup.Item as='li' className='d-flex justify-content-between align-items-start'>
-              <div className='ms-2 me-auto'>
+            <ListGroup.Item as='li' className='d-flex text-start'>
+              <div className='ms-2'>
                 <div className='fw-bold'>Payload</div>
                 {prop.payload.name}
               </div>
             </ListGroup.Item>
-            <ListGroup.Item as='li' className='d-flex justify-content-between align-items-start'>
+            <ListGroup.Item as='li' className='d-flex text-start'>
               <div className='ms-2 me-auto'>
                 <div className='fw-bold'>Launch Service Provider</div>
                 {selectedLV && prop.vehicle.organization}
               </div>
             </ListGroup.Item>
-            <ListGroup.Item as='li' className='d-flex justify-content-between align-items-start'>
+            <ListGroup.Item as='li' className='d-flex text-start'>
               <div className='ms-2 me-auto'>
                 <div className='fw-bold'>Launch Pad</div>
                 {selectedLV && selectedLV.launch_pad}
               </div>
             </ListGroup.Item>
-            <ListGroup.Item as='li' className='d-flex justify-content-between align-items-start'>
+            <ListGroup.Item as='li' className='d-flex text-start'>
               <div className='ms-2 me-auto'>
                 <div className='fw-bold'>Launch Vehicle</div>
                 {selectedLV && selectedLV.launch_vehicle}
               </div>
             </ListGroup.Item>
-            <ListGroup.Item as='li' className='d-flex justify-content-between align-items-start'>
+            <ListGroup.Item as='li' className='d-flex text-start'>
               <div className='ms-2 me-auto'>
                 <div className='fw-bold'>Launch Date</div>
                 <Form>
@@ -307,7 +307,6 @@ const LaunchRequest = () => {
                   </Form.Group>
                   <div className='fw-bold'>Include a message (optional)</div>
                   <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                    <Form.Label></Form.Label>
                     <Form.Control ref={messageRef} as="textarea" rows={3} />
                   </Form.Group>
                 </Form>
@@ -315,7 +314,7 @@ const LaunchRequest = () => {
             </ListGroup.Item>
           </ListGroup>
           <ListGroup className='mt-3'>
-            <ListGroup.Item as='li' className='d-flex justify-content-between align-items-start'>
+            <ListGroup.Item as='li' className='d-flex text-start'>
               <div className='ms-2 me-auto'>
                 <div className='fw-bold'>Cost</div>
                 ${selectedLV && selectedLV.cost} million
@@ -324,8 +323,8 @@ const LaunchRequest = () => {
           </ListGroup>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={() => setModalShow(false)}>Close</Button>
-          <Button onClick={() => bookHandler(prop)}>Book</Button>
+          <Button className='request-modal-btn' onClick={() => setModalShow(false)}>Close</Button>
+          <Button className='request-modal-btn' onClick={() => bookHandler(prop)}>Book</Button>
         </Modal.Footer>
       </Modal>
     )
@@ -446,7 +445,7 @@ const LaunchRequest = () => {
               <Col>
                 <Card className='payloads-card-container'>
                   <ListGroup variant="flush">
-                    <ListGroupItem>
+                    <ListGroupItem className='payloads-card-container'>
                       <Row>
                       <Col >
                             <TbSatellite className='icon-satellite' />
@@ -459,7 +458,7 @@ const LaunchRequest = () => {
                           </Row>
                           <Row>
                             <h6 className='list-detail'>
-                              Weight: {location.state.weight}
+                              Weight: {location.state.weight}kg
                             </h6>
                           </Row>
                           <Row>

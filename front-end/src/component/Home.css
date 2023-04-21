@@ -218,20 +218,21 @@
   border: 1px #EDEDED solid;
 }
 
-.payloads-card-container{
-  background-color: aliceblue;
-}
-
 .request-modal-btn{
   background-color: #444444;
   color: #EDEDED;
   border: 1px #EDEDED solid;
   margin:0;
+  margin-right: 5px
 }
 
 .request-modal-btn:hover{
   background-color: #DA0037;
   border: 1px #EDEDED solid;
+}
+
+.payloads-card-container{
+  background-color: aliceblue;
 }
 
 
