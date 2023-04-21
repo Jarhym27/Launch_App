@@ -13,6 +13,14 @@ const insertRow = (data,table) => {
       timestamp: new Date().toISOString()
     }
     return knex.returning('*').insert(updatedData).into(`${table}`)
+  } else if(table==='launch_vehicles') {
+    let updatedData = {
+      ...data,
+      updated_at: new Date().toISOString(),
+      icon: 'Falcon_9_icon.png',
+      picture: 'falcon_9.jpg'
+    }
+    return knex.returning('*').insert(updatedData).into(`${table}`)
   } else {
     let updatedData = {
       ...data,
