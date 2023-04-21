@@ -2,6 +2,7 @@ import { useState, useContext, useEffect, useRef } from "react";
 import { RocketInfo } from "../App";
 import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 import './Messages.css'
+import {AiOutlineSend} from 'react-icons/ai'
 const moment = require('moment')
 
 
@@ -151,9 +152,20 @@ const Messages = ({ selectedRequest }) => {
             <Form.Label><h6>New Message</h6></Form.Label>
             <Form.Control ref={messageRef} as="textarea" rows={4} />
           </Form.Group>
-          <Button className='addPayload' onClick={() => handleSendMessage()} type="button">
-            Send
-          </Button>
+          <Row>
+            <Col className='d-flex justify-content-end'>
+            <Button className='send-btn' onClick={() => handleSendMessage()} type="button">
+              <Row>
+                <Col >
+                Send
+                </Col>
+                <Col className='d-flex justify-content-end align-items-center'>
+                <AiOutlineSend className='send-icon'/>
+                </Col>
+              </Row>
+            </Button>
+            </Col>
+          </Row>
         </Form>
       </>
     );

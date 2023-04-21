@@ -1,9 +1,11 @@
 .all-messages-container{
   height: 100vh;
+  margin-top: 60px;
 }
 
 .all-messages-title{
-  color: aliceblue;
+  color: black;
+  margin-bottom: 0px;
 }
 
 .message-feed-container{

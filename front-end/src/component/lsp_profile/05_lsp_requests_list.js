@@ -98,7 +98,7 @@ const RequestList = () => {
 
   return (
     <>
-      <Card>
+      <Card className='incoming-requests-card'>
         <Card.Title>Incoming Launch Requests</Card.Title>
         {myRequests &&
           <Tabs
@@ -161,11 +161,12 @@ const RequestList = () => {
             rows="2"
             cols="25"
             placeholder="Enter your response message here"
+            className="modal-text-area"
             onChange={(e) => setResponseMessage(e.target.value)}>
           </textarea>
         </Modal.Body>
-        <Modal.Footer>
-          <Button disabled={!responseMessage} onClick={() => respondRequest()}>Submit Decision</Button>
+        <Modal.Footer className='d-flex justify-content-center'>
+          <Button className='addPayload' onClick={() => respondRequest()}>Submit Decision</Button>
         </Modal.Footer>
       </Modal>
     </>

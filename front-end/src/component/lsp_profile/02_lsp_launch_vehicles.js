@@ -355,12 +355,10 @@ function LspLaunchVehicles() {
             <InputGroup
               onChange={(e) => setCost(e.target.value)}
               className="mb-3"
-              controlId="formBasicEmail"
-            >
-              <InputGroup.Text>
-                <FcMoneyTransfer />
-              </InputGroup.Text>
-              <Form.Control type="text" placeholder="Cost" />
+              controlId="formBasicEmail">
+
+              <InputGroup.Text><FcMoneyTransfer /></InputGroup.Text>
+              <Form.Control type="text" placeholder="Cost (millions)" />
             </InputGroup>
             <InputGroup
               onChange={(e) => setPad(e.target.value)}
@@ -379,42 +377,30 @@ function LspLaunchVehicles() {
             <InputGroup
               onChange={(e) => setLeoWeight(e.target.value)}
               className="mb-3"
-              controlId="formBasicEmail"
-            >
-              <InputGroup.Text>
-                <GiWeight />
-              </InputGroup.Text>
-              <Form.Control type="text" placeholder="Mass Capacity to LEO" />
+              controlId="formBasicEmail">
+              <InputGroup.Text><GiWeight /></InputGroup.Text>
+              <Form.Control type="text" placeholder="Mass to LEO (kg)" />
             </InputGroup>
             <InputGroup
               onChange={(e) => setMeoWeight(e.target.value)}
               className="mb-3"
-              controlId="formBasicEmail"
-            >
-              <InputGroup.Text>
-                <GiWeight />
-              </InputGroup.Text>
-              <Form.Control type="text" placeholder="Mass Capacity to MEO" />
+              controlId="formBasicEmail">
+              <InputGroup.Text><GiWeight /></InputGroup.Text>
+              <Form.Control type="text" placeholder="Mass to MEO (kg)" />
             </InputGroup>
             <InputGroup
               onChange={(e) => setGeoWeight(e.target.value)}
               className="mb-3"
-              controlId="formBasicEmail"
-            >
-              <InputGroup.Text>
-                <GiWeight />
-              </InputGroup.Text>
-              <Form.Control type="text" placeholder="Mass Capacity to GEO" />
+              controlId="formBasicEmail">
+              <InputGroup.Text><GiWeight /></InputGroup.Text>
+              <Form.Control type="text" placeholder="Mass to GEO (kg)" />
             </InputGroup>
             <InputGroup
               onChange={(e) => setHeoWeight(e.target.value)}
               className="mb-3"
-              controlId="formBasicEmail"
-            >
-              <InputGroup.Text>
-                <GiWeight />
-              </InputGroup.Text>
-              <Form.Control type="text" placeholder="Mass Capacity to HEO" />
+              controlId="formBasicEmail">
+              <InputGroup.Text><GiWeight /></InputGroup.Text>
+              <Form.Control type="text" placeholder="Mass to HEO (kg)" />
             </InputGroup>
             <Button
               onClick={handleClose}
@@ -426,7 +412,7 @@ function LspLaunchVehicles() {
             </Button>
           </Form>
         </Modal.Body>
-        <Modal.Footer className="modalForm">
+        <Modal.Footer className="d-flex justify-content-center modalForm">
           <Button
             className="addPayload"
             variant="secondary"

@@ -18,6 +18,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import { TbSatellite } from 'react-icons/tb'
 import Image from 'react-bootstrap/Image';
 import AnimeRocket from "./Animated_Rocket";
+import {Badge} from "react-bootstrap";
 
 const Home = () => {
   const { userLogin } = useContext(RocketInfo);
@@ -726,10 +727,18 @@ const Home = () => {
                           </Col>
                           <Col className='text-center py-4'>
                             {launchRequests && launchRequests.map(request => request.payload_id).includes(item.id) &&
-                              <h5>
+                            <div>
+                              {launchRequests.filter(request => request.payload_id === item.id
+                                )[0].request_status ==="Denied" &&  <Badge bg="danger">
                                 {launchRequests.filter(request => request.payload_id === item.id
                                 )[0].request_status}
-                              </h5>
+                              </Badge>}
+                              {launchRequests.filter(request => request.payload_id === item.id
+                                )[0].request_status ==="Pending" &&  <Badge>
+                                {launchRequests.filter(request => request.payload_id === item.id
+                                )[0].request_status}
+                              </Badge>}
+                            </div>
                             }
                             {launchRequests && !launchRequests.map(request => request.payload_id).includes(item.id) &&
                               <Button className='addPayload' onClick={() => {
