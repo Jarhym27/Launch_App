@@ -131,11 +131,12 @@ function LspLaunchPads() {
     <>
       <Row>
         <Col className="mindThePad">
-          <h1>Launch Pads</h1>
-          <Button className='addPayload' onClick={handleShow}>
-          Add New Pad</Button>
         <Card className="lspListingsPad">
           <Card.Title>
+          <h4>Launch Pads</h4>
+          <Button className='addPayload' onClick={handleShow}>
+          Add New Pad</Button>
+          <hr></hr>
           </Card.Title>
           {availablePads?.map((pads, i) => {
             return (

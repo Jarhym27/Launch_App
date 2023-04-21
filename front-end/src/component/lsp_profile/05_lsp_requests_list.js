@@ -165,7 +165,7 @@ const RequestList = () => {
           </textarea>
         </Modal.Body>
         <Modal.Footer>
-          <button disabled={!responseMessage} onClick={() => respondRequest()}>Submit Decision</button>
+          <Button disabled={!responseMessage} onClick={() => respondRequest()}>Submit Decision</Button>
         </Modal.Footer>
       </Modal>
     </>

@@ -13,14 +13,17 @@
     background-color:aliceblue;
     overflow: auto;
     height: 750px;
-    width: 450px;
+    width: 550px;
     margin-bottom: 30px;
+    padding: 5px
 
 
 } 
 
 .noiceText{
-    color: rgb(69, 69, 69);
+    padding-top: 1rem;
+    color: #444444;
+    width: 55%;
 }
 
 .lspListingsPad{
@@ -42,7 +45,6 @@
 }
 .lspListingsRL{
     background-color:aliceblue;
-    overflow: auto;
     height: 5.5%;
     width: 450px;
 }
@@ -254,3 +256,21 @@
   .color-black.nav-link.active{
     color:#DA0037
   }
+.addPayloadLSP{
+    width: 28%;
+    background-color: #444444;
+    color: #EDEDED;
+    border: 1px #EDEDED solid;
+    font-size: 15px;
+    text-align: center;
+}
+.addPayloadLSP:hover{
+    background-color: #DA0037;
+    border: 1px #EDEDED solid;
+
+}
+.lspLVTitle{
+    width: 100%;
+   display: inline;
+   flex-direction: row;
+}

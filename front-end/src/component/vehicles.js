@@ -33,10 +33,7 @@ function Vehicles() {
 
   return (
     <>
-      <Notifications />
-      <Row className="payloadsTitle">
-        <h3>All Available Launch Vehicles</h3>
-      </Row>
+      <Notifications /> 
       {console.log(allVehicles)}
       <Row id="cardsizer">
         {uniqueLVs?.map((vehicle, i) => {
@@ -44,11 +41,12 @@ function Vehicles() {
             <Card id="vehiclescard" key={i} >
               <Card.Body className="payloadsCol">
                 <Card.Title>{vehicle.launch_vehicle}</Card.Title>
+                <hr></hr>
                 <div id="vehiclepics">
                   <img src={`${vehicle.picture}`} id="bigricon" />
                   <img src={`${vehicle.icon}`} id="bigricon" />
                 </div>
-                <Card.Text id="vehicletext">Average Cost to Book: ${vehicle.cost}M {vehicle.cost > averageCost ? <a style={{ color: 'red' }}>(Higher than Average)</a> : <a style={{ color: 'green' }}>(Lower than Average)</a>}</Card.Text>
+                <Card.Text id="vehicletext">Average Cost to Book: ${vehicle.cost}M{"  "}{vehicle.cost > averageCost ? <a style={{ color: 'red' }}>(Higher than Average)</a> : <a style={{ color: 'green' }}>(Lower than Average)</a>}</Card.Text>
                 <Card.Text id="vehicletext"> Average Cost per kg: ${Math.round(vehicle.cost / vehicle.leo_weight * 1000000)} {vehicle.cost / vehicle.leo_weight > costPerLeo ? <a style={{ color: 'red' }}>(Higher than Average)</a> : <a style={{ color: 'green' }}>(Lower than Average)</a>}</Card.Text>
                 <Card.Text id="vehicletext"> <GiMoonOrbit className='search-icon' />&nbsp; Low Earth Orbit Maximum Capacity:{vehicle.leo_weight > 0 ? `${vehicle.leo_weight}kg` : `N/A`}</Card.Text>
                 <Card.Text id="vehicletext"> <GiMoonOrbit className='search-icon' />&nbsp; Medium Earth Orbit Maximum Capacity: {vehicle.meo_weight > 0 ? `${vehicle.meo_weight}kg` : `N/A`}</Card.Text>
