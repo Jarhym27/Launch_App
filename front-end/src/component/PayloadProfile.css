@@ -11,11 +11,11 @@
 
 .lspListings{
     background-color:aliceblue;
-    overflow: auto;
-    height: 750px;
+    height: 790px;
     width: 550px;
     margin-bottom: 30px;
-    padding: 5px
+    padding: 5px;
+    margin-top: 30px
 
 
 } 
@@ -29,7 +29,8 @@
 .lspListingsPad{
     background-color:aliceblue;
     overflow: auto;
-    height: 320px;
+    height: 450px;
+    padding: 10px;
     width: 450px;
 }
 
@@ -213,7 +214,7 @@
   }
 
   .modalBg{
-    margin-top: 200px;
+    margin-top: 2em;
   }
 
   .modal-foot{

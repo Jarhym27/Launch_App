@@ -145,8 +145,8 @@ function LspLaunchPads() {
                     Pad: {pads.launch_pad} <br></br>
                     Site: {pads.launch_site} <br></br>
                     Status: {pads.pad_status} <br></br>
-                    <Button className="addPayload"  onClick={() => [setSelectedPad(pads), handleShowUpdate(), setPadName(pads.launch_pads)]}>Edit</Button>
-                    <Button  className="addPayload" onClick={() => [setSelectedPad(pads), handleShowDelete()]}>Delete</Button>
+                    <Button className="lsp-listing-btn"  onClick={() => [setSelectedPad(pads), handleShowUpdate(), setPadName(pads.launch_pads)]}>Edit</Button>
+                    <Button  className="lsp-listing-btn" onClick={() => [setSelectedPad(pads), handleShowDelete()]}>Delete</Button>
                   </Card.Text>
 
                 </Card.Body>
@@ -157,7 +157,7 @@ function LspLaunchPads() {
       </Row>
 
 
-      <Modal show={show} onHide={handleClose} className="modalBg">
+      <Modal show={show} onHide={handleClose} className="lsp-profile-modalBg">
         <Modal.Header closeButton className="modalForm">
           <Modal.Title>Add Launch Pad</Modal.Title>
         </Modal.Header>

@@ -46,6 +46,7 @@ function LspLaunchVehicles() {
   const [fetchTime, setFetchTime] = useState(false);
   const [selectedVehicle, setSelectedVehicle] = useState([]);
   const [show, setShow] = useState(false);
+  const [key, setKey] = useState("home");
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -185,11 +186,12 @@ function LspLaunchVehicles() {
             </div>
 
             <Tabs
-              defaultActiveKey="profile"
+              defaultActiveKey="home"
               id="uncontrolled-tab-example"
               className="mb-3"
+              onSelect={(k) => setKey(k)}
             >
-              <Tab tabClassName="color-black" className="search-listgroup1" eventKey="Available" title="Available">
+              <Tab eventKey="home" tabClassName="color-black" className="search-listgroup1" title="Available">
                 {availableVehicles?.map((vehicle, j) => {
                   return (
                     <Card.Body key={j}>
@@ -253,7 +255,7 @@ function LspLaunchVehicles() {
                         </div>
                         <br></br>
                         <Button
-                          className="addPayload"
+                          className="lsp-listing-btn"
                           onClick={() => {
                             setSelectedVehicle(vehicle);
                             handleShowUpdate();
@@ -264,7 +266,7 @@ function LspLaunchVehicles() {
                           Edit
                         </Button>
                         <Button
-                          className="addPayload"
+                          className="lsp-listing-btn"
                           onClick={() => {
                             setSelectedVehicle(vehicle);
                             handleShowDelete();
@@ -297,7 +299,7 @@ function LspLaunchVehicles() {
                         </div>
                         <br></br>
                         <Button
-                          className="addPayload"
+                          className="lsp-listing-btn"
                           onClick={() => {
                             setSelectedVehicle(vehicle);
                             handleShowUpdate();
@@ -308,7 +310,7 @@ function LspLaunchVehicles() {
                           Edit
                         </Button>
                         <Button
-                          className="addPayload"
+                          className="lsp-listing-btn"
                           onClick={() => {
                             setSelectedVehicle(vehicle);
                             handleShowDelete();
@@ -423,7 +425,7 @@ function LspLaunchVehicles() {
         </Modal.Footer>
       </Modal>
 
-      <Modal show={showUpdate} onHide={handleCloseUpdate} className="modalBg">
+      <Modal show={showUpdate} onHide={handleCloseUpdate} className="lsp-profile-modalBg">
         <Modal.Header closeButton className="modalForm">
           <Modal.Title>Update Vehicle</Modal.Title>
         </Modal.Header>
