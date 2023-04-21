@@ -365,31 +365,31 @@ const Home = () => {
         </Modal.Header>
         <Modal.Body>
           <ListGroup>
-            <ListGroup.Item as='li' className='d-flex justify-content-between align-items-start'>
+            <ListGroup.Item as='li' className='d-flex text-start'>
               <div className='ms-2 me-auto'>
                 <div className='fw-bold'>Payload</div>
                 {selectedPayload && prop.payload.name}
               </div>
             </ListGroup.Item>
-            <ListGroup.Item as='li' className='d-flex justify-content-between align-items-start'>
+            <ListGroup.Item as='li' className='d-flex text-start'>
               <div className='ms-2 me-auto'>
                 <div className='fw-bold'>Launch Service Provider</div>
                 {selectedLV && prop.vehicle.organization}
               </div>
             </ListGroup.Item>
-            <ListGroup.Item as='li' className='d-flex justify-content-between align-items-start'>
+            <ListGroup.Item as='li' className='d-flex text-start'>
               <div className='ms-2 me-auto'>
                 <div className='fw-bold'>Launch Pad</div>
                 {selectedLV && selectedLV.launch_pad}
               </div>
             </ListGroup.Item>
-            <ListGroup.Item as='li' className='d-flex justify-content-between align-items-start'>
+            <ListGroup.Item as='li' className='d-flex text-start'>
               <div className='ms-2 me-auto'>
                 <div className='fw-bold'>Launch Vehicle</div>
                 {selectedLV && selectedLV.launch_vehicle}
               </div>
             </ListGroup.Item>
-            <ListGroup.Item as='li' className='d-flex justify-content-between align-items-start'>
+            <ListGroup.Item as='li' className='d-flex text-start'>
               <div className='ms-2 me-auto'>
                 <div className='fw-bold'>Launch Date</div>
                 <Form>
@@ -407,7 +407,7 @@ const Home = () => {
           <ListGroup className='mt-3'>
             <ListGroup.Item as='li' className='d-flex justify-content-between align-items-start'>
               <div className='ms-2 me-auto'>
-                <div className='fw-bold'>Cost</div>
+                <div className='fw-bold d-flex text-start'>Cost</div>
                 ${selectedLV && selectedLV.cost} million
               </div>
             </ListGroup.Item>
@@ -763,7 +763,7 @@ const Home = () => {
             <Col className='available-payloads-container'>
               <Card classNAme='card-container'>
                 <Card.Title className='card-title px-2'>No compatible payloads found.</Card.Title>
-                <Card.Title className='card-note px-2'>Please adjust your selected rocket or... <Link to="http://localhost:3000/payloadprofile"> Go to profile to add new payloads</Link></Card.Title>
+                 <Link className='go-to-profile' to="/payloadprofile"> Go to profile to add new payloads</Link>
                   <AnimeRocket/>
               </Card>
 

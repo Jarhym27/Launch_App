@@ -99,6 +99,10 @@
   scale: 1.5
 }
 
+.go-to-profile{
+  margin-left: 10px;
+}
+
 .card-container{
   width: 36rem;
   background-color: aliceblue;
